@@ -17,7 +17,7 @@ public:
 
 protected:
 	sf::Texture m_texture;
-	sf::Image m_image;		// @note(darren): Do i need this for each texture? What about snake enemy.
+	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
 	// @note(darren): Possible store orientation here?

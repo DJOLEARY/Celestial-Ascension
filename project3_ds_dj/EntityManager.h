@@ -5,10 +5,11 @@
 #include <vector>
 
 /// <summary>
-/// 
+/// Handles all game entites update and render in the game.
 /// </summary>
 class EntityManager
 {
+public:
 	EntityManager();
 	~EntityManager();
 
