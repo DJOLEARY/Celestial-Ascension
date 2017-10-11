@@ -1,15 +1,15 @@
 #include <SFML/Audio.hpp>
-#include <SFML/Graphics.hpp>
+#include "EntityManager.h"
+#include "Player.h"
 
 int main()
 {
 	// Create the main window
-	sf::RenderWindow window(sf::VideoMode(800, 600), "Project 3 - Darren & D.J");
-	// Load a sprite to display
-	sf::Texture texture;
-	if (!texture.loadFromFile("Assets/kitten.jpg"))
-		return EXIT_FAILURE;
-	sf::Sprite sprite(texture);
+	sf::RenderWindow window(sf::VideoMode(1920, 1080), "Project 3 - Darren & D.J");
+
+	EntityManager entityManager;
+	entityManager.Add(new Player());
+
 	// Create a graphical text to display
 	sf::Font font;
 	if (!font.loadFromFile("Assets/arial.ttf"))
@@ -27,14 +27,19 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+		entityManager.Update(0.0);
+
 		// Clear screen
 		window.clear();
-		// Draw the sprite
-		window.draw(sprite);
+
+		entityManager.Draw(window);
+
 		// Draw the string
 		window.draw(text);
 		// Update the window
 		window.display();
 	}
+
 	return EXIT_SUCCESS;
 }
