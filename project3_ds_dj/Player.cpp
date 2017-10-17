@@ -4,12 +4,14 @@
 /// 
 /// </summary>
 Player::Player()
-	: xboxController(CONTROLLER_ONE)
+	: m_xboxController(CONTROLLER_TWO), m_speed(3.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
 	m_sprite.setTexture(m_texture);
+	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
+	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 }
 
 /// <summary>
@@ -23,24 +25,24 @@ Player::~Player()
 /// <summary>
 /// Handles the controller input for teh player mechanics in game.
 /// </summary>
-void Player::ProcessInput()
+void Player::ProcessInput(double dt)
 {
-	if (xboxController.isButtonPressed(XBOX360_A))
+	if (sf::magnitude(m_xboxController.getLeftStick()) > INPUT_THRESHOLD)
 	{
-		std::cout << "Button A pressed" << std::endl;
+		m_movementDir = m_xboxController.getLeftStick();
+		m_movementDir = sf::normalize(m_movementDir);
+		m_orientation = atan2(m_velocity.y, m_velocity.x);
+		m_velocity = m_speed * m_movementDir;
 	}
+	
+	// @todo(darren): Add acceleration and deceleration
+	//m_velocity += m_accleration;
+	m_position += m_velocity;
 
-	if (xboxController.getLeftStick().x > 10.0f)
-		m_position.x += 0.1f;
-
-	if (xboxController.getLeftStick().x < -10.0f)
-		m_position.x -= 0.1f;
-
-	if (xboxController.getLeftStick().y > 10.0f)
-		m_position.y += 0.1f;
-
-	if (xboxController.getLeftStick().y < -10.0f)
-		m_position.y -= 0.1f;
+	if (sf::magnitude(m_velocity) > 0)
+	{
+		m_velocity *= 0.99f;
+	}
 }
 
 /// <summary>
@@ -49,7 +51,7 @@ void Player::ProcessInput()
 /// <param name="dt">The delta time</param>
 void Player::Update(double dt)
 {
-	ProcessInput();
+	ProcessInput(dt);
 }
 
 /// <summary>
@@ -59,5 +61,6 @@ void Player::Update(double dt)
 void Player::Draw(sf::RenderWindow &renderWindow)
 {
 	m_sprite.setPosition(m_position);
+	m_sprite.setRotation((m_orientation * 180) / 3.14);
 	renderWindow.draw(m_sprite);
 }

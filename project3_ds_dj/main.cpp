@@ -16,9 +16,13 @@ int main()
 		return EXIT_FAILURE;
 	sf::Text text("Hello SFML", font, 50);
 
+	sf::Clock deltaClock;
+	
 	// Start the game loop
 	while (window.isOpen())
 	{
+		sf::Time dt = deltaClock.restart();
+
 		// Process events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -28,7 +32,7 @@ int main()
 				window.close();
 		}
 
-		entityManager.Update(0.0);
+		entityManager.Update(dt.asSeconds());
 
 		// Clear screen
 		window.clear();

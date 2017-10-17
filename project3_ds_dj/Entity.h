@@ -20,7 +20,9 @@ protected:
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
-	// @note(darren): Possible store orientation here?
+	sf::Vector2f m_accleration;
+	sf::Vector2f m_movementDir;
+	float m_orientation;
 };
 
 #endif
