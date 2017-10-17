@@ -16,13 +16,14 @@ int main()
 		return EXIT_FAILURE;
 	sf::Text text("Hello SFML", font, 50);
 
-	sf::Clock deltaClock;
-	
+	sf::Time timeSinceLastUpdate = sf::Time::Zero;
+	const sf::Time timePerFrame = sf::seconds(1.0f / 60.0f);
+	sf::Clock clock;
+	timeSinceLastUpdate = clock.restart();
+
 	// Start the game loop
 	while (window.isOpen())
 	{
-		sf::Time dt = deltaClock.restart();
-
 		// Process events
 		sf::Event event;
 		while (window.pollEvent(event))
@@ -32,7 +33,12 @@ int main()
 				window.close();
 		}
 
-		entityManager.Update(dt.asSeconds());
+		timeSinceLastUpdate += clock.restart();
+		if (timeSinceLastUpdate > timePerFrame)
+		{
+			entityManager.Update(timeSinceLastUpdate.asMilliseconds());
+			timeSinceLastUpdate = sf::Time::Zero;
+		}
 
 		// Clear screen
 		window.clear();

@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Player::Player()
-	: m_xboxController(CONTROLLER_TWO), m_speed(3.0f)
+	: m_xboxController(CONTROLLER_ONE), m_speed(0.01f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image not loaded";
@@ -32,12 +32,10 @@ void Player::ProcessInput(double dt)
 		m_movementDir = m_xboxController.getLeftStick();
 		m_movementDir = sf::normalize(m_movementDir);
 		m_orientation = atan2(m_velocity.y, m_velocity.x);
-		m_velocity = m_speed * m_movementDir;
+		m_velocity = m_speed * m_movementDir * (float)dt;
 	}
 	
-	// @todo(darren): Add acceleration and deceleration
-	//m_velocity += m_accleration;
-	m_position += m_velocity;
+	m_position += m_velocity * (float)dt;
 
 	if (sf::magnitude(m_velocity) > 0)
 	{
