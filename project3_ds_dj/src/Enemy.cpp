@@ -1,6 +1,7 @@
 #include "Enemy.h"
 
-Enemy::Enemy()
+Enemy::Enemy(sf::Vector2f *playerPos) : 
+    m_playerPos(playerPos)
 {
     if (!m_texture.loadFromFile("Assets/crow - black.png"))
         std::cout << "ERROR::Enemy::Image not loaded";
@@ -17,7 +18,7 @@ Enemy::~Enemy()
 
 void Enemy::Update(double dt)
 {
-    seek();
+    seekPlayer();
     m_sprite.setPosition(m_position);
 }
 
@@ -26,8 +27,23 @@ void Enemy::Draw(sf::RenderWindow & renderWindow)
     renderWindow.draw(m_sprite);
 }
 
-void Enemy::seek()
+void Enemy::seekPlayer()
 {
+    if (m_position.x > m_playerPos->x)
+    {
 
+    }
+    else if (m_position.x < m_playerPos->x)
+    {
 
+    }
+
+    if (m_position.y > m_playerPos->y)
+    {
+
+    }
+    else if (m_position.y < m_playerPos->y)
+    {
+
+    }
 }
