@@ -1,5 +1,5 @@
 /// <summary>
-/// @author Darren Sweeney
+/// @author DJ O'Leary
 /// </summary>
 
 #ifndef LABEL_H
