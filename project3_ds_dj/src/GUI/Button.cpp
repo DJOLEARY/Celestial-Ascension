@@ -1,47 +1,24 @@
 #include "GUI/Button.h"
 
 /// <summary>
-/// 
-/// </summary>
-/// <param name="textIn"></param>
-/// <param name="parent"></param>
-/// <param name="positionIn"></param>
-/// <param name="characterSize"></param>
-/// <param name="buttonWidth"></param>
-/// <param name="buttonHeight"></param>
-
-
-/// <summary>
 /// Constructor function for the Button Class
 /// </summary>
-/// <param name="focusColorIn">The colour of the button when in focus</param>
-/// <param name="noFocusColorIn">The colour of the button when not in focus</param>
-/// <param name="fillColorIn">not currently used</param>
-/// <param name="selectSoundIn">The sound played by the button</param>
-/// <param name="textIn">Text to be displayed by the button object's inherited label</param>
-/// <param name="parent">parent widget of the button</param>
+/// <param name="texture">The texture of the button</param>
 /// <param name="positionIn">Position of the Button</param>
-/// <param name="characterSize">Size of the font used for the text</param>
-/// <param name="buttonWidth">Width of the button rectangle (Maybe overrided in contructor of unsuitable)</param>
-/// <param name="buttonHeight">Height of the button rectangle (Maybe overrided in contructor of unsuitable)</param>
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
-Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, float buttonWidth, float buttonHeight, sf::Vector2f &startPos, sf::Vector2f &endPos)
+Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor, sf::Color &outOfFocuseColor, 
+	float scaleWidth, float scaleHeight, sf::Vector2f &startPos, sf::Vector2f &endPos)
 	: m_buttonTexture(texture)
 {
+	m_buttonSprite.setTexture(m_buttonTexture);
+	m_buttonSprite.setPosition(positionIn);
+	m_buttonSprite.setScale(scaleWidth, scaleHeight);
+	m_buttonSprite.setOrigin(m_buttonSprite.getLocalBounds().width / 2.0f, m_buttonSprite.getLocalBounds().height / 2.0f);
+
 	widgetPos = positionIn; // Set the position in the base class
 	widgetStartPos = startPos;
 	widgetEndPos = endPos;
-	m_buttonRect.setFillColor(sf::Color::Blue);
-	/*
-	Set the position of the inherited label which must be moved slightly
-	due to the variance in size of the text object with respect to the button rectangle
-	*/
-	m_buttonRect.setPosition(widgetPos); // Set the position now as the base widgets position will be reset by setting the Label position
-	// Set other aspects of the button rectangle
-	m_buttonRect.setSize(sf::Vector2f(buttonWidth, buttonHeight));
-	m_buttonRect.setOrigin(m_buttonRect.getLocalBounds().width / 2.0f, m_buttonRect.getLocalBounds().height / 2.0f);
-	sf::Vector2f pos = getStartPos();
 }
 
 /// <summary>
@@ -53,13 +30,13 @@ bool Button::processInput(XboxController & controller)
 {
 	if (!m_hasFocus)
 	{
-		//m_buttonRect.setFillColor(noFocusColor); // Set the Button Rectangle Color to Cyan if not in focus
+		m_buttonSprite.setColor(sf::Color(1, 44, 65, 255));
 		return false;
 	}
 	else
 	{
-		//m_buttonRect.setFillColor(focusColor); //  Otherwise set it to Magenta
-											   // Check inputs
+		m_buttonSprite.setColor(sf::Color(222, 45, 24, 255));
+
 		if (controller.isButtonPressed(XBOX360_UP) // Up input
 			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
 		{
@@ -127,7 +104,7 @@ bool Button::processInput(XboxController & controller)
 void Button::setPosition(sf::Vector2f &position)
 {
 	widgetPos = position;
-	m_buttonRect.setPosition(widgetPos); // Set the rectangle
+	m_buttonSprite.setPosition(position);
 }
 
 /// <summary>
@@ -137,21 +114,5 @@ void Button::setPosition(sf::Vector2f &position)
 /// <param name="states">States used for drawing</param>
 void Button::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	target.draw(m_buttonRect); // Draw the button rectangle
-}
-
-/// <summary>
-/// Function used to set the colors of the button depending on whether 
-/// it is in focus or not (buttons only use two colors)
-/// </summary>
-void Button::setColors()
-{
-	/*if (m_hasFocus)
-	{
-		m_buttonRect.setFillColor(focusColor);
-	}
-	else
-	{
-		m_buttonRect.setFillColor(noFocusColor);
-	}*/
+	target.draw(m_buttonSprite);
 }

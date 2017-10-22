@@ -46,8 +46,6 @@ void Widget::setPosition(sf::Vector2f &pos)
 	widgetPos = pos;
 }
 
-void Widget::setColors() { }
-
 /// <summary>
 /// Function simply gets the position of the inherited widget
 /// </summary>

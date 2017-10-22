@@ -2,8 +2,9 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "GUI/GUI.h"
-#include "GUI/Slider.h"
+#include "GUI\Slider.h"
 #include "GUI\Label.h"
+#include "GUI\Button.h"
 
 int main()
 {
@@ -20,12 +21,32 @@ int main()
 
     Gui guiSystem;
     Slider *slider = new Slider(sf::Color(122, 12, 3, 255), sf::Color(22, 12, 3, 255),
-        sf::Color(2, 12, 3, 255), sf::Vector2f(100.0f, 100.0f));
-    Label *label = new Label("This is a lable", 24, sf::Vector2f(400, 40));
+        sf::Color(2, 12, 3, 255), sf::Vector2f(1300.0f, 300.0f), 300.0f, 50.0f);
+    Label *label = new Label("This is a lable", 24, sf::Vector2f(1300, 100));
 
-    slider->promoteFocus();
+	sf::Texture buttonOneTexture, buttonTwoTexture;
+	if (!buttonOneTexture.loadFromFile("Assets/PlayButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	if (!buttonTwoTexture.loadFromFile("Assets/ExitButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	Button *buttonOne = new Button(buttonOneTexture, sf::Vector2f(1300.0f, 500.0f));
+	Button *buttonTwo = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 700.0f));
+
+	slider->promoteFocus();
+
+	slider->m_up = buttonTwo;
+	slider->m_down = buttonOne;
+	buttonOne->m_up = slider;
+	buttonOne->m_down = buttonTwo;
+	buttonTwo->m_up = buttonOne;
+	buttonTwo->m_down = slider;
+
     guiSystem.add(slider);
     guiSystem.add(label);
+	guiSystem.add(buttonOne);
+	guiSystem.add(buttonTwo);
 
     // @refactor(darren): I currently have two controller, makes controller a singleton?
     XboxController xboxController(CONTROLLER_TWO);

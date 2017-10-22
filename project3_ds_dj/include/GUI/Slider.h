@@ -25,7 +25,6 @@ public:
 	float getPercentageFull();
 	void setPercentageFull(float percentageIn);
 	bool getFocus();
-	void setColors() override;
 
 	// Callback function to link to external functions
 	typedef std::function<void()> Callback;

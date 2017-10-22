@@ -98,17 +98,6 @@ void Gui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 /// <summary>
-/// Set the colors of every widget stored in this
-/// </summary>
-void Gui::setColors()
-{
-	for (Widget* widget : m_widgets)
-	{
-		widget->setColors(); // Set the colour of an individual widget
-	}
-}
-
-/// <summary>
 /// Clear 
 /// </summary>
 void Gui::clear()

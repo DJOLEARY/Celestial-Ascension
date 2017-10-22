@@ -156,22 +156,6 @@ void Slider::setPercentageFull(float percentageIn)
 }
 
 /// <summary>
-/// Set the colors of the Slider
-/// </summary>
-void Slider::setColors()
-{
-	if (m_hasFocus)
-	{
-		m_base.setOutlineColor(focusColor); // If the slider is in focus set the outline to focus color
-	}
-	else
-	{
-		m_base.setOutlineColor(noFocusColor); // otherwise set it to no focus color
-	}
-	m_bar.setFillColor(fillColor); // Set the fill color
-}
-
-/// <summary>
 /// Simple getter function for m_hasFocus
 /// </summary>
 /// <returns>the focus state of the slider</returns>
