@@ -1,6 +1,8 @@
 #include <SFML/Audio.hpp>
 #include "EntityManager.h"
 #include "Player.h"
+#include "GUI.h"
+#include "Slider.h"
 
 int main()
 {
@@ -21,6 +23,14 @@ int main()
 	sf::Clock clock;
 	timeSinceLastUpdate = clock.restart();
 
+	Gui guiSystem;
+	Slider *slider = new Slider(sf::Color(122, 12, 3, 255), sf::Color(22, 12, 3, 255),
+		sf::Color(2, 12, 3, 255), sf::Vector2f(100.0f, 100.0f));
+	slider->promoteFocus();
+	guiSystem.add(slider);
+
+	XboxController xboxController(CONTROLLER_TWO);
+
 	// Start the game loop
 	while (window.isOpen())
 	{
@@ -32,6 +42,8 @@ int main()
 			if (event.type == sf::Event::Closed)
 				window.close();
 		}
+
+		guiSystem.processInput(xboxController);
 
 		timeSinceLastUpdate += clock.restart();
 		if (timeSinceLastUpdate > timePerFrame)
@@ -46,7 +58,8 @@ int main()
 		entityManager.Draw(window);
 
 		// Draw the string
-		window.draw(text);
+		//window.draw(text);
+		window.draw(guiSystem);
 		// Update the window
 		window.display();
 	}

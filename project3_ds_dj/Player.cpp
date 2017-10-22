@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Player::Player()
-	: m_xboxController(CONTROLLER_ONE), m_speed(0.01f)
+	: m_xboxController(CONTROLLER_TWO), m_speed(0.025f), m_rotationDiff(0.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image not loaded";
@@ -31,15 +31,28 @@ void Player::ProcessInput(double dt)
 	{
 		m_movementDir = m_xboxController.getLeftStick();
 		m_movementDir = sf::normalize(m_movementDir);
-		m_orientation = atan2(m_velocity.y, m_velocity.x);
+		m_targetOrientation = (atan2(m_movementDir.y, m_movementDir.x) * 180) / 3.14;
+		//m_targetOrientation += 180.0f;	// Put into 0 - 360 range
 		m_velocity = m_speed * m_movementDir * (float)dt;
+		m_rotationDiff = m_targetOrientation - m_orientation;
 	}
 	
+	std::cout << m_targetOrientation << std::endl;
+
 	m_position += m_velocity * (float)dt;
 
-	if (sf::magnitude(m_velocity) > 0)
+	if (m_rotationDiff >= m_orientation + 5 && m_rotationDiff <= m_orientation - 5)
 	{
-		m_velocity *= 0.99f;
+		m_orientation += 1.0f;
+		if (m_orientation >= 360.0f)
+			m_orientation = 0.0f;
+		else if (m_orientation <= 0.0f)
+			m_orientation = 360.0f;
+	}
+
+	if (sf::magnitude(m_velocity) > 0.001f)
+	{
+		m_velocity *= 0.95f;
 	}
 }
 
@@ -59,6 +72,6 @@ void Player::Update(double dt)
 void Player::Draw(sf::RenderWindow &renderWindow)
 {
 	m_sprite.setPosition(m_position);
-	m_sprite.setRotation((m_orientation * 180) / 3.14);
+	m_sprite.setRotation(m_targetOrientation);
 	renderWindow.draw(m_sprite);
 }

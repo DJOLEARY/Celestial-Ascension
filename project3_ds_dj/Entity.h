@@ -9,7 +9,7 @@
 class Entity
 {
 public:
-	Entity() {};
+	Entity() : m_orientation(0.0f), m_targetOrientation(0.0f) {};
 	virtual ~Entity() {};
 
 	virtual void Update(double dt) = 0;
@@ -23,6 +23,7 @@ protected:
 	sf::Vector2f m_accleration;
 	sf::Vector2f m_movementDir;
 	float m_orientation;
+	float m_targetOrientation;
 };
 
 #endif

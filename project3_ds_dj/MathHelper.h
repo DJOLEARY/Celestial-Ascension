@@ -15,6 +15,11 @@ namespace sf
 	{
 		return vec / magnitude(vec);
 	}
+
+	inline Vector2f lerp(Vector2f &startPos, Vector2f &endPos, float t)
+	{
+		return (1.0f - t) * startPos + (t * endPos);
+	}
 }
 
 #endif
