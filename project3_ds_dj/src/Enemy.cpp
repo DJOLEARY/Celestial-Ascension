@@ -27,6 +27,7 @@ void Enemy::Draw(sf::RenderWindow & renderWindow)
     renderWindow.draw(m_sprite);
 }
 
+
 void Enemy::seekPlayer()
 {
     if (m_position.x > m_playerPos->x)
