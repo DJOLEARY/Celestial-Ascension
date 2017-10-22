@@ -1,8 +1,8 @@
 #include <SFML/Audio.hpp>
 #include "EntityManager.h"
 #include "Player.h"
-#include "GUI.h"
-#include "Slider.h"
+#include "GUI/GUI.h"
+#include "GUI/Slider.h"
 
 int main()
 {

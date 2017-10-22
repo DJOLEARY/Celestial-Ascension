@@ -15,51 +15,51 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="src\EntityManger.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="XboxController.cpp">
+    <ClCompile Include="src\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Player.cpp">
+    <ClCompile Include="src\Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="EntityManger.cpp">
+    <ClCompile Include="src\XboxController.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Widget.cpp">
+    <ClCompile Include="src\GUI\GUI.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Slider.cpp">
+    <ClCompile Include="src\GUI\Slider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="GUI.cpp">
+    <ClCompile Include="src\GUI\Widget.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="XboxController.h">
+    <ClInclude Include="include\Entity.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Entity.h">
+    <ClInclude Include="include\EntityManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Player.h">
+    <ClInclude Include="include\MathHelper.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EntityManager.h">
+    <ClInclude Include="include\Player.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MathHelper.h">
+    <ClInclude Include="include\XboxController.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Widget.h">
+    <ClInclude Include="include\GUI\GUI.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Slider.h">
+    <ClInclude Include="include\GUI\Slider.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="GUI.h">
+    <ClInclude Include="include\GUI\Widget.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

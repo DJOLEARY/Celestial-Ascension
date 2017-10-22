@@ -1,4 +1,4 @@
-#include "Widget.h"
+#include "GUI/Widget.h"
 
 /// <summary>
 /// The constructor takes in a pointer to a parent widget (if it has one).

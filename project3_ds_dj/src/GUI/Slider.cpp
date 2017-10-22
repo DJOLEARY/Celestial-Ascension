@@ -1,4 +1,4 @@
-#include "Slider.h"
+#include "GUI/Slider.h"
 
 /// <summary>
 /// Constructor function for the slider class

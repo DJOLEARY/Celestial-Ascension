@@ -1,4 +1,4 @@
-#include "Gui.h"
+#include "GUI/Gui.h"
 
 /// <summary>
 /// Constructor for the Gui class
