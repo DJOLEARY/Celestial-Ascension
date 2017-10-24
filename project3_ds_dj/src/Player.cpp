@@ -73,3 +73,8 @@ void Player::Draw(sf::RenderWindow &renderWindow)
 	m_sprite.setRotation(m_targetOrientation);
 	renderWindow.draw(m_sprite);
 }
+
+sf::Vector2f* Player::getPos()
+{
+    return &m_position;
+}

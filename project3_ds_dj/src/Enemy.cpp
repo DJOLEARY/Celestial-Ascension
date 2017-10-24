@@ -31,19 +31,19 @@ void Enemy::seekPlayer()
 {
     if (m_position.x > m_playerPos->x)
     {
-
+        m_position.x -= m_speed;
     }
     else if (m_position.x < m_playerPos->x)
     {
-
+        m_position.x += m_speed;
     }
 
     if (m_position.y > m_playerPos->y)
     {
-
+        m_position.y -= m_speed;
     }
     else if (m_position.y < m_playerPos->y)
     {
-
+        m_position.y += m_speed;
     }
 }
