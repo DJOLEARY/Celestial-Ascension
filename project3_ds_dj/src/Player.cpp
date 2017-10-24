@@ -36,8 +36,6 @@ void Player::ProcessInput(double dt)
 		m_velocity = m_speed * m_movementDir * (float)dt;
 		m_rotationDiff = m_targetOrientation - m_orientation;
 	}
-	
-	std::cout << m_targetOrientation << std::endl;
 
 	m_position += m_velocity * (float)dt;
 

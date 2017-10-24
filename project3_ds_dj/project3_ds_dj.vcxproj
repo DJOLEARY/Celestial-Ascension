@@ -22,7 +22,7 @@
     <ProjectGuid>{2E28DBE4-3B4C-45A5-8983-5A9485774E69}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>project3_ds_dj</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -168,8 +168,10 @@
     <ClCompile Include="src\EntityManger.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\GUI\CheckBox.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\Label.cpp" />
+    <ClCompile Include="src\GUI\RadioButtons.cpp" />
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
@@ -181,8 +183,10 @@
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GUI\Button.h" />
+    <ClInclude Include="include\GUI\CheckBox.h" />
     <ClInclude Include="include\GUI\GUI.h" />
     <ClInclude Include="include\GUI\Label.h" />
+    <ClInclude Include="include\GUI\RadioButtons.h" />
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />

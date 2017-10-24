@@ -10,6 +10,8 @@
 #include "GUI/Slider.h"
 #include "GUI/Label.h"
 #include "GUI/Button.h"
+#include "GUI/CheckBox.h"
+#include "GUI/RadioButtons.h"
 
 class Game
 {
@@ -20,7 +22,7 @@ public:
     void run();
 
 private:
-    void update(sf::Time deltaTime);
+    void update(sf::Int32 dt);
     void draw(sf::RenderWindow & renderWindow);
 
     sf::RenderWindow m_window;
@@ -28,6 +30,9 @@ private:
     EntityManager m_entityManager;
 
     Gui m_guiSystem;
+
+	// @refactor(darren): This will be in it's own screen class
+	sf::Texture buttonOneTexture, buttonTwoTexture;
 
     // @refactor(darren): I currently have two controller, makes controller a singleton?
     XboxController m_xboxController;

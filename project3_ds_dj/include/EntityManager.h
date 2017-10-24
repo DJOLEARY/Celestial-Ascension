@@ -14,7 +14,7 @@ public:
 	~EntityManager();
 
 	void Add(Entity *entity);
-	void Update(double dt);
+	void Update(sf::Int32 dt);
 	void Draw(sf::RenderWindow &window);
 
 private:

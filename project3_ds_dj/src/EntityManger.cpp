@@ -32,7 +32,7 @@ void EntityManager::Add(Entity *entity)
 /// 
 /// </summary>
 /// <param name="dt">Delta time of game</param>
-void EntityManager::Update(double dt)
+void EntityManager::Update(sf::Int32 dt)
 {
 	for (Entity *entity : m_entites)
 	{
