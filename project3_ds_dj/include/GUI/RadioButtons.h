@@ -14,6 +14,7 @@ public:
 
 	virtual bool processInput(XboxController &controller) override;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+	virtual void promoteFocus() override;
 
 	void add(CheckBox *button);
 	// @refactor(darren): If this is the case where i make a radio buttons class i will not need m_left and m_right for any

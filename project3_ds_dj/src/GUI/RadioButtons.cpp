@@ -5,10 +5,10 @@ RadioButtons::RadioButtons()
 
 bool RadioButtons::processInput(XboxController &controller)
 {
-	m_checkBoxes[m_currentIndex]->processInput(controller);
-
 	if (!m_hasFocus || m_checkBoxes.size() == 0)
 	{
+		m_checkBoxes[m_currentIndex]->processInput(controller);
+		m_checkBoxes[m_currentIndex]->demoteFocus();
 		return false;
 	}
 	else
@@ -17,8 +17,9 @@ bool RadioButtons::processInput(XboxController &controller)
 		{
 			if (m_up != nullptr)
 			{
-				m_up->promoteFocus(); // Set the button above *this to be in focus
-				demoteFocus(); // Set the check box to be out of focus
+				m_up->promoteFocus();
+				demoteFocus();
+				m_checkBoxes[m_currentIndex]->demoteFocus();
 				return true;
 			}
 		}
@@ -36,21 +37,41 @@ bool RadioButtons::processInput(XboxController &controller)
 		// Cycle through radio buttons
 		else if (controller.isButtonPressed(XBOX360_LEFT))
 		{
-			//if (m_checkBoxes[--m_currentIndex])
+			if (m_currentIndex > 0)
 			{
-				//m_currentIndex--;
+				m_checkBoxes[m_currentIndex]->demoteFocus();
+				m_currentIndex--;
+				m_checkBoxes[m_currentIndex]->promoteFocus();
 				return true;
 			}
 		}
 		else if (controller.isButtonPressed(XBOX360_RIGHT))
 		{
-			//if (m_checkBoxes[++m_currentIndex])
+			if (m_currentIndex < m_checkBoxes.size() - 1)
 			{
-				//m_currentIndex++;
+				m_checkBoxes[m_currentIndex]->demoteFocus();
+				m_currentIndex++;
+				m_checkBoxes[m_currentIndex]->promoteFocus();
 				return true;
 			}
 		}
+
+		////else if (controller.isButtonPressed(XBOX360_A))
+		//{
+		//	//std::cout << "A pressed RadioButtons" << std::endl;
+
+		//	//for (unsigned int i = 0; i < m_checkBoxes.size(); i++)
+		//	{
+		//		//if (i == m_currentIndex)
+		//			//continue;
+		//		
+		//		//m_checkBoxes[i]->demoteFocus();
+		//	}
+		//}
+
 	}
+
+	m_checkBoxes[m_currentIndex]->processInput(controller);
 }
 
 void RadioButtons::draw(sf::RenderTarget& target, sf::RenderStates states) const
@@ -62,4 +83,10 @@ void RadioButtons::draw(sf::RenderTarget& target, sf::RenderStates states) const
 void RadioButtons::add(CheckBox *button)
 {
 	m_checkBoxes.push_back(button);
+}
+
+void RadioButtons::promoteFocus()
+{
+	m_hasFocus = true;
+	m_checkBoxes[m_currentIndex]->promoteFocus();
 }

@@ -28,7 +28,7 @@ public:
 	Widget *m_up;
 	Widget *m_down;
 
-	void promoteFocus();
+	virtual void promoteFocus();
 	void demoteFocus();
 	virtual void setPosition(sf::Vector2f &pos);
 	sf::Vector2f getPosition();

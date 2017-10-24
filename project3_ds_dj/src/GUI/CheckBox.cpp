@@ -64,8 +64,7 @@ bool CheckBox::processInput(XboxController & controller)
 	else
 	{
 		m_checkBoxRect.setOutlineColor(focusColor); 
-		if (controller.isButtonPressed(XBOX360_UP) 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (controller.isButtonPressed(XBOX360_UP))
 		{
 			if (m_up != nullptr)
 			{
@@ -74,8 +73,7 @@ bool CheckBox::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		else if (controller.isButtonPressed(XBOX360_DOWN))
 		{
 			if (m_down != nullptr)
 			{
@@ -84,8 +82,7 @@ bool CheckBox::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_LEFT)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		else if (controller.isButtonPressed(XBOX360_LEFT))
 		{
 			if (m_left != nullptr)
 			{
@@ -94,8 +91,7 @@ bool CheckBox::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_RIGHT)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		else if (controller.isButtonPressed(XBOX360_RIGHT))
 		{
 			if (m_right != nullptr)
 			{
@@ -104,9 +100,9 @@ bool CheckBox::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_A)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+		else if (controller.isButtonPressed(XBOX360_A))
 		{
+			std::cout << "A pressed CheckBox" << std::endl;
 			switchState(); // Change the state of the checkbox
 			try
 			{
@@ -125,16 +121,6 @@ bool CheckBox::processInput(XboxController & controller)
 void CheckBox::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_checkBoxRect); // Draw the checkBoxRect
-}
-
-/// <summary>
-/// Gets the state of the focus, if the check is currently
-/// been focused on by the player
-/// </summary>
-/// <returns>The state of m_hasFocus</returns>
-bool CheckBox::getFocus()
-{
-	return m_hasFocus;
 }
 
 /// <summary>

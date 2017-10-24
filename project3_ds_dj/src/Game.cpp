@@ -6,7 +6,7 @@ Game::Game() :
 {
     m_entityManager.Add(new Player());
 
-	Slider *slider = new Slider(sf::Color(122, 12, 3, 255), sf::Color(22, 12, 3, 255),
+	Slider *slider = new Slider(sf::Color(222, 12, 3, 255), sf::Color(22, 12, 3, 255),
 		sf::Color(45, 72, 113, 255), sf::Vector2f(1300.0f, 300.0f), 300.0f, 50.0f);
 	Label *label = new Label("This is a label", 24, sf::Vector2f(1300, 200));
 
@@ -20,9 +20,9 @@ Game::Game() :
 	Button *buttonTwo = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 700.0f));
 
 	CheckBox *checkBoxOne = new CheckBox(sf::Vector2f(1250.0f, 400.0f),
-		sf::Color(22, 187, 18), sf::Color(33, 66, 3), sf::Color(200, 40, 43));
+		sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
 	CheckBox *checkBoxTwo = new CheckBox(sf::Vector2f(1350.0f, 400.0f),
-		sf::Color(22, 187, 18), sf::Color(33, 66, 3), sf::Color(200, 40, 43));
+		sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
 
 	RadioButtons *radioButtons = new RadioButtons();
 	radioButtons->add(checkBoxOne);

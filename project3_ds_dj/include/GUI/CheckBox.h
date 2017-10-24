@@ -20,9 +20,7 @@ public:
 	bool processInput(XboxController & controller);
 	virtual void setPosition(sf::Vector2f &position) override;
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
-	bool getFocus();
 	bool getState();
-	void switchState();
 	void setState(bool stateIn);
 
 	// Callback function to link to external functions
@@ -32,6 +30,8 @@ public:
 private:
 	bool m_state = false;
 	sf::RectangleShape m_checkBoxRect;
+
+	void switchState();
 
 	sf::Color &focusColor;
 	sf::Color &noFocusColor;
