@@ -6,6 +6,7 @@
 
 #include "EntityManager.h"
 #include "Player.h"
+#include "Enemy.h"
 #include "Screens\ScreenManager.h"
 #include "Screens\MainMenu.h"
 #include "Screens\Options.h"

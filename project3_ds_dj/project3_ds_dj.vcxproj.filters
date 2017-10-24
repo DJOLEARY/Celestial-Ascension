@@ -25,6 +25,12 @@
     <Filter Include="Source Files\Screens">
       <UniqueIdentifier>{7bcba9b6-e88c-4876-9fcc-c073b9895b3e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\GUI">
+      <UniqueIdentifier>{a2e796bc-72da-4f50-9d1e-09485d7835f5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\GUI">
+      <UniqueIdentifier>{bef3dc7d-598e-42d0-8efc-0d3bb88e4aa9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\EntityManger.cpp">
@@ -55,6 +61,9 @@
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\RadioButton.cpp">
+      <Filter>Source Files\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="src\GUI\RadioButtons.cpp">
       <Filter>Source Files\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Slider.cpp">
@@ -150,6 +159,9 @@
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\RadioButton.h">
+      <Filter>Header Files\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="include\GUI\RadioButtons.h">
       <Filter>Header Files\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\Slider.h">
