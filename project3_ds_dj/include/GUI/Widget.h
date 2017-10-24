@@ -18,6 +18,7 @@ class Widget : public sf::Drawable
 public:
 	Widget();
 
+	// @refactor(darren): Take out keyboard input from testing, it's in some widgets
 	virtual bool processInput(XboxController &controller);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 

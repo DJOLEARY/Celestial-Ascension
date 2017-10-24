@@ -6,6 +6,7 @@
 #include "GUI\Label.h"
 #include "GUI\Button.h"
 #include "GUI\CheckBox.h"
+#include "GUI\RadioButtons.h"
 
 int main()
 {
@@ -23,7 +24,7 @@ int main()
     Gui guiSystem;
     Slider *slider = new Slider(sf::Color(122, 12, 3, 255), sf::Color(22, 12, 3, 255),
         sf::Color(45, 72, 113, 255), sf::Vector2f(1300.0f, 300.0f), 300.0f, 50.0f);
-    Label *label = new Label("This is a lable", 24, sf::Vector2f(1300, 100));
+    Label *label = new Label("This is a label", 24, sf::Vector2f(1300, 200));
 
 	sf::Texture buttonOneTexture, buttonTwoTexture;
 	if (!buttonOneTexture.loadFromFile("Assets/PlayButton.png"))
@@ -35,16 +36,22 @@ int main()
 	Button *buttonOne = new Button(buttonOneTexture, sf::Vector2f(1300.0f, 500.0f));
 	Button *buttonTwo = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 700.0f));
 
-	CheckBox *checkBox = new CheckBox(sf::Vector2f(1300.0f, 400.0f), 
+	CheckBox *checkBoxOne = new CheckBox(sf::Vector2f(1250.0f, 400.0f), 
 	 sf::Color(22, 187, 18), sf::Color(33, 66, 3), sf::Color(200, 40, 43));
+	CheckBox *checkBoxTwo = new CheckBox(sf::Vector2f(1350.0f, 400.0f),
+		sf::Color(22, 187, 18), sf::Color(33, 66, 3), sf::Color(200, 40, 43));
+
+	RadioButtons *radioButtons = new RadioButtons();
+	radioButtons->add(checkBoxOne); 
+	radioButtons->add(checkBoxTwo);
 
 	slider->promoteFocus();
 
 	slider->m_up = buttonTwo;
-	slider->m_down = checkBox;
-	checkBox->m_up = slider;
-	checkBox->m_down = buttonOne;
-	buttonOne->m_up = checkBox;
+	slider->m_down = radioButtons;
+	radioButtons->m_up = slider;
+	radioButtons->m_down = buttonOne;
+	buttonOne->m_up = radioButtons;
 	buttonOne->m_down = buttonTwo;
 	buttonTwo->m_up = buttonOne;
 	buttonTwo->m_down = slider;
@@ -53,7 +60,7 @@ int main()
     guiSystem.add(label);
 	guiSystem.add(buttonOne);
 	guiSystem.add(buttonTwo);
-	guiSystem.add(checkBox);
+	guiSystem.add(radioButtons);
 
     // @refactor(darren): I currently have two controller, makes controller a singleton?
     XboxController xboxController(CONTROLLER_TWO);
