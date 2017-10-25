@@ -13,6 +13,7 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\XboxController.cpp" />
+    <ClCompile Include="src\GUI\RadioButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -28,5 +29,6 @@
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\XboxController.h" />
+    <ClInclude Include="include\GUI\RadioButton.h" />
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 #ifndef RADIO_BUTTONS_H
 #define RADIO_BUTTONS_H
 
-#include "CheckBox.h"
+#include <GUI\RadioButton.h>
 
 class RadioButtons : public Widget
 {
@@ -15,17 +15,14 @@ public:
 	virtual bool processInput(XboxController &controller) override;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	virtual void promoteFocus() override;
+	virtual void demoteFocus() override;
 
-	void add(CheckBox *button);
-	// @refactor(darren): If this is the case where i make a radio buttons class i will not need m_left and m_right for any
-	//						widget, just refactor m_up and m_down into widget
-	Widget *m_up;
-	Widget *m_down;
+	void add(RadioButton *button);
 
 protected:
 	sf::Vector2f m_widgetPos;
-	std::vector<CheckBox*> m_checkBoxes;
 	uint8_t m_currentIndex;
+	std::vector<RadioButton*> buttons;
 };
 
 #endif

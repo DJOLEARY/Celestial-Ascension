@@ -5,10 +5,8 @@ RadioButtons::RadioButtons()
 
 bool RadioButtons::processInput(XboxController &controller)
 {
-	if (!m_hasFocus || m_checkBoxes.size() == 0)
+	if (!m_hasFocus)
 	{
-		m_checkBoxes[m_currentIndex]->processInput(controller);
-		m_checkBoxes[m_currentIndex]->demoteFocus();
 		return false;
 	}
 	else
@@ -19,7 +17,6 @@ bool RadioButtons::processInput(XboxController &controller)
 			{
 				m_up->promoteFocus();
 				demoteFocus();
-				m_checkBoxes[m_currentIndex]->demoteFocus();
 				return true;
 			}
 		}
@@ -29,7 +26,6 @@ bool RadioButtons::processInput(XboxController &controller)
 			{
 				m_down->promoteFocus();
 				demoteFocus();
-				m_checkBoxes[m_currentIndex]->demoteFocus();
 				return true;
 			}
 		}
@@ -39,54 +35,58 @@ bool RadioButtons::processInput(XboxController &controller)
 		{
 			if (m_currentIndex > 0)
 			{
-				m_checkBoxes[m_currentIndex]->demoteFocus();
+				buttons[m_currentIndex]->demoteFocus();
 				m_currentIndex--;
-				m_checkBoxes[m_currentIndex]->promoteFocus();
+				buttons[m_currentIndex]->promoteFocus();
 				return true;
 			}
 		}
 		else if (controller.isButtonPressed(XBOX360_RIGHT))
 		{
-			if (m_currentIndex < m_checkBoxes.size() - 1)
+			if (m_currentIndex < buttons.size() - 1)
 			{
-				m_checkBoxes[m_currentIndex]->demoteFocus();
+				buttons[m_currentIndex]->demoteFocus();
 				m_currentIndex++;
-				m_checkBoxes[m_currentIndex]->promoteFocus();
+				buttons[m_currentIndex]->promoteFocus();
 				return true;
 			}
 		}
+		else if (controller.isButtonPressed(XBOX360_A))
+		{
+			buttons[m_currentIndex]->toggle();
 
-		////else if (controller.isButtonPressed(XBOX360_A))
-		//{
-		//	//std::cout << "A pressed RadioButtons" << std::endl;
+			for (size_t buttonIndex = 0; buttonIndex < buttons.size(); buttonIndex++)
+			{
+				if (m_currentIndex == buttonIndex)
+					continue;
 
-		//	//for (unsigned int i = 0; i < m_checkBoxes.size(); i++)
-		//	{
-		//		//if (i == m_currentIndex)
-		//			//continue;
-		//		
-		//		//m_checkBoxes[i]->demoteFocus();
-		//	}
-		//}
-
+				buttons[buttonIndex]->turnOff();
+			}
+		}
 	}
+}
 
-	m_checkBoxes[m_currentIndex]->processInput(controller);
+void RadioButtons::add(RadioButton *button)
+{
+	buttons.push_back(button);
 }
 
 void RadioButtons::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
-	for (CheckBox *checkBox : m_checkBoxes)
-		checkBox->draw(target, states);
-}
-
-void RadioButtons::add(CheckBox *button)
-{
-	m_checkBoxes.push_back(button);
+	for (RadioButton *rb : buttons)
+	{
+		rb->draw(target, states);
+	}
 }
 
 void RadioButtons::promoteFocus()
 {
 	m_hasFocus = true;
-	m_checkBoxes[m_currentIndex]->promoteFocus();
+	buttons[m_currentIndex]->promoteFocus();
+}
+
+void RadioButtons::demoteFocus()
+{
+	m_hasFocus = false;
+	buttons[m_currentIndex]->demoteFocus();
 }

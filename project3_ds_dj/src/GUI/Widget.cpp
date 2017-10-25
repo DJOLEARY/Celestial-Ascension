@@ -6,8 +6,6 @@
 /// </summary>
 Widget::Widget()
 {
-	m_left = nullptr;
-	m_right = nullptr;
 	m_up = nullptr;
 	m_down = nullptr;
 }

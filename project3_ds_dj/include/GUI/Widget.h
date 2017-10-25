@@ -22,14 +22,12 @@ public:
 	virtual bool processInput(XboxController &controller);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	// Pointers to adjacent widgets if any
-	Widget *m_left;
-	Widget *m_right;
+	// Pointers to up and down widgets if any
 	Widget *m_up;
 	Widget *m_down;
 
 	virtual void promoteFocus();
-	void demoteFocus();
+	virtual void demoteFocus();
 	virtual void setPosition(sf::Vector2f &pos);
 	sf::Vector2f getPosition();
 	sf::Vector2f getStartPos();

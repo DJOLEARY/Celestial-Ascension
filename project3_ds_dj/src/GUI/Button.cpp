@@ -59,33 +59,10 @@ bool Button::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		if (controller.isButtonPressed(XBOX360_LEFT) // Left input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-		{
-			if (m_left != nullptr)
-			{
-				// @todo(darren): Add in button sound
-				m_left->promoteFocus(); // Set the button above *this to be in focus
-				demoteFocus(); // Set the button to be out of focus
-				return true;
-			}
-		}
-		else if (controller.isButtonPressed(XBOX360_RIGHT) // Right input 
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-		{
-			if (m_right != nullptr)
-			{
-				// @todo(darren): Add in button sound
-				m_right->promoteFocus();
-				demoteFocus();
-				return true;
-			}
-		}
 
 		try
 		{
-			if (controller.isButtonPressed(XBOX360_A) // A input
-				|| sf::Keyboard::isKeyPressed(sf::Keyboard::Return))
+			if (controller.isButtonPressed(XBOX360_A))
 			{
 				select(); // Call the callback function
 				return true;

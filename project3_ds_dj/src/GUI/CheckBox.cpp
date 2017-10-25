@@ -32,8 +32,6 @@ CheckBox::CheckBox(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &
 	m_checkBoxRect.setPosition(widgetPos);
 	m_checkBoxRect.setSize(sf::Vector2f(boxWidth, boxHeight));
 	m_checkBoxRect.setOutlineThickness(3.f);
-	// Set the position of the Label object
-	sf::Vector2f textOffset(widgetPos.x, widgetPos.y - m_checkBoxRect.getGlobalBounds().height); // We offset the Label to be directly above the CheckBox
 	m_checkBoxRect.setOrigin(m_checkBoxRect.getLocalBounds().width / 2.0f, m_checkBoxRect.getLocalBounds().height / 2.0f);
 }
 
@@ -82,24 +80,6 @@ bool CheckBox::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_LEFT))
-		{
-			if (m_left != nullptr)
-			{
-				m_left->promoteFocus();
-				demoteFocus();
-				return true;
-			}
-		}
-		else if (controller.isButtonPressed(XBOX360_RIGHT))
-		{
-			if (m_right != nullptr)
-			{
-				m_right->promoteFocus();
-				demoteFocus();
-				return true;
-			}
-		}
 		else if (controller.isButtonPressed(XBOX360_A))
 		{
 			std::cout << "A pressed CheckBox" << std::endl;
@@ -129,6 +109,7 @@ void CheckBox::draw(sf::RenderTarget & target, sf::RenderStates states) const
 void CheckBox::switchState()
 {
 	m_state = !m_state; // Flip the state of the bool
+
 	if (m_state)
 	{
 		m_checkBoxRect.setFillColor(fillColor); // Set the fill color to Blue if the box is checked

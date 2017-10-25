@@ -20,29 +20,33 @@ Game::Game() :
 	Button *buttonTwo = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 700.0f));
 
 	CheckBox *checkBoxOne = new CheckBox(sf::Vector2f(1250.0f, 400.0f),
-		sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
+		sf::Color(255, 100, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
 	CheckBox *checkBoxTwo = new CheckBox(sf::Vector2f(1350.0f, 400.0f),
-		sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
+		sf::Color(255, 100, 0, 255), sf::Color(255, 0, 0, 255), sf::Color(255, 0, 0, 255));
 
 	RadioButtons *radioButtons = new RadioButtons();
-	radioButtons->add(checkBoxOne);
-	radioButtons->add(checkBoxTwo);
+	radioButtons->add(new RadioButton(sf::Vector2f(1000.0f, 100.0f), sf::Color(0, 255, 0), sf::Color(100, 0, 255), sf::Color(255, 0, 0)));
+	radioButtons->add(new RadioButton(sf::Vector2f(1100.0f, 100.0f), sf::Color(0, 255, 0), sf::Color(100, 0, 255), sf::Color(255, 0, 0)));
+	radioButtons->add(new RadioButton(sf::Vector2f(1200.0f, 100.0f), sf::Color(0, 255, 0), sf::Color(100, 0, 255), sf::Color(255, 0, 0)));
 
-	slider->promoteFocus();
+	radioButtons->promoteFocus();
 
-	slider->m_up = buttonTwo;
-	slider->m_down = radioButtons;
-	radioButtons->m_up = slider;
-	radioButtons->m_down = buttonOne;
-	buttonOne->m_up = radioButtons;
+	radioButtons->m_up = buttonTwo;
+	radioButtons->m_down = slider;
+	slider->m_up = radioButtons;
+	slider->m_down = checkBoxOne;
+	checkBoxOne->m_up = slider;
+	checkBoxOne->m_down = buttonOne;
+	buttonOne->m_up = checkBoxOne;
 	buttonOne->m_down = buttonTwo;
 	buttonTwo->m_up = buttonOne;
-	buttonTwo->m_down = slider;
+	buttonTwo->m_down = radioButtons;
 
 	m_guiSystem.add(slider);
 	m_guiSystem.add(label);
 	m_guiSystem.add(buttonOne);
 	m_guiSystem.add(buttonTwo);
+	m_guiSystem.add(checkBoxOne);
 	m_guiSystem.add(radioButtons);
 }
 
