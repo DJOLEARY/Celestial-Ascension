@@ -9,6 +9,8 @@
 #include "Widget.h"
 #include "MathHelper.h"
 
+// @refactor(darren): Need to go over GUI system and refactor, want to move onto scene/menu system. 25/Oct/2017
+
 /// <summary>
 /// Brief: Handles all Gui elements added to it
 ///

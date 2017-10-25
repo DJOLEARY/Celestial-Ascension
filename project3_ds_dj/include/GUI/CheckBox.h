@@ -33,9 +33,9 @@ private:
 
 	void switchState();
 
-	sf::Color &focusColor;
-	sf::Color &noFocusColor;
-	sf::Color &fillColor;
+	sf::Color focusColor;
+	sf::Color noFocusColor;
+	sf::Color fillColor;
 };
 
 #endif

@@ -38,9 +38,9 @@ private:
 	float m_barBaseHeight;
 	float m_barSize;
 
-	sf::Color &focusColor;
-	sf::Color &noFocusColor;
-	sf::Color &fillColor;
+	sf::Color focusColor;
+	sf::Color noFocusColor;
+	sf::Color fillColor;
 };
 
 #endif
