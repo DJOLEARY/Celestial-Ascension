@@ -1,9 +1,10 @@
 #include "Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
-    m_playerPos(playerPos)
+    m_playerPos(playerPos),
+    m_speed(2.0f)
 {
-    if (!m_texture.loadFromFile("Assets/crow - black.png"))
+    if (!m_texture.loadFromFile("Assets/Wanderer.png"))
         std::cout << "ERROR::Enemy::Image not loaded";
 
     m_sprite.setTexture(m_texture);
@@ -19,11 +20,13 @@ Enemy::~Enemy()
 void Enemy::Update(double dt)
 {
     seekPlayer();
-    m_sprite.setPosition(m_position);
+    m_orientation += 0.5f;
 }
 
 void Enemy::Draw(sf::RenderWindow & renderWindow)
 {
+    m_sprite.setRotation(m_orientation);
+    m_sprite.setPosition(m_position);
     renderWindow.draw(m_sprite);
 }
 
@@ -37,6 +40,10 @@ void Enemy::seekPlayer()
     {
         m_position.x += m_speed;
     }
+    else
+    {
+
+    }
 
     if (m_position.y > m_playerPos->y)
     {
@@ -45,5 +52,9 @@ void Enemy::seekPlayer()
     else if (m_position.y < m_playerPos->y)
     {
         m_position.y += m_speed;
+    }
+    else
+    {
+
     }
 }
