@@ -22,7 +22,7 @@ Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusC
 }
 
 /// <summary>
-/// Processes the input from a controller / keyboard and updates the Button as well as other widgets
+/// Processes the input from a controller and updates the Button as well as other widgets
 /// </summary>
 /// <param name="controller">Controller object used for checking input</param>
 /// <returns>Bool to tell whether the input was used or not</returns>
@@ -37,19 +37,17 @@ bool Button::processInput(XboxController & controller)
 	{
 		m_buttonSprite.setColor(sf::Color(222, 45, 24, 255));
 
-		if (controller.isButtonPressed(XBOX360_UP) // Up input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		if (controller.isButtonPressed(XBOX360_UP))
 		{
 			if (m_up != nullptr)
 			{
 				// @todo(darren): Add in button sound
-				m_up->promoteFocus(); // Set the button above *this to be in focus
-				demoteFocus(); // Set the button to be out of focus
+				m_up->promoteFocus(); 
+				demoteFocus();
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN) // Down input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		else if (controller.isButtonPressed(XBOX360_DOWN))
 		{
 			if (m_down != nullptr)
 			{

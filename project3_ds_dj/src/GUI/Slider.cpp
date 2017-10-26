@@ -46,27 +46,25 @@ void Slider::setPosition(sf::Vector2f &position)
 }
 
 /// <summary>
-/// Processes the input from a controller / keyboard and updates the CheckBox as well as other widgets
+/// Processes the input from a controller and updates the CheckBox as well as other widgets
 /// </summary>
 /// <param name="controller">Controller object used for checking input</param>
 /// <returns>Bool to tell whether the input was used or not</returns>
 bool Slider::processInput(XboxController &controller)
 {
-	//m_base.setFillColor(fillColor);
 	if (!m_hasFocus)
 	{
-		m_base.setOutlineColor(noFocusColor); // Set the outline color to Cyan if the Widget is out of focus
+		m_base.setOutlineColor(noFocusColor);
 		return false;
 	}
 	if (m_hasFocus)
 	{
-		m_base.setOutlineColor(focusColor); // Otherwise set the color to Magenta
-		if (controller.isButtonHeldDown(XBOX360_RIGHT) // Right input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+		m_base.setOutlineColor(focusColor);
+		if (controller.isButtonHeldDown(XBOX360_RIGHT))
 		{
 			if (m_barSize < m_barBaseWidth - 2)
 			{
-				m_barSize += 2.0f; // Increase the bar size
+				m_barSize += 2.0f;
 			}
 			else
 			{
@@ -80,12 +78,11 @@ bool Slider::processInput(XboxController &controller)
 			m_bar.setSize(sf::Vector2f(m_barSize, m_barBaseHeight)); // Set the new size of the bar
 			return true;
 		}
-		else if (controller.isButtonHeldDown(XBOX360_LEFT) // Left input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+		else if (controller.isButtonHeldDown(XBOX360_LEFT))
 		{
 			if (m_barSize >= 2)
 			{
-				m_barSize -= 2.0f; // Decrease the bar size
+				m_barSize -= 2.0f;
 			}
 			else
 			{
@@ -99,19 +96,17 @@ bool Slider::processInput(XboxController &controller)
 			m_bar.setSize(sf::Vector2f(m_barSize, m_barBaseHeight)); // Set the new size of the bar
 			return true;
 		}
-		else if (controller.isButtonPressed(XBOX360_UP)  // Up input
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+		else if (controller.isButtonPressed(XBOX360_UP))
 		{
 			if (m_up != nullptr)
 			{
 				// @todo(darren): Play sound here
-				m_up->promoteFocus(); // Set the button above *this to be in focus
-				demoteFocus(); // Set the slider to be out of focus
+				m_up->promoteFocus();
+				demoteFocus();
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN) // Down input (See up input)
-			|| sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+		else if (controller.isButtonPressed(XBOX360_DOWN))
 		{
 			if (m_down != nullptr)
 			{
@@ -131,7 +126,6 @@ bool Slider::processInput(XboxController &controller)
 /// <param name="states">States used for drawing</param>
 void Slider::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	// Draw the slider.
 	target.draw(m_base);
 	target.draw(m_bar, states);
 }

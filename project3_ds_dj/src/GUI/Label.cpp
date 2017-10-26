@@ -26,11 +26,6 @@ Label::Label(const std::string& text, unsigned int size, sf::Vector2f &startPos,
 	textRect = m_text.getGlobalBounds();
 
 	sf::Text fontCheck;
-	/*
-	We use this to make sure the heigh of the buttons is constant as the
-	bounding box IS affected by ascenders and descenders in strings so
-	the true text height is the maximum height possible
-	*/
 	fontCheck.setFont(*m_text.getFont());
 	fontCheck.setCharacterSize(size);
 	fontCheck.setString("ph|");

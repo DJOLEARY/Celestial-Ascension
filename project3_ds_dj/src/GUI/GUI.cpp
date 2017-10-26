@@ -4,15 +4,14 @@
 /// Constructor for the Gui class
 /// </summary>
 /// <param name="parent">parent widget(defaults to nullptr)</param>
-Gui::Gui(Widget *parent) { }
+Gui::Gui() { }
 
 /// <summary>
 /// Delets all widgets added to the widgets vector
 /// </summary>
 Gui::~Gui()
 {
-	for (Widget* widget : m_widgets)
-		delete widget;
+	clear();
 }
 
 /// <summary>
@@ -98,12 +97,12 @@ void Gui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 }
 
 /// <summary>
-/// Clear 
+/// Delete and clear the vector full of widget pointers
 /// </summary>
 void Gui::clear()
 {
 	for (Widget* widget : m_widgets)
 		delete widget;
 
-	m_widgets.clear(); // Clear the vector full of widget pointers
+	m_widgets.clear();
 }

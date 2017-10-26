@@ -12,7 +12,7 @@
 class Player : public Entity
 {
 public:
-	Player();
+	Player(XboxController &controller);
 	~Player();
 
 	void ProcessInput(double dt);
@@ -21,7 +21,7 @@ public:
 	virtual void Draw(sf::RenderWindow &renderWindow) override;
 
 private:
-	XboxController m_xboxController;
+	XboxController &m_xboxController;
 	// @todo(darren): May move speed into entity
 	float m_speed;
 	float m_rotationDiff;

@@ -1,14 +1,6 @@
 #include "GUI/CheckBox.h"
 
 /// <summary>
-/// Empty Default Constructor function
-/// </summary>
-CheckBox::CheckBox() : 
-	focusColor(sf::Color()),
-	noFocusColor(sf::Color()),
-	fillColor(sf::Color()) {}
-
-/// <summary>
 /// Constructor function for the CheckBox class
 /// </summary>
 /// <param name="focusColorIn">The colour of the outline of the checkbox when in focus</param>
@@ -43,12 +35,10 @@ void CheckBox::setPosition(sf::Vector2f &position)
 {
 	widgetPos = position;
 	m_checkBoxRect.setPosition(widgetPos);
-	// Set the position of the Label object
-	sf::Vector2f textOffset(widgetPos.x, widgetPos.y - m_checkBoxRect.getGlobalBounds().height); // We offset the Label to be directly above the CheckBox
 }
 
 /// <summary>
-/// Processes the input from a controller / keyboard and updates the CheckBox as well as other widgets
+/// Processes the input from a controller and updates the CheckBox as well as other widgets
 /// </summary>
 /// <param name="controller">Controller object used for checking input</param>
 /// <returns>Bool to tell whether the input was used or not</returns>

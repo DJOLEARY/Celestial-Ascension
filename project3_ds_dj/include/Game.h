@@ -34,7 +34,6 @@ private:
 	// @refactor(darren): This will be in it's own screen class
 	sf::Texture buttonOneTexture, buttonTwoTexture;
 
-    // @refactor(darren): I currently have two controller, makes controller a singleton?
     XboxController m_xboxController;
 };
 #endif // !GAME_H

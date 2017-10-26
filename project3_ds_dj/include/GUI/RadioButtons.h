@@ -7,10 +7,14 @@
 
 #include <GUI\RadioButton.h>
 
+/// <summary>
+/// Manages radio buttons that were added to this widget
+/// </summary>
 class RadioButtons : public Widget
 {
 public:
 	RadioButtons();
+	~RadioButtons();
 
 	virtual bool processInput(XboxController &controller) override;
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;

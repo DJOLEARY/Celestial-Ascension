@@ -3,8 +3,8 @@
 /// <summary>
 /// 
 /// </summary>
-Player::Player()
-	: m_xboxController(CONTROLLER_ONE), m_speed(0.025f), m_rotationDiff(0.0f)
+Player::Player(XboxController &controller)
+	: m_xboxController(controller), m_speed(0.025f), m_rotationDiff(0.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image not loaded";

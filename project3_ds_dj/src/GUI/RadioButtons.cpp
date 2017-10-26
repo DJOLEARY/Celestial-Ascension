@@ -3,6 +3,20 @@
 RadioButtons::RadioButtons() 
 	: m_currentIndex(0) { }
 
+/// <summary>
+/// Delete all alloacted memory for the radio buttons
+/// </summary>
+RadioButtons::~RadioButtons()
+{
+	for (RadioButton* button : buttons)
+		delete button;
+}
+
+/// <summary>
+/// Processes the input from a controller and updates the CheckBox as well as other widgets
+/// </summary>
+/// <param name="controller">Controller object used for checking input</param>
+/// <returns>Bool to tell whether the input was used or not</returns>
 bool RadioButtons::processInput(XboxController &controller)
 {
 	if (!m_hasFocus)
@@ -66,11 +80,21 @@ bool RadioButtons::processInput(XboxController &controller)
 	}
 }
 
+/// <summary>
+/// Adds a radio button to the vector of radio buttons to manage
+/// </summary>
+/// <param name="button">The radio button to add</param>
 void RadioButtons::add(RadioButton *button)
 {
 	buttons.push_back(button);
 }
 
+
+/// <summary>
+/// Renders the all radio buttons add to the vector to the render target
+/// </summary>
+/// <param name="target">Targets used for drawing</param>
+/// <param name="states">States used for drawing</param>
 void RadioButtons::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (RadioButton *rb : buttons)
@@ -79,12 +103,20 @@ void RadioButtons::draw(sf::RenderTarget& target, sf::RenderStates states) const
 	}
 }
 
+/// <summary>
+/// Set the has focus of this widget manager to true and assings 
+/// the last widget used to promote focus
+/// </summary>
 void RadioButtons::promoteFocus()
 {
 	m_hasFocus = true;
 	buttons[m_currentIndex]->promoteFocus();
 }
 
+/// <summary>
+/// Set the has focus of this widget manager to false and demotes
+/// the focus of the last widget used
+/// </summary>
 void RadioButtons::demoteFocus()
 {
 	m_hasFocus = false;

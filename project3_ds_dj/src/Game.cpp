@@ -4,7 +4,7 @@ Game::Game() :
     m_window(sf::VideoMode(1920, 1080), "Project 3 - Darren & D.J"),
     m_xboxController(CONTROLLER_ONE)
 {
-    m_entityManager.Add(new Player());
+    m_entityManager.Add(new Player(m_xboxController));
 
 	Slider *slider = new Slider(sf::Color(222, 12, 3, 255), sf::Color(22, 112, 3, 255),
 		sf::Color(45, 72, 113, 255), sf::Vector2f(1300.0f, 300.0f), 300.0f, 50.0f);

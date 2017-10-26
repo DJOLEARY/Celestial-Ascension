@@ -1,8 +1,15 @@
+/// <summary>
+/// @author Darren Sweeney 
+/// </summary>
+
 #ifndef RADIO_BUTTON_H
 #define RADIO_BUTTON_H
 
 #include "GUI\Widget.h"
 
+/// <summary>
+/// Radio Button class for creating one radio button which will be added to RadioButtons class for managment
+/// </summary>
 class RadioButton : public Widget
 {
 public:

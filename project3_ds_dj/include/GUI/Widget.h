@@ -17,8 +17,8 @@ class Widget : public sf::Drawable
 {
 public:
 	Widget();
+	virtual ~Widget() {};
 
-	// @refactor(darren): Take out keyboard input from testing, it's in some widgets
 	virtual bool processInput(XboxController &controller);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
@@ -26,6 +26,8 @@ public:
 	Widget *m_up;
 	Widget *m_down;
 
+	// @refactor(darren): May override these in other child classes and 
+	// take out change color in the process input
 	virtual void promoteFocus();
 	virtual void demoteFocus();
 	virtual void setPosition(sf::Vector2f &pos);
@@ -35,7 +37,7 @@ public:
 
 protected:
 	sf::Vector2f widgetPos;
-	bool m_hasFocus; // The widget the player is currenly on and can interact with
+	bool m_hasFocus;
 	sf::Vector2f widgetStartPos, widgetEndPos;
 };
 

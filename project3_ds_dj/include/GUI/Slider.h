@@ -10,9 +10,7 @@
 #include <functional>
 
 /// <summary>
-/// Brief: Slider class used for creating Sliders onscreen
-/// 
-/// Detail: Class inherits from Label and thus is a widget
+/// Slider class used for creating Sliders onscreen
 /// </summary>
 class Slider : public Widget
 {
