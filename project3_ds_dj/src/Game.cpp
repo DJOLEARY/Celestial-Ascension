@@ -1,9 +1,13 @@
 #include "Game.h"
 
 Game::Game() : 
-    m_window(sf::VideoMode(1920, 1080), "Project 3 - Darren & D.J"),
-    m_xboxController(CONTROLLER_ONE)
+    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J"),
+    m_xboxController(CONTROLLER_TWO),
+	m_view(sf::FloatRect(0, 0, 1920, 1080))
 {
+	m_view.zoom(1.0f);
+	m_window.setView(m_view);
+
     m_entityManager.Add(new Player(m_xboxController));
 
 	Slider *slider = new Slider(sf::Color(222, 12, 3, 255), sf::Color(22, 112, 3, 255),
