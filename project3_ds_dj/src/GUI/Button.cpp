@@ -7,8 +7,8 @@
 /// <param name="positionIn">Position of the Button</param>
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
-Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor, sf::Color &outOfFocuseColor, 
-	float scaleWidth, float scaleHeight, sf::Vector2f &startPos, sf::Vector2f &endPos)
+Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor, sf::Color &_outOfFocuseColor, 
+	float scaleWidth, float scaleHeight, sf::Vector2f &endPos)
 	: m_buttonTexture(texture)
 {
 	m_buttonSprite.setTexture(m_buttonTexture);
@@ -17,8 +17,11 @@ Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusC
 	m_buttonSprite.setOrigin(m_buttonSprite.getLocalBounds().width / 2.0f, m_buttonSprite.getLocalBounds().height / 2.0f);
 
 	widgetPos = positionIn; // Set the position in the base class
-	widgetStartPos = startPos;
+	widgetStartPos = positionIn;
 	widgetEndPos = endPos;
+
+	inFocusColor = focusColor;
+	OutOfFocusColor = _outOfFocuseColor;
 }
 
 /// <summary>
@@ -30,12 +33,14 @@ bool Button::processInput(XboxController & controller)
 {
 	if (!m_hasFocus)
 	{
-		m_buttonSprite.setColor(sf::Color(1, 44, 65, 255));
+		OutOfFocusColor.a = m_alpha;
+		m_buttonSprite.setColor(OutOfFocusColor);
 		return false;
 	}
 	else
 	{
-		m_buttonSprite.setColor(sf::Color(222, 45, 24, 255));
+		inFocusColor.a = m_alpha;
+		m_buttonSprite.setColor(inFocusColor);
 
 		if (controller.isButtonPressed(XBOX360_UP))
 		{

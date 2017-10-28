@@ -1,6 +1,6 @@
 #include "Screens\ScreenManager.h"
 
-ScreenManager::ScreenManager() 
+ScreenManager::ScreenManager()
 	: m_gameState(GameState::MainMenu)
 {
 	

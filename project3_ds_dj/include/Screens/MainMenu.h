@@ -12,7 +12,7 @@
 #include "GUI\RadioButtons.h"
 #include "Screen.h"
 
-class MainMenu: public Screen
+class MainMenu : public Screen
 {
 public:
 	MainMenu();
@@ -33,6 +33,7 @@ private:
 	Button *m_creditsButton;
 	Button *m_quitButton;
 
+	// @todo(darren): Replace with resource manager and texture atlas
 	sf::Texture buttonOneTexture, buttonTwoTexture;
 
 	// Rectangle and variables used for screen fading
@@ -44,7 +45,7 @@ private:
 	bool playButtonPressed;
 	bool optionsButtonPressed;
 	bool quitButtonPressed;
-	bool creditsButtonsPress;
+	bool creditsButtonsPressed;
 
 	// Used in the transition of the screen
 	bool transitionIn;

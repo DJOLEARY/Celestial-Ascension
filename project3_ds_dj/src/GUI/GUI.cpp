@@ -36,12 +36,18 @@ bool Gui::processInput(XboxController &controller)
 /// Adds a widget to the vector for widgets, will also assing the widget up and down to it.
 /// </summary>
 /// <param name="widget">widget to be added to this</param>
-void Gui::add(Widget* widget)
+void Gui::addDisplayWidget(Widget* widget)
 {
-	// @note(darren): May want menus to cycle? Is this something we want?
 	m_widgets.emplace_back(widget);
-	auto endIter = --m_widgets.end();
-	if (m_widgets.size() > 1)
+}
+
+// @refactor(darren): Might make this one add function
+void Gui::addControlWidget(Widget* widget)
+{
+	m_widgets.emplace_back(widget);
+	m_controlWidget.emplace_back(widget);
+	auto endIter = --m_controlWidget.end();
+	if (m_controlWidget.size() > 1)
 	{
 		Widget *previousWidget = *(--endIter);
 		widget->m_up = previousWidget;
@@ -63,8 +69,10 @@ void Gui::transitionOut(float transitionSpeed, float &interpolation)
 
 	for (Widget* widget : m_widgets)
 	{
-		sf::Vector2f transitionPos = lerp(widget->getStartPos(), widget->getEndPos(), interpolation); // Transition from end to start using lerp
+		sf::Vector2f transitionPos = lerp(widget->getStartPos(), widget->getEndPos(), interpolation);
 		widget->setPosition(transitionPos);
+		float alpha = 250 - (interpolation * 250);
+		widget->setAlpha(alpha);
 	}
 }
 

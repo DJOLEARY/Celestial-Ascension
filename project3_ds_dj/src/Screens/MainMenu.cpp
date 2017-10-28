@@ -6,7 +6,7 @@ MainMenu::MainMenu()
 	m_fadeRectangle.setSize(sf::Vector2f(800.0f, 800.0f));
 	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue));
 
-	m_gameTitle = new Label("This is a label", 24, sf::Vector2f(1300, 200));
+	m_gameTitle = new Label("This is a label", 24, sf::Vector2f(1920 / 2, 150.0f), sf::Vector2f(1500.0f, 150.0f));
 
 	if (!buttonOneTexture.loadFromFile("Assets/PlayButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
@@ -15,10 +15,14 @@ MainMenu::MainMenu()
 		std::cout << "ERROR::Player::Image not loaded";
 
 	// @todo(darren): Take in the screen resolution so i can allign things correctly
-	m_playButton = new Button(buttonOneTexture, sf::Vector2f(1300.0f, 300.0f));
-	m_optionsButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 450.0f));
-	m_creditsButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 600.0f));
-	m_quitButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 750.0f));
+	m_playButton = new Button(buttonOneTexture, sf::Vector2f(1920 / 2, 300.0f),
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 300.0f));
+	m_optionsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 450.0f),
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 450.0f));
+	m_creditsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 600.0f),
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 600.0f));
+	m_quitButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 750.0f),
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 750.0f));
 
 	m_playButton->select = std::bind(&MainMenu::playButtonSelected, this);
 	m_optionsButton->select = std::bind(&MainMenu::optionsButtonSelected, this);
@@ -27,11 +31,11 @@ MainMenu::MainMenu()
 
 	m_playButton->promoteFocus();
 
-	//m_gui.add(m_gameTitle);
-	m_gui.add(m_playButton);
-	m_gui.add(m_optionsButton);
-	m_gui.add(m_creditsButton);
-	m_gui.add(m_quitButton);
+	m_gui.addDisplayWidget(m_gameTitle);
+	m_gui.addControlWidget(m_playButton);
+	m_gui.addControlWidget(m_optionsButton);
+	m_gui.addControlWidget(m_creditsButton);
+	m_gui.addControlWidget(m_quitButton);
 }
 
 /// <summary>
@@ -81,6 +85,16 @@ void MainMenu::update(XboxController &controller)
 		}
 	}
 	else if (quitButtonPressed)
+	{
+		m_gui.transitionOut(0.05f, interpolation);
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::Quit;
+			interpolation = 0.0f;
+			reset();
+		}
+	}
+	else if (creditsButtonsPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation);
 		if (interpolation >= 1.0f)
@@ -140,5 +154,5 @@ void MainMenu::quitButtonSelected()
 /// </summary>
 void MainMenu::creditsButtonSelected()
 {
-	creditsButtonsPress = true;
+	creditsButtonsPressed = true;
 }

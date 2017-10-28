@@ -34,11 +34,13 @@ public:
 	sf::Vector2f getPosition();
 	sf::Vector2f getStartPos();
 	sf::Vector2f getEndPos();
+	void setAlpha(float alpha);
 
 protected:
 	sf::Vector2f widgetPos;
 	bool m_hasFocus;
 	sf::Vector2f widgetStartPos, widgetEndPos;
+	float m_alpha;
 };
 
 #endif

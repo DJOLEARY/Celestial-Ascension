@@ -5,6 +5,7 @@
 /// Sets all realtive pointers that the gui might have to nullptr
 /// </summary>
 Widget::Widget()
+	: m_alpha(255)
 {
 	m_up = nullptr;
 	m_down = nullptr;
@@ -69,6 +70,11 @@ sf::Vector2f Widget::getStartPos()
 sf::Vector2f Widget::getEndPos()
 {
 	return widgetEndPos;
+}
+
+void Widget::setAlpha(float alpha)
+{
+	m_alpha = alpha;
 }
 
 /// <summary>

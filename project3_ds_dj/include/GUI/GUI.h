@@ -21,13 +21,15 @@ public:
 	Gui();
 	~Gui();
 	bool processInput(XboxController &controller);
-	void add(Widget* widget);
+	void addDisplayWidget(Widget* widget);
+	void addControlWidget(Widget* widget);
 	void transitionOut(float transitionSpeed, float &interpolation);
 	void transitionIn(float transitionSpeed, float &interpolation);
 	void clear();
 
 	// A vector of all the widgets this Gui handles
 	std::vector<Widget*> m_widgets;
+	std::vector<Widget*> m_controlWidget;
 private:
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 };
