@@ -33,12 +33,20 @@ bool Gui::processInput(XboxController &controller)
 }
 
 /// <summary>
-/// Adds a widget to the vector for widgets
+/// Adds a widget to the vector for widgets, will also assing the widget up and down to it.
 /// </summary>
 /// <param name="widget">widget to be added to this</param>
 void Gui::add(Widget* widget)
 {
+	// @note(darren): May want menus to cycle? Is this something we want?
 	m_widgets.emplace_back(widget);
+	auto endIter = --m_widgets.end();
+	if (m_widgets.size() > 1)
+	{
+		Widget *previousWidget = *(--endIter);
+		widget->m_up = previousWidget;
+		previousWidget->m_down = widget;
+	}
 }
 
 /// <summary>

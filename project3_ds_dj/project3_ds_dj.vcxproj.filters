@@ -14,6 +14,9 @@
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\XboxController.cpp" />
     <ClCompile Include="src\GUI\RadioButton.cpp" />
+    <ClCompile Include="src\Screens\Screen.cpp" />
+    <ClCompile Include="src\Screens\MainMenu.cpp" />
+    <ClCompile Include="src\Screens\ScreenManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -30,5 +33,8 @@
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\XboxController.h" />
     <ClInclude Include="include\GUI\RadioButton.h" />
+    <ClInclude Include="include\Screens\Screen.h" />
+    <ClInclude Include="include\Screens\MainMenu.h" />
+    <ClInclude Include="include\Screens\ScreenManager.h" />
   </ItemGroup>
 </Project>

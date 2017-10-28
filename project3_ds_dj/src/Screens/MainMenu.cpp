@@ -1,0 +1,144 @@
+#include "Screens\MainMenu.h"
+
+MainMenu::MainMenu()
+	: Screen(GameState::MainMenu), m_alphaFadeValue(255)
+{
+	m_fadeRectangle.setSize(sf::Vector2f(800.0f, 800.0f));
+	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue));
+
+	m_gameTitle = new Label("This is a label", 24, sf::Vector2f(1300, 200));
+
+	if (!buttonOneTexture.loadFromFile("Assets/PlayButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	if (!buttonTwoTexture.loadFromFile("Assets/ExitButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	// @todo(darren): Take in the screen resolution so i can allign things correctly
+	m_playButton = new Button(buttonOneTexture, sf::Vector2f(1300.0f, 300.0f));
+	m_optionsButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 450.0f));
+	m_creditsButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 600.0f));
+	m_quitButton = new Button(buttonTwoTexture, sf::Vector2f(1300.0f, 750.0f));
+
+	m_playButton->select = std::bind(&MainMenu::playButtonSelected, this);
+	m_optionsButton->select = std::bind(&MainMenu::optionsButtonSelected, this);
+	m_creditsButton->select = std::bind(&MainMenu::creditsButtonSelected, this);
+	m_quitButton->select = std::bind(&MainMenu::quitButtonSelected, this);
+
+	m_playButton->promoteFocus();
+
+	//m_gui.add(m_gameTitle);
+	m_gui.add(m_playButton);
+	m_gui.add(m_optionsButton);
+	m_gui.add(m_creditsButton);
+	m_gui.add(m_quitButton);
+}
+
+/// <summary>
+/// Reset function used to reset the main menu after the game state has been changed
+/// </summary>
+void MainMenu::reset()
+{
+	optionsButtonPressed = false;
+	quitButtonPressed = false;
+	playButtonPressed = false;
+	transitionIn = true;
+	interpolation = 0.0f;
+}
+
+/// <summary>
+/// update function updates the main menu and its GUI
+/// </summary>
+/// <param name="controller">Controller used for processing input</param>
+void MainMenu::update(XboxController &controller)
+{
+	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue)); 
+	if (m_alphaFadeValue >= FADE_RATE)
+	{
+		m_alphaFadeValue -= FADE_RATE;
+	}
+
+	m_gui.processInput(controller);
+
+	if (playButtonPressed)
+	{
+		m_gui.transitionOut(0.05f, interpolation); 
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::GamePlay; 
+			interpolation = 0.0f; // Reset the interpolation
+			reset(); // Reset the main menu
+		}
+	}
+	else if (optionsButtonPressed) 
+	{
+		m_gui.transitionOut(0.05f, interpolation);
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::Options;
+			interpolation = 0.0f;
+			reset();
+		}
+	}
+	else if (quitButtonPressed)
+	{
+		m_gui.transitionOut(0.05f, interpolation);
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::Quit;
+			interpolation = 0.0f;
+			reset();
+		}
+	}
+	if (transitionIn)
+	{
+		m_gui.transitionIn(0.05f, interpolation); 
+		if (interpolation >= 1.0f)
+		{
+			interpolation = 0.0f;
+			transitionIn = false;
+		}
+	}
+}
+
+/// <summary>
+/// Render function used to draw the main menu and its GUI
+/// </summary>
+/// <param name="window">window usd to render the GUI and fade rectangle</param>
+void MainMenu::render(sf::RenderWindow & window)
+{
+	window.draw(m_fadeRectangle);
+	window.draw(m_gui);
+}
+
+/// <summary>
+/// Function linked to a callback function for the play button
+/// </summary>
+void MainMenu::playButtonSelected()
+{
+	playButtonPressed = true;
+}
+
+/// <summary>
+/// Function linked to a callback function for the options button
+/// </summary>
+void MainMenu::optionsButtonSelected()
+{
+	optionsButtonPressed = true;
+}
+
+/// <summary>
+/// Function linked to a callback function for the quit button
+/// </summary>
+void MainMenu::quitButtonSelected()
+{
+	quitButtonPressed = true;
+}
+
+/// <summary>
+/// Function linked to a callback function for the credits button
+/// </summary>
+void MainMenu::creditsButtonSelected()
+{
+	creditsButtonsPress = true;
+}

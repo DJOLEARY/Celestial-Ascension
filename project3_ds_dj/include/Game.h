@@ -6,12 +6,8 @@
 
 #include "EntityManager.h"
 #include "Player.h"
-#include "GUI/GUI.h"
-#include "GUI/Slider.h"
-#include "GUI/Label.h"
-#include "GUI/Button.h"
-#include "GUI/CheckBox.h"
-#include "GUI/RadioButtons.h"
+#include "Screens\ScreenManager.h"
+#include "Screens\MainMenu.h"
 
 class Game
 {
@@ -29,12 +25,8 @@ private:
 	sf::View m_view;
 
     EntityManager m_entityManager;
-
-    Gui m_guiSystem;
-
-	// @refactor(darren): This will be in it's own screen class
-	sf::Texture buttonOneTexture, buttonTwoTexture;
-
+	ScreenManager m_screenManager;
     XboxController m_xboxController;
+	MainMenu *mainMenu;
 };
 #endif // !GAME_H
