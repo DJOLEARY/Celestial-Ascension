@@ -31,11 +31,18 @@ MainMenu::MainMenu()
 
 	m_playButton->promoteFocus();
 
-	m_gui.addDisplayWidget(m_gameTitle);
-	m_gui.addControlWidget(m_playButton);
-	m_gui.addControlWidget(m_optionsButton);
-	m_gui.addControlWidget(m_creditsButton);
-	m_gui.addControlWidget(m_quitButton);
+	m_playButton->m_down = m_optionsButton;
+	m_optionsButton->m_up = m_playButton;
+	m_optionsButton->m_down = m_creditsButton;
+	m_creditsButton->m_up = m_optionsButton;
+	m_creditsButton->m_down = m_quitButton;
+	m_quitButton->m_up = m_creditsButton;
+
+	m_gui.add(m_gameTitle);
+	m_gui.add(m_playButton);
+	m_gui.add(m_optionsButton);
+	m_gui.add(m_creditsButton);
+	m_gui.add(m_quitButton);
 }
 
 /// <summary>
@@ -99,7 +106,7 @@ void MainMenu::update(XboxController &controller)
 		m_gui.transitionOut(0.05f, interpolation);
 		if (interpolation >= 1.0f)
 		{
-			m_nextGameState = GameState::Quit;
+			m_nextGameState = GameState::Credits;
 			interpolation = 0.0f;
 			reset();
 		}

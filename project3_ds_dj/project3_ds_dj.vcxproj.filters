@@ -7,16 +7,16 @@
     <ClCompile Include="src\GUI\CheckBox.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\Label.cpp" />
-    <ClCompile Include="src\GUI\RadioButtons.cpp" />
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\XboxController.cpp" />
-    <ClCompile Include="src\GUI\RadioButton.cpp" />
     <ClCompile Include="src\Screens\Screen.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Screens\Options.cpp" />
+    <ClCompile Include="src\GUI\RadioButton.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -26,15 +26,15 @@
     <ClInclude Include="include\GUI\CheckBox.h" />
     <ClInclude Include="include\GUI\GUI.h" />
     <ClInclude Include="include\GUI\Label.h" />
-    <ClInclude Include="include\GUI\RadioButtons.h" />
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\XboxController.h" />
-    <ClInclude Include="include\GUI\RadioButton.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\MainMenu.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
+    <ClInclude Include="include\Screens\Options.h" />
+    <ClInclude Include="include\GUI\RadioButton.h" />
   </ItemGroup>
 </Project>

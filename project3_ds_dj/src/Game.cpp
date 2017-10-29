@@ -9,8 +9,10 @@ Game::Game() :
 	m_window.setView(m_view);
 
     m_entityManager.Add(new Player(m_xboxController));
-	mainMenu = new MainMenu();
-	m_screenManager.add(mainMenu);
+	m_mainMenu = new MainMenu();
+	m_optionsMenu = new Options();
+	m_screenManager.add(m_mainMenu);
+	m_screenManager.add(m_optionsMenu);
 }
 
 Game::~Game()
@@ -48,7 +50,6 @@ void Game::run()
 
         draw(m_window);
     }
-
 }
 
 void Game::update(sf::Int32 dt)

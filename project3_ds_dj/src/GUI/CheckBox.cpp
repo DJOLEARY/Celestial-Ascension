@@ -12,13 +12,13 @@
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
 CheckBox::CheckBox(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &outOfFocus, sf::Color &fillInColor, float boxWidth,
-	float boxHeight, sf::Vector2f &startPos, sf::Vector2f &endPos):
+	float boxHeight, sf::Vector2f &endPos):
 	focusColor(focusColor),
 	noFocusColor(outOfFocus),
 	fillColor(fillInColor)
 {
 	widgetPos = positionIn; // Set the position in the base class
-	widgetStartPos = startPos;
+	widgetStartPos = positionIn;
 	widgetEndPos = endPos;
 	// Set the position, size, colours and outlines of the CheckBox
 	m_checkBoxRect.setPosition(widgetPos);

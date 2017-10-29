@@ -1,37 +1,42 @@
 /// <summary>
-/// @author Darren Sweeney 
+/// @author Darren Sweeney
 /// </summary>
 
-#ifndef RADIO_BUTTON_H
-#define RADIO_BUTTON_H
+#ifndef RADIOBUTTON_H
+#define RADIOBUTTON_H
 
-#include "GUI\Widget.h"
+#include "Widget.h"
+#include <functional>
 
 /// <summary>
-/// Radio Button class for creating one radio button which will be added to RadioButtons class for managment
+// RadioButton class used for creating radioButtons
 /// </summary>
-class RadioButton : public Widget
+class RadioButton : public Widget 
 {
 public:
-	RadioButton(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &outOfFocus, sf::Color &fillInColor, float buttonRadius = 20.0f,
-		sf::Vector2f &startPos = sf::Vector2f(), sf::Vector2f &endPos = sf::Vector2f());
+	RadioButton(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn,
+		sf::Vector2f & positionIn, std::vector<RadioButton *> & radGroup, sf::Vector2f &endPos = sf::Vector2f(),
+		int characterSize = 22.f, float boxWidth = 40.f, float boxHeight = 40.f);
+	bool processInput(XboxController & controller);
+	virtual void setPosition(sf::Vector2f &position) override;
+	void draw(sf::RenderTarget & target, sf::RenderStates states) const;
+	void deActivate();
+	bool getState() const;
+	void activate();
+	void setColors() override;
 
-	virtual void promoteFocus() override;
-	virtual void demoteFocus() override;
-
-	void toggle();
-	void turnOff();
-
-	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;
+	// Callback function to link to external functions
+	typedef std::function<void()> Callback;
+	Callback select;
 
 private:
+	bool m_state = false;
+	sf::RectangleShape m_radioButtonRect; 
+	std::vector<RadioButton *> &m_otherButtons;
+
 	sf::Color focusColor;
 	sf::Color noFocusColor;
 	sf::Color fillColor;
-	float m_radius;
-	bool m_isOn;
-
-	sf::CircleShape m_radioButtonCircle;
 };
 
 #endif

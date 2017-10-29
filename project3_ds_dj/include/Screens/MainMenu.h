@@ -9,7 +9,6 @@
 #include "GUI\Label.h"
 #include "GUI\Slider.h"
 #include "GUI\CheckBox.h"
-#include "GUI\RadioButtons.h"
 #include "Screen.h"
 
 class MainMenu : public Screen

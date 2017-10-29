@@ -13,12 +13,12 @@
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
 Slider::Slider(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, sf::Vector2f &position, float sliderWidth,
-	float sliderHeight, sf::Vector2f &startPos, sf::Vector2f &endPos):
+	float sliderHeight, sf::Vector2f &endPos):
 	focusColor(focusColorIn), noFocusColor(noFocusColorIn), fillColor(fillColorIn), 
 	m_barBaseWidth(sliderWidth), m_barSize(m_barBaseWidth), m_barBaseHeight(sliderHeight)
 {
 	widgetPos = position;
-	widgetStartPos = startPos;
+	widgetStartPos = position;
 	widgetEndPos = endPos;
 
 	// Base under the moving slider bar
@@ -54,12 +54,21 @@ bool Slider::processInput(XboxController &controller)
 {
 	if (!m_hasFocus)
 	{
+		noFocusColor.a = m_alpha;
 		m_base.setOutlineColor(noFocusColor);
+		m_base.setFillColor(sf::Color(255, 255, 255, m_alpha));
+		fillColor.a = m_alpha;
+		m_bar.setFillColor(fillColor);
 		return false;
 	}
 	if (m_hasFocus)
 	{
+		// @refactor(darren): Refactor this into set colors
+		focusColor.a = m_alpha;
 		m_base.setOutlineColor(focusColor);
+		m_base.setFillColor(sf::Color(255, 255, 255, m_alpha));
+		fillColor.a = m_alpha;
+		m_bar.setFillColor(fillColor);
 		if (controller.isButtonHeldDown(XBOX360_RIGHT))
 		{
 			if (m_barSize < m_barBaseWidth - 2)
@@ -127,7 +136,7 @@ bool Slider::processInput(XboxController &controller)
 void Slider::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
 	target.draw(m_base);
-	target.draw(m_bar, states);
+	target.draw(m_bar);
 }
 
 /// <summary>

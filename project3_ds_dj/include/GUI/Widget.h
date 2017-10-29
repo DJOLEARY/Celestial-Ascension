@@ -22,9 +22,11 @@ public:
 	virtual bool processInput(XboxController &controller);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
-	// Pointers to up and down widgets if any
+	// Pointers to up, down let and right widgets if any
 	Widget *m_up;
 	Widget *m_down;
+	Widget *m_right;
+	Widget *m_left;
 
 	// @refactor(darren): May override these in other child classes and 
 	// take out change color in the process input
@@ -34,6 +36,7 @@ public:
 	sf::Vector2f getPosition();
 	sf::Vector2f getStartPos();
 	sf::Vector2f getEndPos();
+	virtual void setColors();
 	void setAlpha(float alpha);
 
 protected:

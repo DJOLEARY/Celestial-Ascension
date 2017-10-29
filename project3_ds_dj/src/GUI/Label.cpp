@@ -21,7 +21,7 @@ Label::Label(const std::string& text, unsigned int size, sf::Vector2f &startPos,
 	}
 	m_text.setFont(m_gameFont);
 	setText(text);
-	setTextColor(sf::Color::White);
+	setTextColor(sf::Color(255, 255, 255));
 	m_text.setCharacterSize(size);
 	textRect = m_text.getGlobalBounds();
 
@@ -62,11 +62,16 @@ unsigned int Label::getCharacterSize() const
 	return m_text.getCharacterSize();
 }
 
+void Label::setColors()
+{
+	setTextColor(sf::Color(255, 255, 255, m_alpha));
+}
+
 /// <summary>
 /// Set the color of the Text
 /// </summary>
 /// <param name="color">The desired text color</param>
-void Label::setTextColor(const sf::Color& color)
+void Label::setTextColor(sf::Color& color)
 {
 	m_text.setFillColor(color);
 }

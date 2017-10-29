@@ -1,78 +1,173 @@
-#include "GUI/RadioButton.h"
+#include "GUI\RadioButton.h"
 
-/// <summary>
-/// 
-/// </summary>
-/// <param name="positionIn">The display position</param>
-/// <param name="_focusColor">The color when in focus</param>
-/// <param name="outOfFocus">The color when out of focus</param>
-/// <param name="fillInColor">The color when turned on</param>
-/// <param name="buttonRadius">The radius of the circle graphic</param>
-/// <param name="startPos">The transition start position</param>
-/// <param name="endPos">The transition end position</param>
-RadioButton::RadioButton(sf::Vector2f & positionIn, sf::Color & _focusColor, sf::Color & outOfFocus,
-	sf::Color & fillInColor, float buttonRadius, sf::Vector2f & startPos, sf::Vector2f & endPos)
-	: focusColor(_focusColor), noFocusColor(outOfFocus), fillColor(fillInColor), m_radius(buttonRadius), m_isOn(false)
+RadioButton::RadioButton(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, 
+	sf::Vector2f & positionIn, std::vector<RadioButton *> & radGroup, sf::Vector2f &endPos,
+	int characterSize, float boxWidth, float boxHeight)
+	:  m_otherButtons(radGroup), focusColor(focusColorIn), noFocusColor(noFocusColorIn), fillColor(fillColorIn)
 {
-	m_radioButtonCircle.setFillColor(fillInColor);
-	m_radioButtonCircle.setOutlineColor(outOfFocus);
-	m_radioButtonCircle.setPosition(positionIn);
-	m_radioButtonCircle.setRadius(buttonRadius);
-	m_radioButtonCircle.setOutlineThickness(3.0f);
-	m_radioButtonCircle.setFillColor(sf::Color::White);
-	m_radioButtonCircle.setOrigin(m_radioButtonCircle.getLocalBounds().width / 2.0f, m_radioButtonCircle.getLocalBounds().height / 2.0f);
+	widgetPos = positionIn;
+	widgetStartPos = positionIn;
+	widgetEndPos = endPos;
+	// Set the position, size, colour and outline of the RadioButton Box
+	m_radioButtonRect.setPosition(widgetPos);
+	m_radioButtonRect.setSize(sf::Vector2f(boxWidth, boxHeight));
+	m_radioButtonRect.setFillColor(sf::Color::White);
+	m_radioButtonRect.setOutlineColor(sf::Color::White);
+	m_radioButtonRect.setOutlineThickness(3.0f);
+	// Set the position of the Label
+	sf::Vector2f textOffset(widgetPos.x, widgetPos.y - m_radioButtonRect.getGlobalBounds().height); // We offset the Label to be directly above the RadioButton
+	m_radioButtonRect.setOrigin(m_radioButtonRect.getLocalBounds().width / 2.0f, m_radioButtonRect.getLocalBounds().height / 2.0f);
 }
 
 /// <summary>
-/// Sets the outline color and has focus to true
+/// Sets the position of the button at it's origin
 /// </summary>
-void RadioButton::promoteFocus()
+/// <param name="position">The position origin of the button</param>
+void RadioButton::setPosition(sf::Vector2f &position)
 {
-	m_hasFocus = true;
-	m_radioButtonCircle.setOutlineColor(focusColor);
+	widgetPos = position;
+	m_radioButtonRect.setPosition(widgetPos);
 }
 
 /// <summary>
-/// Sets the outline color and has focus to false
+/// Processes the input from a controller / keyboard and updates the RadioButton as well as other widgets
 /// </summary>
-void RadioButton::demoteFocus()
+/// <param name="controller">Controller object used for checking input</param>
+/// <returns>Bool to tell whether the input was used or not</returns>
+bool RadioButton::processInput(XboxController & controller)
 {
-	m_hasFocus = false;
-	m_radioButtonCircle.setOutlineColor(noFocusColor);
-}
-
-/// <summary>
-/// Toogles the current state of the radio button
-/// </summary>
-void RadioButton::toggle()
-{
-	m_isOn = !m_isOn;
-
-	if (m_isOn)
+	if (!m_hasFocus)
 	{
-		m_radioButtonCircle.setFillColor(fillColor);
+		m_radioButtonRect.setOutlineColor(noFocusColor);
+		return false;
 	}
 	else
 	{
-		m_radioButtonCircle.setFillColor(sf::Color::White);
+		m_radioButtonRect.setOutlineColor(focusColor);
+		if (controller.isButtonPressed(XBOX360_UP))
+		{
+			if (m_up != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_up->promoteFocus();
+				demoteFocus();
+				return true;
+			}
+		}
+		else if (controller.isButtonPressed(XBOX360_DOWN))
+		{
+			if (m_down != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_down->promoteFocus();
+				demoteFocus();
+				return true;
+			}
+			
+		}
+		else if (controller.isButtonPressed(XBOX360_LEFT))
+		{
+			if (m_left  != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_left->promoteFocus();
+				demoteFocus();
+				return true;
+			}
+			
+		}
+		else if (controller.isButtonPressed(XBOX360_RIGHT))
+		{
+			if (m_right != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_right->promoteFocus();
+				demoteFocus();
+				return true;
+			}
+		}
+		else if (controller.isButtonPressed(XBOX360_A))
+		{
+			for (RadioButton * radioButton : m_otherButtons)
+			{
+				radioButton->deActivate(); // De-activate all other radio buttons in a group
+			}
+			m_state = true;
+
+			m_radioButtonRect.setFillColor(fillColor);
+			try
+			{
+				select();
+			}
+			catch (std::bad_function_call) {}
+		}
 	}
 }
 
 /// <summary>
-/// Turns the radio button to a false or off state
-/// </summary>
-void RadioButton::turnOff()
-{
-	m_isOn = false;
-	m_radioButtonCircle.setFillColor(sf::Color::White);
-}
-
-/// <summary>
-/// Renders the radio button to the render target
+/// Draw function allows the window to draw the object directly
 /// </summary>
 /// <param name="target">Targets used for drawing</param>
 /// <param name="states">States used for drawing</param>
 void RadioButton::draw(sf::RenderTarget & target, sf::RenderStates states) const
 {
-	target.draw(m_radioButtonCircle);
+	target.draw(m_radioButtonRect);
+}
+
+/// <summary>
+/// Function simply sets the m_state bolean to false and changes the fillcolor
+/// </summary>
+void RadioButton::deActivate()
+{
+	m_radioButtonRect.setFillColor(sf::Color::White); // Change the fill color
+	m_state = false; // Set the state to false
+}
+
+/// <summary>
+/// Simple getter method for the m_state member variable
+/// </summary>
+/// <returns>The state of the RadioButton</returns>
+bool RadioButton::getState() const
+{
+	return m_state;
+}
+
+/// <summary>
+/// Function used to set the state of a radiobutton
+/// </summary>
+/// <param name="stateIn">The state you want to set the radioButton to</param>
+void RadioButton::activate()
+{
+	m_radioButtonRect.setFillColor(fillColor);
+	m_state = true;
+	for (auto & otherRadioButton : m_otherButtons)
+	{
+		if (otherRadioButton != this)
+		{
+			otherRadioButton->deActivate(); // This is done so as to ensure that no two radio buttons in a set are ever on similtaneously
+		}
+	}
+}
+
+/// <summary>
+/// Function used to reset all of the colours used by the radio button if those colours are changed
+/// </summary>
+void RadioButton::setColors()
+{
+	if (m_hasFocus)
+	{
+		m_radioButtonRect.setOutlineColor(focusColor);
+	}
+	else
+	{
+		m_radioButtonRect.setOutlineColor(noFocusColor);
+	}
+	if (m_state)
+	{
+		m_radioButtonRect.setFillColor(fillColor);
+	}
+	else
+	{
+		m_radioButtonRect.setFillColor(sf::Color::White);
+	}
 }

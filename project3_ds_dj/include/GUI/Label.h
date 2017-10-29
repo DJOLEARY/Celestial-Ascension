@@ -19,7 +19,8 @@ public:
 	virtual void setPosition(sf::Vector2f &position) override;
 	void setText(const std::string &text);
 	unsigned int getCharacterSize() const;
-	void setTextColor(const sf::Color& color);
+	void setColors() override;
+	void setTextColor(sf::Color& color);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 	sf::Text getText();
 	float getTextHeight();

@@ -15,7 +15,7 @@ class CheckBox : public Widget
 {
 public:
 	CheckBox(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &outOfFocus, sf::Color &fillInColor, float boxWidth = 40.0f,
-		float boxHeight = 40.0f, sf::Vector2f &startPos = sf::Vector2f(), sf::Vector2f &endPos = sf::Vector2f());
+		float boxHeight = 40.0f, sf::Vector2f &endPos = sf::Vector2f());
 	bool processInput(XboxController & controller);
 	virtual void setPosition(sf::Vector2f &position) override;
 	void draw(sf::RenderTarget & target, sf::RenderStates states) const override;

@@ -21,8 +21,8 @@ public:
 	Gui();
 	~Gui();
 	bool processInput(XboxController &controller);
-	void addDisplayWidget(Widget* widget);
-	void addControlWidget(Widget* widget);
+	void add(Widget* widget);
+	void setWidgetsAlpha(float alpha);
 	void transitionOut(float transitionSpeed, float &interpolation);
 	void transitionIn(float transitionSpeed, float &interpolation);
 	void clear();

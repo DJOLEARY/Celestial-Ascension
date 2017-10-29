@@ -8,6 +8,7 @@
 #include "Player.h"
 #include "Screens\ScreenManager.h"
 #include "Screens\MainMenu.h"
+#include "Screens\Options.h"
 
 class Game
 {
@@ -27,6 +28,7 @@ private:
     EntityManager m_entityManager;
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
-	MainMenu *mainMenu;
+	MainMenu *m_mainMenu;
+	Options *m_optionsMenu;
 };
 #endif // !GAME_H

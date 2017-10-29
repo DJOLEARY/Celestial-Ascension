@@ -72,6 +72,8 @@ sf::Vector2f Widget::getEndPos()
 	return widgetEndPos;
 }
 
+void Widget::setColors() { }
+
 void Widget::setAlpha(float alpha)
 {
 	m_alpha = alpha;
