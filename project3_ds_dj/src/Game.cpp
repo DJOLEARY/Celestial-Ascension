@@ -11,8 +11,10 @@ Game::Game() :
     m_entityManager.Add(new Player(m_xboxController));
 	m_mainMenu = new MainMenu();
 	m_optionsMenu = new Options();
+	m_exitMenu = new ExitMenu();
 	m_screenManager.add(m_mainMenu);
 	m_screenManager.add(m_optionsMenu);
+	m_screenManager.add(m_exitMenu);
 }
 
 Game::~Game()

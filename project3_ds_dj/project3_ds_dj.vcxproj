@@ -176,6 +176,7 @@
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
     <ClCompile Include="src\Screens\Options.cpp" />
     <ClCompile Include="src\Screens\Screen.cpp" />
@@ -195,6 +196,7 @@
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Screens\ExitMenu.h" />
     <ClInclude Include="include\Screens\MainMenu.h" />
     <ClInclude Include="include\Screens\Options.h" />
     <ClInclude Include="include\Screens\Screen.h" />

@@ -1,7 +1,7 @@
 #include "Screens\MainMenu.h"
 
 MainMenu::MainMenu()
-	: Screen(GameState::MainMenu), m_alphaFadeValue(255)
+	: Screen(GameState::MainMenu), m_alphaFadeValue(0)
 {
 	m_fadeRectangle.setSize(sf::Vector2f(800.0f, 800.0f));
 	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue));
@@ -16,18 +16,18 @@ MainMenu::MainMenu()
 
 	// @todo(darren): Take in the screen resolution so i can allign things correctly
 	m_playButton = new Button(buttonOneTexture, sf::Vector2f(1920 / 2, 300.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 300.0f));
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 300.0f));
 	m_optionsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 450.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 450.0f));
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
 	m_creditsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 600.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 600.0f));
-	m_quitButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 750.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1500.0f, 750.0f));
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
+	m_exitButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 750.0f),
+		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 750.0f));
 
 	m_playButton->select = std::bind(&MainMenu::playButtonSelected, this);
 	m_optionsButton->select = std::bind(&MainMenu::optionsButtonSelected, this);
 	m_creditsButton->select = std::bind(&MainMenu::creditsButtonSelected, this);
-	m_quitButton->select = std::bind(&MainMenu::quitButtonSelected, this);
+	m_exitButton->select = std::bind(&MainMenu::quitButtonSelected, this);
 
 	m_playButton->promoteFocus();
 
@@ -35,14 +35,14 @@ MainMenu::MainMenu()
 	m_optionsButton->m_up = m_playButton;
 	m_optionsButton->m_down = m_creditsButton;
 	m_creditsButton->m_up = m_optionsButton;
-	m_creditsButton->m_down = m_quitButton;
-	m_quitButton->m_up = m_creditsButton;
+	m_creditsButton->m_down = m_exitButton;
+	m_exitButton->m_up = m_creditsButton;
 
 	m_gui.add(m_gameTitle);
 	m_gui.add(m_playButton);
 	m_gui.add(m_optionsButton);
 	m_gui.add(m_creditsButton);
-	m_gui.add(m_quitButton);
+	m_gui.add(m_exitButton);
 }
 
 /// <summary>
@@ -51,7 +51,7 @@ MainMenu::MainMenu()
 void MainMenu::reset()
 {
 	optionsButtonPressed = false;
-	quitButtonPressed = false;
+	exitButtonPressed = false;
 	playButtonPressed = false;
 	transitionIn = true;
 	interpolation = 0.0f;
@@ -91,22 +91,22 @@ void MainMenu::update(XboxController &controller)
 			reset();
 		}
 	}
-	else if (quitButtonPressed)
-	{
-		m_gui.transitionOut(0.05f, interpolation);
-		if (interpolation >= 1.0f)
-		{
-			m_nextGameState = GameState::Quit;
-			interpolation = 0.0f;
-			reset();
-		}
-	}
 	else if (creditsButtonsPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation);
 		if (interpolation >= 1.0f)
 		{
 			m_nextGameState = GameState::Credits;
+			interpolation = 0.0f;
+			reset();
+		}
+	}
+	else if (exitButtonPressed)
+	{
+		m_gui.transitionOut(0.05f, interpolation);
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::ExitMenu;
 			interpolation = 0.0f;
 			reset();
 		}
@@ -153,7 +153,7 @@ void MainMenu::optionsButtonSelected()
 /// </summary>
 void MainMenu::quitButtonSelected()
 {
-	quitButtonPressed = true;
+	exitButtonPressed = true;
 }
 
 /// <summary>

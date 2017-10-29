@@ -19,7 +19,7 @@ enum class GameState
 	SplashScreen,
 	MainMenu,
 	Options,
-	Quit,
+	ExitMenu,
 	GamePlay,
 	Credits
 };

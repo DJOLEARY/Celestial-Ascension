@@ -9,6 +9,7 @@
 #include "Screens\ScreenManager.h"
 #include "Screens\MainMenu.h"
 #include "Screens\Options.h"
+#include "Screens\ExitMenu.h"
 
 class Game
 {
@@ -30,5 +31,6 @@ private:
     XboxController m_xboxController;
 	MainMenu *m_mainMenu;
 	Options *m_optionsMenu;
+	ExitMenu *m_exitMenu;
 };
 #endif // !GAME_H

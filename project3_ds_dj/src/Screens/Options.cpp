@@ -8,30 +8,28 @@ Options::Options()
 	sf::Color fillColor(0, 0, 255);
 
 	// Initiaise the GUI elements
-	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2, 100.0f), sf::Vector2f(1500.0f, 100.0f));
-	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 220), sf::Vector2f(1500.0f, 220));
+	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), sf::Vector2f(1920.0f / 2, 100.0f));
+	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 220), sf::Vector2f(1920.0f / 2 + 400.0f, 220));
 	m_musicVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 300.0f), 
-		200.0f, 40.0f, sf::Vector2f(1500.0f, 300.0f));
-	m_effectsTitle = new Label("Effects Volume", 24, sf::Vector2f(1920 / 2, 350), sf::Vector2f(1500.0f, 350));
+		200.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 300.0f));
+	m_effectsTitle = new Label("Effects Volume", 24, sf::Vector2f(1920 / 2, 350), sf::Vector2f(1920.0f / 2 + 400.0f, 350));
 	m_effectsVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f),
-		200.0f, 40.0f, sf::Vector2f(1500.0f, 400.0f));
-	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 450), sf::Vector2f(1500.0f, 450));
+		200.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
+	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 450), sf::Vector2f(1920.0f / 2 + 400.0f, 450));
 	m_muteCheckBox = new CheckBox(sf::Vector2f(1920.0f / 2, 500), focusIn, focusOut, fillColor, 
-		40.0f, 40.0f, sf::Vector2f(1500.0f, 500.0f));
-
-	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1500.0f, 650.0f));
+		40.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
+	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut,fillColor, sf::Vector2f(1920.0f / 2 - 75.0f, 700.0f), 
-		m_windowStyleOptions, sf::Vector2f(1500.0f, 700.0f), 22, 30.0f, 30.0f));
-	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1500.0f, 650.0f));
+		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f), 22, 30.0f, 30.0f));
+	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
-		m_windowStyleOptions, sf::Vector2f(1500.0f, 700.0f), 22, 30.0f, 30.0f));
+		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f), 22, 30.0f, 30.0f));
+	// @refactor(darren): change order of end position for button
+	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
+		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
 
 	if (!m_applyTexure.loadFromFile("Assets/GUI/ApplyButton.png"))
 		std::cout << "ERROR::Options::ApplyButton image not loaded";
-
-	// @refactor(darren): change order of end position for button
-	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
-		1.0f, 1.0f, sf::Vector2f(1500.0f, 800.0f));
 
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();

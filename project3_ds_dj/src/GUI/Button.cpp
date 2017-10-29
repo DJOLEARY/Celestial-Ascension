@@ -62,7 +62,27 @@ bool Button::processInput(XboxController & controller)
 				return true;
 			}
 		}
+		else if (controller.isButtonPressed(XBOX360_LEFT))
+		{
+			if (m_left != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_left->promoteFocus();
+				demoteFocus();
+				return true;
+			}
 
+		}
+		else if (controller.isButtonPressed(XBOX360_RIGHT))
+		{
+			if (m_right != nullptr)
+			{
+				// @todo(darren): Play sound here
+				m_right->promoteFocus();
+				demoteFocus();
+				return true;
+			}
+		}
 		try
 		{
 			if (controller.isButtonPressed(XBOX360_A))

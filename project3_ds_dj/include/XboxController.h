@@ -32,46 +32,54 @@
 
 #define XBOX360_MAX_BUTTONS 14
 
-/// Tracks the state on a connected controller
-/// 
-/// Provides functionality to check the buttons, triggers and joysticks
-/// current and previous state.
-struct XboxControllerState
-{
-	// Positions of the triggers and joystick along their respective axis.
-	float RTrigger;
-	float LTrigger;
-	sf::Vector2f rightThumbStick;
-	sf::Vector2f leftThumbStick;
-
-	// buttons[] occupies same memory as stuct (same stride in memory)
-	// useful to index array, a continues memory block instead of checking
-	// each bool with if statements and updating.
-	union
-	{
-		bool buttons[XBOX360_MAX_BUTTONS];
-		struct
-		{
-			bool A;
-			bool B;
-			bool X;
-			bool Y;
-			bool LB;
-			bool RB;
-			bool back;
-			bool start;
-			bool leftThumbStickClick;
-			bool rightThumbStickClick;
-			bool DpadUp;
-			bool DpadDown;
-			bool DpadLeft;
-			bool DpadRight;
-		};
-	};
-};
-
 class XboxController
 {
+private:
+	// Holds the current index of the connected controller. Range: 0 - 3
+	unsigned int m_controllerIndex;
+	// Store a threshold for the dPad as it is a joystick
+	const int DPAD_THRESHHOLD = 20;
+	// The controller connected if any
+	sf::Joystick m_controller;
+
+	/// Tracks the state on a connected controller
+	/// 
+	/// Provides functionality to check the buttons, triggers and joysticks
+	/// current and previous state.
+	struct XboxControllerState
+	{
+		// Positions of the triggers and joystick along their respective axis.
+		float RTrigger;
+		float LTrigger;
+		sf::Vector2f rightThumbStick;
+		sf::Vector2f leftThumbStick;
+
+		// buttons[] occupies same memory as stuct (same stride in memory)
+		// useful to index array, a continues memory block instead of checking
+		// each bool with if statements and updating.
+		union
+		{
+			bool buttons[XBOX360_MAX_BUTTONS];
+			struct
+			{
+				bool A;
+				bool B;
+				bool X;
+				bool Y;
+				bool LB;
+				bool RB;
+				bool back;
+				bool start;
+				bool leftThumbStickClick;
+				bool rightThumbStickClick;
+				bool DpadUp;
+				bool DpadDown;
+				bool DpadLeft;
+				bool DpadRight;
+			};
+		};
+	};
+
 public:
 	XboxController(unsigned int controllerIndex);
 
@@ -87,14 +95,6 @@ public:
 	XboxControllerState m_currentState;
 	// Stores the previous state of all the buttons, triggers and joystick
 	XboxControllerState m_previousState;
-
-private:
-	// Holds the current index of the connected controller. Range: 0 - 3
-	unsigned int m_controllerIndex;
-	// Store a threshold for the dPad as it is a joystick
-	const int DPAD_THRESHHOLD = 20;
-	// The controller connected if any
-	sf::Joystick m_controller;
 };
 
 #endif // !XBOX_CONTROLLER_H

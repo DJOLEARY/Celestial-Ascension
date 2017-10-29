@@ -30,7 +30,7 @@ private:
 	Button *m_playButton;
 	Button *m_optionsButton;
 	Button *m_creditsButton;
-	Button *m_quitButton;
+	Button *m_exitButton;
 
 	// @todo(darren): Replace with resource manager and texture atlas
 	sf::Texture buttonOneTexture, buttonTwoTexture;
@@ -43,7 +43,7 @@ private:
 	// Linked to Callbacks
 	bool playButtonPressed;
 	bool optionsButtonPressed;
-	bool quitButtonPressed;
+	bool exitButtonPressed;
 	bool creditsButtonsPressed;
 
 	// Used in the transition of the screen

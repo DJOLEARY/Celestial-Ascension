@@ -17,6 +17,7 @@
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\Options.cpp" />
     <ClCompile Include="src\GUI\RadioButton.cpp" />
+    <ClCompile Include="src\Screens\ExitMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -36,5 +37,6 @@
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\Options.h" />
     <ClInclude Include="include\GUI\RadioButton.h" />
+    <ClInclude Include="include\Screens\ExitMenu.h" />
   </ItemGroup>
 </Project>
