@@ -24,12 +24,13 @@ Options::Options()
 	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
 		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f), 22, 30.0f, 30.0f));
-	// @refactor(darren): change order of end position for button
-	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
-		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
 
 	if (!m_applyTexure.loadFromFile("Assets/GUI/ApplyButton.png"))
 		std::cout << "ERROR::Options::ApplyButton image not loaded";
+
+	// @refactor(darren): change order of end position for button
+	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
+		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
 
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();
@@ -85,7 +86,7 @@ void Options::reset()
 /// <param name="controller">controller used for processing input</param>
 void Options::update(XboxController &controller)
 {
-	m_gui.processInput(controller); // Process input for the GUI object
+	m_gui.processInput(controller);
 
 	if (controller.isButtonPressed(XBOX360_BACK))
 	{
@@ -94,23 +95,22 @@ void Options::update(XboxController &controller)
 
 	if (m_applyButtonPressed)
 	{
-		m_gui.transitionOut(0.05f, interpolation); // run a transition out cycle
+		m_gui.transitionOut(0.05f, interpolation);
 
 		if (interpolation >= 1.0f)
 		{
-			m_nextGameState = GameState::MainMenu; // Change the game state
-			interpolation = 0.0f; // Reset the interpolation
-			reset(); // Reset this
+			m_nextGameState = GameState::MainMenu;
+			reset();
 		}
 	}
 
 	if (transitionIn)
 	{
-		m_gui.transitionIn(0.05f, interpolation); // Run a transition in cycle
+		m_gui.transitionIn(0.05f, interpolation);
 
 		if (interpolation >= 1.0f)
 		{
-			interpolation = 0.0f; // Reset the interpolation
+			interpolation = 0.0f;
 			transitionIn = false;
 		}
 	}

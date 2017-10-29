@@ -1,23 +1,23 @@
 #include "Screens\ExitMenu.h"
 
 ExitMenu::ExitMenu()
-	: Screen(GameState::ExitMenu)
+	: Screen(GameState::ExitMenu), transitionIn(true)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(255, 0, 0);
 	sf::Color focusOut(0, 255, 0);
 	sf::Color fillColor(0, 0, 255);
 
-	if (!m_yesTexture.loadFromFile("Assets/GUI/ApplyButton.png"))
+	if (!m_yesTexture.loadFromFile("Assets/GUI/YesButton.png"))
 		std::cout << "ERROR::Options::Yes Texture image not loaded";
 
-	if (!m_noTexture.loadFromFile("Assets/GUI/ApplyButton.png"))
+	if (!m_noTexture.loadFromFile("Assets/GUI/NoButton.png"))
 		std::cout << "ERROR::Options::No Texture image not loaded";
 
 	m_exitGameLabel = new Label("Exit", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), sf::Vector2f(1920.0f / 2, 100.0f));
 	m_areYouSureLabel = new Label("Are you sure?", 60, sf::Vector2f(1920.0f / 2, 450.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
-	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
-	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
+	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
+	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
 
 	m_noButton->promoteFocus();
 
@@ -29,7 +29,17 @@ ExitMenu::ExitMenu()
 	m_gui.add(m_yesButton);
 	m_gui.add(m_noButton);
 
-	//m_gui.setWidgetsAlpha(0.0f);
+	m_gui.setWidgetsAlpha(0.0f);
+}
+
+void ExitMenu::reset()
+{
+	m_noButton->promoteFocus();
+	m_yesButton->demoteFocus();
+	m_noButtonPressed = false;
+	m_yesButtonPressed = false;
+	transitionIn = true;
+	interpolation = 0.0f;
 }
 
 void ExitMenu::update(XboxController &controller)
@@ -48,7 +58,6 @@ void ExitMenu::update(XboxController &controller)
 		if (interpolation >= 1.0f)
 		{
 			m_nextGameState = GameState::MainMenu;
-			interpolation = 0.0f;
 			reset();
 		}
 	}
@@ -65,17 +74,9 @@ void ExitMenu::update(XboxController &controller)
 	}
 }
 
-void ExitMenu::reset()
-{
-	m_noButton->promoteFocus();
-	transitionIn = true;
-	interpolation = 0.0f;
-	m_noButtonPressed = false;
-}
-
 void ExitMenu::yesButtonSelected()
 {
-
+	m_yesButtonPressed = true;
 }
 
 void ExitMenu::noButtonSelected()

@@ -28,7 +28,7 @@ private:
 	Button *m_yesButton, *m_noButton;
 	sf::Texture m_yesTexture, m_noTexture;
 
-	bool m_noButtonPressed;
+	bool m_noButtonPressed, m_yesButtonPressed;
 	bool transitionIn;
 	float interpolation;
 };
