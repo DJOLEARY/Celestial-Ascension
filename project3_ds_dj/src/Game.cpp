@@ -12,9 +12,11 @@ Game::Game() :
 	m_mainMenu = new MainMenu();
 	m_optionsMenu = new Options();
 	m_exitMenu = new ExitMenu();
+	m_credits = new Credits();
 	m_screenManager.add(m_mainMenu);
 	m_screenManager.add(m_optionsMenu);
 	m_screenManager.add(m_exitMenu);
+	m_screenManager.add(m_credits);
 }
 
 Game::~Game()

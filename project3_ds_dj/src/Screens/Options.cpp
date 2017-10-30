@@ -18,12 +18,12 @@ Options::Options()
 	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 450), sf::Vector2f(1920.0f / 2 + 400.0f, 450));
 	m_muteCheckBox = new CheckBox(sf::Vector2f(1920.0f / 2, 500), focusIn, focusOut, fillColor, 
 		40.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
-	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 650.0f));
+	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 475.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut,fillColor, sf::Vector2f(1920.0f / 2 - 75.0f, 700.0f), 
-		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f), 22, 30.0f, 30.0f));
-	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 650.0f));
+		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 475.0f, 700.0f), 22, 30.0f, 30.0f));
+	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 325.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
-		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f), 22, 30.0f, 30.0f));
+		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 325.0f, 700.0f), 22, 30.0f, 30.0f));
 
 	if (!m_applyTexure.loadFromFile("Assets/GUI/ApplyButton.png"))
 		std::cout << "ERROR::Options::ApplyButton image not loaded";

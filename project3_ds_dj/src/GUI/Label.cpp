@@ -1,5 +1,10 @@
 #include "GUI/Label.h"
 
+Label::Label()
+{
+
+}
+
 /// <summary>
 /// Constructor function for the Label class
 /// </summary>

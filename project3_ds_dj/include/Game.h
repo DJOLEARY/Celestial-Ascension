@@ -10,6 +10,7 @@
 #include "Screens\MainMenu.h"
 #include "Screens\Options.h"
 #include "Screens\ExitMenu.h"
+#include "Screens\Credits.h"
 
 class Game
 {
@@ -32,5 +33,6 @@ private:
 	MainMenu *m_mainMenu;
 	Options *m_optionsMenu;
 	ExitMenu *m_exitMenu;
+	Credits *m_credits;
 };
 #endif // !GAME_H

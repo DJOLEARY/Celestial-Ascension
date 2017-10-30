@@ -53,6 +53,7 @@ void MainMenu::reset()
 	optionsButtonPressed = false;
 	exitButtonPressed = false;
 	playButtonPressed = false;
+	creditsButtonsPressed = false;
 	transitionIn = true;
 	interpolation = 0.0f;
 }

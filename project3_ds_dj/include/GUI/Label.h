@@ -14,6 +14,7 @@
 class Label : public Widget
 {
 public:
+	Label();
 	Label(const std::string& text, unsigned int size = 18,
 		sf::Vector2f &startPos = sf::Vector2f(), sf::Vector2f &endPos = sf::Vector2f());
 	virtual void setPosition(sf::Vector2f &position) override;

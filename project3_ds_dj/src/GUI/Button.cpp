@@ -16,7 +16,7 @@ Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusC
 	m_buttonSprite.setScale(scaleWidth, scaleHeight);
 	m_buttonSprite.setOrigin(m_buttonSprite.getLocalBounds().width / 2.0f, m_buttonSprite.getLocalBounds().height / 2.0f);
 
-	widgetPos = positionIn; // Set the position in the base class
+	widgetPos = positionIn;
 	widgetStartPos = positionIn;
 	widgetEndPos = endPos;
 
