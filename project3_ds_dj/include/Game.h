@@ -12,6 +12,7 @@
 #include "Screens\ExitMenu.h"
 #include "Screens\Credits.h"
 #include "Screens\PlayMenu.h"
+#include "Screens\SplashScreen.h"
 
 class Game
 {
@@ -31,11 +32,6 @@ private:
     EntityManager m_entityManager;
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
-	MainMenu *m_mainMenu;
-	Options *m_optionsMenu;
-	ExitMenu *m_exitMenu;
-	Credits *m_credits;
-	PlayMenu *m_playMenu;
 
 };
 #endif // !GAME_H

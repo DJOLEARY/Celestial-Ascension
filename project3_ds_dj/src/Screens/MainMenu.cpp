@@ -1,9 +1,9 @@
 #include "Screens\MainMenu.h"
 
 MainMenu::MainMenu()
-	: Screen(GameState::MainMenu), m_alphaFadeValue(0)
+	: Screen(GameState::MainMenu), m_alphaFadeValue(255)
 {
-	m_fadeRectangle.setSize(sf::Vector2f(800.0f, 800.0f));
+	m_fadeRectangle.setSize(sf::Vector2f(1920.0f, 1080.0f));
 	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue));
 
 	m_gameTitle = new Label("This is a label", 24, sf::Vector2f(1920 / 2, 150.0f), sf::Vector2f(1500.0f, 150.0f));
@@ -129,8 +129,8 @@ void MainMenu::update(XboxController &controller)
 /// <param name="window">window usd to render the GUI and fade rectangle</param>
 void MainMenu::render(sf::RenderWindow & window)
 {
-	window.draw(m_fadeRectangle);
 	window.draw(m_gui);
+	window.draw(m_fadeRectangle);
 }
 
 /// <summary>

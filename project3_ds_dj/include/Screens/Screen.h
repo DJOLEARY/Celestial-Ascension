@@ -1,6 +1,5 @@
 /// <summary>
 /// @author Darren Sweeney
-/// @version 1.0
 /// </summary>
 
 #ifndef SCREEN_H
@@ -20,9 +19,9 @@ enum class GameState
 	MainMenu,
 	Options,
 	ExitMenu,
-	GamePlay,
 	Credits,
-	PlayMenu
+	PlayMenu,
+	GamePlay
 };
 
 /// <summary>
@@ -34,12 +33,13 @@ class Screen
 {
 public:
 	Screen(GameState gameStateIn);
-	virtual void update(XboxController& controller) = 0; // pure virtual update (needs to be overrided)
+	virtual void reset();
+	virtual void update(XboxController& controller) = 0;
 	virtual void render(sf::RenderWindow& window);
 	GameState getGameState();
 	GameState getNextGameState();
 	void resetNextGameState();
-	virtual void reset() = 0; // pure virtual reset (needs to be overrided)
+
 protected:
 	// GameState variables
 	GameState m_gameState;

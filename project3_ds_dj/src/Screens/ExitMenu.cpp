@@ -4,9 +4,8 @@ ExitMenu::ExitMenu()
 	: Screen(GameState::ExitMenu), transitionIn(true)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
-	sf::Color focusIn(255, 0, 0);
-	sf::Color focusOut(0, 255, 0);
-	sf::Color fillColor(0, 0, 255);
+	sf::Color focusIn(50, 200, 50);
+	sf::Color focusOut(100, 20, 50);
 
 	if (!m_yesTexture.loadFromFile("Assets/GUI/YesButton.png"))
 		std::cout << "ERROR::Options::Yes Texture image not loaded";
@@ -46,7 +45,7 @@ void ExitMenu::update(XboxController &controller)
 {
 	m_gui.processInput(controller);
 
-	if (controller.isButtonPressed(XBOX360_BACK))
+	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_noButtonPressed = true;
 	}

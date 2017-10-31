@@ -7,18 +7,15 @@ Game::Game() :
 {
 	m_view.zoom(1.0f);
 	m_window.setView(m_view);
+	m_window.setMouseCursorVisible(false);
 
     m_entityManager.Add(new Player(m_xboxController));
-	m_mainMenu = new MainMenu();
-	m_optionsMenu = new Options();
-	m_exitMenu = new ExitMenu();
-	m_credits = new Credits();
-	m_playMenu = new PlayMenu();
-	m_screenManager.add(m_mainMenu);
-	m_screenManager.add(m_optionsMenu);
-	m_screenManager.add(m_exitMenu);
-	m_screenManager.add(m_credits);
-	m_screenManager.add(m_playMenu);
+	m_screenManager.add(new SplashScreen());
+	m_screenManager.add(new MainMenu());
+	m_screenManager.add(new Options());
+	m_screenManager.add(new ExitMenu());
+	m_screenManager.add(new Credits());
+	m_screenManager.add(new PlayMenu());
 }
 
 Game::~Game()

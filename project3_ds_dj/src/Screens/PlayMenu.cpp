@@ -8,10 +8,10 @@ PlayMenu::PlayMenu()
 	sf::Color focusOut(100, 20, 50);
 
 	if (!m_playTexture.loadFromFile("Assets/GUI/BattleIcon.png"))
-		std::cout << "ERROR::Options::ApplyButton image not loaded";
+		std::cout << "ERROR::PlayMenu::BattleIcon image not loaded";
 
 	if (!m_upgradeTexture.loadFromFile("Assets/GUI/upgrade_icon.png"))
-		std::cout << "ERROR::Options::ApplyButton image not loaded";
+		std::cout << "ERROR::PlayMenu::upgrade_icon image not loaded";
 
 	m_playButton = new Button(m_playTexture, sf::Vector2f(1920.0f / 2 - 300.0f, 500.0f), focusIn, focusOut, 
 		0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 500.0f, 500));
@@ -36,7 +36,7 @@ void PlayMenu::update(XboxController &controller)
 {
 	m_gui.processInput(controller);
 
-	if (controller.isButtonPressed(XBOX360_BACK))
+	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
 	}

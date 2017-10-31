@@ -183,6 +183,7 @@
     <ClCompile Include="src\Screens\PlayMenu.cpp" />
     <ClCompile Include="src\Screens\Screen.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Screens\SplashScreen.cpp" />
     <ClCompile Include="src\XboxController.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -205,6 +206,7 @@
     <ClInclude Include="include\Screens\PlayMenu.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
+    <ClInclude Include="include\Screens\SplashScreen.h" />
     <ClInclude Include="include\XboxController.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

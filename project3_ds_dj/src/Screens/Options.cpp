@@ -3,21 +3,21 @@
 Options::Options()
 	: Screen(GameState::Options), transitionIn(true)
 {
-	sf::Color focusIn(255, 0, 0);
-	sf::Color focusOut(0, 255, 0);
+	sf::Color focusIn(50, 200, 50);
+	sf::Color focusOut(100, 20, 50);
 	sf::Color fillColor(0, 0, 255);
 
 	// Initiaise the GUI elements
 	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), sf::Vector2f(1920.0f / 2, 100.0f));
-	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 220), sf::Vector2f(1920.0f / 2 + 400.0f, 220));
-	m_musicVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 300.0f), 
-		200.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 300.0f));
-	m_effectsTitle = new Label("Effects Volume", 24, sf::Vector2f(1920 / 2, 350), sf::Vector2f(1920.0f / 2 + 400.0f, 350));
-	m_effectsVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f),
-		200.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
-	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 450), sf::Vector2f(1920.0f / 2 + 400.0f, 450));
-	m_muteCheckBox = new CheckBox(sf::Vector2f(1920.0f / 2, 500), focusIn, focusOut, fillColor, 
-		40.0f, 40.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
+	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 350), sf::Vector2f(1920.0f / 2 + 400.0f, 350));
+	m_musicVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f), 
+		200.0f, 20.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
+	m_effectsTitle = new Label("Effects Volume", 24, sf::Vector2f(1920 / 2, 450), sf::Vector2f(1920.0f / 2 + 400.0f, 450));
+	m_effectsVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 500.0f),
+		200.0f, 20.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
+	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 550), sf::Vector2f(1920.0f / 2 + 400.0f, 550));
+	m_muteCheckBox = new CheckBox(sf::Vector2f(1920.0f / 2, 600), focusIn, focusOut, fillColor, 
+		30.0f, 30.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
 
 	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 325.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut,fillColor, sf::Vector2f(1920.0f / 2 - 75.0f, 700.0f), 
@@ -90,7 +90,7 @@ void Options::update(XboxController &controller)
 {
 	m_gui.processInput(controller);
 
-	if (controller.isButtonPressed(XBOX360_BACK))
+	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_applyButtonPressed = true;
 	}

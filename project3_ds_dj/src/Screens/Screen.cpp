@@ -11,6 +11,14 @@ Screen::Screen(GameState gameStateIn)
 }
 
 /// <summary>
+/// 
+/// </summary>
+void Screen::reset()
+{
+
+}
+
+/// <summary>
 /// Function draws the gui object
 /// </summary>
 /// <param name="window">The render window used to draw the game</param>

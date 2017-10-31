@@ -25,7 +25,7 @@ void Credits::update(XboxController& controller)
 {
 	m_gui.processInput(controller);
 
-	if (controller.isButtonPressed(XBOX360_BACK))
+	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
 	}
