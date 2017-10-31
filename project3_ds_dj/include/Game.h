@@ -11,6 +11,7 @@
 #include "Screens\Options.h"
 #include "Screens\ExitMenu.h"
 #include "Screens\Credits.h"
+#include "Screens\PlayMenu.h"
 
 class Game
 {
@@ -34,5 +35,7 @@ private:
 	Options *m_optionsMenu;
 	ExitMenu *m_exitMenu;
 	Credits *m_credits;
+	PlayMenu *m_playMenu;
+
 };
 #endif // !GAME_H

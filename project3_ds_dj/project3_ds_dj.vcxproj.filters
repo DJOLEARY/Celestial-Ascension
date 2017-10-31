@@ -19,6 +19,7 @@
     <ClCompile Include="src\GUI\RadioButton.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
+    <ClCompile Include="src\Screens\PlayMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -40,5 +41,6 @@
     <ClInclude Include="include\GUI\RadioButton.h" />
     <ClInclude Include="include\Screens\ExitMenu.h" />
     <ClInclude Include="include\Screens\Credits.h" />
+    <ClInclude Include="include\Screens\PlayMenu.h" />
   </ItemGroup>
 </Project>

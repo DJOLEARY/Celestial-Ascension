@@ -13,10 +13,12 @@ Game::Game() :
 	m_optionsMenu = new Options();
 	m_exitMenu = new ExitMenu();
 	m_credits = new Credits();
+	m_playMenu = new PlayMenu();
 	m_screenManager.add(m_mainMenu);
 	m_screenManager.add(m_optionsMenu);
 	m_screenManager.add(m_exitMenu);
 	m_screenManager.add(m_credits);
+	m_screenManager.add(m_playMenu);
 }
 
 Game::~Game()

@@ -21,7 +21,8 @@ enum class GameState
 	Options,
 	ExitMenu,
 	GamePlay,
-	Credits
+	Credits,
+	PlayMenu
 };
 
 /// <summary>

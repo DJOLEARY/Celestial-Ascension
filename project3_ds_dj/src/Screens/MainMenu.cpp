@@ -77,7 +77,7 @@ void MainMenu::update(XboxController &controller)
 		m_gui.transitionOut(0.05f, interpolation); 
 		if (interpolation >= 1.0f)
 		{
-			m_nextGameState = GameState::GamePlay; 
+			m_nextGameState = GameState::PlayMenu; 
 			interpolation = 0.0f; // Reset the interpolation
 			reset(); // Reset the main menu
 		}

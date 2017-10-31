@@ -180,6 +180,7 @@
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
     <ClCompile Include="src\Screens\Options.cpp" />
+    <ClCompile Include="src\Screens\PlayMenu.cpp" />
     <ClCompile Include="src\Screens\Screen.cpp" />
     <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\XboxController.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="include\Screens\ExitMenu.h" />
     <ClInclude Include="include\Screens\MainMenu.h" />
     <ClInclude Include="include\Screens\Options.h" />
+    <ClInclude Include="include\Screens\PlayMenu.h" />
     <ClInclude Include="include\Screens\Screen.h" />
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\XboxController.h" />
