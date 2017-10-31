@@ -2,10 +2,12 @@
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
     m_playerPos(playerPos),
-    m_speed(2.0f)
+    m_speed(0.25f)
 {
     if (!m_texture.loadFromFile("Assets/Wanderer.png"))
         std::cout << "ERROR::Enemy::Image not loaded";
+
+    m_position = sf::Vector2f(1920 / 2, 1080 / 2);
 
     m_sprite.setTexture(m_texture);
     m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -20,6 +22,7 @@ Enemy::~Enemy()
 void Enemy::Update(double dt)
 {
     seekPlayer();
+    m_position += m_velocity * (float)dt;
     m_orientation += 0.5f;
 }
 
@@ -32,29 +35,14 @@ void Enemy::Draw(sf::RenderWindow & renderWindow)
 
 void Enemy::seekPlayer()
 {
-    if (m_position.x > m_playerPos->x)
+    std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
+
+    if (sf::distance(m_position, *m_playerPos) < 10.0f)
     {
-        m_position.x -= m_speed;
-    }
-    else if (m_position.x < m_playerPos->x)
-    {
-        m_position.x += m_speed;
+        m_velocity = sf::Vector2f();
     }
     else
     {
-
-    }
-
-    if (m_position.y > m_playerPos->y)
-    {
-        m_position.y -= m_speed;
-    }
-    else if (m_position.y < m_playerPos->y)
-    {
-        m_position.y += m_speed;
-    }
-    else
-    {
-
+        m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
     }
 }
