@@ -20,6 +20,8 @@ public:
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderWindow &renderWindow) override;
 
+    sf::Vector2f* getPos();
+
 private:
 	XboxController &m_xboxController;
 	// @todo(darren): May move speed into entity

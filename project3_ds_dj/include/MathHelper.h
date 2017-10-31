@@ -20,6 +20,11 @@ namespace sf
 	{
 		return (1.0f - t) * startPos + (t * endPos);
 	}
+
+    inline float distance(Vector2f &vec1, Vector2f &vec2)
+    {
+       return sqrtf(powf(vec2.x - vec1.x, 2) + powf(vec2.y - vec1.y, 2));
+    }
 }
 
 #endif
