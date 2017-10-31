@@ -3,26 +3,33 @@
 MainMenu::MainMenu()
 	: Screen(GameState::MainMenu), m_alphaFadeValue(255)
 {
+	sf::Color focusIn(50, 200, 50);
+	sf::Color focusOut(100, 20, 50);
+
 	m_fadeRectangle.setSize(sf::Vector2f(1920.0f, 1080.0f));
 	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue));
 
-	m_gameTitle = new Label("This is a label", 24, sf::Vector2f(1920 / 2, 150.0f), sf::Vector2f(1500.0f, 150.0f));
-
-	if (!buttonOneTexture.loadFromFile("Assets/PlayButton.png"))
+	if (!m_playTexture.loadFromFile("Assets/GUI/PlayButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
-	if (!buttonTwoTexture.loadFromFile("Assets/ExitButton.png"))
+	if (!m_optionsTexture.loadFromFile("Assets/GUI/OptionsButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	if (!m_creditsTexture.loadFromFile("Assets/GUI/CreditsButton.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	if (!m_exitTexture.loadFromFile("Assets/GUI/ExitButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
 	// @todo(darren): Take in the screen resolution so i can allign things correctly
-	m_playButton = new Button(buttonOneTexture, sf::Vector2f(1920 / 2, 300.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 300.0f));
-	m_optionsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 450.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
-	m_creditsButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 600.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
-	m_exitButton = new Button(buttonTwoTexture, sf::Vector2f(1920 / 2, 750.0f),
-		sf::Color(205, 20, 50), sf::Color(20, 40, 105), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 750.0f));
+	m_playButton = new Button(m_playTexture, sf::Vector2f(1920 / 2, 400.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
+	m_optionsButton = new Button(m_optionsTexture, sf::Vector2f(1920 / 2, 500.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
+	m_creditsButton = new Button(m_creditsTexture, sf::Vector2f(1920 / 2, 600.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
+	m_exitButton = new Button(m_exitTexture, sf::Vector2f(1920 / 2, 700.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f));
 
 	m_playButton->select = std::bind(&MainMenu::playButtonSelected, this);
 	m_optionsButton->select = std::bind(&MainMenu::optionsButtonSelected, this);
@@ -38,11 +45,18 @@ MainMenu::MainMenu()
 	m_creditsButton->m_down = m_exitButton;
 	m_exitButton->m_up = m_creditsButton;
 
-	m_gui.add(m_gameTitle);
 	m_gui.add(m_playButton);
 	m_gui.add(m_optionsButton);
 	m_gui.add(m_creditsButton);
 	m_gui.add(m_exitButton);
+
+	if (!m_gameLogoTexture.loadFromFile("Assets/GameLogo.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	m_gameLogoSprite.setTexture(m_gameLogoTexture);
+	m_gameLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 100.0f));
+	m_gameLogoSprite.setScale(sf::Vector2f(0.40f, 0.40f));
+	m_gameLogoSprite.setOrigin(m_gameLogoSprite.getLocalBounds().width / 2.0f, m_gameLogoSprite.getLocalBounds().height / 2.0f);
 }
 
 /// <summary>
@@ -130,6 +144,7 @@ void MainMenu::update(XboxController &controller)
 void MainMenu::render(sf::RenderWindow & window)
 {
 	window.draw(m_gui);
+	window.draw(m_gameLogoSprite);
 	window.draw(m_fadeRectangle);
 }
 

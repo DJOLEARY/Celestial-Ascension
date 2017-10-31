@@ -26,14 +26,15 @@ private:
 	void creditsButtonSelected();
 
 	// GUI elements
-	Label *m_gameTitle;
 	Button *m_playButton;
 	Button *m_optionsButton;
 	Button *m_creditsButton;
 	Button *m_exitButton;
 
 	// @todo(darren): Replace with resource manager and texture atlas
-	sf::Texture buttonOneTexture, buttonTwoTexture;
+	sf::Texture m_playTexture, m_optionsTexture, m_creditsTexture, m_exitTexture;
+	sf::Texture m_gameLogoTexture;
+	sf::Sprite m_gameLogoSprite;
 
 	// Rectangle and variables used for screen fading
 	sf::RectangleShape m_fadeRectangle;
