@@ -13,7 +13,7 @@ public:
 	ScreenManager();
 	~ScreenManager();
 
-	void update(XboxController &controller);
+	void update(XboxController &controller, sf::Int32 dt);
 	void draw(sf::RenderWindow& window);
 	void add(Screen *Screen);
 

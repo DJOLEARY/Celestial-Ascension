@@ -9,15 +9,13 @@ Game::Game() :
 	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
 
-    Player* player = new Player(m_xboxController);
-    m_entityManager.Add(player);
-    m_entityManager.Add(new Enemy(player->getPos()));
 	m_screenManager.add(new SplashScreen());
 	m_screenManager.add(new MainMenu());
 	m_screenManager.add(new Options());
 	m_screenManager.add(new ExitMenu());
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
+    m_screenManager.add(new GameScreen(m_xboxController));
 }
 
 Game::~Game()
@@ -59,14 +57,12 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-	m_screenManager.update(m_xboxController);
-	m_entityManager.Update(dt);	
+	m_screenManager.update(m_xboxController, dt);
 }
 
 void Game::draw(sf::RenderWindow & renderWindow)
 {
     renderWindow.clear();
 	m_screenManager.draw(m_window);
-    m_entityManager.Draw(m_window);
     renderWindow.display();
 }

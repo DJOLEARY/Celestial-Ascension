@@ -4,9 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "EntityManager.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "Screens\ScreenManager.h"
 #include "Screens\MainMenu.h"
 #include "Screens\Options.h"
@@ -14,6 +11,7 @@
 #include "Screens\Credits.h"
 #include "Screens\PlayMenu.h"
 #include "Screens\SplashScreen.h"
+#include "Screens\GameScreen.h"
 
 class Game
 {
@@ -30,7 +28,6 @@ private:
     sf::RenderWindow m_window;
 	sf::View m_view;
 
-    EntityManager m_entityManager;
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
 

@@ -34,7 +34,8 @@ class Screen
 public:
 	Screen(GameState gameStateIn);
 	virtual void reset();
-	virtual void update(XboxController& controller) = 0;
+	virtual void update(XboxController& controller);
+    virtual void update(XboxController& controller, sf::Int32 dt);
 	virtual void render(sf::RenderWindow& window);
 	GameState getGameState();
 	GameState getNextGameState();

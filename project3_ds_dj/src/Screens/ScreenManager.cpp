@@ -16,14 +16,21 @@ ScreenManager::~ScreenManager()
 /// update function updtes the current screen based off of the current game state
 /// </summary>
 /// <param name="controller">The controller to be passed to each screen when updating</param>
-void ScreenManager::update(XboxController &controller)
+void ScreenManager::update(XboxController &controller, sf::Int32 dt)
 {
 	// We use the variable m_currentScreen so as we don't have to loop through the vector again when rendering
 	for (m_currentScreen = 0; m_currentScreen < m_screens.size(); m_currentScreen++)
 	{
 		if (m_screens.at(m_currentScreen)->getGameState() == m_gameState) // Check if the game state of the screen matches the current game state
 		{
-			m_screens.at(m_currentScreen)->update(controller); // Update the current screen
+            if (m_gameState != GameState::GamePlay)
+            {
+                m_screens.at(m_currentScreen)->update(controller); // Update the current screen
+            }
+            else
+            {
+                m_screens.at(m_currentScreen)->update(controller, dt); // Update the current screen
+            }
 			GameState nextState = m_screens.at(m_currentScreen)->getNextGameState();
 			if (nextState != m_gameState) // Check if the screen wants to switch game states
 			{
