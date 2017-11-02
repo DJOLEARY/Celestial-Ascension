@@ -1,6 +1,53 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+<<<<<<< HEAD
+    <ClCompile Include="src\EntityManger.cpp" />
+    <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\GUI\CheckBox.cpp" />
+    <ClCompile Include="src\GUI\GUI.cpp" />
+    <ClCompile Include="src\GUI\Label.cpp" />
+    <ClCompile Include="src\GUI\Slider.cpp" />
+    <ClCompile Include="src\GUI\Widget.cpp" />
+    <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\XboxController.cpp" />
+    <ClCompile Include="src\Screens\Screen.cpp" />
+    <ClCompile Include="src\Screens\MainMenu.cpp" />
+    <ClCompile Include="src\Screens\ScreenManager.cpp" />
+    <ClCompile Include="src\Screens\Options.cpp" />
+    <ClCompile Include="src\GUI\RadioButton.cpp" />
+    <ClCompile Include="src\Screens\ExitMenu.cpp" />
+    <ClCompile Include="src\Screens\Credits.cpp" />
+    <ClCompile Include="src\Screens\PlayMenu.cpp" />
+    <ClCompile Include="src\Screens\SplashScreen.cpp" />
+    <ClCompile Include="src\Graphics\Bloom.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="include\Entity.h" />
+    <ClInclude Include="include\EntityManager.h" />
+    <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\GUI\Button.h" />
+    <ClInclude Include="include\GUI\CheckBox.h" />
+    <ClInclude Include="include\GUI\GUI.h" />
+    <ClInclude Include="include\GUI\Label.h" />
+    <ClInclude Include="include\GUI\Slider.h" />
+    <ClInclude Include="include\GUI\Widget.h" />
+    <ClInclude Include="include\MathHelper.h" />
+    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\XboxController.h" />
+    <ClInclude Include="include\Screens\Screen.h" />
+    <ClInclude Include="include\Screens\MainMenu.h" />
+    <ClInclude Include="include\Screens\ScreenManager.h" />
+    <ClInclude Include="include\Screens\Options.h" />
+    <ClInclude Include="include\GUI\RadioButton.h" />
+    <ClInclude Include="include\Screens\ExitMenu.h" />
+    <ClInclude Include="include\Screens\Credits.h" />
+    <ClInclude Include="include\Screens\PlayMenu.h" />
+    <ClInclude Include="include\Screens\SplashScreen.h" />
+    <ClInclude Include="include\Graphics\Bloom.h" />
+=======
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
@@ -203,5 +250,6 @@
     <ClInclude Include="include\Screens\GameScreen.h">
       <Filter>Header Files\Screens</Filter>
     </ClInclude>
+>>>>>>> 01e5cee96ba7f2f59f0eb82ec370dd620da753ad
   </ItemGroup>
 </Project>

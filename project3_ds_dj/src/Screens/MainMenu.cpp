@@ -21,7 +21,6 @@ MainMenu::MainMenu()
 	if (!m_exitTexture.loadFromFile("Assets/GUI/ExitButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
-	// @todo(darren): Take in the screen resolution so i can allign things correctly
 	m_playButton = new Button(m_playTexture, sf::Vector2f(1920 / 2, 400.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
 	m_optionsButton = new Button(m_optionsTexture, sf::Vector2f(1920 / 2, 500.0f),
