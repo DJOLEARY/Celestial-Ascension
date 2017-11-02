@@ -1,7 +1,7 @@
 #include "Game.h"
 
 Game::Game() : 
-    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Fullscreen),
+    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default),
     m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080))
 {
@@ -16,6 +16,8 @@ Game::Game() :
 	m_screenManager.add(new ExitMenu());
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
+
+	
 }
 
 Game::~Game()

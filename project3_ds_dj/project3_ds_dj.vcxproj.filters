@@ -21,6 +21,7 @@
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\PlayMenu.cpp" />
     <ClCompile Include="src\Screens\SplashScreen.cpp" />
+    <ClCompile Include="src\Graphics\Bloom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Entity.h" />
@@ -44,5 +45,6 @@
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\PlayMenu.h" />
     <ClInclude Include="include\Screens\SplashScreen.h" />
+    <ClInclude Include="include\Graphics\Bloom.h" />
   </ItemGroup>
 </Project>

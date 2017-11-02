@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="src\EntityManger.cpp" />
     <ClCompile Include="src\Game.cpp" />
+    <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CheckBox.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
@@ -190,6 +191,7 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\Game.h" />
+    <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\GUI\Button.h" />
     <ClInclude Include="include\GUI\CheckBox.h" />
     <ClInclude Include="include\GUI\GUI.h" />
