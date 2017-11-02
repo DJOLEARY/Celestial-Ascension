@@ -23,7 +23,7 @@ Player::~Player()
 }
 
 /// <summary>
-/// Handles the controller input for teh player mechanics in game.
+/// Handles the controller input for the player mechanics in game.
 /// </summary>
 void Player::ProcessInput(double dt)
 {
@@ -52,6 +52,10 @@ void Player::ProcessInput(double dt)
 	{
 		m_velocity *= 0.95f;
 	}
+    else if (sf::magnitude(m_velocity) < 0.001f)
+    {
+        m_velocity = sf::Vector2f();
+    }
 }
 
 /// <summary>
@@ -72,4 +76,9 @@ void Player::Draw(sf::RenderWindow &renderWindow)
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
 	renderWindow.draw(m_sprite);
+}
+
+sf::Vector2f* Player::getPos()
+{
+    return &m_position;
 }

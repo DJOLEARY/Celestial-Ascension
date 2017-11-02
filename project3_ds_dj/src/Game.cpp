@@ -9,7 +9,9 @@ Game::Game() :
 	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
 
-    m_entityManager.Add(new Player(m_xboxController));
+    Player* player = new Player(m_xboxController);
+    m_entityManager.Add(player);
+    m_entityManager.Add(new Enemy(player->getPos()));
 	m_screenManager.add(new SplashScreen());
 	m_screenManager.add(new MainMenu());
 	m_screenManager.add(new Options());

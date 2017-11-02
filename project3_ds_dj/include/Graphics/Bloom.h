@@ -43,8 +43,8 @@ private:
 	float _threshold;
 	float _force;
 
-	GaussianBlur _blur;
-	ExtractBrightParts _brightPartsExtractor;
+	//GaussianBlur _blur;
+	//ExtractBrightParts _brightPartsExtractor;
 
 	sf::RenderTexture _lightParts;
 	sf::RenderTexture _blurred;

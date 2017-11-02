@@ -3,9 +3,9 @@
 /* sizeFactor: defines if the image should be shrinked, blurred, then upscaled */
 Bloom::Bloom(sf::Vector2u bufferSize, float threshold, float force) :
 	_threshold(threshold),
-	_force(force),
-	_blur(bufferSize, 10, 2),
-	_brightPartsExtractor(_threshold)
+	_force(force)
+	//_blur(bufferSize, 10, 2),
+	//_brightPartsExtractor(_threshold)
 {
 	if (!_lightParts.create(bufferSize.x, bufferSize.y)) {
 		throw std::runtime_error("Error: Bloom, buffer creation failed");
@@ -46,7 +46,7 @@ float Bloom::getThreshold() const
 void Bloom::setThreshold(float threshold)
 {
 	_threshold = threshold;
-	_brightPartsExtractor.setThreshold(threshold);
+	//_brightPartsExtractor.setThreshold(threshold);
 }
 
 float Bloom::getForce() const
@@ -63,19 +63,19 @@ void Bloom::applyTreatment(sf::Texture const& inputTexture,
 	sf::RenderTarget& target)
 {
 	/* First we extract the bright parts */
-	_brightPartsExtractor.applyTreatment(inputTexture, _lightParts);
+	//_brightPartsExtractor.applyTreatment(inputTexture, _lightParts);
 	_lightParts.display();
 
 	/* Then blur then */
-	_blur.applyTreatment(_lightParts.getTexture(), _blurred);
+	//_blur.applyTreatment(_lightParts.getTexture(), _blurred);
 	_blurred.display();
 
 	/* Finally we render the input texture + the blurred bright parts */
 	sf::Vector2f texSize(target.getSize().x, target.getSize().y);
-	_shader.setParameter("clearTexture", inputTexture);
+	/*_shader.setParameter("clearTexture", inputTexture);
 	_shader.setParameter("blurredLightsTexture", _blurred.getTexture());
 	_shader.setParameter("inputSize", texSize);
-	_shader.setParameter("force", _force);
+	_shader.setParameter("force", _force);*/
 	sf::RectangleShape square(texSize);
 	target.draw(square, _renderStates);
 }
