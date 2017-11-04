@@ -26,16 +26,16 @@ void Enemy::Update(double dt)
     m_orientation += 0.5f;
 }
 
-void Enemy::Draw(sf::RenderWindow & renderWindow)
+void Enemy::Draw(sf::RenderTexture &renderTexture)
 {
     m_sprite.setRotation(m_orientation);
     m_sprite.setPosition(m_position);
-    renderWindow.draw(m_sprite);
+    renderTexture.draw(m_sprite);
 }
 
 void Enemy::seekPlayer()
 {
-    std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
+    //std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
 
     if (sf::distance(m_position, *m_playerPos) < 10.0f)
     {

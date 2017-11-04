@@ -16,7 +16,7 @@ class MainMenu : public Screen
 public:
 	MainMenu();
 	void update(XboxController& controller) override;
-	void render(sf::RenderWindow & window) override;
+	void render(sf::RenderTexture & renderTexture) override;
 	void reset() override;
 
 private:
@@ -39,7 +39,7 @@ private:
 	// Rectangle and variables used for screen fading
 	sf::RectangleShape m_fadeRectangle;
 	float m_alphaFadeValue;
-	const float FADE_RATE = 1.5f;
+	const float FADE_RATE = 3.5f;
 
 	// Linked to Callbacks
 	bool playButtonPressed;

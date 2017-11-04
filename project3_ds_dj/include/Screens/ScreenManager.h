@@ -14,7 +14,7 @@ public:
 	~ScreenManager();
 
 	void update(XboxController &controller);
-	void draw(sf::RenderWindow& window);
+	void draw(sf::RenderTexture &renderTexture);
 	void add(Screen *Screen);
 
 private:

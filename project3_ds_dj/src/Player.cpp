@@ -70,12 +70,12 @@ void Player::Update(double dt)
 /// <summary>
 /// Renders the player sprite with it's appropiate position and rotation transforms.
 /// </summary>
-/// <param name="renderWindow"></param>
-void Player::Draw(sf::RenderWindow &renderWindow)
+/// <param name="renderTexture"></param>
+void Player::Draw(sf::RenderTexture &renderTexture)
 {
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
-	renderWindow.draw(m_sprite);
+	renderTexture.draw(m_sprite);
 }
 
 sf::Vector2f* Player::getPos()

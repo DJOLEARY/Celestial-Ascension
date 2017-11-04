@@ -43,11 +43,11 @@ void EntityManager::Update(sf::Int32 dt)
 /// <summary>
 /// 
 /// </summary>
-/// <param name="window"></param>
-void EntityManager::Draw(sf::RenderWindow &window)
+/// <param name="renderTexture"></param>
+void EntityManager::Draw(sf::RenderTexture &renderTexture)
 {
 	for (Entity *entity : m_entites)
 	{
-		entity->Draw(window);
+		entity->Draw(renderTexture);
 	}
 }

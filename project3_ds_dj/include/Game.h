@@ -15,6 +15,8 @@
 #include "Screens\PlayMenu.h"
 #include "Screens\SplashScreen.h"
 
+#include "Graphics/Bloom.h"
+
 class Game
 {
 public:
@@ -25,10 +27,12 @@ public:
 
 private:
     void update(sf::Int32 dt);
-    void draw(sf::RenderWindow & renderWindow);
+    void draw();
 
     sf::RenderWindow m_window;
 	sf::View m_view;
+	sf::RenderTexture m_renderTexture;
+	Bloom bloom;
 
     EntityManager m_entityManager;
 	ScreenManager m_screenManager;

@@ -1,30 +1,34 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
+    <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\EntityManger.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CheckBox.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
     <ClCompile Include="src\GUI\Label.cpp" />
+    <ClCompile Include="src\GUI\RadioButton.cpp" />
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\XboxController.cpp" />
-    <ClCompile Include="src\Screens\Screen.cpp" />
-    <ClCompile Include="src\Screens\MainMenu.cpp" />
-    <ClCompile Include="src\Screens\ScreenManager.cpp" />
-    <ClCompile Include="src\Screens\Options.cpp" />
-    <ClCompile Include="src\GUI\RadioButton.cpp" />
-    <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
+    <ClCompile Include="src\Screens\ExitMenu.cpp" />
+    <ClCompile Include="src\Screens\MainMenu.cpp" />
+    <ClCompile Include="src\Screens\Options.cpp" />
     <ClCompile Include="src\Screens\PlayMenu.cpp" />
+    <ClCompile Include="src\Screens\Screen.cpp" />
+    <ClCompile Include="src\Screens\ScreenManager.cpp" />
     <ClCompile Include="src\Screens\SplashScreen.cpp" />
+    <ClCompile Include="src\XboxController.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
+    <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
+    <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
+    <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\Game.h" />
@@ -32,218 +36,28 @@
     <ClInclude Include="include\GUI\CheckBox.h" />
     <ClInclude Include="include\GUI\GUI.h" />
     <ClInclude Include="include\GUI\Label.h" />
+    <ClInclude Include="include\GUI\RadioButton.h" />
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Player.h" />
-    <ClInclude Include="include\XboxController.h" />
-    <ClInclude Include="include\Screens\Screen.h" />
-    <ClInclude Include="include\Screens\MainMenu.h" />
-    <ClInclude Include="include\Screens\ScreenManager.h" />
-    <ClInclude Include="include\Screens\Options.h" />
-    <ClInclude Include="include\GUI\RadioButton.h" />
-    <ClInclude Include="include\Screens\ExitMenu.h" />
     <ClInclude Include="include\Screens\Credits.h" />
+    <ClInclude Include="include\Screens\ExitMenu.h" />
+    <ClInclude Include="include\Screens\MainMenu.h" />
+    <ClInclude Include="include\Screens\Options.h" />
     <ClInclude Include="include\Screens\PlayMenu.h" />
+    <ClInclude Include="include\Screens\Screen.h" />
+    <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\SplashScreen.h" />
+    <ClInclude Include="include\XboxController.h" />
     <ClInclude Include="include\Graphics\Bloom.h" />
-=======
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{ceed6bcc-e43b-42eb-8d6c-fa5464565c9a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Screens">
-      <UniqueIdentifier>{2bbd944a-9451-44f5-ae8d-a0c921f81783}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{1bcee893-0cd8-4b7f-8b78-ea788c6032cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Screens">
-      <UniqueIdentifier>{7bcba9b6-e88c-4876-9fcc-c073b9895b3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{a2e796bc-72da-4f50-9d1e-09485d7835f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{bef3dc7d-598e-42d0-8efc-0d3bb88e4aa9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{a2e796bc-72da-4f50-9d1e-09485d7835f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{bef3dc7d-598e-42d0-8efc-0d3bb88e4aa9}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="include\Graphics\DirectionalBlur.h" />
+    <ClInclude Include="include\Graphics\ExtractBrightParts.h" />
+    <ClInclude Include="include\Graphics\GaussianBlur.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\EntityManger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\XboxController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Button.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\CheckBox.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\GUI.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Label.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\RadioButton.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Slider.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\GUI\Widget.cpp">
-      <Filter>Source Files\GUI</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Credits.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\ExitMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\MainMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Options.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\PlayMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Screen.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\ScreenManager.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EntityManger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\XboxController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\SplashScreen.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MathHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\XboxController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\MathHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\XboxController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\Button.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\CheckBox.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\GUI.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\Label.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\RadioButton.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\Slider.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\GUI\Widget.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Credits.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\ExitMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\MainMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Options.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\PlayMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Screen.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\ScreenManager.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\SplashScreen.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
->>>>>>> 01e5cee96ba7f2f59f0eb82ec370dd620da753ad
+    <None Include="Bloom.frag" />
+    <None Include="ExtractBrightness.frag" />
+    <None Include="DirectionalBlur.frag" />
   </ItemGroup>
 </Project>

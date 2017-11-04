@@ -21,10 +21,10 @@ void Screen::reset()
 /// <summary>
 /// Function draws the gui object
 /// </summary>
-/// <param name="window">The render window used to draw the game</param>
-void Screen::render(sf::RenderWindow& window)
+/// <param name="renderTexture">The render texture used to draw the game</param>
+void Screen::render(sf::RenderTexture& renderTexture)
 {
-	window.draw(m_gui);
+	renderTexture.draw(m_gui);
 }
 
 /// <summary>

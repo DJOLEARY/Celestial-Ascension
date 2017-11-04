@@ -2,9 +2,13 @@
 
 Game::Game() : 
     m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default),
-    m_xboxController(CONTROLLER_ONE),
-	m_view(sf::FloatRect(0, 0, 1920, 1080))
+    m_xboxController(CONTROLLER_TWO),
+	m_view(sf::FloatRect(0, 0, 1920, 1080)),
+	bloom(m_window.getSize(), 0.2f, 0.6f)
 {
+	std::cout << "openGL version:" << m_window.getSettings().majorVersion 
+		<< "." << m_window.getSettings().minorVersion << std::endl << std::endl;
+
 	m_view.zoom(1.0f);
 	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
@@ -19,7 +23,8 @@ Game::Game() :
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
 
-	
+	if (!m_renderTexture.create(m_window.getSize().x, m_window.getSize().y))
+		std::cout << "Render texture not created" << std::endl;
 }
 
 Game::~Game()
@@ -55,7 +60,7 @@ void Game::run()
 			timeSinceLastUpdate = sf::Time::Zero;
 		}
 
-        draw(m_window);
+        draw();
     }
 }
 
@@ -65,10 +70,14 @@ void Game::update(sf::Int32 dt)
 	m_entityManager.Update(dt);	
 }
 
-void Game::draw(sf::RenderWindow & renderWindow)
+void Game::draw()
 {
-    renderWindow.clear();
-	m_screenManager.draw(m_window);
-    m_entityManager.Draw(m_window);
-    renderWindow.display();
+	m_renderTexture.clear();
+	m_screenManager.draw(m_renderTexture);
+	m_renderTexture.display();
+
+    m_window.clear();
+    m_entityManager.Draw(m_renderTexture);
+	bloom.apply(m_renderTexture.getTexture(), m_window);
+	m_window.display();
 }

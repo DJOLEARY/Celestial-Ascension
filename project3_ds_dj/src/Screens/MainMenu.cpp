@@ -139,12 +139,12 @@ void MainMenu::update(XboxController &controller)
 /// <summary>
 /// Render function used to draw the main menu and its GUI
 /// </summary>
-/// <param name="window">window usd to render the GUI and fade rectangle</param>
-void MainMenu::render(sf::RenderWindow & window)
+/// <param name="window">render texture usd to render the GUI and fade rectangle</param>
+void MainMenu::render(sf::RenderTexture & renderTexture)
 {
-	window.draw(m_gui);
-	window.draw(m_gameLogoSprite);
-	window.draw(m_fadeRectangle);
+	renderTexture.draw(m_gui);
+	renderTexture.draw(m_gameLogoSprite);
+	renderTexture.draw(m_fadeRectangle);
 }
 
 /// <summary>

@@ -12,7 +12,7 @@ public:
     ~Enemy();   //  Enemy destructor.
 
     virtual void Update(double dt) override;
-    virtual void Draw(sf::RenderWindow &renderWindow) override;
+    virtual void Draw(sf::RenderTexture &renderTexture) override;
 private:
 
     void seekPlayer();

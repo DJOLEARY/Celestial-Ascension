@@ -1,56 +1,51 @@
-#ifndef BLOOM_HPP_INCLUDED
-#define BLOOM_HPP_INCLUDED
+/// <summary>
+/// @author Darren Sweeney
+/// </summary>
 
-#include <SFML/Graphics/RenderTexture.hpp>
-#include <SFML/Graphics/RenderStates.hpp>
-#include <SFML/Graphics/Shader.hpp>
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/RectangleShape.hpp>
+#ifndef BLOOM_H
+#define BLOOM_H
 
-#include <cmath>
-#include <stdexcept>
+#include "Graphics/GaussianBlur.h"
+#include "Graphics/ExtractBrightParts.h"
+
+#include <SFML/Graphics.hpp>
+
 #include <sstream>
+#include <fstream>
+#include <iostream>
 
 /* Bloom post-treatment.
-* Makes bright parts of the image shinier.
-*
-* The treatment works in 3 steps:
-* - extraction of the bright parts of the image
-* - blurring of the resulting image
-* - adding of the blurred bright parts to the input image.
-*/
-class Bloom 
+ * Makes bright parts of the image shinier.
+ *
+ * The treatment works in 3 steps:
+ * - extraction of the bright parts of the image
+ * - blurring of the resulting image
+ * - adding of the blurred bright parts to the input image.
+ */
+class Bloom
 {
-public:
-	/* Constructor.
-	* textureSize: dimensions of the texture to be processed.
-	* threshold: which bright parts to extract.
-	* force: force of the effect
-	*/
-	Bloom(sf::Vector2u textureSize,
-		float threshold = 0.8f,
-		float force = 1.f);
+    public:
+        /* Constructor.
+         * textureSize: dimensions of the texture to be processed.
+         * threshold: which bright parts to extract.
+         * force: force of the effect
+         */
+         Bloom (sf::Vector2u textureSize, float threshold = 0.8f, float force = 1.0f);
 
-	float getThreshold() const;
-	void setThreshold(float threshold);
+        void apply(const sf::Texture &inputTexture, sf::RenderTarget& target);
 
-	float getForce() const;
-	void setForce(float force);
+    private:
 
-	void applyTreatment(sf::Texture const& inputTexture,
-		sf::RenderTarget& target);
-private:
-	float _threshold;
-	float _force;
+        float m_threshold;
+        float m_force;
 
-	//GaussianBlur _blur;
-	//ExtractBrightParts _brightPartsExtractor;
+        GaussianBlur m_blur;
+        ExtractBrightParts m_brightPartsExtractor;
 
-	sf::RenderTexture _lightParts;
-	sf::RenderTexture _blurred;
-
-	sf::Shader _shader;
-	sf::RenderStates _renderStates;
+        sf::Shader m_bloomShader;
+		sf::RenderTexture m_lightParts;
+		sf::RenderTexture m_blurred;
+        sf::RenderStates m_renderStates;
 };
 
-#endif // BLOOM_HPP_INCLUDED
+#endif

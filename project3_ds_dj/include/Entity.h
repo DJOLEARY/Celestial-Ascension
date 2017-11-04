@@ -13,7 +13,7 @@ public:
 	virtual ~Entity() {};
 
 	virtual void Update(double dt) = 0;
-	virtual void Draw(sf::RenderWindow &renderWindow) = 0;
+	virtual void Draw(sf::RenderTexture &renderTexture) = 0;
 
 protected:
 	sf::Texture m_texture;

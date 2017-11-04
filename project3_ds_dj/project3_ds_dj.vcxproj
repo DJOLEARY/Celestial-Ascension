@@ -22,7 +22,7 @@
     <ProjectGuid>{2E28DBE4-3B4C-45A5-8983-5A9485774E69}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>project3_ds_dj</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -168,7 +168,6 @@
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\EntityManger.cpp" />
     <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CheckBox.cpp" />
     <ClCompile Include="src\GUI\GUI.cpp" />
@@ -178,6 +177,10 @@
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Graphics\Bloom.cpp" />
+    <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
+    <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
+    <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
@@ -193,7 +196,6 @@
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
     <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\GUI\Button.h" />
     <ClInclude Include="include\GUI\CheckBox.h" />
     <ClInclude Include="include\GUI\GUI.h" />
@@ -203,6 +205,10 @@
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Graphics\Bloom.h" />
+    <ClInclude Include="include\Graphics\DirectionalBlur.h" />
+    <ClInclude Include="include\Graphics\ExtractBrightParts.h" />
+    <ClInclude Include="include\Graphics\GaussianBlur.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\ExitMenu.h" />
     <ClInclude Include="include\Screens\MainMenu.h" />
@@ -212,6 +218,11 @@
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\SplashScreen.h" />
     <ClInclude Include="include\XboxController.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Bloom.frag" />
+    <None Include="DirectionalBlur.frag" />
+    <None Include="ExtractBrightness.frag" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

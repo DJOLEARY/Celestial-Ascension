@@ -15,7 +15,7 @@ public:
 
 	void Add(Entity *entity);
 	void Update(sf::Int32 dt);
-	void Draw(sf::RenderWindow &window);
+	void Draw(sf::RenderTexture &renderTexture);
 
 private:
 	std::vector<Entity*> m_entites;

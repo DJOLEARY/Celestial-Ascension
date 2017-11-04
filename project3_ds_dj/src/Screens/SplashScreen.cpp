@@ -34,9 +34,9 @@ void SplashScreen::update(XboxController &controller)
 	}
 }
 
-void SplashScreen::render(sf::RenderWindow &window)
+void SplashScreen::render(sf::RenderTexture &renderTexture)
 {
-	window.clear(sf::Color(125, 125, 125));
-	window.draw(m_teamLogoSprite);
-	window.draw(m_fadeRectangle);
+	renderTexture.clear(sf::Color(125, 125, 125));
+	renderTexture.draw(m_teamLogoSprite);
+	renderTexture.draw(m_fadeRectangle);
 }

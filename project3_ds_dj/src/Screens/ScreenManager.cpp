@@ -48,11 +48,11 @@ void ScreenManager::update(XboxController &controller)
 /// <summary>
 /// render function draws the current screen which is decided in the update function
 /// </summary>
-/// <param name="window">The render window used for drawing the screens</param>
-void ScreenManager::draw(sf::RenderWindow& window)
+/// <param name="renderTexture">The render texture used for drawing the screens</param>
+void ScreenManager::draw(sf::RenderTexture &renderTexture)
 {
 	if (m_currentScreen < m_screens.size())
-		m_screens.at(m_currentScreen)->render(window);
+		m_screens.at(m_currentScreen)->render(renderTexture);
 }
 
 /// <summary>

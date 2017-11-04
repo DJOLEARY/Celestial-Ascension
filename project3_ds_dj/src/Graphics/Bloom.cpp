@@ -1,81 +1,52 @@
 #include "Graphics/Bloom.h"
 
-/* sizeFactor: defines if the image should be shrinked, blurred, then upscaled */
-Bloom::Bloom(sf::Vector2u bufferSize, float threshold, float force) :
-	_threshold(threshold),
-	_force(force)
-	//_blur(bufferSize, 10, 2),
-	//_brightPartsExtractor(_threshold)
+Bloom::Bloom (sf::Vector2u bufferSize, float threshold, float force):
+	m_threshold (threshold), m_force(force), m_blur (bufferSize, 10, 2), m_brightPartsExtractor(m_threshold)
 {
-	if (!_lightParts.create(bufferSize.x, bufferSize.y)) {
-		throw std::runtime_error("Error: Bloom, buffer creation failed");
-	}
-	if (!_blurred.create(bufferSize.x, bufferSize.y)) {
-		throw std::runtime_error("Error: Bloom, buffer creation failed");
-	}
+    if (!m_lightParts.create (bufferSize.x, bufferSize.y))
+		std::cout << "Error: Bloom, buffer creation failed" << std::endl;
 
-	std::string tab("    ");
+	if (!m_blurred.create(bufferSize.x, bufferSize.y))
+		std::cout << "Error: Bloom, buffer creation failed" << std::endl;
+
 	std::stringstream fragment;
-	fragment << "#version 130" << std::endl << std::endl << std::endl
-		<< "uniform sampler2D clearTexture;" << std::endl
-		<< "uniform sampler2D blurredLightsTexture;" << std::endl
-		<< "uniform vec2 inputSize;" << std::endl
-		<< "uniform float force;" << std::endl << std::endl
-		<< "out vec4 fragColor;" << std::endl << std::endl << std::endl
-		<< "void main()" << std::endl
-		<< "{" << std::endl
-		<< tab << "vec2 texCoord = gl_FragCoord.xy / inputSize;" << std::endl
-		<< tab << "vec4 clear = texture(clearTexture, texCoord);" << std::endl << std::endl
-		<< tab << "vec4 blurred = texture(blurredLightsTexture, texCoord);" << std::endl
-		<< tab << "fragColor = clear + force * blurred;" << std::endl
-		<< "}";
+	std::string line;
+	std::ifstream myfile("Bloom.frag");
+	if (myfile.is_open())
+	{
+		while (getline(myfile, line))
+			fragment << line << "\n";
+
+		myfile.close();
+	}
+	else 
+		std::cout << "Unable to open file -> Bloom.frag";
+
 	std::string fragmentShader = fragment.str();
 
-	/* Load shader */
-	if (!_shader.loadFromMemory(fragmentShader, sf::Shader::Fragment))
-		throw std::runtime_error("unable to load bloom fragment shader\n" + fragmentShader);
+    if (!m_bloomShader.loadFromMemory(fragmentShader, sf::Shader::Fragment))
+		std::cout << "unable to load bloom fragment shader\n" + fragmentShader;
 
-	_renderStates.shader = &_shader;
-	_renderStates.blendMode = sf::BlendNone;
+	m_renderStates.shader = &m_bloomShader;
+	m_renderStates.blendMode = sf::BlendNone;
 }
 
-float Bloom::getThreshold() const
+void Bloom::apply(const sf::Texture &inputTexture, sf::RenderTarget& target)
 {
-	return _threshold;
-}
-void Bloom::setThreshold(float threshold)
-{
-	_threshold = threshold;
-	//_brightPartsExtractor.setThreshold(threshold);
-}
+    // First extract the bright parts
+    m_brightPartsExtractor.apply(inputTexture, m_lightParts);
+    m_lightParts.display();
 
-float Bloom::getForce() const
-{
-	return _force;
-}
-void Bloom::setForce(float force)
-{
-	_force = force;
-}
+    // Then blur
+    m_blur.apply(m_lightParts.getTexture(), m_blurred);
+    m_blurred.display();
 
-/* Returns true if successfull, false otherwise. */
-void Bloom::applyTreatment(sf::Texture const& inputTexture,
-	sf::RenderTarget& target)
-{
-	/* First we extract the bright parts */
-	//_brightPartsExtractor.applyTreatment(inputTexture, _lightParts);
-	_lightParts.display();
-
-	/* Then blur then */
-	//_blur.applyTreatment(_lightParts.getTexture(), _blurred);
-	_blurred.display();
-
-	/* Finally we render the input texture + the blurred bright parts */
-	sf::Vector2f texSize(target.getSize().x, target.getSize().y);
-	/*_shader.setParameter("clearTexture", inputTexture);
-	_shader.setParameter("blurredLightsTexture", _blurred.getTexture());
-	_shader.setParameter("inputSize", texSize);
-	_shader.setParameter("force", _force);*/
-	sf::RectangleShape square(texSize);
-	target.draw(square, _renderStates);
+    // Finally render the input texture + the blurred bright parts
+    sf::Vector2f texSize(target.getSize().x, target.getSize().y);
+	m_bloomShader.setUniform("clearTexture", inputTexture);
+	m_bloomShader.setUniform("blurredLightsTexture", m_blurred.getTexture());
+	m_bloomShader.setUniform("inputSize", texSize);
+	m_bloomShader.setUniform("force", m_force);
+    sf::RectangleShape square(texSize);
+    target.draw (square, m_renderStates);
 }
