@@ -1,8 +1,8 @@
 #include "Game.h"
 
 Game::Game() : 
-    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default),
-    m_xboxController(CONTROLLER_TWO),
+    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Fullscreen),
+    m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
 	bloom(m_window.getSize(), 0.2f, 0.6f)
 {
@@ -23,7 +23,9 @@ Game::Game() :
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
 
-	if (!m_renderTexture.create(m_window.getSize().x, m_window.getSize().y))
+	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
+
+	if (!m_renderTexture.create(m_view.getSize().x, m_view.getSize().y))
 		std::cout << "Render texture not created" << std::endl;
 }
 
