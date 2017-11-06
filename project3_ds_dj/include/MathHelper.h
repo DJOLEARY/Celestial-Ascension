@@ -11,6 +11,11 @@ namespace sf
 		return sqrtf((vec.x * vec.x) + (vec.y * vec.y));
 	}
 
+	inline float magnitude(Vector3f &vec)
+	{
+		return sqrtf((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z));
+	}
+
 	inline Vector2f normalize(Vector2f &vec)
 	{
 		return vec / magnitude(vec);

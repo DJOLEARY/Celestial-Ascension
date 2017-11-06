@@ -176,11 +176,14 @@
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Physics\GameGrid.cpp" />
+    <ClCompile Include="src\Physics\Spring.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
     <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
     <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
+    <ClCompile Include="src\Physics\PointMass.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
@@ -204,6 +207,9 @@
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
+    <ClInclude Include="include\Physics\GameGrid.h" />
+    <ClInclude Include="include\Physics\PointMass.h" />
+    <ClInclude Include="include\Physics\Spring.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\Graphics\DirectionalBlur.h" />
