@@ -22,14 +22,13 @@
 class DirectionalBlur
 {
 public:
-	DirectionalBlur(sf::Vector2f direction, int kernelSize);
+	DirectionalBlur(sf::Vector2f direction);
 	void setDirection(const sf::Vector2f &direction);
 	void applyTreatment(const sf::Texture &inputTexture, sf::RenderTarget& target);
 
 private:
 	sf::Vector2f m_direction;
 	sf::Shader m_directionalBlurShader;
-	float kernel[10];
 	sf::RenderStates m_renderStates;
 };
 

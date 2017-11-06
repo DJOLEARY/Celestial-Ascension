@@ -6,7 +6,7 @@
 	force: force of the effect
 */
 Bloom::Bloom (sf::Vector2u bufferSize, float threshold, float force):
-	m_threshold (threshold), m_force(force), m_blur (bufferSize, 10, 2), m_brightPartsExtractor(m_threshold)
+	m_threshold (threshold), m_force(force), m_blur (bufferSize, 2), m_brightPartsExtractor(m_threshold)
 {
     if (!m_lightParts.create (bufferSize.x, bufferSize.y))
 		std::cout << "Error: Bloom, buffer creation failed" << std::endl;

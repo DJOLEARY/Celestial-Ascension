@@ -4,7 +4,7 @@ Game::Game() :
     m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default),
     m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
-	bloom(m_window.getSize(), 0.2f, 0.6f)
+	bloom(m_window.getSize(), 0.0f, 1.0f)
 {
 	std::cout << "openGL version:" << m_window.getSettings().majorVersion 
 		<< "." << m_window.getSettings().minorVersion << std::endl << std::endl;

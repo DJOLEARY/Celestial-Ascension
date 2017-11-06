@@ -18,7 +18,7 @@
 class GaussianBlur
 {
 public:
-	GaussianBlur(sf::Vector2u textureSize, unsigned int kernelSize, unsigned int sizeFactor = 1);
+	GaussianBlur(sf::Vector2u textureSize,  unsigned int sizeFactor = 1);
 
 	void apply(const sf::Texture &inputTexture,
 		sf::RenderTarget& target);
