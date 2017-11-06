@@ -9,7 +9,7 @@
 #include <SFML/System/Vector2.hpp>
 #include <sstream>
 #include <iostream>
-
+#include <fstream>
 
 /* 
 	Directional gaussian blur.
@@ -22,14 +22,14 @@
 class DirectionalBlur
 {
 public:
-	DirectionalBlur(sf::Vector2f direction, unsigned int kernelSize);
+	DirectionalBlur(sf::Vector2f direction, int kernelSize);
 	void setDirection(const sf::Vector2f &direction);
 	void applyTreatment(const sf::Texture &inputTexture, sf::RenderTarget& target);
 
 private:
 	sf::Vector2f m_direction;
 	sf::Shader m_directionalBlurShader;
-
+	float kernel[10];
 	sf::RenderStates m_renderStates;
 };
 

@@ -13,8 +13,6 @@ ExtractBrightParts::ExtractBrightParts(float threshold)
 
 		myfile.close();
 	}
-	else
-		std::cout << "Unable to open file -> Bloom.frag";
 
 	std::string fragmentShader = fragment.str();
 

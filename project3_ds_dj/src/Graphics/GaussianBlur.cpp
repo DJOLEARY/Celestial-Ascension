@@ -7,7 +7,7 @@
 /// <param name="kernelSize">semi-width of the gaussian blur. 1 = no blur</param>
 /// <param name="sizeFactor">Downscaling factor</param>
 GaussianBlur::GaussianBlur (sf::Vector2u textureSize, unsigned int kernelSize, unsigned int sizeFactor)
-	: m_directionalBlur(sf::Vector2f(1.f,0.f), kernelSize), m_sizeFactor(sizeFactor)
+	: m_directionalBlur(sf::Vector2f(1.f, 0.0f), kernelSize), m_sizeFactor(sizeFactor)
 {
     m_sizeFactor = std::max(m_sizeFactor, 1u);
 

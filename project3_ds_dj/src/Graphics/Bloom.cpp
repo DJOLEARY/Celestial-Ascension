@@ -1,5 +1,10 @@
 #include "Graphics/Bloom.h"
 
+/*
+	textureSize: dimensions of the texture to be processed.	
+	threshold: which bright parts to extract.
+	force: force of the effect
+*/
 Bloom::Bloom (sf::Vector2u bufferSize, float threshold, float force):
 	m_threshold (threshold), m_force(force), m_blur (bufferSize, 10, 2), m_brightPartsExtractor(m_threshold)
 {
@@ -19,8 +24,6 @@ Bloom::Bloom (sf::Vector2u bufferSize, float threshold, float force):
 
 		myfile.close();
 	}
-	else 
-		std::cout << "Unable to open file -> Bloom.frag";
 
 	std::string fragmentShader = fragment.str();
 

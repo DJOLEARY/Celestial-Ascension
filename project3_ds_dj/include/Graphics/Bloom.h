@@ -14,22 +14,18 @@
 #include <fstream>
 #include <iostream>
 
-/* Bloom post-treatment.
- * Makes bright parts of the image shinier.
- *
- * The treatment works in 3 steps:
- * - extraction of the bright parts of the image
- * - blurring of the resulting image
- * - adding of the blurred bright parts to the input image.
+/*	
+	Bloom post-treatment.
+	Makes bright parts of the image shinier.
+ 
+	The treatment works in 3 steps:
+		- extraction of the bright parts of the image
+		- blurring of the resulting image
+		- adding of the blurred bright parts to the input image.
  */
 class Bloom
 {
     public:
-        /* Constructor.
-         * textureSize: dimensions of the texture to be processed.
-         * threshold: which bright parts to extract.
-         * force: force of the effect
-         */
          Bloom (sf::Vector2u textureSize, float threshold = 0.8f, float force = 1.0f);
 
         void apply(const sf::Texture &inputTexture, sf::RenderTarget& target);
