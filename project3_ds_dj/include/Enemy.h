@@ -1,3 +1,7 @@
+/// <summary>
+/// @author DJ O'Leary
+/// </summary>
+
 #ifndef ENEMY_H
 #define ENEMY_H
 

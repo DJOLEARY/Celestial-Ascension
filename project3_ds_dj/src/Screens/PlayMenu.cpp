@@ -52,6 +52,12 @@ void PlayMenu::update(XboxController &controller)
 		}
 	}
 
+	if (m_playButtonPressed)
+	{
+		m_nextGameState = GameState::GamePlay;
+		reset();
+	}
+
 	if (transitionIn)
 	{
 		m_gui.transitionIn(0.05f, interpolation);

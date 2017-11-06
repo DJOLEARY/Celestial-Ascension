@@ -1,255 +1,186 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-<<<<<<< HEAD
-    <ClCompile Include="src\EntityManger.cpp" />
-    <ClCompile Include="src\Game.cpp" />
-    <ClCompile Include="src\GUI\Button.cpp" />
-    <ClCompile Include="src\GUI\CheckBox.cpp" />
-    <ClCompile Include="src\GUI\GUI.cpp" />
-    <ClCompile Include="src\GUI\Label.cpp" />
-    <ClCompile Include="src\GUI\Slider.cpp" />
-    <ClCompile Include="src\GUI\Widget.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Player.cpp" />
-    <ClCompile Include="src\XboxController.cpp" />
-    <ClCompile Include="src\Screens\Screen.cpp" />
-    <ClCompile Include="src\Screens\MainMenu.cpp" />
-    <ClCompile Include="src\Screens\ScreenManager.cpp" />
-    <ClCompile Include="src\Screens\Options.cpp" />
-    <ClCompile Include="src\GUI\RadioButton.cpp" />
-    <ClCompile Include="src\Screens\ExitMenu.cpp" />
-    <ClCompile Include="src\Screens\Credits.cpp" />
-    <ClCompile Include="src\Screens\PlayMenu.cpp" />
-    <ClCompile Include="src\Screens\SplashScreen.cpp" />
-    <ClCompile Include="src\Graphics\Bloom.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="include\Entity.h" />
-    <ClInclude Include="include\EntityManager.h" />
-    <ClInclude Include="include\Game.h" />
-    <ClInclude Include="include\GUI\Button.h" />
-    <ClInclude Include="include\GUI\CheckBox.h" />
-    <ClInclude Include="include\GUI\GUI.h" />
-    <ClInclude Include="include\GUI\Label.h" />
-    <ClInclude Include="include\GUI\Slider.h" />
-    <ClInclude Include="include\GUI\Widget.h" />
-    <ClInclude Include="include\MathHelper.h" />
-    <ClInclude Include="include\Player.h" />
-    <ClInclude Include="include\XboxController.h" />
-    <ClInclude Include="include\Screens\Screen.h" />
-    <ClInclude Include="include\Screens\MainMenu.h" />
-    <ClInclude Include="include\Screens\ScreenManager.h" />
-    <ClInclude Include="include\Screens\Options.h" />
-    <ClInclude Include="include\GUI\RadioButton.h" />
-    <ClInclude Include="include\Screens\ExitMenu.h" />
-    <ClInclude Include="include\Screens\Credits.h" />
-    <ClInclude Include="include\Screens\PlayMenu.h" />
-    <ClInclude Include="include\Screens\SplashScreen.h" />
-    <ClInclude Include="include\Graphics\Bloom.h" />
-=======
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{ceed6bcc-e43b-42eb-8d6c-fa5464565c9a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Screens">
-      <UniqueIdentifier>{2bbd944a-9451-44f5-ae8d-a0c921f81783}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{1bcee893-0cd8-4b7f-8b78-ea788c6032cc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Screens">
-      <UniqueIdentifier>{7bcba9b6-e88c-4876-9fcc-c073b9895b3e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{a2e796bc-72da-4f50-9d1e-09485d7835f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{bef3dc7d-598e-42d0-8efc-0d3bb88e4aa9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GUI">
-      <UniqueIdentifier>{a2e796bc-72da-4f50-9d1e-09485d7835f5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GUI">
-      <UniqueIdentifier>{bef3dc7d-598e-42d0-8efc-0d3bb88e4aa9}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\EntityManger.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Game.cpp">
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="src\XboxController.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source</Filter>
     </ClCompile>
-    <ClCompile Include="src\Enemy.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="src\Graphics\Bloom.cpp">
+      <Filter>Source\Graphics</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Button.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\CheckBox.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\GUI.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Label.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\RadioButton.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Slider.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\GUI\Widget.cpp">
-      <Filter>Source Files\GUI</Filter>
+      <Filter>Source\GUI</Filter>
     </ClCompile>
     <ClCompile Include="src\Screens\Credits.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="src\Screens\ExitMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\MainMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Options.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\PlayMenu.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\Screen.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\ScreenManager.cpp">
-      <Filter>Source Files\Screens</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EntityManger.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Game.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\XboxController.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Screens\SplashScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
     </ClCompile>
     <ClCompile Include="src\Screens\GameScreen.cpp">
-      <Filter>Source Files\Screens</Filter>
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\MainMenu.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Options.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\PlayMenu.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\Screen.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\ScreenManager.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Screens\SplashScreen.cpp">
+      <Filter>Source\Screens</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Enemy.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\EntityManger.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Player.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Entitys\Bullet.cpp">
+      <Filter>Source\Entity</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\XboxController.h">
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="include\MathHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\XboxController.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
     <ClInclude Include="include\Game.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header</Filter>
     </ClInclude>
-    <ClInclude Include="include\MathHelper.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="include\XboxController.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="include\Graphics\Bloom.h">
+      <Filter>Header\Graphics</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\Button.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\CheckBox.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\GUI.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\Label.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\RadioButton.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\Slider.h">
-      <Filter>Header Files\GUI</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\GUI\Widget.h">
-      <Filter>Header Files\GUI</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Credits.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\ExitMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\MainMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Options.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\PlayMenu.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\Screen.h">
-      <Filter>Header Files\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Screens\ScreenManager.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Header\GUI</Filter>
     </ClInclude>
     <ClInclude Include="include\Screens\SplashScreen.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\ScreenManager.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Screen.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\PlayMenu.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Options.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\MainMenu.h">
+      <Filter>Header\Screens</Filter>
     </ClInclude>
     <ClInclude Include="include\Screens\GameScreen.h">
-      <Filter>Header Files\Screens</Filter>
+      <Filter>Header\Screens</Filter>
     </ClInclude>
->>>>>>> 01e5cee96ba7f2f59f0eb82ec370dd620da753ad
+    <ClInclude Include="include\Screens\ExitMenu.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Screens\Credits.h">
+      <Filter>Header\Screens</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entity.h">
+      <Filter>Header\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\EntityManager.h">
+      <Filter>Header\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Player.h">
+      <Filter>Header\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Enemy.h">
+      <Filter>Header\Entity</Filter>
+    </ClInclude>
+    <ClInclude Include="include\Entitys\Bullet.h">
+      <Filter>Header\Entity</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{0751eae4-4514-45f2-95cf-50ed9133774c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header">
+      <UniqueIdentifier>{f042bf99-9e8e-4087-a69d-d5d553059050}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Graphics">
+      <UniqueIdentifier>{6be02653-c835-4502-b18e-6bf10035353c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\GUI">
+      <UniqueIdentifier>{8af850dd-18dd-4da0-96b1-2e346edce2c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Screens">
+      <UniqueIdentifier>{216a9477-601d-4a52-bb43-3fc67ce1b122}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Graphics">
+      <UniqueIdentifier>{d6ae0704-f9c5-4a13-b60a-6c573e7fbcaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\GUI">
+      <UniqueIdentifier>{c2eb23d5-294b-439e-afc2-d7fb0d2096f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Screens">
+      <UniqueIdentifier>{77ee8be0-e512-4f6b-af92-6eb5759ac6a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Entity">
+      <UniqueIdentifier>{03318517-874a-484f-aea4-f64a81b66b37}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header\Entity">
+      <UniqueIdentifier>{dba79447-7536-4583-ac78-9d1afe3bdc80}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

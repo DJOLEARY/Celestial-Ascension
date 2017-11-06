@@ -35,8 +35,6 @@ void Enemy::Draw(sf::RenderWindow & renderWindow)
 
 void Enemy::seekPlayer()
 {
-    std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
-
     if (sf::distance(m_position, *m_playerPos) < 10.0f)
     {
         m_velocity = sf::Vector2f();

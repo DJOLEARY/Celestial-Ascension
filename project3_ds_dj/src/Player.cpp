@@ -73,6 +73,8 @@ void Player::Update(double dt)
 /// <param name="renderWindow"></param>
 void Player::Draw(sf::RenderWindow &renderWindow)
 {
+	std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
+
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
 	renderWindow.draw(m_sprite);
@@ -81,4 +83,9 @@ void Player::Draw(sf::RenderWindow &renderWindow)
 sf::Vector2f* Player::getPos()
 {
     return &m_position;
+}
+
+sf::Vector2f Player::getVelocity()
+{
+	return m_velocity;
 }

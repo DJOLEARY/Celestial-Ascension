@@ -167,6 +167,7 @@
   <ItemGroup>
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\EntityManger.cpp" />
+    <ClCompile Include="src\Entitys\Bullet.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
+    <ClInclude Include="include\Entitys\Bullet.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\GUI\Button.h" />

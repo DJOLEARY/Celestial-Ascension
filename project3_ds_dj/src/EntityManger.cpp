@@ -37,6 +37,11 @@ void EntityManager::Update(sf::Int32 dt)
 	for (Entity *entity : m_entites)
 	{
 		entity->Update(dt);
+
+		//if (typeid(entity) == NULL)
+		{
+			delete entity;
+		}
 	}
 }
 

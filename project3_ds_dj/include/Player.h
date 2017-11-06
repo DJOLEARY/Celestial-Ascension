@@ -21,6 +21,7 @@ public:
 	virtual void Draw(sf::RenderWindow &renderWindow) override;
 
     sf::Vector2f* getPos();
+	sf::Vector2f getVelocity();
 
 private:
 	XboxController &m_xboxController;

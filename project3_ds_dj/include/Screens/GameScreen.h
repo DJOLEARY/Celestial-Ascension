@@ -1,3 +1,7 @@
+/// <summary>
+/// @author DJ O'Leary
+/// </summary>
+
 #ifndef GAME_SCREEN_H
 #define GAME_SCREEN_H
 
@@ -5,6 +9,7 @@
 #include "EntityManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Entitys\Bullet.h"
 
 class GameScreen : public Screen
 {
@@ -13,13 +18,14 @@ public:
     GameScreen(XboxController & controller);
     ~GameScreen();
 
-    void update(XboxController& controller, sf::Int32 dt);
+    virtual void update(XboxController& controller, sf::Int32 dt) override;
     
-    void draw(sf::RenderWindow& window);
+    void render(sf::RenderWindow& window);
 
 private:
 
     EntityManager m_entityManager;
+	Player* player;
 
 
 };

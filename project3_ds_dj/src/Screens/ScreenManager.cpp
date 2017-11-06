@@ -29,7 +29,7 @@ void ScreenManager::update(XboxController &controller, sf::Int32 dt)
             }
             else
             {
-                m_screens.at(m_currentScreen)->update(controller, dt); // Update the current screen
+                m_screens.at(m_currentScreen)->update(controller, dt); // Update the the game screen.
             }
 			GameState nextState = m_screens.at(m_currentScreen)->getNextGameState();
 			if (nextState != m_gameState) // Check if the screen wants to switch game states
@@ -59,7 +59,9 @@ void ScreenManager::update(XboxController &controller, sf::Int32 dt)
 void ScreenManager::draw(sf::RenderWindow& window)
 {
 	if (m_currentScreen < m_screens.size())
+	{
 		m_screens.at(m_currentScreen)->render(window);
+	}
 }
 
 /// <summary>
