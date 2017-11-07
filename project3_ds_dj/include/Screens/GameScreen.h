@@ -24,10 +24,11 @@ public:
 
 private:
 
-    EntityManager m_entityManager;
+	EntityManager m_entityManager;
 	Player* m_player;
 	int m_numOfBullets;
-	int MAX_BULLETS = 20;
-
+	const int MAX_BULLETS = 2000;
+	const float RATE_OF_FIRE = 0.5f;
+	const float INPUT_THRESHOLD = 30.0f;
 };
 #endif // !GAME_SCREEN_H

@@ -18,9 +18,9 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
     m_entityManager.Update(dt);
 
-	if (controller.isButtonHeldDown(XBOX360_A) && m_numOfBullets < MAX_BULLETS)
+	if (sf::magnitude(controller.getRightStick()) > INPUT_THRESHOLD && m_numOfBullets < MAX_BULLETS)
 	{
-		m_entityManager.Add(new Bullet(m_player->getPos(), m_player->getOrientation()));
+		m_entityManager.Add(new Bullet(m_player->getPos(), controller));
 		m_numOfBullets++;
 	}
 

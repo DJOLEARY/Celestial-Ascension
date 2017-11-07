@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entitys\Player.cpp" />
     <ClCompile Include="src\Physics\Grid.cpp" />
     <ClCompile Include="src\Entitys\Entity.cpp" />
     <ClCompile Include="src\Entitys\Enemy.cpp" />
@@ -181,7 +182,6 @@
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\Physics\PointMass.cpp" />
     <ClCompile Include="src\Physics\Spring.cpp" />
-    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
     <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
