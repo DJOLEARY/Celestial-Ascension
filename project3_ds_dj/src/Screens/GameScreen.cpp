@@ -23,3 +23,7 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 {
     m_entityManager.Draw(renderTexture);
 }
+
+void GameScreen::checkCollisions()
+{
+}

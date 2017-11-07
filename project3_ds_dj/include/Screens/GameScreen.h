@@ -24,6 +24,8 @@ public:
 
 private:
 
+	void checkCollisions();
+
 	EntityManager m_entityManager;
 	Player* m_player;
 };
