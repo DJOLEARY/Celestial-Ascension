@@ -25,6 +25,7 @@ public:
 
 private:
 	void checkBullets();
+	void deleteBullet(int index);
 
 	XboxController &m_xboxController;
 	// @todo(darren): May move speed into entity
@@ -33,7 +34,7 @@ private:
 
 	std::vector<Bullet*> m_bullets;
 	int m_numOfAliveBullets;
-	const int MAX_BULLETS = 1;
+	const int MAX_BULLETS = 100;
 };
 
 #endif

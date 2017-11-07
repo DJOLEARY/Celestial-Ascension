@@ -110,9 +110,17 @@ void Player::checkBullets()
 	{
 		if (bullet->getPos().x < 0 || bullet->getPos().x > 1920 || bullet->getPos().y < 0 || bullet->getPos().y > 1080)
 		{
-			m_bullets.erase(m_bullets.begin() + index);
-			m_numOfAliveBullets--;
+			deleteBullet(index);
 		}
-		index++;
+		else
+		{
+			index++;
+		}
 	}
+}
+
+void Player::deleteBullet(int index)
+{
+	m_bullets.erase(m_bullets.begin() + index);
+	m_numOfAliveBullets--;
 }
