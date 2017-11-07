@@ -75,7 +75,7 @@ void MainMenu::reset()
 /// update function updates the main menu and its GUI
 /// </summary>
 /// <param name="controller">Controller used for processing input</param>
-void MainMenu::update(XboxController &controller)
+void MainMenu::update(XboxController &controller, sf::Int32 dt)
 {
 	m_fadeRectangle.setFillColor(sf::Color(0.0f, 0.0f, 0.0f, m_alphaFadeValue)); 
 	if (m_alphaFadeValue >= FADE_RATE)

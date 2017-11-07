@@ -21,7 +21,7 @@ Credits::Credits()
 }
 
 // @refactor(darren): Could i refactor this into base scene?
-void Credits::update(XboxController& controller)
+void Credits::update(XboxController& controller, sf::Int32 dt)
 {
 	m_gui.processInput(controller);
 

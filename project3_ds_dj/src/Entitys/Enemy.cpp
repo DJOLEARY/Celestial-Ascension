@@ -1,13 +1,17 @@
-#include "Enemy.h"
+#include "Entitys\Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
     m_playerPos(playerPos),
-    m_speed(0.25f)
+    m_speed(0.05f)
 {
-    if (!m_texture.loadFromFile("Assets/Wanderer.png"))
-        std::cout << "ERROR::Enemy::Image not loaded";
+	if (!m_texture.loadFromFile("Assets/Wanderer.png"))
+	{
+		std::cout << "ERROR::Enemy::Image not loaded";
+	}
 
-    m_position = sf::Vector2f(1920 / 2, 1080 / 2);
+	m_type = "Enemy";
+    
+	m_position = sf::Vector2f(1920 / 2, 1080 / 2);
 
     m_sprite.setTexture(m_texture);
     m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -35,8 +39,6 @@ void Enemy::Draw(sf::RenderTexture &renderTexture)
 
 void Enemy::seekPlayer()
 {
-    //std::cout << "Velocity : " << sf::magnitude(m_velocity) << std::endl;
-
     if (sf::distance(m_position, *m_playerPos) < 10.0f)
     {
         m_velocity = sf::Vector2f();

@@ -4,9 +4,6 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-#include "EntityManager.h"
-#include "Player.h"
-#include "Enemy.h"
 #include "Screens\ScreenManager.h"
 #include "Screens\MainMenu.h"
 #include "Screens\Options.h"
@@ -16,6 +13,7 @@
 #include "Screens\SplashScreen.h"
 #include "Graphics\Bloom.h"
 #include "Physics\Grid.h"
+#include "Screens\GameScreen.h"
 
 class Game
 {
@@ -35,7 +33,6 @@ private:
 	Bloom bloom;
 	Grid grid;
 
-    EntityManager m_entityManager;
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
 

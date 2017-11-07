@@ -8,7 +8,7 @@ class PlayMenu : public Screen
 {
 public:
 	PlayMenu();
-	void update(XboxController &controller) override;
+	void update(XboxController &controller, sf::Int32 dt) override;
 	void reset() override;
 
 private:

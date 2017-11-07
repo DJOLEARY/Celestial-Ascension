@@ -15,7 +15,7 @@ SplashScreen::SplashScreen()
 	m_fadeRectangle.setSize(sf::Vector2f(1920.0f, 1080.0f));
 }
 
-void SplashScreen::update(XboxController &controller)
+void SplashScreen::update(XboxController &controller, sf::Int32 dt)
 {
 	if (controller.isButtonPressed(XBOX360_A)
 		|| controller.isButtonPressed(XBOX360_START))

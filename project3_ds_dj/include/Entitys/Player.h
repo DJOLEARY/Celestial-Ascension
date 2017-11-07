@@ -20,7 +20,8 @@ public:
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
 
-    sf::Vector2f* getPos();
+    sf::Vector2f* getPosition();
+	float getOrientation();
 
 private:
 	XboxController &m_xboxController;

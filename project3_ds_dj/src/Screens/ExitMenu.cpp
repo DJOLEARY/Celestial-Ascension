@@ -41,7 +41,7 @@ void ExitMenu::reset()
 	interpolation = 0.0f;
 }
 
-void ExitMenu::update(XboxController &controller)
+void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 {
 	m_gui.processInput(controller);
 

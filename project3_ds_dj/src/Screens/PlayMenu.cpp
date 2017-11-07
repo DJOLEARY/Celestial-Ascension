@@ -32,7 +32,7 @@ PlayMenu::PlayMenu()
 	m_gui.setWidgetsAlpha(0.0f);
 }
 
-void PlayMenu::update(XboxController &controller)
+void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 {
 	m_gui.processInput(controller);
 
@@ -50,6 +50,12 @@ void PlayMenu::update(XboxController &controller)
 			m_nextGameState = GameState::MainMenu;
 			reset();
 		}
+	}
+
+	if (m_playButtonPressed)
+	{
+		m_nextGameState = GameState::GamePlay;
+		reset();
 	}
 
 	if (transitionIn)

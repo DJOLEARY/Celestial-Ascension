@@ -15,7 +15,7 @@ class ExitMenu : public Screen
 {
 public:
 	ExitMenu();
-	void update(XboxController& controller) override;
+	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 
 private:

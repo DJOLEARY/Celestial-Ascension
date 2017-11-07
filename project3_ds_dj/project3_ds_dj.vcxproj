@@ -166,8 +166,10 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Physics\Grid.cpp" />
-    <ClCompile Include="src\Enemy.cpp" />
-    <ClCompile Include="src\EntityManger.cpp" />
+    <ClCompile Include="src\Entitys\Entity.cpp" />
+    <ClCompile Include="src\Entitys\Enemy.cpp" />
+    <ClCompile Include="src\Entitys\EntityManger.cpp" />
+    <ClCompile Include="src\Entitys\Bullet.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CheckBox.cpp" />
@@ -186,6 +188,7 @@
     <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
+    <ClCompile Include="src\Screens\GameScreen.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
     <ClCompile Include="src\Screens\Options.cpp" />
     <ClCompile Include="src\Screens\PlayMenu.cpp" />
@@ -196,9 +199,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Physics\Grid.h" />
-    <ClInclude Include="include\Enemy.h" />
-    <ClInclude Include="include\Entity.h" />
-    <ClInclude Include="include\EntityManager.h" />
+    <ClInclude Include="include\Entitys\Enemy.h" />
+    <ClInclude Include="include\Entitys\Entity.h" />
+    <ClInclude Include="include\Entitys\EntityManager.h" />
+    <ClInclude Include="include\Entitys\Bullet.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GUI\Button.h" />
     <ClInclude Include="include\GUI\CheckBox.h" />
@@ -210,13 +214,14 @@
     <ClInclude Include="include\MathHelper.h" />
     <ClInclude Include="include\Physics\PointMass.h" />
     <ClInclude Include="include\Physics\Spring.h" />
-    <ClInclude Include="include\Player.h" />
+    <ClInclude Include="include\Entitys\Player.h" />
     <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\Graphics\DirectionalBlur.h" />
     <ClInclude Include="include\Graphics\ExtractBrightParts.h" />
     <ClInclude Include="include\Graphics\GaussianBlur.h" />
     <ClInclude Include="include\Screens\Credits.h" />
     <ClInclude Include="include\Screens\ExitMenu.h" />
+    <ClInclude Include="include\Screens\GameScreen.h" />
     <ClInclude Include="include\Screens\MainMenu.h" />
     <ClInclude Include="include\Screens\Options.h" />
     <ClInclude Include="include\Screens\PlayMenu.h" />

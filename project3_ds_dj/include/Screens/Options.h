@@ -18,7 +18,7 @@ class Options : public Screen
 {
 public:
 	Options();
-	void update(XboxController& controller) override;
+	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 
 private:

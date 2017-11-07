@@ -7,7 +7,7 @@ class SplashScreen : public Screen
 {
 public:
 	SplashScreen();
-	void update(XboxController &controller) override;
+	void update(XboxController &controller, sf::Int32 dt) override;
 	void render(sf::RenderTexture & renderTexture) override;
 
 private:

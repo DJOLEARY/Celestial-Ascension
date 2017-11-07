@@ -13,20 +13,19 @@ Game::Game() :
 	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
 
-    Player* player = new Player(m_xboxController);
-    m_entityManager.Add(player);
-    m_entityManager.Add(new Enemy(player->getPos()));
 	m_screenManager.add(new SplashScreen());
 	m_screenManager.add(new MainMenu());
 	m_screenManager.add(new Options());
 	m_screenManager.add(new ExitMenu());
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
+    m_screenManager.add(new GameScreen(m_xboxController));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 
 	if (!m_renderTexture.create(m_view.getSize().x, m_view.getSize().y))
 		std::cout << "Render texture not created" << std::endl;
+
 }
 
 Game::~Game()
@@ -68,13 +67,13 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-	m_screenManager.update(m_xboxController);
-	m_entityManager.Update(dt);	
+	m_screenManager.update(m_xboxController, dt);
 
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
 		grid.applyImplosiveForce(100.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
 
 	grid.update();
+	m_screenManager.update(m_xboxController, dt);
 }
 
 void Game::draw()
@@ -90,7 +89,7 @@ void Game::draw()
 	m_renderTexture.display();
 
     m_window.clear();
-    m_entityManager.Draw(m_renderTexture);
+	m_screenManager.draw(m_renderTexture);
 	bloom.apply(m_renderTexture.getTexture(), m_window);
-	m_window.display();
+    m_window.display();
 }

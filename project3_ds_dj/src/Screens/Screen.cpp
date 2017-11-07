@@ -18,6 +18,10 @@ void Screen::reset()
 
 }
 
+void Screen::update(XboxController & controller, sf::Int32 dt)
+{
+}
+
 /// <summary>
 /// Function draws the gui object
 /// </summary>

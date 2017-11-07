@@ -86,7 +86,7 @@ void Options::reset()
 /// update function processes input for the options screen
 /// </summary>
 /// <param name="controller">controller used for processing input</param>
-void Options::update(XboxController &controller)
+void Options::update(XboxController &controller, sf::Int32 dt)
 {
 	m_gui.processInput(controller);
 

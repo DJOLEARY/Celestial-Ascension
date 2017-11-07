@@ -1,4 +1,4 @@
-#include "Player.h"
+#include "Entitys\Player.h"
 
 /// <summary>
 /// 
@@ -7,8 +7,11 @@ Player::Player(XboxController &controller)
 	: m_xboxController(controller), m_speed(0.025f), m_rotationDiff(0.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
+	{
 		std::cout << "ERROR::Player::Image not loaded";
+	}
 
+	m_type = "Player";
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
@@ -78,7 +81,12 @@ void Player::Draw(sf::RenderTexture &renderTexture)
 	renderTexture.draw(m_sprite);
 }
 
-sf::Vector2f* Player::getPos()
+sf::Vector2f* Player::getPosition()
 {
-    return &m_position;
+	return &m_position;
+}
+
+float Player::getOrientation()
+{
+	return m_targetOrientation;
 }
