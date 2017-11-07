@@ -36,7 +36,12 @@ namespace sf
 		return sqrtf(powf(vec2.x - vec1.x, 2) + powf(vec2.y - vec1.y, 2) + powf(vec2.z - vec1.z, 2));
 	}
 
-	inline float distanceSquared(Vector2f &vec1, Vector2f &vec2)
+	inline float distanceSquared(const Vector3f &vec1, const Vector3f &vec2)
+	{
+		return powf(vec2.x - vec1.x, 2) + powf(vec2.y - vec1.y, 2) + powf(vec2.z - vec1.z, 2);
+	}
+
+	inline float distanceSquared(const Vector2f &vec1, const Vector2f &vec2)
 	{
 		return powf(vec2.x - vec1.x, 2) + powf(vec2.y - vec1.y, 2);
 	}

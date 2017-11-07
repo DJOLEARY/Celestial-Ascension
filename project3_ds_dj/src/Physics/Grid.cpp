@@ -73,7 +73,7 @@ void Grid::applyDirectedForce(const sf::Vector3f& force, const sf::Vector3f& pos
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
-		if (distanceSquared(m_points[i].getPosition()) < radius * radius)
+		if (sf::distance(m_points[i].getPosition(), position) < radius)
 		{
 			m_points[i].applyForce(10.0f * force / (10 + distance(position, m_points[i].getPosition())));
 		}
@@ -84,10 +84,10 @@ void Grid::applyImplosiveForce(float force, const sf::Vector3f& position, float 
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
-		float dist2 = distanceSquared(m_points[i].getPosition());
-		if (dist2 < radius * radius)
+		float dist = sf::distance(m_points[i].getPosition(), position);
+		if (dist < radius)
 		{
-			m_points[i].applyForce(10.0f * force * (position - m_points[i].getPosition()) / (100 + dist2));
+			m_points[i].applyForce(10.0f * force * (position - m_points[i].getPosition()) / (100 + dist));
 			m_points[i].applyDamping(0.6f);
 		}
 	}
@@ -97,10 +97,10 @@ void Grid::applyExplosiveForce(float force, const sf::Vector3f& position, float 
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
-		float dist2 = distanceSquared(m_points[i].getPosition());
-		if (dist2 < radius * radius)
+		float dist = sf::distance(m_points[i].getPosition(), position);
+		if (dist < radius)
 		{
-			m_points[i].applyForce(100 * force * (m_points[i].getPosition() - position) / (10000 + dist2));
+			m_points[i].applyForce(100 * force * (m_points[i].getPosition() - position) / (10000 + dist));
 			m_points[i].applyDamping(0.6f);
 		}
 	}
@@ -119,7 +119,7 @@ void Grid::draw(sf::RenderTexture &texture)
 {
 	int width = m_cols;
 	int height = m_rows;
-	sf::Color color(0.12f * 255, 0.12f * 255, 0.55f * 255, 0.45f * 255);
+	sf::Color color(0.12f * 255, 0.12f * 255, 0.55f * 255, 0.65f * 255);
 
 	for (int y = 1; y < height; y++)
 	{

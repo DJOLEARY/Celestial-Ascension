@@ -72,7 +72,7 @@ void Game::update(sf::Int32 dt)
 	m_entityManager.Update(dt);	
 
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
-		grid.applyImplosiveForce(10.0f, sf::Vector3f(500.0f, 500.0f, 0.0f), 10.0f);
+		grid.applyImplosiveForce(100.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
 
 	grid.update();
 }
