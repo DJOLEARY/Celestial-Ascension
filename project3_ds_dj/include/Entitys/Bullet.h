@@ -18,7 +18,6 @@ public:
 	virtual void Draw(sf::RenderTexture& renderTexture) override;
 
 private:
-	float m_speed;
 
 	void createVelocity();
 };

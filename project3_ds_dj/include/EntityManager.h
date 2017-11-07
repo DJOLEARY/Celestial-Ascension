@@ -13,14 +13,16 @@ class EntityManager
 {
 public:
 	EntityManager();
+	EntityManager(int* numOfBullets);
 	~EntityManager();
 
 	void Add(Entity *entity);
 	void Update(sf::Int32 dt);
-	void Draw(sf::RenderTexture &renderTexture);
+	void Draw(sf::RenderWindow &window);
 
 private:
 	std::vector<Entity*> m_entites;
+	int* m_numOfBullets;
 };
 
 #endif

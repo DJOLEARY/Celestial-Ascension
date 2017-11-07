@@ -1,7 +1,6 @@
 #include "Entitys/Bullet.h"
 
-Bullet::Bullet(sf::Vector2f playerPos, XboxController& controller) :
-	m_speed(0.25)
+Bullet::Bullet(sf::Vector2f playerPos, XboxController& controller)
 {
 	m_position = playerPos;
 	m_movementDir = controller.getRightStick();
@@ -11,7 +10,7 @@ Bullet::Bullet(sf::Vector2f playerPos, XboxController& controller) :
 	if (!m_texture.loadFromFile("Assets/Bullet.png"))
 		std::cout << "ERROR::Bullet::Image not loaded";
 
-	m_type = "Bullet";
+	m_speed = 0.25;
 
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));

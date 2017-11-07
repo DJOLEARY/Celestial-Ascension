@@ -1,4 +1,4 @@
-#include "Entitys\EntityManager.h"
+#include "EntityManager.h"
 
 /// <summary>
 /// 
@@ -6,6 +6,14 @@
 EntityManager::EntityManager()
 {
 	
+}
+
+/// <summary>
+/// 
+/// </summary>
+EntityManager::EntityManager(int* numOfBullets)
+{
+	m_numOfBullets = numOfBullets;
 }
 
 /// <summary>
@@ -34,20 +42,31 @@ void EntityManager::Add(Entity *entity)
 /// <param name="dt">Delta time of game</param>
 void EntityManager::Update(sf::Int32 dt)
 {
+	int index = 0;
+
 	for (Entity *entity : m_entites)
 	{
 		entity->Update(dt);
+		if (entity->getType() == "Bullet" && (entity->getPos().x < 0 || entity->getPos().x > 1920 || entity->getPos().y < 0 || entity->getPos().y > 1080))
+		{
+			m_entites.erase(m_entites.begin() + index);
+			*m_numOfBullets -= 1;
+		}
+		else
+		{
+			index++;
+		}
 	}
 }
 
 /// <summary>
 /// 
 /// </summary>
-/// <param name="renderTexture"></param>
-void EntityManager::Draw(sf::RenderTexture &renderTexture)
+/// <param name="window"></param>
+void EntityManager::Draw(sf::RenderWindow &window)
 {
 	for (Entity *entity : m_entites)
 	{
-		entity->Draw(renderTexture);
+		entity->Draw(window);
 	}
 }

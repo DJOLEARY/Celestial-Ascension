@@ -1,14 +1,15 @@
-#include "Entitys\Enemy.h"
+#include "Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
-    m_playerPos(playerPos)
+    m_playerPos(playerPos),
+    m_speed(0.05f)
 {
 	if (!m_texture.loadFromFile("Assets/Wanderer.png"))
 	{
 		std::cout << "ERROR::Enemy::Image not loaded";
 	}
 
-	m_speed = 0.05f;
+	m_type = "Enemy";
     
 	m_position = sf::Vector2f(1920 / 2, 1080 / 2);
 
@@ -29,11 +30,11 @@ void Enemy::Update(double dt)
     m_orientation += 0.5f;
 }
 
-void Enemy::Draw(sf::RenderTexture &renderTexture)
+void Enemy::Draw(sf::RenderWindow & renderWindow)
 {
     m_sprite.setRotation(m_orientation);
     m_sprite.setPosition(m_position);
-    renderTexture.draw(m_sprite);
+    renderWindow.draw(m_sprite);
 }
 
 void Enemy::seekPlayer()

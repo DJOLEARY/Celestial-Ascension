@@ -16,10 +16,11 @@ public:
     ~Enemy();   //  Enemy destructor.
 
     virtual void Update(double dt) override;
-    virtual void Draw(sf::RenderTexture &renderTexture) override;
+    virtual void Draw(sf::RenderWindow &renderWindow) override;
 private:
 
     void seekPlayer();
     sf::Vector2f *m_playerPos;
+    float m_speed;
 };
 #endif // !ENEMY_H
