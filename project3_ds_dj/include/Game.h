@@ -14,7 +14,6 @@
 #include "Screens\Credits.h"
 #include "Screens\PlayMenu.h"
 #include "Screens\SplashScreen.h"
-
 #include "Graphics/Bloom.h"
 
 class Game

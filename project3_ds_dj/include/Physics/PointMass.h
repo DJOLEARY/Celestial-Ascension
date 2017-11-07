@@ -7,6 +7,7 @@
 class PointMass
 {
 public:
+	PointMass();
 	PointMass(sf::Vector3f &position, float inverseMass);
 	void applyForce(const sf::Vector3f &force);
 	void applyDamping(const float factor);

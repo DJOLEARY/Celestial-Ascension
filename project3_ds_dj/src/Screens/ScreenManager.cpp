@@ -1,7 +1,7 @@
 #include "Screens\ScreenManager.h"
 
 ScreenManager::ScreenManager()
-	: m_gameState(GameState::SplashScreen), m_currentScreen(0)
+	: m_gameState(GameState::GamePlay), m_currentScreen(0)
 {
 	
 }

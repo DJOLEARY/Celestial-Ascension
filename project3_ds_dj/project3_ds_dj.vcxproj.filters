@@ -26,9 +26,7 @@
     <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
     <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
     <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
-    <ClCompile Include="src\Physics\PointMass.cpp" />
-    <ClCompile Include="src\Physics\Spring.cpp" />
-    <ClCompile Include="src\Physics\GameGrid.cpp" />
+    <ClCompile Include="Grid.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Enemy.h" />
@@ -57,9 +55,7 @@
     <ClInclude Include="include\Graphics\DirectionalBlur.h" />
     <ClInclude Include="include\Graphics\ExtractBrightParts.h" />
     <ClInclude Include="include\Graphics\GaussianBlur.h" />
-    <ClInclude Include="include\Physics\PointMass.h" />
-    <ClInclude Include="include\Physics\Spring.h" />
-    <ClInclude Include="include\Physics\GameGrid.h" />
+    <ClInclude Include="Grid.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

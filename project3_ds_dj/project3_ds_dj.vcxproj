@@ -22,7 +22,7 @@
     <ProjectGuid>{2E28DBE4-3B4C-45A5-8983-5A9485774E69}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>project3_ds_dj</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Grid.cpp" />
     <ClCompile Include="src\Enemy.cpp" />
     <ClCompile Include="src\EntityManger.cpp" />
     <ClCompile Include="src\Game.cpp" />
@@ -176,14 +177,11 @@
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Physics\GameGrid.cpp" />
-    <ClCompile Include="src\Physics\Spring.cpp" />
     <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
     <ClCompile Include="src\Graphics\DirectionalBlur.cpp" />
     <ClCompile Include="src\Graphics\ExtractBrightParts.cpp" />
     <ClCompile Include="src\Graphics\GaussianBlur.cpp" />
-    <ClCompile Include="src\Physics\PointMass.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
@@ -195,6 +193,7 @@
     <ClCompile Include="src\XboxController.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Grid.h" />
     <ClInclude Include="include\Enemy.h" />
     <ClInclude Include="include\Entity.h" />
     <ClInclude Include="include\EntityManager.h" />
@@ -207,9 +206,6 @@
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
-    <ClInclude Include="include\Physics\GameGrid.h" />
-    <ClInclude Include="include\Physics\PointMass.h" />
-    <ClInclude Include="include\Physics\Spring.h" />
     <ClInclude Include="include\Player.h" />
     <ClInclude Include="include\Graphics\Bloom.h" />
     <ClInclude Include="include\Graphics\DirectionalBlur.h" />

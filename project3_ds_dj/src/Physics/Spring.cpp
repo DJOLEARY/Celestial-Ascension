@@ -1,7 +1,7 @@
 #include "Physics\Spring.h"
 
-Spring::Spring(PointMass &p1, PointMass &p2, float stiffness, float damping)
-	: m_pointMassStart(&p1), m_pointMassEnd(&p2), m_stiffness(stiffness), m_damping(damping)
+Spring::Spring(PointMass *p1, PointMass *p2, float stiffness, float damping)
+	: m_pointMassStart(p1), m_pointMassEnd(p2), m_stiffness(stiffness), m_damping(damping), m_targetLength(5.0f)
 {
 
 }

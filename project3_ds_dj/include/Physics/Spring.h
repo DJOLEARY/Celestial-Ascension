@@ -3,7 +3,7 @@
 class Spring
 {
 public:
-	Spring(PointMass &p1, PointMass &p2, float stiffness, float damping);
+	Spring(PointMass *p1, PointMass *p2, float stiffness, float damping);
 	void update();
 
 private:

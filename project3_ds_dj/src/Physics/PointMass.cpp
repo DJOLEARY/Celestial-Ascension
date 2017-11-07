@@ -1,5 +1,7 @@
 #include "Physics\PointMass.h"
 
+PointMass::PointMass() { }
+
 PointMass::PointMass(sf::Vector3f &position, float inverseMass)
 	: m_damping(0.98f), m_position(position), m_inverseMass(inverseMass)
 {
