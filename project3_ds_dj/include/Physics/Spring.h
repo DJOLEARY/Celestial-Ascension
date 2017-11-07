@@ -1,3 +1,6 @@
+#ifndef SPRING_H
+#define SPRING_H
+
 #include "PointMass.h"
 
 class Spring
@@ -13,3 +16,5 @@ private:
 	float m_stiffness;
 	float m_damping;
 };
+
+#endif

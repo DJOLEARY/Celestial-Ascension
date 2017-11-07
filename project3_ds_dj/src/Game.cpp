@@ -70,12 +70,23 @@ void Game::update(sf::Int32 dt)
 {
 	m_screenManager.update(m_xboxController);
 	m_entityManager.Update(dt);	
+
+	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
+		grid.applyImplosiveForce(10.0f, sf::Vector3f(500.0f, 500.0f, 0.0f), 10.0f);
+
+	grid.update();
 }
 
 void Game::draw()
 {
 	m_renderTexture.clear();
 	m_screenManager.draw(m_renderTexture);
+	grid.draw(m_renderTexture);
+	sf::CircleShape circle;
+	circle.setPosition(sf::Vector2f(500.0f, 500.0f));
+	circle.setFillColor(sf::Color::White);
+	circle.setRadius(2.0f);
+	m_renderTexture.draw(circle);
 	m_renderTexture.display();
 
     m_window.clear();

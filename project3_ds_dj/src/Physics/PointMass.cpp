@@ -22,9 +22,12 @@ void PointMass::update()
 {
 	m_velocity += m_acceleration;
 	m_position += m_velocity;
-	m_acceleration = sf::Vector3f();
-	if (sf::magnitude(m_velocity) < 0.001f)
-		m_velocity = sf::Vector3f();
+	m_acceleration = sf::Vector3f(0, 0, 0);
+
+	if (distanceSquared(m_velocity) < 0.001f * 0.001f)
+	{
+		m_velocity = sf::Vector3f(0, 0, 0);
+	}
 
 	m_velocity *= m_damping;
 	m_damping = 0.98f;

@@ -14,7 +14,8 @@
 #include "Screens\Credits.h"
 #include "Screens\PlayMenu.h"
 #include "Screens\SplashScreen.h"
-#include "Graphics/Bloom.h"
+#include "Graphics\Bloom.h"
+#include "Physics\Grid.h"
 
 class Game
 {
@@ -32,6 +33,7 @@ private:
 	sf::View m_view;
 	sf::RenderTexture m_renderTexture;
 	Bloom bloom;
+	Grid grid;
 
     EntityManager m_entityManager;
 	ScreenManager m_screenManager;

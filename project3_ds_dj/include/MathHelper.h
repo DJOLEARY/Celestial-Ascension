@@ -57,7 +57,7 @@ namespace sf
 		// Internally using doubles not to lose precission
 		float amountSquared = amount * amount;
 		float amountCubed = amountSquared * amount;
-		return (float)(0.5f * (2.0f * value2 +
+		return (0.5f * (2.0f * value2 +
 			(value3 - value1) * amount +
 			(2.0f * value1 - 5.0f * value2 + 4.0f * value3 - value4) * amountSquared +
 			(3.0f * value2 - value1 - 3.0f * value3 + value4) * amountCubed));
