@@ -25,8 +25,9 @@ public:
 private:
 
     EntityManager m_entityManager;
-	Player* player;
-
+	Player* m_player;
+	int m_numOfBullets;
+	int MAX_BULLETS = 20;
 
 };
 #endif // !GAME_SCREEN_H

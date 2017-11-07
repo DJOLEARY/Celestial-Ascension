@@ -73,6 +73,9 @@
     <ClCompile Include="src\Entitys\Bullet.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="include\Entity.cpp">
+      <Filter>Source\Entity</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\XboxController.h">
