@@ -11,6 +11,7 @@
 #include "Entitys\Enemy.h"
 #include "Entitys\Bullet.h"
 #include "GUI\Button.h"
+#include "GUI\Label.h"
 
 class GameScreen : public Screen
 {
@@ -32,7 +33,12 @@ private:
 	// GUI widgets
 	Button *m_resume;
 	Button *m_mainMenu;
+	Label *m_pauseLabel;
 	sf::Texture m_resumeTexture, m_mainMenuTexture;
+	sf::Rect<float> m_pauseBackground;
+	// @refactor(darren): Put interpolation and transitionIn in the base gui
+	float interpolation;
+	bool transitionIn;
 
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
