@@ -26,8 +26,6 @@ public:
 private:
     EntityManager m_entityManager;
 	Player *m_player;
-	int m_numOfBullets;
-	int MAX_BULLETS = 20;
 	bool isPaused;
 
 	// GUI widgets

@@ -59,12 +59,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	else
 		m_entityManager.Update(dt);
 
-	if (controller.isButtonHeldDown(XBOX360_A) && m_numOfBullets < MAX_BULLETS)
-	{
-		//m_entityManager.Add(new Bullet(m_player->getPos(), m_player->getOrientation()));
-		//m_numOfBullets++;
-	}
-
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
 	{
 		isPaused = true;

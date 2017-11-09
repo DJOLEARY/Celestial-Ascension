@@ -106,7 +106,7 @@ sf::Vector2f* Player::getPosition()
 void Player::checkBullets()
 {
 	int index = 0;
-	/*for (Bullet* bullet : m_bullets)
+	for (Bullet* bullet : m_bullets)
 	{
 		if (bullet->getPos().x < 0 || bullet->getPos().x > 1920 || bullet->getPos().y < 0 || bullet->getPos().y > 1080)
 		{
@@ -116,7 +116,7 @@ void Player::checkBullets()
 		{
 			index++;
 		}
-	}*/
+	}
 }
 
 void Player::deleteBullet(int index)
