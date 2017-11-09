@@ -5,6 +5,7 @@
 #include <iostream>
 #include "XboxController.h"
 #include "MathHelper.h"
+#include "Entitys\Bullet.h"
 
 /// <summary>
 /// Player handles all update, input and rendering.
@@ -21,14 +22,19 @@ public:
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
 
     sf::Vector2f* getPosition();
-	float getOrientation();
 
 private:
+	void checkBullets();
+	void deleteBullet(int index);
+
 	XboxController &m_xboxController;
 	// @todo(darren): May move speed into entity
-	float m_speed;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
+
+	std::vector<Bullet*> m_bullets;
+	int m_numOfAliveBullets;
+	const int MAX_BULLETS = 100;
 };
 
 #endif

@@ -15,19 +15,18 @@ public:
 	virtual void Update(double dt) = 0;
 	virtual void Draw(sf::RenderTexture &renderTexture) = 0;
 
-	std::string getType();
 	sf::Vector2f getPos();
 
 protected:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
+	float m_speed;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_accleration;
 	sf::Vector2f m_movementDir;
 	float m_orientation;
 	float m_targetOrientation;
-	std::string m_type;
 };
 
 #endif

@@ -1,15 +1,14 @@
 #include "Entitys\Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
-    m_playerPos(playerPos),
-    m_speed(0.05f)
+    m_playerPos(playerPos)
 {
 	if (!m_texture.loadFromFile("Assets/Wanderer.png"))
 	{
 		std::cout << "ERROR::Enemy::Image not loaded";
 	}
 
-	m_type = "Enemy";
+	m_speed = 0.05f;
     
 	m_position = sf::Vector2f(1920 / 2, 1080 / 2);
 

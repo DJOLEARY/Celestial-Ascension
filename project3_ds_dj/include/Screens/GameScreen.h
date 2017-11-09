@@ -26,6 +26,5 @@ private:
 	int m_numOfBullets;
 	int MAX_BULLETS = 20;
 	bool isPaused;
-
 };
 #endif // !GAME_SCREEN_H

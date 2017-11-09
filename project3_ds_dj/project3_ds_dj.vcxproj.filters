@@ -10,7 +10,6 @@
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\Player.cpp" />
     <ClCompile Include="src\Screens\Credits.cpp" />
     <ClCompile Include="src\Screens\ExitMenu.cpp" />
     <ClCompile Include="src\Screens\MainMenu.cpp" />
@@ -32,6 +31,7 @@
     </ClCompile>
     <ClCompile Include="src\Entitys\EntityManger.cpp" />
     <ClCompile Include="src\Entitys\Enemy.cpp" />
+    <ClCompile Include="src\Entitys\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -128,12 +128,6 @@
     <ClCompile Include="src\Screens\SplashScreen.cpp">
       <Filter>Source\Screens</Filter>
     </ClCompile>
-    <ClCompile Include="src\Enemy.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
-    <ClCompile Include="src\EntityManger.cpp">
-      <Filter>Source\Entity</Filter>
-    </ClCompile>
     <ClCompile Include="src\Player.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
@@ -201,18 +195,6 @@
     </ClInclude>
     <ClInclude Include="include\Screens\Credits.h">
       <Filter>Header\Screens</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Entity.h">
-      <Filter>Header\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\EntityManager.h">
-      <Filter>Header\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Player.h">
-      <Filter>Header\Entity</Filter>
-    </ClInclude>
-    <ClInclude Include="include\Enemy.h">
-      <Filter>Header\Entity</Filter>
     </ClInclude>
     <ClInclude Include="include\Entitys\Bullet.h">
       <Filter>Header\Entity</Filter>

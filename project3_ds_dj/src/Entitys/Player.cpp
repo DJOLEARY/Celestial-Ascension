@@ -4,14 +4,14 @@
 /// 
 /// </summary>
 Player::Player(XboxController &controller)
-	: m_xboxController(controller), m_speed(0.025f), m_rotationDiff(0.0f)
+	: m_xboxController(controller), m_rotationDiff(0.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 	{
 		std::cout << "ERROR::Player::Image not loaded";
 	}
 
-	m_type = "Player";
+	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
@@ -59,6 +59,12 @@ void Player::ProcessInput(double dt)
     {
         m_velocity = sf::Vector2f();
     }
+
+	if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
+	{
+		m_bullets.push_back(new Bullet(m_position, m_xboxController));
+		m_numOfAliveBullets++;
+	}
 }
 
 /// <summary>
@@ -68,6 +74,12 @@ void Player::ProcessInput(double dt)
 void Player::Update(double dt)
 {
 	ProcessInput(dt);
+	checkBullets();
+
+	for (Bullet* bullet : m_bullets)
+	{
+		bullet->Update(dt);
+	}
 }
 
 /// <summary>
@@ -79,6 +91,11 @@ void Player::Draw(sf::RenderTexture &renderTexture)
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
 	renderTexture.draw(m_sprite);
+
+	for (Bullet* bullet : m_bullets)
+	{
+		bullet->Draw(renderTexture);
+	}
 }
 
 sf::Vector2f* Player::getPosition()
@@ -86,7 +103,24 @@ sf::Vector2f* Player::getPosition()
 	return &m_position;
 }
 
-float Player::getOrientation()
+void Player::checkBullets()
 {
-	return m_targetOrientation;
+	int index = 0;
+	/*for (Bullet* bullet : m_bullets)
+	{
+		if (bullet->getPos().x < 0 || bullet->getPos().x > 1920 || bullet->getPos().y < 0 || bullet->getPos().y > 1080)
+		{
+			deleteBullet(index);
+		}
+		else
+		{
+			index++;
+		}
+	}*/
+}
+
+void Player::deleteBullet(int index)
+{
+	m_bullets.erase(m_bullets.begin() + index);
+	m_numOfAliveBullets--;
 }

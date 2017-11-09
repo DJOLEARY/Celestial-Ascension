@@ -13,7 +13,6 @@ class EntityManager
 {
 public:
 	EntityManager();
-	EntityManager(int* numOfBullets);
 	~EntityManager();
 
 	void Add(Entity *entity);
@@ -22,7 +21,6 @@ public:
 
 private:
 	std::vector<Entity*> m_entites;
-	int* m_numOfBullets;
 };
 
 #endif
