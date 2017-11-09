@@ -1,7 +1,9 @@
 #include "Game.h"
 
-Game::Game() : 
-    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default),
+Game::Game() 
+	: 
+	m_windowSettings(),
+    m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings),
     m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
 	bloom(m_window.getSize(), 0.0f, 1.0f)
@@ -25,7 +27,6 @@ Game::Game() :
 
 	if (!m_renderTexture.create(m_view.getSize().x, m_view.getSize().y))
 		std::cout << "Render texture not created" << std::endl;
-
 }
 
 Game::~Game()
@@ -67,10 +68,8 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-	m_screenManager.update(m_xboxController, dt);
-
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
-		grid.applyImplosiveForce(100.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
+		grid.applyImplosiveForce(50.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
 
 	grid.update();
 	m_screenManager.update(m_xboxController, dt);

@@ -27,6 +27,7 @@ private:
     void update(sf::Int32 dt);
     void draw();
 
+	sf::ContextSettings m_windowSettings;
     sf::RenderWindow m_window;
 	sf::View m_view;
 	sf::RenderTexture m_renderTexture;

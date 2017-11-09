@@ -18,6 +18,9 @@ ExitMenu::ExitMenu()
 	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
 	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
 
+	m_noButton->select = std::bind(&ExitMenu::noButtonSelected, this);
+	m_yesButton->select = std::bind(&ExitMenu::yesButtonSelected, this);
+
 	m_noButton->promoteFocus();
 
 	m_noButton->m_right = m_yesButton;
