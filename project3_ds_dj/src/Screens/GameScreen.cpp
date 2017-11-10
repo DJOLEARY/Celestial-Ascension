@@ -11,6 +11,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view)
     m_player = new Player(controller);
 
 	// Camera
+	// @todo(refactor): make camera it's own class
 	m_cameraPosition = *m_player->getPosition();
 
     m_entityManager.Add(m_player);
