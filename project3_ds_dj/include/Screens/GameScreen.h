@@ -38,6 +38,9 @@ private:
 	float interpolation;
 	bool transitionIn;
 
+	sf::Vector2f m_cameraPosition;
+	sf::Vector2f m_cameraVelocity;
+	void cameraFollow();
 	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();

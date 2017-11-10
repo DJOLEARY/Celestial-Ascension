@@ -9,6 +9,10 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view)
 
 	m_entityManager = EntityManager();
     m_player = new Player(controller);
+
+	// Camera
+	m_cameraPosition = *m_player->getPosition();
+
     m_entityManager.Add(m_player);
     m_entityManager.Add(new Enemy(m_player->getPosition()));
 
@@ -54,12 +58,15 @@ void GameScreen::reset()
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
+	cameraFollow();
+	m_cameraPosition += m_cameraVelocity * (float)dt;
+
 	if (isPaused)
 		m_gui.processInput(controller);
 	else
 	{
 		m_entityManager.Update(dt);
-		m_view.setCenter(*m_player->getPosition());
+		m_view.setCenter(m_cameraPosition);
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
@@ -89,6 +96,18 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	{
 		renderTexture.setView(m_view);
 		renderTexture.draw(m_gui);
+	}
+}
+
+void GameScreen::cameraFollow()
+{
+	if (sf::distance(m_cameraPosition, *m_player->getPosition()) < 10.0f)
+	{
+		m_cameraVelocity = sf::Vector2f();
+	}
+	else
+	{
+		m_cameraVelocity = sf::normalize(*m_player->getPosition() - m_cameraPosition) * 0.25f;
 	}
 }
 
