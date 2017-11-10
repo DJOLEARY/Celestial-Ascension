@@ -1,7 +1,7 @@
 #include "Screens\GameScreen.h"
 
-GameScreen::GameScreen(XboxController &controller) 
-	: Screen(GameState::GamePlay), isPaused(false)
+GameScreen::GameScreen(XboxController &controller, sf::View &view) 
+	: Screen(GameState::GamePlay), isPaused(false), m_view(&view)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -58,6 +58,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 		m_entityManager.Update(dt);
+
+	m_view->setCenter(*m_player->getPosition());
 
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
 	{

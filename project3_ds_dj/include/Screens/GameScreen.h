@@ -16,7 +16,7 @@
 class GameScreen : public Screen
 {
 public:
-    GameScreen(XboxController &controller);
+	GameScreen(XboxController &controller, sf::View &view);
     ~GameScreen();
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
@@ -26,6 +26,7 @@ public:
 private:
     EntityManager m_entityManager;
 	Player *m_player;
+	sf::View *m_view;
 	bool isPaused;
 
 	// GUI widgets

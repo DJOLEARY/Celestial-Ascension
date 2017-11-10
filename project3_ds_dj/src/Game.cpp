@@ -21,7 +21,7 @@ Game::Game()
 	m_screenManager.add(new ExitMenu());
 	m_screenManager.add(new Credits());
 	m_screenManager.add(new PlayMenu());
-    m_screenManager.add(new GameScreen(m_xboxController));
+    m_screenManager.add(new GameScreen(m_xboxController, m_view));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 
@@ -88,6 +88,7 @@ void Game::draw()
 	m_renderTexture.display();
 
     m_window.clear();
+	m_window.setView(m_view);
 	m_screenManager.draw(m_renderTexture);
 	bloom.apply(m_renderTexture.getTexture(), m_window);
     m_window.display();
