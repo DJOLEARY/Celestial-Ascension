@@ -11,7 +11,7 @@
 class Bullet : public Entity
 {
 public:
-	Bullet(sf::Vector2f playerPos, XboxController& controller);
+	Bullet(sf::Vector2f playerPos, sf::Vector2f rightStick);
 	~Bullet();
 
 	virtual void Update(double dt) override;

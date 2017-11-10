@@ -1,9 +1,9 @@
 #include "Entitys/Bullet.h"
 
-Bullet::Bullet(sf::Vector2f playerPos, XboxController& controller)
+Bullet::Bullet(sf::Vector2f playerPos, sf::Vector2f rightStick)
 {
 	m_position = playerPos;
-	m_movementDir = controller.getRightStick();
+	m_movementDir = rightStick;
 	m_movementDir = sf::normalize(m_movementDir);
 	m_orientation = (atan2(m_movementDir.y, m_movementDir.x));
 

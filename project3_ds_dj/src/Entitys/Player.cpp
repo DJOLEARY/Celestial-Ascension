@@ -60,9 +60,10 @@ void Player::ProcessInput(double dt)
         m_velocity = sf::Vector2f();
     }
 
-	if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
+	sf::Vector2f rightStick = m_xboxController.getRightStick();
+	if (sf::magnitude(rightStick) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
 	{
-		m_bullets.push_back(new Bullet(m_position, m_xboxController));
+		m_bullets.push_back(new Bullet(m_position, rightStick));
 		m_numOfAliveBullets++;
 	}
 }
