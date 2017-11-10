@@ -1,7 +1,7 @@
 #include "Screens\Options.h"
 
-Options::Options()
-	: Screen(GameState::Options), transitionIn(true)
+Options::Options(sf::View &view)
+	: Screen(GameState::Options, view), transitionIn(true)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -76,10 +76,14 @@ Options::Options()
 void Options::reset()
 {
 	// Reset the top Gui elements to be in focus
-	m_musicVolume->promoteFocus();
 	transitionIn = true;
 	interpolation = 0.0f;
 	m_applyButtonPressed = false;
+
+	for (Widget *widget : m_gui.m_widgets)
+		widget->demoteFocus();
+
+	m_musicVolume->promoteFocus();
 }
 
 /// <summary>

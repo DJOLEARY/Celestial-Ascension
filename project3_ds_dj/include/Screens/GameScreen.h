@@ -26,7 +26,6 @@ public:
 private:
     EntityManager m_entityManager;
 	Player *m_player;
-	sf::View *m_view;
 	bool isPaused;
 
 	// GUI widgets
@@ -39,6 +38,7 @@ private:
 	float interpolation;
 	bool transitionIn;
 
+	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
 };

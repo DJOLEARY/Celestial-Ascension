@@ -14,7 +14,7 @@
 class Credits : public Screen
 {
 public:
-	Credits();
+	Credits(sf::View &view);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 

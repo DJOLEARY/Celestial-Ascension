@@ -1,7 +1,7 @@
 #include "Screens\SplashScreen.h"
 
-SplashScreen::SplashScreen()
-	: Screen(GameState::SplashScreen), m_alphaFadeValue(0)
+SplashScreen::SplashScreen(sf::View &view)
+	: Screen(GameState::SplashScreen, view), m_alphaFadeValue(0)
 {
 	if(!m_teamLogoTexture.loadFromFile("Assets/SplashScreen/DarrenDJ_Games.png"))
 		std::cout << "ERROR::SplashScreen::Team Logo image not loaded";
@@ -36,6 +36,7 @@ void SplashScreen::update(XboxController &controller, sf::Int32 dt)
 
 void SplashScreen::render(sf::RenderTexture &renderTexture)
 {
+	renderTexture.setView(m_view);
 	renderTexture.clear(sf::Color(125, 125, 125));
 	renderTexture.draw(m_teamLogoSprite);
 	renderTexture.draw(m_fadeRectangle);

@@ -1,7 +1,7 @@
 #include "Screens\PlayMenu.h"
 
-PlayMenu::PlayMenu()
-	: Screen(GameState::PlayMenu), transitionIn(true)
+PlayMenu::PlayMenu(sf::View &view)
+	: Screen(GameState::PlayMenu, view), transitionIn(true)
 {
 	// @refactor(darren): Pull this out
 	sf::Color focusIn(50, 200, 50);
