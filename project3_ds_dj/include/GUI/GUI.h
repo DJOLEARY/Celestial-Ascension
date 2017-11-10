@@ -25,6 +25,7 @@ public:
 	void setWidgetsAlpha(float alpha);
 	void transitionOut(float transitionSpeed, float &interpolation);
 	void transitionIn(float transitionSpeed, float &interpolation);
+	void offsetPosition(sf::Vector2f &pos);
 	void clear();
 
 	// A vector of all the widgets this Gui handles

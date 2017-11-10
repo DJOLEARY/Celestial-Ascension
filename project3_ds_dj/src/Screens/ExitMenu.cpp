@@ -1,7 +1,7 @@
 #include "Screens\ExitMenu.h"
 
-ExitMenu::ExitMenu()
-	: Screen(GameState::ExitMenu), transitionIn(true)
+ExitMenu::ExitMenu(sf::View &view)
+	: Screen(GameState::ExitMenu, view), transitionIn(true)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);

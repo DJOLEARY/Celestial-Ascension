@@ -15,13 +15,13 @@ Game::Game()
 	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
 
-	m_screenManager.add(new SplashScreen());
-	m_screenManager.add(new MainMenu());
-	m_screenManager.add(new Options());
-	m_screenManager.add(new ExitMenu());
-	m_screenManager.add(new Credits());
-	m_screenManager.add(new PlayMenu());
-    m_screenManager.add(new GameScreen(m_xboxController));
+	m_screenManager.add(new SplashScreen(m_view));
+	m_screenManager.add(new MainMenu(m_view));
+	m_screenManager.add(new Options(m_view));
+	m_screenManager.add(new ExitMenu(m_view));
+	m_screenManager.add(new Credits(m_view));
+	m_screenManager.add(new PlayMenu(m_view));
+    m_screenManager.add(new GameScreen(m_xboxController, m_view));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 
@@ -78,17 +78,12 @@ void Game::update(sf::Int32 dt)
 void Game::draw()
 {
 	m_renderTexture.clear();
-	m_screenManager.draw(m_renderTexture);
 	grid.draw(m_renderTexture);
-	sf::CircleShape circle;
-	circle.setPosition(sf::Vector2f(500.0f, 500.0f));
-	circle.setFillColor(sf::Color::White);
-	circle.setRadius(2.0f);
-	m_renderTexture.draw(circle);
+	m_screenManager.draw(m_renderTexture);
 	m_renderTexture.display();
 
     m_window.clear();
-	m_screenManager.draw(m_renderTexture);
+	m_window.setView(m_view);
 	bloom.apply(m_renderTexture.getTexture(), m_window);
     m_window.display();
 }

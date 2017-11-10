@@ -35,7 +35,9 @@ public:
 	virtual void setPosition(sf::Vector2f &pos);
 	sf::Vector2f getPosition();
 	sf::Vector2f getStartPos();
+	void setStartPos(sf::Vector2f &pos);
 	sf::Vector2f getEndPos();
+	void setEndPos(sf::Vector2f &pos);
 	virtual void setColors();
 	void setAlpha(float alpha);
 

@@ -16,7 +16,7 @@
 class GameScreen : public Screen
 {
 public:
-    GameScreen(XboxController &controller);
+	GameScreen(XboxController &controller, sf::View &view);
     ~GameScreen();
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
@@ -38,6 +38,10 @@ private:
 	float interpolation;
 	bool transitionIn;
 
+	sf::Vector2f m_cameraPosition;
+	sf::Vector2f m_cameraVelocity;
+	void cameraFollow();
+	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
 };
