@@ -8,7 +8,6 @@ Grid::Grid()
 	gridInit(sf::Rect<float>(0, 0, 1920, 1080), gridSpacing);
 }
 
-
 void Grid::gridInit(const sf::Rect<float> &rect, const sf::Vector2f &spacing)
 {
 	m_screenSize = sf::Vector2f(1920, 1080);
@@ -20,14 +19,13 @@ void Grid::gridInit(const sf::Rect<float> &rect, const sf::Vector2f &spacing)
 	m_cols = numColumns;
 	m_rows = numRows;
 
-	PointMass * fixedPoints = new PointMass[numColumns * numRows];
+	PointMass *fixedPoints = new PointMass[numColumns * numRows];
 
 	int column = 0, row = 0;
+	// @refactor(darren): Take out need for fixed points
 	for (float y = rect.top; y <= rect.top + rect.height; y += spacing.y)
 	{
-		for (float x = rect.left;
-			x <= rect.left + rect.width;
-			x += spacing.x)
+		for (float x = rect.left; x <= rect.left + rect.width; x += spacing.x)
 		{
 			SetPointMass(m_points, column, row, PointMass(sf::Vector3f(x, y, 0), 1));
 			SetPointMass(fixedPoints, column, row, PointMass(sf::Vector3f(x, y, 0), 0));
@@ -37,6 +35,8 @@ void Grid::gridInit(const sf::Rect<float> &rect, const sf::Vector2f &spacing)
 		row++;
 		column = 0;
 	}
+
+	// @todo(darren): Might constrain each point mass on the spring perimeter so it doesn't move
 
 	// Constrain the point masses with springs
 	for (int y = 0; y < numRows; y++)
@@ -67,9 +67,12 @@ void Grid::gridInit(const sf::Rect<float> &rect, const sf::Vector2f &spacing)
 			}
 		}
 	}
+
+	m_topLeftPos = toVec2(GetPointMass(m_points, 1, 1)->getPosition());
+	m_gridSize = toVec2(GetPointMass(m_points, m_cols - 2, m_rows - 2)->getPosition());
 }
 
-void Grid::applyDirectedForce(const sf::Vector3f& force, const sf::Vector3f& position, float radius)
+void Grid::applyDirectedForce(const sf::Vector3f &force, const sf::Vector3f &position, float radius)
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
@@ -80,7 +83,7 @@ void Grid::applyDirectedForce(const sf::Vector3f& force, const sf::Vector3f& pos
 	}
 }
 
-void Grid::applyImplosiveForce(float force, const sf::Vector3f& position, float radius)
+void Grid::applyImplosiveForce(float force, const sf::Vector3f &position, float radius)
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
@@ -93,7 +96,7 @@ void Grid::applyImplosiveForce(float force, const sf::Vector3f& position, float 
 	}
 }
 
-void Grid::applyExplosiveForce(float force, const sf::Vector3f& position, float radius)
+void Grid::applyExplosiveForce(float force, const sf::Vector3f &position, float radius)
 {
 	for (int i = 0; i < m_cols * m_rows; i++)
 	{
@@ -121,6 +124,24 @@ void Grid::draw(sf::RenderTexture &texture)
 	int height = m_rows;
 	sf::Color color(0.12f * 255, 0.12f * 255, 0.55f * 255, 0.65f * 255);
 
+	sf::RectangleShape rectShape;
+	// Top
+	rectShape.setPosition(m_topLeftPos);
+	rectShape.setSize(sf::Vector2f(m_gridSize.x, 20.0f));
+	texture.draw(rectShape);
+	// Left
+	rectShape.setPosition(m_topLeftPos);
+	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
+	texture.draw(rectShape);
+	// Right
+	rectShape.setPosition(m_topLeftPos + sf::Vector2f(m_gridSize.x, 0.0f));
+	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
+	texture.draw(rectShape);
+	// Bottom
+	rectShape.setPosition(m_topLeftPos + sf::Vector2f(0.0f, m_gridSize.y));
+	rectShape.setSize(sf::Vector2f(m_gridSize.x + 20.0f, 20.0f));
+	texture.draw(rectShape);
+
 	for (int y = 1; y < height; y++)
 	{
 		for (int x = 1; x < width; x++)
@@ -132,34 +153,21 @@ void Grid::draw(sf::RenderTexture &texture)
 				left = toVec2(GetPointMass(m_points, x - 1, y)->getPosition());
 				float thickness = (y % 3 == 1) ? 3.0f : 1.0f;
 
-				int clampedX = (int)std::min(x + 1, width - 1);
+				int clampedX = std::min(x + 1, width - 1);
 				sf::Vector2f mid = catmullRom(toVec2(GetPointMass(m_points, x - 2, y)->getPosition()), left, p, 
 					toVec2(GetPointMass(m_points, clampedX, y)->getPosition()), 0.5f);
 
 				if (distanceSquared(mid, (left + p) / 2.0f) > 1)
 				{
-					sf::Vertex lineOne[] =
-					{
-						sf::Vertex(left, color),
-						sf::Vertex(mid, color)
-					};
-
-					sf::Vertex lineTwo[] =
-					{
-						sf::Vertex(mid, color),
-						sf::Vertex(p, color)
-					};
+					sf::Vertex lineOne[] = { sf::Vertex(left, color), sf::Vertex(mid, color) };
+					sf::Vertex lineTwo[] = { sf::Vertex(mid, color), sf::Vertex(p, color) };
 
 					texture.draw(lineOne, 2, sf::Lines);
 					texture.draw(lineTwo, 2, sf::Lines);
 				}
 				else
 				{
-					sf::Vertex line[] =
-					{
-						sf::Vertex(left, color),
-						sf::Vertex(p, color)
-					};
+					sf::Vertex line[] = { sf::Vertex(left, color), sf::Vertex(p, color) };
 
 					texture.draw(line, 2, sf::Lines);
 				}
@@ -170,34 +178,21 @@ void Grid::draw(sf::RenderTexture &texture)
 				up = toVec2(GetPointMass(m_points, x, y - 1)->getPosition());
 
 				float thickness = (x % 3 == 1) ? 3.0f : 1.0f;
-				int clampedY = (int)std::min(y + 1, height - 1);
+				int clampedY = std::min(y + 1, height - 1);
 				sf::Vector2f mid = catmullRom(toVec2(GetPointMass(m_points, x, y - 2)->getPosition()), up, p,
 					toVec2(GetPointMass(m_points, x, clampedY)->getPosition()), 0.5f);
 
 				if (distanceSquared(mid, (up + p) / 2.0f) > 1)
 				{
-					sf::Vertex lineOne[] =
-					{
-						sf::Vertex(up, color),
-						sf::Vertex(mid, color)
-					};
-
-					sf::Vertex lineTwo[] =
-					{
-						sf::Vertex(mid, color),
-						sf::Vertex(p, color)
-					};
+					sf::Vertex lineOne[] = { sf::Vertex(up, color), sf::Vertex(mid, color) };
+					sf::Vertex lineTwo[] = { sf::Vertex(mid, color), sf::Vertex(p, color) };
 
 					texture.draw(lineOne, 2, sf::Lines);
 					texture.draw(lineTwo, 2, sf::Lines);
 				}
 				else
 				{
-					sf::Vertex line[] =
-					{
-						sf::Vertex(up, color),
-						sf::Vertex(p, color)
-					};
+					sf::Vertex line[] = { sf::Vertex(up, color), sf::Vertex(p, color) };
 
 					texture.draw(line, 2, sf::Lines);
 				}
@@ -206,19 +201,10 @@ void Grid::draw(sf::RenderTexture &texture)
 			if (x > 1 && y > 1)
 			{
 				sf::Vector2f upLeft = toVec2(GetPointMass(m_points, x - 1, y - 1)->getPosition());
-				sf::Vertex lineOne[] =
-				{
-					sf::Vertex(0.5f * (upLeft + up), color),
-					sf::Vertex(0.5f * (left + p), color)
-				};
+				sf::Vertex lineOne[] = { sf::Vertex(0.5f * (upLeft + up), color), sf::Vertex(0.5f * (left + p), color) };
+				sf::Vertex lineTwo[] = { sf::Vertex(0.5f * (upLeft + left), color), sf::Vertex(0.5f * (up + p), color) };
 
 				texture.draw(lineOne, 2, sf::Lines);
-				sf::Vertex lineTwo[] =
-				{
-					sf::Vertex(0.5f * (upLeft + left), color),
-					sf::Vertex(0.5f * (up + p), color)
-				};
-
 				texture.draw(lineTwo, 2, sf::Lines);
 			}
 		}

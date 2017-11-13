@@ -107,7 +107,7 @@ void GameScreen::cameraFollow()
 	}
 	else
 	{
-		m_cameraVelocity = sf::normalize(*m_player->getPosition() - m_cameraPosition) * 0.25f;
+		m_cameraVelocity = sf::normalize(*m_player->getPosition() - m_cameraPosition) * 0.35f;
 	}
 }
 
