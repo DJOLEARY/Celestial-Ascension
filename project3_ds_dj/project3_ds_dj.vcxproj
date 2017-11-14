@@ -180,6 +180,8 @@
     <ClCompile Include="src\GUI\Slider.cpp" />
     <ClCompile Include="src\GUI\Widget.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\Physics\Particle.cpp" />
+    <ClCompile Include="src\Physics\ParticleManager.cpp" />
     <ClCompile Include="src\Physics\PointMass.cpp" />
     <ClCompile Include="src\Physics\Spring.cpp" />
     <ClCompile Include="src\Graphics\Bloom.cpp" />
@@ -213,6 +215,8 @@
     <ClInclude Include="include\GUI\Slider.h" />
     <ClInclude Include="include\GUI\Widget.h" />
     <ClInclude Include="include\MathHelper.h" />
+    <ClInclude Include="include\Physics\Particle.h" />
+    <ClInclude Include="include\Physics\ParticleManager.h" />
     <ClInclude Include="include\Physics\PointMass.h" />
     <ClInclude Include="include\Physics\Spring.h" />
     <ClInclude Include="include\Entitys\Player.h" />

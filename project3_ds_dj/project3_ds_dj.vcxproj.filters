@@ -32,6 +32,8 @@
     <ClCompile Include="src\Entitys\EntityManger.cpp" />
     <ClCompile Include="src\Entitys\Enemy.cpp" />
     <ClCompile Include="src\Entitys\Player.cpp" />
+    <ClCompile Include="src\Physics\Particle.cpp" />
+    <ClCompile Include="src\Physics\ParticleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -64,6 +66,8 @@
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\EntityManager.h" />
     <ClInclude Include="CircularArray.h" />
+    <ClInclude Include="include\Physics\Particle.h" />
+    <ClInclude Include="include\Physics\ParticleManager.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

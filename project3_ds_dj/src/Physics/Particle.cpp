@@ -6,11 +6,26 @@ Particle::Particle(sf::Color color, float duration, sf::Vector2f position, sf::V
 
 }
 
+void Particle::setAttributes(sf::Color &color, float duration, sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale)
+{
+	m_color = color;
+	m_duration = duration;
+	m_position = position;
+	m_velocity = velocity;
+	m_rotation = rotation;
+	m_scale = scale;
+}
+
+bool Particle::isDead()
+{
+	return m_duration < 0;
+}
+
 void Particle::update()
 {
 	float speed = sf::magnitude(m_velocity);
 
-	m_position += m_velocity;
+	m_position += m_velocity * 0.0001f;
 
 	// @refactor(darren): Leave this for testing for now
 	int width = 1920;
@@ -42,4 +57,16 @@ void Particle::update()
 	{
 		m_velocity *= 0.96f + (float)fmod(fabs(m_position.x), 0.94f);
 	}
+
+	m_lifeTime -= 1.0f / m_duration;
+}
+
+void Particle::draw(sf::RenderTexture &renderTexture)
+{
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(5.0f, 1.0f));
+	rect.setRotation(m_rotation);
+	rect.setPosition(m_position);
+
+	renderTexture.draw(rect);
 }
