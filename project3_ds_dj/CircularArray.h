@@ -10,7 +10,7 @@ private:
 	uint32_t m_count;
 
 public:
-	CircularArray(uint32_t capacity);
+	CircularArray(uint32_t capacity)
 	{
 		m_array = new T[capacity];
 		memset(m_array, 0, sizeof(T) * capacity);
