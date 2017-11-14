@@ -63,6 +63,7 @@
     <ClInclude Include="include\Entitys\Entity.h" />
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\EntityManager.h" />
+    <ClInclude Include="CircularArray.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />
