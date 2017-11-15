@@ -3,6 +3,11 @@
 ParticleManager::ParticleManager()
 	: m_particleArray(1000)
 {
+	if (!m_particleTexture.loadFromFile("Assets/Particle.png"))
+		std::cout << "Could not load particle texture" << std::endl;
+
+	m_particleSprite.setTexture(m_particleTexture);
+
 	srand(time(NULL));
 }
 
@@ -32,7 +37,7 @@ void ParticleManager::clearParticles()
 	m_particleArray.setCount(0);
 }
 
-void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &startColor, sf::Color &targetColor)
+void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &color)
 {
 	for (uint32_t i = 0; i < 100; i++)
 	{
@@ -41,9 +46,7 @@ void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &startCo
 		sf::Vector2f velocity = sf::Vector2f(speed * cos(theta), speed * sin(theta));
 		float rotation = sf::radiansToDegress(theta);
 
-		// 2. Create a color lerp so particles have different color
-
-		createParticle(sf::Color(255, 255, 255), 2.0f, position, velocity, rotation, 2.0f);
+		createParticle(color, 20.0f, position, velocity, rotation, 0.1f);
 	}
 }
 
@@ -65,5 +68,5 @@ void ParticleManager::createParticle(sf::Color &color, float duration, sf::Vecto
 	}
 
 	Particle &ref = m_particleArray[index];
-	ref.setAttributes(color, duration, position, velocity, rotation, scale);
+	ref.setAttributes(m_particleSprite, color, duration, position, velocity, rotation, scale);
 }
