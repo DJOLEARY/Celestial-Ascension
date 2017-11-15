@@ -7,7 +7,7 @@
 class Particle
 {
 public:
-	Particle(sf::Color color = sf::Color(255, 255, 255), float duration = 5.0f, sf::Vector2f velocity = sf::Vector2f(),
+	Particle(sf::Color color = sf::Color(255, 255, 255), float lifeTime = 5.0f, sf::Vector2f velocity = sf::Vector2f(),
 		sf::Vector2f position = sf::Vector2f(), float rotation = 0.0f, float scale = 1.0f);
 
 	void setAttributes(sf::Color &color, float duration, sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale);
@@ -17,7 +17,8 @@ public:
 
 private:
 	sf::Color m_color;
-	float m_duration;
+	sf::Clock m_clock;
+	// Life time is in seconds
 	float m_lifeTime;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_position;

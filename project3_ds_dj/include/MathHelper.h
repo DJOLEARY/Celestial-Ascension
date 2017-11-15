@@ -2,6 +2,9 @@
 #define MATH_HELPER_H
 
 #include <SFML\Graphics.hpp>
+#include <random>
+
+#define PI 3.14159265358979323846
 
 // Add on functions for sfml vector data types
 namespace sf
@@ -21,9 +24,43 @@ namespace sf
 		return vec / magnitude(vec);
 	}
 
+	inline float randF(float start, float end)
+	{
+		static std::random_device rand_dev;
+		static std::mt19937 generator(rand_dev());
+		static std::uniform_real<float> distr(start, end);
+		return distr(generator);
+	}
+
 	inline Vector2f lerp(Vector2f &startPos, Vector2f &endPos, float t)
 	{
 		return (1.0f - t) * startPos + (t * endPos);
+	}
+
+	inline float floatLerp(float start, float end, float t)
+	{
+		return (1 - t) * start + t * end;
+	}
+
+	inline float degressToRadians(float angle)
+	{
+		return angle * (PI / 180.0f);
+	}
+
+	inline float radiansToDegress(float angle)
+	{
+		return angle * (180.0f / PI);
+	}
+
+	inline Color colorLerp(Color &currentColor, Color &targetColor, float t)
+	{
+		Color result;
+		result.r = floatLerp(currentColor.r, targetColor.r, t);
+		result.g = floatLerp(currentColor.g, targetColor.g, t);
+		result.b = floatLerp(currentColor.b, targetColor.b, t);
+		result.a = floatLerp(currentColor.a, targetColor.a, t);
+
+		return result;
 	}
 
     inline float distance(Vector2f &vec1, Vector2f &vec2)

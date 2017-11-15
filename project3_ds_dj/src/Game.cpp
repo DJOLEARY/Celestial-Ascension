@@ -71,7 +71,7 @@ void Game::update(sf::Int32 dt)
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
 	{
 		m_grid.applyImplosiveForce(50.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
-		m_particleManger.createParticle(sf::Color(255, 255, 255), 10.0f, sf::Vector2f(500.0f, 500.0f), sf::Vector2f(-1.0f, 0.0f), 0.0f, 1.0f);
+		m_particleManger.createExplosion(sf::Vector2f(500.0f, 500.0f));
 	}
 
 	m_grid.update();

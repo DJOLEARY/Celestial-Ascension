@@ -1,9 +1,9 @@
 #include "Physics\ParticleManager.h"
 
 ParticleManager::ParticleManager()
-	: m_particleArray(500)
+	: m_particleArray(1000)
 {
-
+	srand(time(NULL));
 }
 
 void ParticleManager::update()
@@ -11,10 +11,11 @@ void ParticleManager::update()
 	for (uint32_t particleIndex = 0; particleIndex < m_particleArray.getCount(); particleIndex++)
 	{
 		Particle &particle = m_particleArray[particleIndex];
-		particle.update();
 
 		if (particle.isDead())
 			m_particleArray.decreaseCount(1);
+
+		particle.update();
 	}
 }
 
@@ -31,9 +32,19 @@ void ParticleManager::clearParticles()
 	m_particleArray.setCount(0);
 }
 
-void ParticleManager::createExplosion()
+void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &startColor, sf::Color &targetColor)
 {
-	// @todo(darren): Might create all the particle effects in the particle manager and call them
+	for (uint32_t i = 0; i < 100; i++)
+	{
+		float speed = (rand() % 10) + 2;
+		float theta = sf::randF(0, 2.0f * PI);
+		sf::Vector2f velocity = sf::Vector2f(speed * cos(theta), speed * sin(theta));
+		float rotation = sf::radiansToDegress(theta);
+
+		// 2. Create a color lerp so particles have different color
+
+		createParticle(sf::Color(255, 255, 255), 2.0f, position, velocity, rotation, 2.0f);
+	}
 }
 
 void ParticleManager::createParticle(sf::Color &color, float duration, sf::Vector2f &position, 
