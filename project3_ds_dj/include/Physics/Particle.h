@@ -20,6 +20,7 @@ private:
 	sf::Clock m_clock;
 	// Life time is in seconds
 	float m_lifeTime;
+	int timerCounting;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_position;
 	float m_rotation;

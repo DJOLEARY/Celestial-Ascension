@@ -1,12 +1,10 @@
 #include "Physics\Particle.h"
 
-Particle::Particle()
-{
-
-}
+Particle::Particle() { }
 
 void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTime, sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale)
 {
+	timerCounting = 0;
 	m_sprite = &sprite;
 	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
 	m_color = color;
@@ -16,11 +14,17 @@ void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTim
 	m_velocity = velocity;
 	m_rotation = rotation;
 	m_scale = scale;
+	m_color.a = 255;
+	m_clock.restart();
 }
 
 bool Particle::isDead()
 {
-	return m_lifeTime < 0.01f;
+	//return m_lifeTime < 0.01f;
+
+	bool dead = timerCounting > 2;
+
+	return dead;
 }
 
 void Particle::update()
@@ -48,13 +52,13 @@ void Particle::update()
 		m_color.a = 0;
 		m_lifeTime = 0.0f;
 	}
-	else
-		m_color.a -= 1;
-
+	//else
+		//m_color.a -= 5;
 
 	if (elapsedTime.asSeconds() > 1)
 	{
 		m_lifeTime -= 1;
+		timerCounting++;
 		m_clock.restart();
 	}
 }

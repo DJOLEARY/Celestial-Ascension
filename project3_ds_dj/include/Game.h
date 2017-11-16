@@ -20,19 +20,11 @@ class Game
 {
 public:
     Game();
-    ~Game();
-
     void run();
 
 private:
     void update(sf::Int32 dt);
     void draw();
-
-
-
-	sf::Texture m_texture;
-	sf::Sprite m_sprite;
-
 
 	sf::ContextSettings m_windowSettings;
     sf::RenderWindow m_window;

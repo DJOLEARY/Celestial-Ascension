@@ -29,11 +29,6 @@ Game::Game()
 		std::cout << "Render texture not created" << std::endl;
 }
 
-Game::~Game()
-{
-
-}
-
 void Game::run()
 {
     sf::Clock clock;
@@ -70,8 +65,9 @@ void Game::update(sf::Int32 dt)
 {
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
 	{
-		m_grid.applyImplosiveForce(50.0f, sf::Vector3f(500.0f, 500.0f, -20.0f), 100.0f);
-		m_particleManger.createExplosion(sf::Vector2f(500.0f, 500.0f), sf::Color(216.0f, 114.0f, 30.0f));
+		sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 1000.0f));
+		m_grid.applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
+		m_particleManger.createExplosion(position, sf::Color(216.0f, 114.0f, 30.0f));
 	}
 
 	m_grid.update();

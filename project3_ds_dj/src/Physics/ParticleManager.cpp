@@ -18,7 +18,13 @@ void ParticleManager::update()
 		Particle &particle = m_particleArray[particleIndex];
 
 		if (particle.isDead())
+		{
+			// @bug(darren): Particles are all being deleted
 			m_particleArray.decreaseCount(1);
+			// @bug(darren): Problem is the index is going to be in correct, first hundred die then index is back to 
+			// first particle which has a life time of zero. Need to refactor circular array and mark particles deleted.
+			continue;
+		}
 
 		particle.update();
 	}
@@ -46,11 +52,16 @@ void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &color)
 		sf::Vector2f velocity = sf::Vector2f(speed * cos(theta), speed * sin(theta));
 		float rotation = sf::radiansToDegress(theta);
 
-		createParticle(color, 20.0f, position, velocity, rotation, 0.1f);
+		createParticle(color, 2.0f, position, velocity, rotation, 0.1f);
 	}
 }
 
-void ParticleManager::createParticle(sf::Color &color, float duration, sf::Vector2f &position, 
+void ParticleManager::createStream(sf::Vector2f &position, sf::Color &color)
+{
+	// @todo(darren): Create a particle exhuast like stream for player and possibly for other entities.
+}
+
+void ParticleManager::createParticle(sf::Color &color, float lifeTime, sf::Vector2f &position,
 									 sf::Vector2f &velocity, float rotation, float scale)
 {
 	uint32_t index;
@@ -68,5 +79,5 @@ void ParticleManager::createParticle(sf::Color &color, float duration, sf::Vecto
 	}
 
 	Particle &ref = m_particleArray[index];
-	ref.setAttributes(m_particleSprite, color, duration, position, velocity, rotation, scale);
+	ref.setAttributes(m_particleSprite, color, lifeTime, position, velocity, rotation, scale);
 }

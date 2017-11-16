@@ -39,7 +39,7 @@ public:
 
 	void decreaseCount(const uint32_t decreaseBy)
 	{
-		m_count -= decreaseBy;
+		//m_count -= decreaseBy;
 	}
 
 	T &operator[](const uint32_t index) const

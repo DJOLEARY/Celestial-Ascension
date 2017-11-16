@@ -200,7 +200,7 @@
     <ClCompile Include="src\XboxController.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CircularArray.h" />
+    <ClInclude Include="include\CircularArray.h" />
     <ClInclude Include="include\Physics\Grid.h" />
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\Entity.h" />
