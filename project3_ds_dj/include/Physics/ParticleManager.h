@@ -1,7 +1,7 @@
 #ifndef PARTICLE_MANAGER_H
 #define PARTICLE_MANAGER_H
 
-#include "..\CircularArray.h"
+#include "CircularArray.h"
 #include "Particle.h"
 #include <stdlib.h>
 #include <iostream>
