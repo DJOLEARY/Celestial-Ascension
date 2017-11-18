@@ -32,6 +32,7 @@ private:
 	sf::RenderTexture m_renderTexture;
 	Bloom m_bloom;
 	Grid m_grid;
+	ExitMenu *exitMenu;
 
 	ScreenManager m_screenManager;
 	ParticleManager m_particleManger;

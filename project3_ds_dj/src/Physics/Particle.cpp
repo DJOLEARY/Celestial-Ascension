@@ -52,8 +52,8 @@ void Particle::update()
 		m_color.a = 0;
 		m_lifeTime = 0.0f;
 	}
-	//else
-		//m_color.a -= 5;
+	else
+		m_color.a -= 5;
 
 	if (elapsedTime.asSeconds() > 1)
 	{

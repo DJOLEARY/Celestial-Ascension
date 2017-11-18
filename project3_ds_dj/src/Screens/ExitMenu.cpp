@@ -44,6 +44,11 @@ void ExitMenu::reset()
 	interpolation = 0.0f;
 }
 
+bool ExitMenu::getExitState()
+{
+	return m_yesButtonPressed;
+}
+
 void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 {
 	m_gui.processInput(controller);

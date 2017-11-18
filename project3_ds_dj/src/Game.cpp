@@ -18,7 +18,8 @@ Game::Game()
 	m_screenManager.add(new SplashScreen(m_view));
 	m_screenManager.add(new MainMenu(m_view));
 	m_screenManager.add(new Options(m_view));
-	m_screenManager.add(new ExitMenu(m_view));
+	exitMenu = new ExitMenu(m_view);
+	m_screenManager.add(exitMenu);
 	m_screenManager.add(new Credits(m_view));
 	m_screenManager.add(new PlayMenu(m_view));
     m_screenManager.add(new GameScreen(m_xboxController, m_view));
@@ -39,7 +40,7 @@ void Game::run()
 	timeSinceLastUpdate = clock.restart();
 
     // Start the game loop
-    while (m_window.isOpen())
+    while (!exitMenu->getExitState())
     {
         // Process events
         sf::Event event;

@@ -17,6 +17,7 @@ public:
 	ExitMenu(sf::View &view);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
+	bool getExitState();
 
 private:
 	void yesButtonSelected();
