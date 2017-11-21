@@ -11,7 +11,7 @@ public:
 	void setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTime,
 		sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale);
 	bool isDead();
-	void update();
+	void update(sf::Rect<float> &worldBound);
 	void draw(sf::RenderTexture &renderTexture);
 
 private:

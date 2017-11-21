@@ -9,7 +9,7 @@
 class ParticleManager
 {
 public:
-	ParticleManager();
+	ParticleManager(sf::Rect<float> &m_worldBound);
 	void update();
 	void draw(sf::RenderTexture &renderTexture);
 	void clearParticles();
@@ -23,6 +23,7 @@ private:
 	ParticleArray m_particleArray;
 	sf::Texture m_particleTexture;
 	sf::Sprite m_particleSprite;
+	sf::Rect<float> m_worldBound;
 };
 
 #endif
