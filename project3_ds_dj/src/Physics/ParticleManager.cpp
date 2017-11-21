@@ -13,21 +13,19 @@ ParticleManager::ParticleManager()
 
 void ParticleManager::update()
 {
+	uint32_t removalCount = 0;
+
 	for (uint32_t particleIndex = 0; particleIndex < m_particleArray.getCount(); particleIndex++)
 	{
 		Particle &particle = m_particleArray[particleIndex];
+		m_particleArray.swap(particleIndex - removalCount, particleIndex);
+		particle.update();
 
 		if (particle.isDead())
-		{
-			// @bug(darren): Particles are all being deleted
-			m_particleArray.decreaseCount(1);
-			// @bug(darren): Problem is the index is going to be in correct, first hundred die then index is back to 
-			// first particle which has a life time of zero. Need to refactor circular array and mark particles deleted.
-			continue;
-		}
-
-		particle.update();
+			removalCount++;
 	}
+
+	m_particleArray.setCount(m_particleArray.getCount() - removalCount);
 }
 
 void ParticleManager::draw(sf::RenderTexture & renderTexture)
@@ -52,7 +50,7 @@ void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &color)
 		sf::Vector2f velocity = sf::Vector2f(speed * cos(theta), speed * sin(theta));
 		float rotation = sf::radiansToDegress(theta);
 
-		createParticle(color, 2.0f, position, velocity, rotation, 0.1f);
+		createParticle(color, 1.0f, position, velocity, rotation, 0.1f);
 	}
 }
 

@@ -20,10 +20,7 @@ void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTim
 
 bool Particle::isDead()
 {
-	//return m_lifeTime < 0.01f;
-
 	bool dead = timerCounting > 2;
-
 	return dead;
 }
 
@@ -53,7 +50,9 @@ void Particle::update()
 		m_lifeTime = 0.0f;
 	}
 	else
+	{
 		m_color.a -= 5;
+	}
 
 	if (elapsedTime.asSeconds() > 1)
 	{
