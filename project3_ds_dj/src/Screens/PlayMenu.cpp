@@ -1,7 +1,7 @@
 #include "Screens\PlayMenu.h"
 
-PlayMenu::PlayMenu()
-	: Screen(GameState::PlayMenu), transitionIn(true)
+PlayMenu::PlayMenu(sf::View &view)
+	: Screen(GameState::PlayMenu, view), transitionIn(true)
 {
 	// @refactor(darren): Pull this out
 	sf::Color focusIn(50, 200, 50);
@@ -54,8 +54,13 @@ void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 
 	if (m_playButtonPressed)
 	{
-		m_nextGameState = GameState::GamePlay;
-		reset();
+		m_gui.transitionOut(0.05f, interpolation);
+
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::GamePlay;
+			reset();
+		}
 	}
 
 	if (transitionIn)

@@ -4,8 +4,8 @@
 /// Screen constructor function
 /// </summary>
 /// <param name="gameStateIn">The game state assigned to the screen</param>
-Screen::Screen(GameState gameStateIn)
-	: m_gameState(gameStateIn), m_nextGameState(gameStateIn) 
+Screen::Screen(GameState gameStateIn, sf::View &view)
+	: m_gameState(gameStateIn), m_nextGameState(gameStateIn), m_view(view)
 {
 
 }
@@ -20,6 +20,7 @@ void Screen::reset()
 
 void Screen::update(XboxController & controller, sf::Int32 dt)
 {
+
 }
 
 /// <summary>
@@ -28,6 +29,7 @@ void Screen::update(XboxController & controller, sf::Int32 dt)
 /// <param name="renderTexture">The render texture used to draw the game</param>
 void Screen::render(sf::RenderTexture& renderTexture)
 {
+	renderTexture.setView(m_view);
 	renderTexture.draw(m_gui);
 }
 

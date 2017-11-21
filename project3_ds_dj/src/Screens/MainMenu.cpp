@@ -1,7 +1,7 @@
 #include "Screens\MainMenu.h"
 
-MainMenu::MainMenu()
-	: Screen(GameState::MainMenu), m_alphaFadeValue(255)
+MainMenu::MainMenu(sf::View &view)
+	: Screen(GameState::MainMenu, view), m_alphaFadeValue(255)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -142,6 +142,7 @@ void MainMenu::update(XboxController &controller, sf::Int32 dt)
 /// <param name="window">render texture usd to render the GUI and fade rectangle</param>
 void MainMenu::render(sf::RenderTexture & renderTexture)
 {
+	renderTexture.setView(m_view);
 	renderTexture.draw(m_gui);
 	renderTexture.draw(m_gameLogoSprite);
 	renderTexture.draw(m_fadeRectangle);

@@ -1,7 +1,7 @@
 #include "Screens\ExitMenu.h"
 
-ExitMenu::ExitMenu()
-	: Screen(GameState::ExitMenu), transitionIn(true)
+ExitMenu::ExitMenu(sf::View &view)
+	: Screen(GameState::ExitMenu, view), transitionIn(true)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -17,6 +17,9 @@ ExitMenu::ExitMenu()
 	m_areYouSureLabel = new Label("Are you sure?", 60, sf::Vector2f(1920.0f / 2, 450.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
 	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
 	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
+
+	m_noButton->select = std::bind(&ExitMenu::noButtonSelected, this);
+	m_yesButton->select = std::bind(&ExitMenu::yesButtonSelected, this);
 
 	m_noButton->promoteFocus();
 
@@ -39,6 +42,11 @@ void ExitMenu::reset()
 	m_yesButtonPressed = false;
 	transitionIn = true;
 	interpolation = 0.0f;
+}
+
+bool ExitMenu::getExitState()
+{
+	return m_yesButtonPressed;
 }
 
 void ExitMenu::update(XboxController &controller, sf::Int32 dt)

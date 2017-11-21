@@ -65,7 +65,7 @@ void ScreenManager::draw(sf::RenderTexture &renderTexture)
 /// add function used to add a pointer to a screen onto the screen manager object
 /// </summary>
 /// <param name="screenIn">A pointer to a screen declared on the heap</param>
-void ScreenManager::add(Screen * screenIn)
+void ScreenManager::add(Screen *screenIn)
 {
 	m_screens.push_back(screenIn);
 }

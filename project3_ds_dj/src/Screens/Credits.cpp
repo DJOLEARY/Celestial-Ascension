@@ -1,7 +1,7 @@
 #include "Screens\Credits.h"
 
-Credits::Credits()
-	: Screen(GameState::Credits), transitionIn(true)
+Credits::Credits(sf::View &view)
+	: Screen(GameState::Credits, view), transitionIn(true)
 {
 	m_creditsLabel = new Label("Credits", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), 
 		sf::Vector2f(1920.0f / 2, 100.0f));

@@ -63,6 +63,11 @@ sf::Vector2f Widget::getStartPos()
 	return widgetStartPos;
 }
 
+void Widget::setStartPos(sf::Vector2f &pos)
+{
+	widgetStartPos = pos;
+}
+
 /// <summary>
 /// Getter function for the widget end position
 /// </summary>
@@ -70,6 +75,11 @@ sf::Vector2f Widget::getStartPos()
 sf::Vector2f Widget::getEndPos()
 {
 	return widgetEndPos;
+}
+
+void Widget::setEndPos(sf::Vector2f &pos)
+{
+	widgetEndPos = pos;
 }
 
 void Widget::setColors() { }

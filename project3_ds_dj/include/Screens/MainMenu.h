@@ -14,7 +14,7 @@
 class MainMenu : public Screen
 {
 public:
-	MainMenu();
+	MainMenu(sf::View &view);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void render(sf::RenderTexture & renderTexture) override;
 	void reset() override;

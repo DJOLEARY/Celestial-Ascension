@@ -14,6 +14,7 @@
 class Button : public Widget
 {
 public:
+	// @refactor(darren): Change the order of these paramters
 	Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor = sf::Color(), sf::Color &outOfFocusColor = sf::Color(), 
 		float scaleWidth = 1.0f, float scaleHeight = 1.0f, sf::Vector2f &endPos = sf::Vector2f());
 	bool processInput(XboxController & xboxController);

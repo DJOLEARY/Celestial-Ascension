@@ -24,12 +24,13 @@ private:
 	std::vector<Spring> m_springs;
 	PointMass *m_points;
 	sf::Vector2f m_screenSize;
+	sf::Vector2f m_topLeftPos, m_gridSize;
 	int m_cols;
 	int m_rows;
 
 	void SetPointMass(PointMass *array, int x, int y, const PointMass &val);
 	PointMass *GetPointMass(PointMass *array, int x, int y);
-	sf::Vector2f toVec2(const sf::Vector3f&v);
+	sf::Vector2f toVec2(const sf::Vector3f &v);
 };
 
 #endif

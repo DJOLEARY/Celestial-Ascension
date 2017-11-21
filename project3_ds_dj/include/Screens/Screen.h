@@ -32,7 +32,7 @@ enum class GameState
 class Screen
 {
 public:
-	Screen(GameState gameStateIn);
+	Screen(GameState gameStateIn, sf::View &view);
 	virtual void reset();
     virtual void update(XboxController& controller, sf::Int32 dt = 0);
 	virtual void render(sf::RenderTexture &renderTexture);
@@ -48,6 +48,9 @@ protected:
 
 	// GUI object
 	Gui m_gui;
+
+	// The view to render to
+	sf::View m_view;
 };
 
 #endif
