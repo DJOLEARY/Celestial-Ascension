@@ -34,7 +34,7 @@ private:
 	Button *m_mainMenu;
 	Label *m_pauseLabel;
 	sf::Texture m_resumeTexture, m_mainMenuTexture;
-	HUD hud;
+	HUD m_hud;
 	sf::Rect<float> m_pauseBackground;
 	// @refactor(darren): Put interpolation and transitionIn in the base gui
 	float interpolation;
