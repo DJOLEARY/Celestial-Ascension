@@ -24,13 +24,15 @@ bool Particle::isDead()
 	return dead;
 }
 
-void Particle::update()
+void Particle::update(sf::Rect<float> &worldBound)
 {
-	float speed = sf::magnitude(m_velocity);
-
 	m_position += m_velocity;
 
-	// @todo(darren): Implement collision with grid walls
+	if (m_position.x < worldBound.top || m_position.x > worldBound.width)
+		m_velocity.x *= -1.0f;
+	
+	if (m_position.y < worldBound.left || m_position.y > worldBound.height)
+		m_velocity.y *= -1.0f;
 
 	if (fabs(sf::magnitude(m_velocity)) < 0.001f)
 	{
@@ -40,8 +42,6 @@ void Particle::update()
 	{
 		m_velocity *= 0.96f;
 	}
-
-	sf::Time elapsedTime = m_clock.getElapsedTime();
 
 	// @todo(darren): Make the alpha work with the specfied time maybe?
 	if (m_color.a < 5)
@@ -54,6 +54,7 @@ void Particle::update()
 		m_color.a -= 5;
 	}
 
+	sf::Time elapsedTime = m_clock.getElapsedTime();
 	if (elapsedTime.asSeconds() > 1)
 	{
 		m_lifeTime -= 1;

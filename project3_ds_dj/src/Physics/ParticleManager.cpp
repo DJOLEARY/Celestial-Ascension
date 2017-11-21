@@ -1,7 +1,7 @@
 #include "Physics\ParticleManager.h"
 
-ParticleManager::ParticleManager()
-	: m_particleArray(1000)
+ParticleManager::ParticleManager(sf::Rect<float> &worldBound)
+	: m_particleArray(1000), m_worldBound(worldBound)
 {
 	if (!m_particleTexture.loadFromFile("Assets/Particle.png"))
 		std::cout << "Could not load particle texture" << std::endl;
@@ -19,7 +19,7 @@ void ParticleManager::update()
 	{
 		Particle &particle = m_particleArray[particleIndex];
 		m_particleArray.swap(particleIndex - removalCount, particleIndex);
-		particle.update();
+		particle.update(m_worldBound);
 
 		if (particle.isDead())
 			removalCount++;
