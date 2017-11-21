@@ -65,6 +65,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	{
 		cameraFollow();
 		m_cameraPosition += m_cameraVelocity * (float)dt;
+		hud.update(dt, m_cameraPosition);
 		m_entityManager.Update(dt);
 		m_view.setCenter(m_cameraPosition);
 	}
@@ -91,6 +92,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 void GameScreen::render(sf::RenderTexture &renderTexture)
 {
 	renderTexture.setView(m_view);
+	hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
 	if (isPaused)
 	{
