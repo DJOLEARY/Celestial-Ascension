@@ -28,7 +28,6 @@ private:
 	void deleteBullet(int index);
 
 	XboxController &m_xboxController;
-	// @todo(darren): May move speed into entity
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
 
