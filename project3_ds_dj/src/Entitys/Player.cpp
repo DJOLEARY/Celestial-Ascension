@@ -4,8 +4,7 @@
 /// 
 /// </summary>
 Player::Player(XboxController &controller) : 
-	m_xboxController(controller), m_rotationDiff(0.0f),
-	m_bulletArray(100)
+	m_xboxController(controller), m_rotationDiff(0.0f)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 	{
@@ -62,13 +61,6 @@ void Player::ProcessInput(double dt)
 	{
 		m_velocity = sf::Vector2f();
 	}
-
-	sf::Vector2f rightStick = m_xboxController.getRightStick();
-
-	if (sf::magnitude(rightStick) > INPUT_THRESHOLD)
-	{
-		fire(m_position, rightStick);
-	}
 }
 
 /// <summary>
@@ -77,7 +69,6 @@ void Player::ProcessInput(double dt)
 /// <param name="dt">The delta time</param>
 void Player::Update(double dt)
 {
-	bulletUpdate(dt);
 	ProcessInput(dt);
 
 	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
@@ -92,60 +83,9 @@ void Player::Draw(sf::RenderTexture &renderTexture)
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
 	renderTexture.draw(m_sprite);
-
-	bulletDraw(renderTexture);
 }
 
 sf::Vector2f* Player::getPosition()
 {
 	return &m_position;
-}
-
-void Player::bulletUpdate(double dt)
-{
-	uint16_t removalCount = 0;
-
-	for (uint16_t bulletIndex = 0; bulletIndex < m_bulletArray.getCount(); bulletIndex++)
-	{
-		Bullet &bullet = m_bulletArray[bulletIndex];
-		m_bulletArray.swap(bulletIndex - removalCount, bulletIndex);
-		bullet.Update(dt);
-
-		if (bullet.getAlive() == false)
-		{
-			removalCount++;
-		}
-	}
-
-	m_bulletArray.setCount(m_bulletArray.getCount() - removalCount);
-}
-
-void Player::bulletDraw(sf::RenderTexture & renderTexture)
-{
-	for (uint16_t bulletIndex = 0; bulletIndex < m_bulletArray.getCount(); bulletIndex++)
-	{
-		m_bulletArray[bulletIndex].Draw(renderTexture);
-	}
-}
-
-void Player::fire(sf::Vector2f playerPos, sf::Vector2f rightStick)
-{
-	uint32_t index;
-
-	if (m_bulletArray.getCount() == m_bulletArray.getCapacity())
-	{
-		index = 0;	// Replace oldest bullet.	
-	}
-	else
-	{
-		index = m_bulletArray.getCount();
-		m_bulletArray.setCount(index + 1);
-	}
-	if (m_bulletArray.getCount() > 25)
-	{
-		std::cout << std::endl;
-	}
-
-	Bullet &bullet = m_bulletArray[index];
-	bullet.setAttributes(playerPos, rightStick);
 }

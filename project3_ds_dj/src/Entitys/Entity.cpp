@@ -14,8 +14,3 @@ sf::Vector2i Entity::getSection()
 {
 	return m_inSection;
 }
-
-bool Entity::getAlive()
-{
-	return &m_alive;
-}

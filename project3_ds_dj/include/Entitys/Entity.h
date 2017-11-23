@@ -6,8 +6,7 @@
 enum EntityType
 {
 	PLAYER,
-	ENEMY,
-	BULLET
+	ENEMY
 };
 
 /// <summary>
@@ -25,7 +24,6 @@ public:
 	sf::Vector2f getPos();
 	int getType();
 	sf::Vector2i getSection();
-	bool getAlive();
 
 protected:
 	sf::Texture m_texture;
@@ -37,7 +35,7 @@ protected:
 	sf::Vector2f m_movementDir;
 	float m_orientation;
 	float m_targetOrientation;
-	int m_type;	// What type the current Entity is. (e.g. player, bullet, enemy).
+	int m_type;	// What type the current Entity is. (e.g. player, enemy).
 	sf::Vector2i m_inSection;	// What section the centre of the Entity is in.
 	bool m_alive;	// Whether to update/draw the current Entity.
 };

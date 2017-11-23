@@ -1,7 +1,9 @@
 #include "Screens\GameScreen.h"
 
-GameScreen::GameScreen(XboxController &controller, sf::View &view)
-	: Screen(GameState::GamePlay, view), isPaused(false)
+GameScreen::GameScreen(XboxController &controller, sf::View &view): 
+	Screen(GameState::GamePlay, view), 
+	isPaused(false),
+	m_bulletManager(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f), controller)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -17,6 +19,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view)
 	{
 		m_entityManager.Add(new Enemy(m_player->getPosition()));
 	}
+
+	m_bulletManager.setPlayer(m_player->getPosition());
 
 	// Camera
 	// @todo(refactor): make camera it's own class
@@ -74,6 +78,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_cameraPosition += m_cameraVelocity * (float)dt;
 		m_hud.update(dt, m_cameraPosition);
 		m_entityManager.Update(dt);
+		m_bulletManager.update(dt);
 		m_view.setCenter(m_cameraPosition);
 	}
 
@@ -101,6 +106,8 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	renderTexture.setView(m_view);
 	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
+	m_bulletManager.draw(renderTexture);
+
 	if (isPaused)
 	{
 		renderTexture.setView(m_view);

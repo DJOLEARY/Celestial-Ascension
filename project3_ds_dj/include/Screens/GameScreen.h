@@ -7,9 +7,9 @@
 
 #include "Screen.h"
 #include "Entitys\EntityManager.h"
+#include "Entitys\Bullet\BulletManager.h"
 #include "Entitys\Player.h"
 #include "Entitys\Enemy.h"
-#include "Entitys\Bullet.h"
 #include "GUI\Button.h"
 #include "GUI\Label.h"
 #include "HUD\HUD.h"
@@ -26,6 +26,7 @@ public:
 
 private:
     EntityManager m_entityManager;
+	BulletManager m_bulletManager;
 	Player *m_player;
 	int m_maxEnemies;
 
@@ -48,6 +49,5 @@ private:
 	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
-
 };
 #endif // !GAME_SCREEN_H
