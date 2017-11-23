@@ -29,7 +29,7 @@ void Bullet::setAttributes(sf::Sprite &sprite, sf::Vector2f playerPos, sf::Vecto
 	m_movementDir = rightStick;
 	m_movementDir = sf::normalize(m_movementDir);
 	m_rotation = (atan2(m_movementDir.y, m_movementDir.x));
-	m_sprite->setScale(sf::Vector2f(0.3f, 0.3f));
+	m_sprite->setScale(sf::Vector2f(0.1f, 0.1f));
 	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
 	m_sprite->setRotation((m_rotation * 180) / 3.14);
 
