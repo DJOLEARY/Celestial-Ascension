@@ -13,7 +13,7 @@ ExitMenu::ExitMenu(sf::View &view)
 	if (!m_noTexture.loadFromFile("Assets/GUI/NoButton.png"))
 		std::cout << "ERROR::Options::No Texture image not loaded";
 
-	m_exitGameLabel = new Label("Exit", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), sf::Vector2f(1920.0f / 2, 100.0f));
+	m_exitGameLabel = new Label("Exit", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 200.0f), sf::Vector2f(1920.0f / 2, 200.0f));
 	m_areYouSureLabel = new Label("Are you sure?", 60, sf::Vector2f(1920.0f / 2, 450.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
 	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
 	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));

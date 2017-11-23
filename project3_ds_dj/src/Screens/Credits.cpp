@@ -3,8 +3,8 @@
 Credits::Credits(sf::View &view)
 	: Screen(GameState::Credits, view), transitionIn(true)
 {
-	m_creditsLabel = new Label("Credits", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), 
-		sf::Vector2f(1920.0f / 2, 100.0f));
+	m_creditsLabel = new Label("Credits", 80, sf::Vector2f(1920.0f / 2 - 300.0f, 200.0f), 
+		sf::Vector2f(1920.0f / 2, 200.0f));
 
 	m_names[0] = new Label("Darren Sweeney", 30, sf::Vector2f(1920.0f / 2 - 400.0f, 600.0f),
 		sf::Vector2f(1920.0f / 2 - 400.0f, 800.0f));
