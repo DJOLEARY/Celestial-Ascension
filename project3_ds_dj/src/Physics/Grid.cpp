@@ -216,7 +216,7 @@ void Grid::SetPointMass(PointMass *array, int x, int y, const PointMass &val)
 	array[y * m_cols + x] = val;
 }
 
-PointMass * Grid::GetPointMass(PointMass* array, int x, int y)
+PointMass *Grid::GetPointMass(PointMass* array, int x, int y)
 {
 	return &array[y * m_cols + x];
 }

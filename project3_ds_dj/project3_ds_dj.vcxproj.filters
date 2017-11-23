@@ -34,6 +34,7 @@
     <ClCompile Include="src\Entitys\Player.cpp" />
     <ClCompile Include="src\Physics\Particle.cpp" />
     <ClCompile Include="src\Physics\ParticleManager.cpp" />
+    <ClCompile Include="src\HUD\HUD.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -68,6 +69,7 @@
     <ClInclude Include="include\Physics\Particle.h" />
     <ClInclude Include="include\Physics\ParticleManager.h" />
     <ClInclude Include="include\CircularArray.h" />
+    <ClInclude Include="include\HUD\HUD.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

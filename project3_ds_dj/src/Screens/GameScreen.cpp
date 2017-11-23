@@ -48,6 +48,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view)
 	m_gui.add(m_pauseLabel);
 
 	m_gui.setWidgetsAlpha(0.0f);
+
+	m_hud.setScore(100);
 }
 
 GameScreen::~GameScreen()
@@ -70,6 +72,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	{
 		cameraFollow();
 		m_cameraPosition += m_cameraVelocity * (float)dt;
+		m_hud.update(dt, m_cameraPosition);
 		m_entityManager.Update(dt);
 		m_view.setCenter(m_cameraPosition);
 	}
@@ -96,6 +99,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 void GameScreen::render(sf::RenderTexture &renderTexture)
 {
 	renderTexture.setView(m_view);
+	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
 	if (isPaused)
 	{

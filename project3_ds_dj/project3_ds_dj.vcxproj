@@ -166,6 +166,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Entitys\Player.cpp" />
+    <ClCompile Include="src\HUD\HUD.cpp" />
     <ClCompile Include="src\Physics\Grid.cpp" />
     <ClCompile Include="src\Entitys\Entity.cpp" />
     <ClCompile Include="src\Entitys\Enemy.cpp" />
@@ -201,6 +202,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CircularArray.h" />
+    <ClInclude Include="include\HUD\HUD.h" />
     <ClInclude Include="include\Physics\Grid.h" />
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\Entity.h" />

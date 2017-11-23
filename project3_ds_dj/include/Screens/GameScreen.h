@@ -12,6 +12,7 @@
 #include "Entitys\Bullet.h"
 #include "GUI\Button.h"
 #include "GUI\Label.h"
+#include "HUD\HUD.h"
 
 class GameScreen : public Screen
 {
@@ -35,6 +36,7 @@ private:
 	Button *m_mainMenu;
 	Label *m_pauseLabel;
 	sf::Texture m_resumeTexture, m_mainMenuTexture;
+	HUD m_hud;
 	sf::Rect<float> m_pauseBackground;
 	// @refactor(darren): Put interpolation and transitionIn in the base gui
 	float interpolation;
