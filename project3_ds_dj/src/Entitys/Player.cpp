@@ -35,7 +35,6 @@ void Player::ProcessInput(double dt)
 		m_movementDir = m_xboxController.getLeftStick();
 		m_movementDir = sf::normalize(m_movementDir);
 		m_targetOrientation = (atan2(m_movementDir.y, m_movementDir.x) * 180) / 3.14;
-		//m_targetOrientation += 180.0f;	// Put into 0 - 360 range
 		m_velocity = m_speed * m_movementDir * (float)dt;
 		m_rotationDiff = m_targetOrientation - m_orientation;
 	}
@@ -60,11 +59,13 @@ void Player::ProcessInput(double dt)
         m_velocity = sf::Vector2f();
     }
 
-	/*if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
+	sf::Vector2f rightStick = m_xboxController.getRightStick();
+
+	if (sf::magnitude(rightStick) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
 	{
 		m_bullets.push_back(new Bullet(m_position, rightStick));
 		m_numOfAliveBullets++;
-	}*/
+	}
 }
 
 /// <summary>
@@ -74,12 +75,12 @@ void Player::ProcessInput(double dt)
 void Player::Update(double dt)
 {
 	ProcessInput(dt);
-	/*checkBullets();
+	checkBullets();
 
 	for (Bullet* bullet : m_bullets)
 	{
 		bullet->Update(dt);
-	}*/
+	}
 }
 
 /// <summary>
