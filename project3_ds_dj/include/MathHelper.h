@@ -116,6 +116,11 @@ namespace sf
 		return Vector2f(catmullRom(value1.x, value2.x, value3.x, value4.x, amount),
 			catmullRom(value1.y, value2.y, value3.y, value4.y, amount));
 	}
+
+	inline float floor(float value)
+	{
+
+	}
 }
 
 #endif

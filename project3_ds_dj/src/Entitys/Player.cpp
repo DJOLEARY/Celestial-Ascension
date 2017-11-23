@@ -3,13 +3,17 @@
 /// <summary>
 /// 
 /// </summary>
-Player::Player(XboxController &controller)
-	: m_xboxController(controller), m_rotationDiff(0.0f)
+Player::Player(XboxController &controller) : 
+	m_xboxController(controller), m_rotationDiff(0.0f),
+	m_bulletArray(100)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 	{
 		std::cout << "ERROR::Player::Image not loaded";
 	}
+
+	m_type = EntityType::PLAYER;
+	m_alive = true;
 
 	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
@@ -54,17 +58,16 @@ void Player::ProcessInput(double dt)
 	{
 		m_velocity *= 0.95f;
 	}
-    else if (sf::magnitude(m_velocity) < 0.001f)
-    {
-        m_velocity = sf::Vector2f();
-    }
+	else if (sf::magnitude(m_velocity) < 0.001f)
+	{
+		m_velocity = sf::Vector2f();
+	}
 
 	sf::Vector2f rightStick = m_xboxController.getRightStick();
 
-	if (sf::magnitude(rightStick) > INPUT_THRESHOLD && m_numOfAliveBullets < MAX_BULLETS)
+	if (sf::magnitude(rightStick) > INPUT_THRESHOLD)
 	{
-		m_bullets.push_back(new Bullet(m_position, rightStick));
-		m_numOfAliveBullets++;
+		fire(m_position, rightStick);
 	}
 }
 
@@ -74,13 +77,10 @@ void Player::ProcessInput(double dt)
 /// <param name="dt">The delta time</param>
 void Player::Update(double dt)
 {
+	bulletUpdate(dt);
 	ProcessInput(dt);
-	checkBullets();
 
-	for (Bullet* bullet : m_bullets)
-	{
-		bullet->Update(dt);
-	}
+	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
 }
 
 /// <summary>
@@ -93,10 +93,7 @@ void Player::Draw(sf::RenderTexture &renderTexture)
 	m_sprite.setRotation(m_targetOrientation);
 	renderTexture.draw(m_sprite);
 
-	for (Bullet* bullet : m_bullets)
-	{
-		bullet->Draw(renderTexture);
-	}
+	bulletDraw(renderTexture);
 }
 
 sf::Vector2f* Player::getPosition()
@@ -104,24 +101,51 @@ sf::Vector2f* Player::getPosition()
 	return &m_position;
 }
 
-void Player::checkBullets()
+void Player::bulletUpdate(double dt)
 {
-	int index = 0;
-	for (Bullet* bullet : m_bullets)
+	uint16_t removalCount = 0;
+
+	for (uint16_t bulletIndex = 0; bulletIndex < m_bulletArray.getCount(); bulletIndex++)
 	{
-		if (bullet->getPos().x < 0 || bullet->getPos().x > 1920 || bullet->getPos().y < 0 || bullet->getPos().y > 1080)
+		Bullet &bullet = m_bulletArray[bulletIndex];
+		m_bulletArray.swap(bulletIndex - removalCount, bulletIndex);
+		bullet.Update(dt);
+
+		if (bullet.getAlive() == false)
 		{
-			deleteBullet(index);
+			removalCount++;
 		}
-		else
-		{
-			index++;
-		}
+	}
+
+	m_bulletArray.setCount(m_bulletArray.getCount() - removalCount);
+}
+
+void Player::bulletDraw(sf::RenderTexture & renderTexture)
+{
+	for (uint16_t bulletIndex = 0; bulletIndex < m_bulletArray.getCount(); bulletIndex++)
+	{
+		m_bulletArray[bulletIndex].Draw(renderTexture);
 	}
 }
 
-void Player::deleteBullet(int index)
+void Player::fire(sf::Vector2f playerPos, sf::Vector2f rightStick)
 {
-	m_bullets.erase(m_bullets.begin() + index);
-	m_numOfAliveBullets--;
+	uint32_t index;
+
+	if (m_bulletArray.getCount() == m_bulletArray.getCapacity())
+	{
+		index = 0;	// Replace oldest bullet.	
+	}
+	else
+	{
+		index = m_bulletArray.getCount();
+		m_bulletArray.setCount(index + 1);
+	}
+	if (m_bulletArray.getCount() > 25)
+	{
+		std::cout << std::endl;
+	}
+
+	Bullet &bullet = m_bulletArray[index];
+	bullet.setAttributes(playerPos, rightStick);
 }

@@ -8,9 +8,11 @@ Enemy::Enemy(sf::Vector2f *playerPos) :
 		std::cout << "ERROR::Enemy::Image not loaded";
 	}
 
+	m_type = EntityType::ENEMY;
+	m_alive = true;
+
 	m_speed = 0.05f;
-    
-	m_position = sf::Vector2f(1920 / 2, 1080 / 2);
+	m_position = sf::Vector2f(rand() % 1920, rand() % 1080);
 
     m_sprite.setTexture(m_texture);
     m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -27,6 +29,8 @@ void Enemy::Update(double dt)
     seekPlayer();
     m_position += m_velocity * (float)dt;
     m_orientation += 0.5f;
+
+	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
 }
 
 void Enemy::Draw(sf::RenderTexture &renderTexture)

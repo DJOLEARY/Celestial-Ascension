@@ -6,6 +6,7 @@
 #include "XboxController.h"
 #include "MathHelper.h"
 #include "Entitys\Bullet.h"
+#include "CircularArray.h"
 
 /// <summary>
 /// Player handles all update, input and rendering.
@@ -24,16 +25,17 @@ public:
     sf::Vector2f* getPosition();
 
 private:
-	void checkBullets();
-	void deleteBullet(int index);
-
+	// Player
 	XboxController &m_xboxController;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
 
-	std::vector<Bullet*> m_bullets;
-	int m_numOfAliveBullets;
-	const int MAX_BULLETS = 100;
+	//	Bullet
+	void bulletUpdate(double dt);
+	void bulletDraw(sf::RenderTexture & renderTexture);
+	void fire(sf::Vector2f playerPos, sf::Vector2f rightStick);
+	typedef CircularArray<Bullet> BulletArray;
+	BulletArray m_bulletArray;
 };
 
 #endif

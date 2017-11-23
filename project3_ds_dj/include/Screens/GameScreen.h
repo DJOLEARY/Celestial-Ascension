@@ -26,6 +26,8 @@ public:
 private:
     EntityManager m_entityManager;
 	Player *m_player;
+	int m_maxEnemies;
+
 	bool isPaused;
 
 	// GUI widgets
@@ -37,11 +39,6 @@ private:
 	// @refactor(darren): Put interpolation and transitionIn in the base gui
 	float interpolation;
 	bool transitionIn;
-
-	void checkCollisions();
-
-	EntityManager m_entityManager;
-	Player* m_player;
 
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;

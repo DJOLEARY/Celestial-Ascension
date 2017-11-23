@@ -36,7 +36,10 @@ void EntityManager::Update(sf::Int32 dt)
 {
 	for (Entity *entity : m_entites)
 	{
-		entity->Update(dt);
+		if (entity->getAlive())
+		{
+			entity->Update(dt);
+		}
 	}
 }
 
@@ -48,6 +51,27 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 {
 	for (Entity *entity : m_entites)
 	{
-		entity->Draw(renderTexture);
+		if (entity->getAlive())
+		{
+			entity->Draw(renderTexture);
+		}
+	}
+}
+
+void EntityManager::Collisions()
+{
+	for (Entity *iEntity : m_entites)
+	{
+		for (Entity *jEntity : m_entites)
+		{
+			if (iEntity->getType() != jEntity->getType() || iEntity->getSection() != jEntity->getSection() || !iEntity->getAlive() || !jEntity->getAlive())
+			{
+				continue;
+			}
+			else
+			{
+				
+			}
+		}
 	}
 }

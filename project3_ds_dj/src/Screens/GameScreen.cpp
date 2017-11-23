@@ -10,12 +10,17 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view)
 	m_entityManager = EntityManager();
     m_player = new Player(controller);
 
+	m_entityManager.Add(m_player);
+
+	m_maxEnemies = 20;	// The number of enemies.
+	for (int i = 0; i < m_maxEnemies; i++)
+	{
+		m_entityManager.Add(new Enemy(m_player->getPosition()));
+	}
+
 	// Camera
 	// @todo(refactor): make camera it's own class
 	m_cameraPosition = *m_player->getPosition();
-
-    m_entityManager.Add(m_player);
-    m_entityManager.Add(new Enemy(m_player->getPosition()));
 
 	if (!m_resumeTexture.loadFromFile("Assets/GUI/Resume.png"))
 		std::cout << "Hey this resume texture didn't load, but that's just my opinion man...." << std::endl;
@@ -97,10 +102,6 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 		renderTexture.setView(m_view);
 		renderTexture.draw(m_gui);
 	}
-}
-
-void GameScreen::checkCollisions()
-{
 }
 
 void GameScreen::cameraFollow()

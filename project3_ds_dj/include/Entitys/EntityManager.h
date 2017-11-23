@@ -21,6 +21,8 @@ public:
 
 private:
 	std::vector<Entity*> m_entites;
+
+	void Collisions();
 };
 
 #endif
