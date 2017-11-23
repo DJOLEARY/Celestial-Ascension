@@ -8,7 +8,7 @@ Options::Options(sf::View &view)
 	sf::Color fillColor(0, 0, 255);
 
 	// Initiaise the GUI elements
-	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 100.0f), sf::Vector2f(1920.0f / 2, 100.0f));
+	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 200.0f), sf::Vector2f(1920.0f / 2, 200.0f));
 	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 350), sf::Vector2f(1920.0f / 2 + 400.0f, 350));
 	m_musicVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f), 
 		200.0f, 20.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));

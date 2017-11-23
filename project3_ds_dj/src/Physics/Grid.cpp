@@ -5,7 +5,7 @@ Grid::Grid()
 	const int maxGridPoints = 600;
 	sf::Vector2f gridSpacing = sf::Vector2f(sqrtf(1920 * 1080 / maxGridPoints), sqrtf(1920 * 1080 / maxGridPoints));
 
-	gridInit(sf::Rect<float>(0, 0, 1920, 1080), gridSpacing);
+	gridInit(sf::Rect<float>(-15.0f, -15.0f, 1920, 1080), gridSpacing);
 }
 
 void Grid::gridInit(const sf::Rect<float> &rect, const sf::Vector2f &spacing)
@@ -124,24 +124,6 @@ void Grid::draw(sf::RenderTexture &texture)
 	int height = m_rows;
 	sf::Color color(0.12f * 255, 0.12f * 255, 0.55f * 255, 0.65f * 255);
 
-	sf::RectangleShape rectShape;
-	// Top
-	rectShape.setPosition(m_topLeftPos);
-	rectShape.setSize(sf::Vector2f(m_gridSize.x, 20.0f));
-	texture.draw(rectShape);
-	// Left
-	rectShape.setPosition(m_topLeftPos);
-	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
-	texture.draw(rectShape);
-	// Right
-	rectShape.setPosition(m_topLeftPos + sf::Vector2f(m_gridSize.x, 0.0f));
-	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
-	texture.draw(rectShape);
-	// Bottom
-	rectShape.setPosition(m_topLeftPos + sf::Vector2f(0.0f, m_gridSize.y));
-	rectShape.setSize(sf::Vector2f(m_gridSize.x + 20.0f, 20.0f));
-	texture.draw(rectShape);
-
 	for (int y = 1; y < height; y++)
 	{
 		for (int x = 1; x < width; x++)
@@ -209,6 +191,26 @@ void Grid::draw(sf::RenderTexture &texture)
 			}
 		}
 	}
+
+
+	sf::RectangleShape rectShape;
+	// Top
+	rectShape.setFillColor(sf::Color(61, 17, 89));
+	rectShape.setPosition(m_topLeftPos);
+	rectShape.setSize(sf::Vector2f(m_gridSize.x, 20.0f));
+	texture.draw(rectShape);
+	// Left
+	rectShape.setPosition(m_topLeftPos);
+	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
+	texture.draw(rectShape);
+	// Right
+	rectShape.setPosition(m_topLeftPos + sf::Vector2f(m_gridSize.x, 0.0f));
+	rectShape.setSize(sf::Vector2f(20.0f, m_gridSize.y));
+	texture.draw(rectShape);
+	// Bottom
+	rectShape.setPosition(m_topLeftPos + sf::Vector2f(0.0f, m_gridSize.y));
+	rectShape.setSize(sf::Vector2f(m_gridSize.x + 20.0f, 20.0f));
+	texture.draw(rectShape);
 }
 
 void Grid::SetPointMass(PointMass *array, int x, int y, const PointMass &val)
