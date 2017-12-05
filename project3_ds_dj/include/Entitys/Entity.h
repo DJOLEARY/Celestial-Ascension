@@ -24,6 +24,10 @@ public:
 	sf::Vector2f getPos();
 	int getType();
 	sf::Vector2i getSection();
+	sf::Sprite getSprite();
+
+	bool getAlive();
+	void setAlive(bool isAlive);
 
 protected:
 	sf::Texture m_texture;

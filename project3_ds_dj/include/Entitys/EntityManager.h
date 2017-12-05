@@ -16,6 +16,7 @@ public:
 	~EntityManager();
 
 	void Add(Entity *entity);
+	void RemoveDead();
 	void Update(sf::Int32 dt);
 	void Draw(sf::RenderTexture &renderTexture);
 
@@ -23,6 +24,7 @@ private:
 	std::vector<Entity*> m_entites;
 
 	void Collisions();
+	bool isDead(Entity * entity);
 };
 
 #endif
