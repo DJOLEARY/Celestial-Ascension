@@ -39,6 +39,7 @@
       <Filter>Source\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\Entitys\Bullet\BulletManager.cpp" />
+    <ClCompile Include="src\Entitys\PowerUps\ShieldPower.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -78,6 +79,7 @@
       <Filter>Header\Entity</Filter>
     </ClInclude>
     <ClInclude Include="include\Entitys\Bullet\BulletManager.h" />
+    <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

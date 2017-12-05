@@ -58,13 +58,12 @@ void EntityManager::Collisions()
 	{
 		for (Entity *jEntity : m_entites)
 		{
-			if (iEntity->getType() != jEntity->getType() || iEntity->getSection() != jEntity->getSection())
+			if (iEntity->getType() == jEntity->getType() || iEntity->getSection() != jEntity->getSection())
 			{
 				continue;
 			}
 			else
 			{
-				
 			}
 		}
 	}

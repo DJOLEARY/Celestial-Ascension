@@ -13,6 +13,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
     m_player = new Player(controller);
 
 	m_entityManager.Add(m_player);
+	m_entityManager.Add(new ShieldPower());
 
 	m_maxEnemies = 20;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -106,7 +107,7 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	renderTexture.setView(m_view);
 	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
-	m_bulletManager.draw(renderTexture);
+	//m_bulletManager.draw(renderTexture);
 
 	if (isPaused)
 	{

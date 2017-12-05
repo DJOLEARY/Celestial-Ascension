@@ -62,7 +62,6 @@ void BulletManager::createBullet()
 	{
 		index = m_bulletArray.getCount();
 		m_bulletArray.setCount(index + 1);
-		std::cout << m_bulletArray.getCount() << std::endl;
 	}
 
 	sf::Vector2f rightStick = m_controller.getRightStick();
