@@ -3,14 +3,6 @@
 
 #include <SFML\Graphics.hpp>
 
-enum EntityType
-{
-	PLAYER,
-	ENEMY,
-	SHIELD_POWER,
-	HEART_POWER
-};
-
 /// <summary>
 /// Base class for game entities in the game scene.
 /// </summary>
@@ -24,8 +16,11 @@ public:
 	virtual void Draw(sf::RenderTexture &renderTexture) = 0;
 
 	sf::Vector2f getPos();
-	int getType();
 	sf::Vector2i getSection();
+	sf::Sprite getSprite();
+
+	bool getAlive();
+	void setAlive(bool isAlive);
 
 protected:
 	sf::Texture m_texture;
@@ -37,7 +32,6 @@ protected:
 	sf::Vector2f m_movementDir;
 	float m_orientation;
 	float m_targetOrientation;
-	int m_type;	// What type the current Entity is. (e.g. player, enemy).
 	sf::Vector2i m_inSection;	// What section the centre of the Entity is in.
 	bool m_alive;	// Whether to update/draw the current Entity.
 };

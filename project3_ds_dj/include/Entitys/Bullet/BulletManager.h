@@ -2,6 +2,7 @@
 #define BulletManager_H
 
 #include "CircularArray.h"
+#include "Entitys/Entity.h"
 #include "Bullet.h"
 #include "XboxController.h"
 
@@ -17,6 +18,9 @@ public:
 	void clearBullets();
 
 	void setPlayer(sf::Vector2f *playerPos);
+	void checkBulletAlive(Bullet* bullet);
+	void BulletCollision(std::vector<Entity*> entities);
+	bool canFire();
 
 private:
 
@@ -28,6 +32,9 @@ private:
 
 	sf::Vector2f *m_playerPos;
 	XboxController &m_controller;
+
+	sf::Clock m_clock;
+	int m_timerCount;
 
 	const float INPUT_THRESHOLD = 30.0f;
 };

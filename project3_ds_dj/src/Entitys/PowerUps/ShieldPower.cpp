@@ -2,7 +2,7 @@
 
 ShieldPower::ShieldPower()
 {
-	m_type = EntityType::SHIELD_POWER;
+	m_type = PowerUpType::SHIELD_POWER;
 
 	if (!m_texture.loadFromFile("Assets/PowerUps/Shield_Power_Up.png"))
 	{

@@ -2,7 +2,7 @@
 
 HeartPower::HeartPower()
 {
-	m_type = EntityType::HEART_POWER;
+	m_type = PowerUpType::HEART_POWER;
 
 	if (!m_texture.loadFromFile("Assets/PowerUps/Heart_Power_Up.png"))
 	{

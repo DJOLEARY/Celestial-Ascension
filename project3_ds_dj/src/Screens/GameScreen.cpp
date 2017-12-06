@@ -12,14 +12,14 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 	m_entityManager = EntityManager();
     m_player = new Player(controller);
 
-	m_entityManager.Add(m_player);
-	m_entityManager.Add(new ShieldPower());
-	m_entityManager.Add(new HeartPower());
+	m_entityManager.SetPlayer(m_player);
+	m_entityManager.AddPowerUp(new HeartPower());
+	m_entityManager.AddPowerUp(new ShieldPower());
 
 	m_maxEnemies = 20;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.Add(new Enemy(m_player->getPosition()));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
 	}
 
 	m_bulletManager.setPlayer(m_player->getPosition());
@@ -77,6 +77,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_entityManager.Update(dt);
 		m_bulletManager.update(dt);
 		m_view.setCenter(m_cameraPosition);
+
+		m_bulletManager.BulletCollision(m_entityManager.GetEnemies());
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
@@ -103,7 +105,7 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	renderTexture.setView(m_view);
 	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
-	//m_bulletManager.draw(renderTexture);
+	m_bulletManager.draw(renderTexture);
 
 	if (isPaused)
 	{

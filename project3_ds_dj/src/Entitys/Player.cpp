@@ -11,7 +11,6 @@ Player::Player(XboxController &controller) :
 		std::cout << "ERROR::Player::Image not loaded";
 	}
 
-	m_type = EntityType::PLAYER;
 	m_alive = true;
 
 	m_speed = 0.025f;

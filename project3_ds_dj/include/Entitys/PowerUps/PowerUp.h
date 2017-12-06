@@ -9,6 +9,13 @@ class PowerUp : public Entity
 public:
 	PowerUp();
 
+	enum PowerUpType
+	{
+		SHIELD_POWER,
+		HEART_POWER
+	};
+	PowerUpType m_type;
+
 	void Update(double dt) override;
 	void Draw(sf::RenderTexture &renderTexture) override;
 
