@@ -22,6 +22,8 @@ public:
 	void SetPlayer(Entity* player);
 	void Update(sf::Int32 dt);
 	void Draw(sf::RenderTexture &renderTexture);
+	std::vector<Entity*> GetEnemies();
+	std::vector<Entity*> GetPowerUps();
 
 private:
 	std::vector<Entity*> m_powerUps;

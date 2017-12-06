@@ -81,6 +81,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_entityManager.Update(dt);
 		m_bulletManager.update(dt);
 		m_view.setCenter(m_cameraPosition);
+
+		m_bulletManager.BulletCollision(m_entityManager.GetEnemies());
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)

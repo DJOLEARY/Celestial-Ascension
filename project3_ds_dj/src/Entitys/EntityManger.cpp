@@ -120,3 +120,13 @@ void EntityManager::Collision(Entity* entity1, Entity* entity2)
 		}
 	}
 }
+
+std::vector<Entity*> EntityManager::GetEnemies()
+{
+	return m_enemies;
+}
+
+std::vector<Entity*> EntityManager::GetPowerUps()
+{
+	return m_powerUps;
+}

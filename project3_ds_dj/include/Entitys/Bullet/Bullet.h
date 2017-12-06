@@ -18,8 +18,11 @@ public:
 	void update(double dt);
 	void draw(sf::RenderTexture& renderTexture);
 
-	void setAttributes( sf::Sprite &sprite ,sf::Vector2f playerPos, sf::Vector2f rightStick);
-	bool isDead();
+	void setAttributes( sf::Sprite &sprite ,sf::Vector2f &playerPos, sf::Vector2f &rightStick);
+	bool getAlive();
+	void setAlive(bool alive);
+	sf::Vector2f* getPos();
+	sf::Vector2i getSection();
 
 private:
 	
@@ -31,6 +34,8 @@ private:
 	float m_rotation;
 	float m_scale;
 	float m_speed;
+
+	bool m_alive;
 };
 
 #endif // !BULLET_H
