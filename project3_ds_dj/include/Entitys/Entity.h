@@ -7,7 +7,8 @@ enum EntityType
 {
 	PLAYER,
 	ENEMY,
-	SHIELD_POWER
+	SHIELD_POWER,
+	HEART_POWER
 };
 
 /// <summary>

@@ -167,6 +167,8 @@
   <ItemGroup>
     <ClCompile Include="src\Entitys\Bullet\BulletManager.cpp" />
     <ClCompile Include="src\Entitys\Player.cpp" />
+    <ClCompile Include="src\Entitys\PowerUps\HeartPower.cpp" />
+    <ClCompile Include="src\Entitys\PowerUps\PowerUp.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\ShieldPower.cpp" />
     <ClCompile Include="src\HUD\HUD.cpp" />
     <ClCompile Include="src\Physics\Grid.cpp" />
@@ -205,6 +207,8 @@
   <ItemGroup>
     <ClInclude Include="include\CircularArray.h" />
     <ClInclude Include="include\Entitys\Bullet\BulletManager.h" />
+    <ClInclude Include="include\Entitys\PowerUps\HeartPower.h" />
+    <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
     <ClInclude Include="include\HUD\HUD.h" />
     <ClInclude Include="include\Physics\Grid.h" />

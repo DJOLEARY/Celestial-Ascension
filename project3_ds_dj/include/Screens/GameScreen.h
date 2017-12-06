@@ -14,12 +14,12 @@
 #include "GUI\Label.h"
 #include "HUD\HUD.h"
 #include "Entitys\PowerUps\ShieldPower.h"
+#include "Entitys\PowerUps\HeartPower.h"
 
 class GameScreen : public Screen
 {
 public:
 	GameScreen(XboxController &controller, sf::View &view);
-    ~GameScreen();
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
 	virtual void reset() override;

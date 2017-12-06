@@ -14,6 +14,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 
 	m_entityManager.Add(m_player);
 	m_entityManager.Add(new ShieldPower());
+	m_entityManager.Add(new HeartPower());
 
 	m_maxEnemies = 20;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -55,11 +56,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 	m_gui.setWidgetsAlpha(0.0f);
 
 	m_hud.setScore(100);
-}
-
-GameScreen::~GameScreen()
-{
-	
 }
 
 void GameScreen::reset()
