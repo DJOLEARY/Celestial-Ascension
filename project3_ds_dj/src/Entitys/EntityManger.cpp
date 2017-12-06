@@ -28,6 +28,11 @@ void EntityManager::AddEnemy(Entity * entity)
 	m_enemies.push_back(entity);
 }
 
+void EntityManager::AddPowerUp(Entity * entity)
+{
+	m_powerUps.push_back(entity);
+}
+
 void EntityManager::SetPlayer(Entity * player)
 {
 	m_player = player;
@@ -49,6 +54,11 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 		Collision(m_player, entity);
 	}
+
+	for (Entity *entity : m_powerUps)
+	{
+		entity->Update(dt);
+	}
 }
 
 /// <summary>
@@ -63,6 +73,11 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 		{
 			entity->Draw(renderTexture);
 		}
+	}
+
+	for (Entity *entity : m_powerUps)
+	{
+		entity->Draw(renderTexture);
 	}
 
 	if (m_player->getAlive())

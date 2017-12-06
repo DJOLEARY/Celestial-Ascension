@@ -13,6 +13,7 @@
 #include "GUI\Button.h"
 #include "GUI\Label.h"
 #include "HUD\HUD.h"
+#include "Entitys\PowerUps\ShieldPower.h"
 
 class GameScreen : public Screen
 {

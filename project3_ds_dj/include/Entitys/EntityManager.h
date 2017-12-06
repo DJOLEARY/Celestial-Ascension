@@ -18,11 +18,13 @@ public:
 	~EntityManager();
 
 	void AddEnemy(Entity *entity);
+	void AddPowerUp(Entity *entity);
 	void SetPlayer(Entity* player);
 	void Update(sf::Int32 dt);
 	void Draw(sf::RenderTexture &renderTexture);
 
 private:
+	std::vector<Entity*> m_powerUps;
 	std::vector<Entity*> m_enemies;
 	Entity* m_player;
 
