@@ -8,7 +8,6 @@ Enemy::Enemy(sf::Vector2f *playerPos) :
 		std::cout << "ERROR::Enemy::Image not loaded";
 	}
 
-	m_type = EntityType::ENEMY;
 	m_alive = true;
 
 	m_speed = 0.05f;

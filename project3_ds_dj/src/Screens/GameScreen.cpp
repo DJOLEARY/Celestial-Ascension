@@ -12,12 +12,12 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 	m_entityManager = EntityManager();
     m_player = new Player(controller);
 
-	m_entityManager.Add(m_player);
+	m_entityManager.SetPlayer(m_player);
 
 	m_maxEnemies = 20;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.Add(new Enemy(m_player->getPosition()));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
 	}
 
 	m_bulletManager.setPlayer(m_player->getPosition());

@@ -2,9 +2,11 @@
 #define ENTITY_MANAGER_H
 
 #include "Entity.h"
+#include "MathHelper.h"
 #include <vector>
 #include <typeinfo>
 #include <iostream>
+
 
 /// <summary>
 /// Handles all game entites update and render in the game.
@@ -15,16 +17,16 @@ public:
 	EntityManager();
 	~EntityManager();
 
-	void Add(Entity *entity);
-	void RemoveDead();
+	void AddEnemy(Entity *entity);
+	void SetPlayer(Entity* player);
 	void Update(sf::Int32 dt);
 	void Draw(sf::RenderTexture &renderTexture);
 
 private:
-	std::vector<Entity*> m_entites;
+	std::vector<Entity*> m_enemies;
+	Entity* m_player;
 
-	void Collisions();
-	bool isDead(Entity * entity);
+	void Collision(Entity* entity1, Entity* entity2);
 };
 
 #endif
