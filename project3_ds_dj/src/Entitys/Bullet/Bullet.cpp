@@ -10,10 +10,16 @@ Bullet::~Bullet()
 
 }
 
-void Bullet::update(double dt)
+void Bullet::update(double dt, sf::Rect<float> &worldBound)
 {
 	m_position += m_velocity * (float)dt;
 	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+
+	if (m_position.x < worldBound.left || m_position.x > worldBound.left + worldBound.width ||
+		m_position.y < worldBound.top || m_position.y > worldBound.top + worldBound.height)
+	{
+		m_alive = false;
+	}
 }
 
 void Bullet::draw(sf::RenderTexture &renderTexture)
@@ -34,7 +40,7 @@ void Bullet::setAttributes(sf::Sprite &sprite, sf::Vector2f &playerPos, sf::Vect
 	m_sprite->setOrigin(m_sprite->getLocalBounds().width / 2.0f, m_sprite->getLocalBounds().height / 2.0f);
 	m_sprite->setRotation((m_rotation * 180) / 3.14);
 
-	m_speed = 0.5f;
+	m_speed = 0.05f;
 	m_alive = true;
 
 	m_velocity.x = m_speed * cos(m_rotation);

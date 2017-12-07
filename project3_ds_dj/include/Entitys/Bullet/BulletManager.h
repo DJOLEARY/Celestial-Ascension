@@ -10,7 +10,6 @@ class BulletManager
 {
 public:
 	BulletManager(sf::Rect<float> &m_worldBound, XboxController &controller);
-	~BulletManager();
 
 	void update(double dt);
 	void draw(sf::RenderTexture & renderTexture);

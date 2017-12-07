@@ -1,6 +1,5 @@
 #include "Entitys\Bullet\BulletManager.h"
 
-
 BulletManager::BulletManager(sf::Rect<float> &worldBound, XboxController &controller) :
 	m_bulletArray(1000),
 	m_worldBound(worldBound),
@@ -17,10 +16,6 @@ BulletManager::BulletManager(sf::Rect<float> &worldBound, XboxController &contro
 	m_clock.restart();
 }
 
-BulletManager::~BulletManager()
-{
-}
-
 void BulletManager::update(double dt)
 {
 	if (sf::magnitude(m_controller.getRightStick()) > INPUT_THRESHOLD && canFire())
@@ -34,21 +29,16 @@ void BulletManager::update(double dt)
 	{
 		Bullet &bullet = m_bulletArray[bulletIndex];
 		m_bulletArray.swap(bulletIndex - removalCount, bulletIndex);
-		bullet.update(dt);
-
-		checkBulletAlive(&bullet);
+		bullet.update(dt, m_worldBound);
 
 		if (!bullet.getAlive())
-		{
 			removalCount++;
-			std::cout << "We have removed you Mwhahaha" << std::endl;
-		}
 	}
 
 	m_bulletArray.setCount(m_bulletArray.getCount() - removalCount);
 
 	sf::Time elapsedTime = m_clock.getElapsedTime();
-	if (elapsedTime.asSeconds() > 0.1)
+	if (elapsedTime.asSeconds() > 1.0)
 	{
 		m_timerCount++;
 		m_clock.restart();
@@ -70,7 +60,6 @@ void BulletManager::createBullet()
 	if (m_bulletArray.getCount() == m_bulletArray.getCapacity())
 	{
 		index = 0;	// Replace oldest bullet.
-		std::cout << "Capacity hit - Reset" << std::endl;
 	}
 	else
 	{

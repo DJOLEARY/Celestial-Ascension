@@ -15,7 +15,7 @@ public:
 	Bullet();
 	~Bullet();
 
-	void update(double dt);
+	void update(double dt, sf::Rect<float> &worldBound);
 	void draw(sf::RenderTexture& renderTexture);
 
 	void setAttributes( sf::Sprite &sprite ,sf::Vector2f &playerPos, sf::Vector2f &rightStick);
