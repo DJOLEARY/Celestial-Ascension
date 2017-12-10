@@ -13,9 +13,9 @@ class Player : public Entity
 {
 public:
 	Player(XboxController &controller);
-	~Player();
 
 	void ProcessInput(double dt);
+	bool FireBullet();
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
@@ -26,6 +26,8 @@ private:
 	XboxController &m_xboxController;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
+	sf::Clock m_clock;
+	float m_timeToNextShot;
 };
 
 #endif

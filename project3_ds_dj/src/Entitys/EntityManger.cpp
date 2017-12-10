@@ -19,6 +19,11 @@ EntityManager::~EntityManager()
 	}
 }
 
+void EntityManager::AddBullet(Entity *entity)
+{
+	m_bullets.push_back(entity);
+}
+
 /// <summary>
 /// Adds Enemy to the entity manager.
 /// </summary>
@@ -59,6 +64,16 @@ void EntityManager::Update(sf::Int32 dt)
 	{
 		entity->Update(dt);
 	}
+
+	for (Entity *bullet : m_bullets)
+	{
+		bullet->Update(dt);
+
+		for (Entity *enemy : m_enemies)
+		{
+			Collision(enemy, bullet);
+		}
+	}
 }
 
 /// <summary>
@@ -76,6 +91,11 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 	}
 
 	for (Entity *entity : m_powerUps)
+	{
+		entity->Draw(renderTexture);
+	}
+
+	for (Entity *entity : m_bullets)
 	{
 		entity->Draw(renderTexture);
 	}

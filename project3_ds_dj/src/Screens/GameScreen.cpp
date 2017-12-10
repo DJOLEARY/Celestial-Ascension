@@ -2,8 +2,7 @@
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view): 
 	Screen(GameState::GamePlay, view), 
-	isPaused(false),
-	m_bulletManager(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f), controller)
+	isPaused(false)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -16,16 +15,13 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 	m_entityManager.AddPowerUp(new HeartPower());
 	m_entityManager.AddPowerUp(new ShieldPower());
 
-	m_maxEnemies = 0;	// The number of enemies.
+	m_maxEnemies = 10;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
 		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
 	}
 
-	m_bulletManager.setPlayer(m_player->getPosition());
-
 	// Camera
-	// @todo(refactor): make camera it's own class
 	m_cameraPosition = *m_player->getPosition();
 
 	if (!m_resumeTexture.loadFromFile("Assets/GUI/Resume.png"))
@@ -71,14 +67,14 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 	{
-		cameraFollow();
-		m_cameraPosition += m_cameraVelocity * (float)dt;
+		cameraFollow(dt);
 		m_hud.update(dt, m_cameraPosition);
+		if (m_player->FireBullet())
+		{
+			m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
+		}
 		m_entityManager.Update(dt);
-		m_bulletManager.update(dt);
 		m_view.setCenter(m_cameraPosition);
-
-		m_bulletManager.BulletCollision(m_entityManager.GetEnemies());
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
@@ -105,7 +101,6 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	renderTexture.setView(m_view);
 	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
-	m_bulletManager.draw(renderTexture);
 
 	if (isPaused)
 	{
@@ -114,8 +109,10 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	}
 }
 
-void GameScreen::cameraFollow()
+void GameScreen::cameraFollow(sf::Int32 dt)
 {
+	m_cameraPosition += m_cameraVelocity * (float)dt;
+
 	if (sf::distance(m_cameraPosition, *m_player->getPosition()) < 10.0f)
 	{
 		m_cameraVelocity = sf::Vector2f();

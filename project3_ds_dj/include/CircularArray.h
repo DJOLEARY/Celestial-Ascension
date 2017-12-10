@@ -47,11 +47,6 @@ public:
 		m_start = value;
 	}
 
-	void decreaseCount(const uint32_t decreaseBy)
-	{
-		m_count -= decreaseBy;
-	}
-
 	T &operator[](const uint32_t index) const
 	{
 		return m_array[(m_start + index) % m_count];

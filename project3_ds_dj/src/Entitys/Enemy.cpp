@@ -3,6 +3,7 @@
 Enemy::Enemy(sf::Vector2f *playerPos) : 
     m_playerPos(playerPos)
 {
+	// @refactor(darren): This should not be here. Loading a texture into memory for each enemy
 	if (!m_texture.loadFromFile("Assets/Wanderer.png"))
 	{
 		std::cout << "ERROR::Enemy::Image not loaded";

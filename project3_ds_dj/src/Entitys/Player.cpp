@@ -4,7 +4,7 @@
 /// 
 /// </summary>
 Player::Player(XboxController &controller) : 
-	m_xboxController(controller), m_rotationDiff(0.0f)
+	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 	{
@@ -17,14 +17,6 @@ Player::Player(XboxController &controller) :
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-}
-
-/// <summary>
-/// 
-/// </summary>
-Player::~Player()
-{
-
 }
 
 /// <summary>
@@ -60,6 +52,22 @@ void Player::ProcessInput(double dt)
 	{
 		m_velocity = sf::Vector2f();
 	}
+}
+
+bool Player::FireBullet()
+{
+	if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD)
+	{
+		sf::Time elapsedTime = m_clock.getElapsedTime();
+		if (elapsedTime.asMilliseconds() > 200)
+		{
+			m_timeToNextShot++;
+			m_clock.restart();
+			return true;
+		}
+	}
+
+	return false;
 }
 
 /// <summary>

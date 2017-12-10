@@ -7,7 +7,6 @@
 
 #include "Screen.h"
 #include "Entitys\EntityManager.h"
-#include "Entitys\Bullet\BulletManager.h"
 #include "Entitys\Player.h"
 #include "Entitys\Enemy.h"
 #include "GUI\Button.h"
@@ -15,6 +14,7 @@
 #include "HUD\HUD.h"
 #include "Entitys\PowerUps\ShieldPower.h"
 #include "Entitys\PowerUps\HeartPower.h"
+#include "Entitys\Bullet.h"
 
 class GameScreen : public Screen
 {
@@ -27,7 +27,6 @@ public:
 
 private:
     EntityManager m_entityManager;
-	BulletManager m_bulletManager;
 	Player *m_player;
 	int m_maxEnemies;
 
@@ -46,7 +45,7 @@ private:
 
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;
-	void cameraFollow();
+	void cameraFollow(sf::Int32 dt);
 	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();

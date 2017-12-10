@@ -20,8 +20,7 @@ void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTim
 
 bool Particle::isDead()
 {
-	bool dead = timerCounting > 2;
-	return dead;
+	return timerCounting > 2;
 }
 
 void Particle::update(sf::Rect<float> &worldBound)

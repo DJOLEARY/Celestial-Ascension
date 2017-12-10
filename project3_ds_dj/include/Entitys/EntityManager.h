@@ -17,6 +17,7 @@ public:
 	EntityManager();
 	~EntityManager();
 
+	void AddBullet(Entity *entity);
 	void AddEnemy(Entity *entity);
 	void AddPowerUp(Entity *entity);
 	void SetPlayer(Entity* player);
@@ -28,6 +29,7 @@ public:
 private:
 	std::vector<Entity*> m_powerUps;
 	std::vector<Entity*> m_enemies;
+	std::vector<Entity*> m_bullets;
 	Entity* m_player;
 
 	void Collision(Entity* entity1, Entity* entity2);
