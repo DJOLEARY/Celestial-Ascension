@@ -71,7 +71,16 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_hud.update(dt, m_cameraPosition);
 		if (m_player->FireBullet())
 		{
-			m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
+			if(m_player->getBulletType() == BulletType::NORMAL)
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
+			{
+				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
+					sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
+					sf::normalize(controller.getLeftStick())));
+			}
 		}
 		m_entityManager.Update(dt);
 		m_view.setCenter(m_cameraPosition);

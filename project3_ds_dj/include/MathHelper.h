@@ -26,9 +26,9 @@ namespace sf
 
 	inline float randF(float start, float end)
 	{
-		static std::random_device rand_dev;
-		static std::mt19937 generator(rand_dev());
-		static std::uniform_real<float> distr(start, end);
+		std::random_device rand_dev;
+		std::mt19937 generator(rand_dev());
+		std::uniform_real<float> distr(start, end);
 		return distr(generator);
 	}
 

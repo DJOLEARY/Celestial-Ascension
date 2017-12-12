@@ -57,7 +57,11 @@ void EntityManager::Update(sf::Int32 dt)
 	for (Entity *entity : m_enemies)
 	{
 		entity->Update(dt);
-		Collision(m_player, entity);
+
+		if (Collision(m_player, entity))
+		{
+
+		}
 	}
 
 	for (Entity *entity : m_powerUps)
@@ -65,14 +69,18 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 	}
 
-	for (Entity *bullet : m_bullets)
+	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
-		bullet->Update(dt);
+		((*bulletIter)->Update(dt));
 
-		for (Entity *enemy : m_enemies)
+		/*for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 		{
-			Collision(enemy, bullet);
-		}
+			if (Collision(*iter, *bulletIter))
+			{
+				iter = m_enemies.erase(iter);
+				bulletIter = m_bullets.erase(bulletIter);
+			}
+		}*/
 	}
 }
 
@@ -84,10 +92,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 {
 	for (Entity *entity : m_enemies)
 	{
-		if (entity->getAlive())
-		{
-			entity->Draw(renderTexture);
-		}
+		entity->Draw(renderTexture);
 	}
 
 	for (Entity *entity : m_powerUps)
@@ -111,7 +116,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 /// </summary>
 /// <param name="entity1"></param>
 /// <param name="entity2"></param>
-void EntityManager::Collision(Entity* entity1, Entity* entity2)
+bool EntityManager::Collision(Entity* entity1, Entity* entity2)
 {
 	//	Makes sure both entitys are alive.
 	if (entity1->getAlive() && entity2->getAlive())
@@ -133,12 +138,14 @@ void EntityManager::Collision(Entity* entity1, Entity* entity2)
 					//	Checks the distance between the two entitys.
 					if (sf::distance(entity1->getPos(), entity2->getPos()) < 20.0f)
 					{
-						entity1->setAlive(false);
+						return true;
 					}
 				}
 			}
 		}
 	}
+
+	return false;
 }
 
 std::vector<Entity*> EntityManager::GetEnemies()

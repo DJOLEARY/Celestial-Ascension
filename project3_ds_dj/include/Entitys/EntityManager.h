@@ -32,7 +32,7 @@ private:
 	std::vector<Entity*> m_bullets;
 	Entity* m_player;
 
-	void Collision(Entity* entity1, Entity* entity2);
+	bool Collision(Entity* entity1, Entity* entity2);
 };
 
 #endif
