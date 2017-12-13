@@ -1,4 +1,9 @@
-#include "Entitys/Bullet.h"
+#include "Entitys\Bullets\Bullet.h"
+
+Bullet::Bullet()
+{
+
+}
 
 Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction)
 {

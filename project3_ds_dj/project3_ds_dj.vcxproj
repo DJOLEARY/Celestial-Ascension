@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entitys\Bullets\HomingMissile.cpp" />
     <ClCompile Include="src\Entitys\Player.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\HeartPower.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\PowerUp.cpp" />
@@ -174,7 +175,7 @@
     <ClCompile Include="src\Entitys\Entity.cpp" />
     <ClCompile Include="src\Entitys\Enemy.cpp" />
     <ClCompile Include="src\Entitys\EntityManger.cpp" />
-    <ClCompile Include="src\Entitys\Bullet.cpp" />
+    <ClCompile Include="src\Entitys\Bullets\Bullet.cpp" />
     <ClCompile Include="src\Game.cpp" />
     <ClCompile Include="src\GUI\Button.cpp" />
     <ClCompile Include="src\GUI\CheckBox.cpp" />
@@ -205,6 +206,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CircularArray.h" />
+    <ClInclude Include="include\Entitys\Bullets\HomingMissile.h" />
     <ClInclude Include="include\Entitys\PowerUps\HeartPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
@@ -213,7 +215,7 @@
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\Entity.h" />
     <ClInclude Include="include\Entitys\EntityManager.h" />
-    <ClInclude Include="include\Entitys\Bullet.h" />
+    <ClInclude Include="include\Entitys\Bullets\Bullet.h" />
     <ClInclude Include="include\Game.h" />
     <ClInclude Include="include\GUI\Button.h" />
     <ClInclude Include="include\GUI\CheckBox.h" />

@@ -38,9 +38,10 @@
     <ClCompile Include="src\Entitys\PowerUps\ShieldPower.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\HeartPower.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\PowerUp.cpp" />
-    <ClCompile Include="src\Entitys\Bullet.cpp">
+    <ClCompile Include="src\Entitys\Bullets\Bullet.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
+    <ClCompile Include="src\Entitys\Bullets\HomingMissile.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -79,7 +80,8 @@
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\HeartPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
-    <ClInclude Include="include\Entitys\Bullet.h">
+    <ClInclude Include="include\Entitys\Bullets\HomingMissile.h" />
+    <ClInclude Include="include\Entitys\Bullets\Bullet.h">
       <Filter>Header\Entity</Filter>
     </ClInclude>
   </ItemGroup>
