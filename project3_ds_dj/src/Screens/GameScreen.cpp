@@ -81,6 +81,10 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
 					sf::normalize(controller.getLeftStick())));
 			}
+			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
+			{
+				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+			}
 		}
 		m_entityManager.Update(dt);
 		m_view.setCenter(m_cameraPosition);

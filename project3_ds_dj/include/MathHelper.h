@@ -117,9 +117,9 @@ namespace sf
 			catmullRom(value1.y, value2.y, value3.y, value4.y, amount));
 	}
 
-	inline float floor(float value)
+	inline float dot(sf::Vector2f &a, sf::Vector2f &b)
 	{
-
+		return a.x * b.x + a.y + b.y;
 	}
 }
 

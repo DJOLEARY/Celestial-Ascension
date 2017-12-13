@@ -10,7 +10,7 @@ enum class BulletType
 {
 	NORMAL,
 	DOUBLE_BULLET,
-	HOMING_MISSILE
+	MISSILE_HOMING
 };
 
 /// <summary>
@@ -36,7 +36,7 @@ private:
 	const float INPUT_THRESHOLD = 30.0f;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
-	BulletType m_bulletType = BulletType::HOMING_MISSILE;
+	BulletType m_bulletType = BulletType::MISSILE_HOMING;
 };
 
 #endif
