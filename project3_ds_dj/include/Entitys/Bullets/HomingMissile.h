@@ -13,7 +13,8 @@ public:
 private:
 	sf::Vector2f m_enemyPosition;
 	float m_rotation, m_targetRotation;
-	const float TURN_RATE = 10.0f;
+	float m_rotationDiff;
+	const float TURN_RATE = 5.0f;
 };
 
 #endif // !HOMING_MISSILE

@@ -13,14 +13,15 @@ HomingMissile::HomingMissile(const sf::Vector2f &position, const sf::Vector2f &d
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
 	m_speed = 0.1f;
+	m_rotation = 0.0f;
+	m_rotationDiff = 0.0f;
+	m_targetRotation = 0.0f;
 	m_position = position;
-	m_velocity = direction * m_speed;
 	m_orientation = atan2f(m_velocity.y, m_velocity.x);
 	m_sprite.setRotation((m_orientation * 180) / 3.14);
 	setAlive(true);
 
-
-	setEnemyPosition(sf::Vector2f(10.0f, 10.0f));
+	setEnemyPosition(sf::Vector2f(200.0f, 200.0f));
 }
 
 void HomingMissile::setEnemyPosition(sf::Vector2f &pos)
@@ -30,18 +31,35 @@ void HomingMissile::setEnemyPosition(sf::Vector2f &pos)
 
 void HomingMissile::Update(double dt)
 {
-	// Calculate the new position
 	m_position += m_velocity * (float)dt;
 
-	// Have the missile seek the enemy
-	if (sf::distance(m_position, m_enemyPosition) < 10.0f)
+	float targetAngle = acos(sf::dot(m_enemyPosition, m_position) / (sf::magnitude(m_enemyPosition) * sf::magnitude(m_position)));
+	targetAngle = sf::radiansToDegress(targetAngle);
+
+	if (m_rotation != targetAngle) 
 	{
-		m_velocity = sf::Vector2f();
-	}
-	else
-	{
-		m_velocity = sf::normalize(m_enemyPosition - m_position) * m_speed;
+		// Calculate difference between the current angle and targetAngle
+		float delta = targetAngle - m_rotation;
+
+		// Keep it in range from -180 to 180 to make the most efficient turns.
+		if (delta > 180)
+			delta -= 360;
+		if (delta < -180) 
+			delta += 360;
+
+		if (delta > 0) 
+			m_rotation += TURN_RATE;
+		else 
+			m_rotation -= TURN_RATE;
+
+		// Just set angle to target angle if they are close
+		if (abs(delta) < sf::degressToRadians(TURN_RATE)) 
+			m_rotation = targetAngle;
 	}
 
-	// 
+	// Calculate velocity vector based on rotation and speed
+	m_velocity.x = cos(sf::degressToRadians(m_rotation)) * m_speed;
+	m_velocity.y = sin(sf::degressToRadians(m_rotation)) * m_speed;
+
+	m_sprite.setRotation(m_rotation);
 }

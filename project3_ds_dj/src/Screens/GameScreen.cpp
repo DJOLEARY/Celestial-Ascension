@@ -83,7 +83,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			}
 			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
 			{
-				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new HomingMissile(sf::Vector2f(100.0f, 100.0f), sf::normalize(controller.getLeftStick())));
 			}
 		}
 		m_entityManager.Update(dt);

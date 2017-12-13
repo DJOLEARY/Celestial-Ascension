@@ -72,7 +72,6 @@ bool CheckBox::processInput(XboxController & controller)
 		}
 		else if (controller.isButtonPressed(XBOX360_A))
 		{
-			std::cout << "A pressed CheckBox" << std::endl;
 			switchState(); // Change the state of the checkbox
 			try
 			{
