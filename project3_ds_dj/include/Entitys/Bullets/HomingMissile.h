@@ -6,15 +6,14 @@
 class HomingMissile : public Bullet
 {
 public:
-	HomingMissile(const sf::Vector2f &position, const sf::Vector2f &direction);
+	HomingMissile(const sf::Vector2f &position, const sf::Vector2f &direction, sf::Vector2f *enemyPos);
 	void Update(double dt) override;
-	void setEnemyPosition(sf::Vector2f &pos);
 
 private:
-	sf::Vector2f m_enemyPosition;
+	sf::Vector2f &m_enemyPosition;
 	float m_rotation, m_targetRotation;
 	float m_rotationDiff;
-	const float TURN_RATE = 5.0f;
+	const float TURN_RATE = 0.001f;
 };
 
 #endif // !HOMING_MISSILE

@@ -83,7 +83,12 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			}
 			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
 			{
-				m_entityManager.AddBullet(new HomingMissile(sf::Vector2f(100.0f, 100.0f), sf::normalize(controller.getLeftStick())));
+				// Find an enemey position to track
+				// @todo(darren): This does not work, get basic bullets working first and gameplay loop
+				std::vector<Entity*> enemies = m_entityManager.GetEnemies();
+				int randIndex = static_cast<int>(sf::randF(0, enemies.size()));
+				sf::Vector2f *enemyPos = &enemies[randIndex]->getPos();
+				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), enemyPos));
 			}
 		}
 		m_entityManager.Update(dt);

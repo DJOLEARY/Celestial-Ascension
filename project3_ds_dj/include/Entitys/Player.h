@@ -36,7 +36,7 @@ private:
 	const float INPUT_THRESHOLD = 30.0f;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
-	BulletType m_bulletType = BulletType::MISSILE_HOMING;
+	BulletType m_bulletType = BulletType::NORMAL;
 };
 
 #endif

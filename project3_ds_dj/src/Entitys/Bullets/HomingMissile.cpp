@@ -1,6 +1,7 @@
 #include "Entitys\Bullets\HomingMissile.h"
 
-HomingMissile::HomingMissile(const sf::Vector2f &position, const sf::Vector2f &direction)
+HomingMissile::HomingMissile(const sf::Vector2f &position, const sf::Vector2f &direction, sf::Vector2f *enemyPos)
+	: m_enemyPosition(*enemyPos)
 {
 	// @refactor(darren): remove this
 	if (!m_texture.loadFromFile("Assets/missile.png"))
@@ -20,46 +21,18 @@ HomingMissile::HomingMissile(const sf::Vector2f &position, const sf::Vector2f &d
 	m_orientation = atan2f(m_velocity.y, m_velocity.x);
 	m_sprite.setRotation((m_orientation * 180) / 3.14);
 	setAlive(true);
-
-	setEnemyPosition(sf::Vector2f(200.0f, 200.0f));
-}
-
-void HomingMissile::setEnemyPosition(sf::Vector2f &pos)
-{
-	m_enemyPosition = pos;
 }
 
 void HomingMissile::Update(double dt)
 {
-	m_position += m_velocity * (float)dt;
-
-	float targetAngle = acos(sf::dot(m_enemyPosition, m_position) / (sf::magnitude(m_enemyPosition) * sf::magnitude(m_position)));
-	targetAngle = sf::radiansToDegress(targetAngle);
-
-	if (m_rotation != targetAngle) 
+	if (sf::distance(m_position, m_enemyPosition) < 10.0f)
 	{
-		// Calculate difference between the current angle and targetAngle
-		float delta = targetAngle - m_rotation;
-
-		// Keep it in range from -180 to 180 to make the most efficient turns.
-		if (delta > 180)
-			delta -= 360;
-		if (delta < -180) 
-			delta += 360;
-
-		if (delta > 0) 
-			m_rotation += TURN_RATE;
-		else 
-			m_rotation -= TURN_RATE;
-
-		// Just set angle to target angle if they are close
-		if (abs(delta) < sf::degressToRadians(TURN_RATE)) 
-			m_rotation = targetAngle;
+		m_velocity = sf::Vector2f();
 	}
-
-	// Calculate velocity vector based on rotation and speed
-	m_velocity.x = cos(sf::degressToRadians(m_rotation)) * m_speed;
-	m_velocity.y = sin(sf::degressToRadians(m_rotation)) * m_speed;
-
-	m_sprite.setRotation(m_rotation);
+	else
+	{
+		m_velocity = sf::normalize(m_enemyPosition - m_position) * m_speed;
+	}
+	m_position += m_velocity * (float)dt;
+	m_orientation += 0.5f;
 }

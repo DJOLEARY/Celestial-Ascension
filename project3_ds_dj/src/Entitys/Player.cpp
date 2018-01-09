@@ -56,10 +56,10 @@ void Player::ProcessInput(double dt)
 
 bool Player::FireBullet()
 {
-	if (sf::magnitude(m_xboxController.getLeftStick()) > INPUT_THRESHOLD)
+	if (sf::magnitude(m_xboxController.getLeftStick()) > INPUT_THRESHOLD && m_alive)
 	{
 		sf::Time elapsedTime = m_clock.getElapsedTime();
-		if (elapsedTime.asMilliseconds() > 200)
+		if (elapsedTime.asMilliseconds() > 500)
 		{
 			m_timeToNextShot++;
 			m_clock.restart();
@@ -81,9 +81,12 @@ BulletType Player::getBulletType()
 /// <param name="dt">The delta time</param>
 void Player::Update(double dt)
 {
-	ProcessInput(dt);
+	if (m_alive)
+	{
+		ProcessInput(dt);
 
-	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+	}
 }
 
 /// <summary>

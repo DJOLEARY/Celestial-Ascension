@@ -26,18 +26,24 @@ Enemy::~Enemy()
 
 void Enemy::Update(double dt)
 {
-    seekPlayer();
-    m_position += m_velocity * (float)dt;
-    m_orientation += 0.5f;
+	if (m_alive)
+	{
+		seekPlayer();
+		m_position += m_velocity * (float)dt;
+		m_orientation += 0.5f;
 
-	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+	}
 }
 
 void Enemy::Draw(sf::RenderTexture &renderTexture)
 {
-    m_sprite.setRotation(m_orientation);
-    m_sprite.setPosition(m_position);
-    renderTexture.draw(m_sprite);
+	if (m_alive)
+	{
+		m_sprite.setRotation(m_orientation);
+		m_sprite.setPosition(m_position);
+		renderTexture.draw(m_sprite);
+	}
 }
 
 void Enemy::seekPlayer()

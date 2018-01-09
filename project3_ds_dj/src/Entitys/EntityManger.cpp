@@ -60,7 +60,9 @@ void EntityManager::Update(sf::Int32 dt)
 
 		if (Collision(m_player, entity))
 		{
-
+			m_player->setAlive(false);
+			entity->setAlive(false);
+			break;
 		}
 	}
 
@@ -69,19 +71,35 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 	}
 
-	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
+	for (Entity *entity : m_bullets)
 	{
-		((*bulletIter)->Update(dt));
+		entity->Update(dt);
+	}
 
-		/*for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
+	// Check if the bullets and enemies have collided
+	int count = 0;
+	std::vector<int> indexesToRemove;
+	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
+	{
+		count++;
+		for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 		{
 			if (Collision(*iter, *bulletIter))
 			{
-				iter = m_enemies.erase(iter);
-				bulletIter = m_bullets.erase(bulletIter);
+				indexesToRemove.push_back(count);
+				//iter = m_enemies.erase(iter);
+				//bulletIter = m_bullets.erase(bulletIter);
 			}
-		}*/
+		}
 	}
+
+	for (int index : indexesToRemove)
+	{
+		m_enemies.erase(m_enemies.begin() + (index - 1));
+		//m_enemies.at(index - 1)->setAlive(false);
+	}
+
+	indexesToRemove.clear();
 }
 
 /// <summary>
