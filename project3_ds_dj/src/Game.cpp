@@ -6,8 +6,7 @@ Game::Game()
 	m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings),
 	m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
-	m_bloom(m_window.getSize(), 0.0f, 1.0f),
-	m_particleManger(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f))
+	m_bloom(m_window.getSize(), 0.0f, 1.0f)
 {
 	std::cout << "openGL version:" << m_window.getSettings().majorVersion 
 		<< "." << m_window.getSettings().minorVersion << std::endl << std::endl;
@@ -65,16 +64,8 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
-	{
-		sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 1000.0f));
-		m_grid.applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
-		m_particleManger.createExplosion(position, sf::Color(216, 114, 30));
-	}
-
 	m_grid.update();
 	m_screenManager.update(m_xboxController, dt);
-	m_particleManger.update();
 }
 
 void Game::draw()
@@ -82,7 +73,6 @@ void Game::draw()
 	m_renderTexture.clear();
 	m_grid.draw(m_renderTexture);
 	m_screenManager.draw(m_renderTexture);
-	m_particleManger.draw(m_renderTexture);
 	m_renderTexture.display();
 
     m_window.clear();

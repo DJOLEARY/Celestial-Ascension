@@ -14,7 +14,6 @@
 #include "Graphics\Bloom.h"
 #include "Physics\Grid.h"
 #include "Screens\GameScreen.h"
-#include "Physics\ParticleManager.h"
 
 class Game
 {
@@ -35,7 +34,6 @@ private:
 	ExitMenu *exitMenu;
 
 	ScreenManager m_screenManager;
-	ParticleManager m_particleManger;
     XboxController m_xboxController;
 
 };

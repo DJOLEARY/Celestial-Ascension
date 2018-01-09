@@ -6,7 +6,7 @@
 #include <vector>
 #include <typeinfo>
 #include <iostream>
-
+#include "Physics\ParticleManager.h"
 
 /// <summary>
 /// Handles all game entites update and render in the game.
@@ -31,6 +31,7 @@ private:
 	std::vector<Entity*> m_enemies;
 	std::vector<Entity*> m_bullets;
 	Entity* m_player;
+	ParticleManager m_particleManger;
 
 	bool Collision(Entity* entity1, Entity* entity2);
 };

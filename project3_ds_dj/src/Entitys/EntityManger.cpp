@@ -4,6 +4,7 @@
 /// 
 /// </summary>
 EntityManager::EntityManager()
+	: m_particleManger(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f))
 {
 	
 }
@@ -52,19 +53,22 @@ void EntityManager::Update(sf::Int32 dt)
 	if (m_player->getAlive())
 	{
 		m_player->Update(dt);
-	}
 
-	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
-	{
-		(*iter)->Update(dt);
-
-		if (Collision(m_player, *iter))
+		for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 		{
-			m_player->setAlive(false);
-			m_enemies.erase(iter);
-			break;
+			(*iter)->Update(dt);
+
+			if (Collision(m_player, *iter))
+			{
+				m_particleManger.createExplosion(m_player->getPos(), sf::Color(216, 114, 30));
+				m_player->setAlive(false);
+				m_enemies.erase(iter);
+				break;
+			}
 		}
 	}
+
+	m_particleManger.update();
 
 	for (Entity *entity : m_powerUps)
 	{
@@ -124,6 +128,8 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 	{
 		m_player->Draw(renderTexture);
 	}
+
+	m_particleManger.draw(renderTexture);
 }
 
 /// <summary>
