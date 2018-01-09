@@ -9,6 +9,9 @@
 *.userosscache
 *.sln.docstates
 
+# This is Darren's todo file
+todo.txt 
+
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
 
