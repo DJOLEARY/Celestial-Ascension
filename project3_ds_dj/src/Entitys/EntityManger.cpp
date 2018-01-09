@@ -54,14 +54,14 @@ void EntityManager::Update(sf::Int32 dt)
 		m_player->Update(dt);
 	}
 
-	for (Entity *entity : m_enemies)
+	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 	{
-		entity->Update(dt);
+		(*iter)->Update(dt);
 
-		if (Collision(m_player, entity))
+		if (Collision(m_player, *iter))
 		{
 			m_player->setAlive(false);
-			entity->setAlive(false);
+			m_enemies.erase(iter);
 			break;
 		}
 	}
@@ -87,8 +87,6 @@ void EntityManager::Update(sf::Int32 dt)
 			if (Collision(*iter, *bulletIter))
 			{
 				indexesToRemove.push_back(count);
-				//iter = m_enemies.erase(iter);
-				//bulletIter = m_bullets.erase(bulletIter);
 			}
 		}
 	}
@@ -96,7 +94,6 @@ void EntityManager::Update(sf::Int32 dt)
 	for (int index : indexesToRemove)
 	{
 		m_enemies.erase(m_enemies.begin() + (index - 1));
-		//m_enemies.at(index - 1)->setAlive(false);
 	}
 
 	indexesToRemove.clear();
