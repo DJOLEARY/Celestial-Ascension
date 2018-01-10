@@ -72,7 +72,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		if (m_player->FireBullet())
 		{
 			if(m_player->getBulletType() == BulletType::NORMAL)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));

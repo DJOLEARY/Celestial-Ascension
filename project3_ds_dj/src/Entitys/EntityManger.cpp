@@ -60,7 +60,7 @@ void EntityManager::Update(sf::Int32 dt)
 
 			if (Collision(m_player, *iter))
 			{
-				m_particleManger.createExplosion(m_player->getPos(), sf::Color(216, 114, 30));
+				//m_particleManger.createExplosion(m_player->getPos(), sf::Color(216, 114, 30));
 				m_player->setAlive(false);
 				m_enemies.erase(iter);
 				break;

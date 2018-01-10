@@ -28,6 +28,7 @@ void Bullet::Update(double dt)
 {
 	m_position += m_velocity * (float)dt;
 	m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+	Grid::instance()->applyExplosiveForce(50.0f * sf::magnitude(m_velocity), sf::Vector3f(m_position.x, m_position.y, -10.0f), 120.0f);
 }
 
 void Bullet::Draw(sf::RenderTexture &renderTexture)

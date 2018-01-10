@@ -8,6 +8,7 @@
 #include "..\Entity.h"
 #include "MathHelper.h"
 #include <iostream>
+#include "Physics\Grid.h"
 
 class Bullet : public Entity
 {

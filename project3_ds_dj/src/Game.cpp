@@ -64,14 +64,20 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-	m_grid.update();
+	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
+	{
+		sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 1000.0f));
+		Grid::instance()->applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
+	}
+
+	Grid::instance()->update();
 	m_screenManager.update(m_xboxController, dt);
 }
 
 void Game::draw()
 {
 	m_renderTexture.clear();
-	m_grid.draw(m_renderTexture);
+	Grid::instance()->draw(m_renderTexture);
 	m_screenManager.draw(m_renderTexture);
 	m_renderTexture.display();
 

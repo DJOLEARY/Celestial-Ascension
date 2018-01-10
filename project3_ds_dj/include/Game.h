@@ -30,7 +30,6 @@ private:
 	sf::View m_view;
 	sf::RenderTexture m_renderTexture;
 	Bloom m_bloom;
-	Grid m_grid;
 	ExitMenu *exitMenu;
 
 	ScreenManager m_screenManager;

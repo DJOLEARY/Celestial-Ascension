@@ -34,6 +34,7 @@ private:
 	XboxController &m_xboxController;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
+	const uint16_t FIRE_RATE = 200;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
 	BulletType m_bulletType = BulletType::NORMAL;

@@ -1,5 +1,7 @@
 #include "Physics\Grid.h"
 
+Grid *Grid::m_instance = 0;
+
 Grid::Grid()
 {
 	const int maxGridPoints = 600;
