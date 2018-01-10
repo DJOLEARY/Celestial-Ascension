@@ -2,7 +2,8 @@
 
 Particle::Particle() { }
 
-void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTime, sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale)
+void Particle::setAttributes(sf::Sprite &sprite, sf::Color &color, float lifeTime, 
+	sf::Vector2f &position, sf::Vector2f &velocity, float rotation, float scale)
 {
 	timerCounting = 0;
 	m_sprite = &sprite;

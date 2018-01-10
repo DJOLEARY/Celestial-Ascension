@@ -1,5 +1,7 @@
 #include "Physics\ParticleManager.h"
 
+ParticleManager *ParticleManager::m_instance = 0;
+
 ParticleManager::ParticleManager(sf::Rect<float> &worldBound)
 	: m_particleArray(1000), m_worldBound(worldBound)
 {

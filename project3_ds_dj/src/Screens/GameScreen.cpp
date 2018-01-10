@@ -77,9 +77,9 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
-					sf::normalize(controller.getLeftStick())));
+					sf::normalize(controller.getRightStick())));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
-					sf::normalize(controller.getLeftStick())));
+					sf::normalize(controller.getRightStick())));
 			}
 			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
 			{

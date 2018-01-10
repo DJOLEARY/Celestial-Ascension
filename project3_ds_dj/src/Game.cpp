@@ -67,9 +67,11 @@ void Game::update(sf::Int32 dt)
 	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
 	{
 		sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 1000.0f));
+		ParticleManager::instance()->createExplosion(position, sf::Color(216, 114, 30));
 		Grid::instance()->applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
 	}
 
+	ParticleManager::instance()->update();
 	Grid::instance()->update();
 	m_screenManager.update(m_xboxController, dt);
 }
@@ -79,6 +81,7 @@ void Game::draw()
 	m_renderTexture.clear();
 	Grid::instance()->draw(m_renderTexture);
 	m_screenManager.draw(m_renderTexture);
+	ParticleManager::instance()->draw(m_renderTexture);
 	m_renderTexture.display();
 
     m_window.clear();

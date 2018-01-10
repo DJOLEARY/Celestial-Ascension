@@ -14,6 +14,7 @@
 #include "Graphics\Bloom.h"
 #include "Physics\Grid.h"
 #include "Screens\GameScreen.h"
+#include "Physics\ParticleManager.h"
 
 class Game
 {
@@ -31,7 +32,6 @@ private:
 	sf::RenderTexture m_renderTexture;
 	Bloom m_bloom;
 	ExitMenu *exitMenu;
-
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
 

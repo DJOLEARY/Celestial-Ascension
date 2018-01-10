@@ -9,7 +9,14 @@
 class ParticleManager
 {
 public:
-	ParticleManager(sf::Rect<float> &m_worldBound);
+	static ParticleManager *instance()
+	{
+		if (!m_instance)
+			m_instance = new ParticleManager(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f));
+
+		return m_instance;
+	}
+
 	void update();
 	void draw(sf::RenderTexture &renderTexture);
 	void clearParticles();
@@ -19,6 +26,8 @@ public:
 		sf::Vector2f &velocity, float rotation, float scale);
 
 private:
+	ParticleManager(sf::Rect<float> &m_worldBound);
+	static ParticleManager *m_instance;
 	typedef CircularArray<Particle> ParticleArray;
 	ParticleArray m_particleArray;
 	sf::Texture m_particleTexture;
