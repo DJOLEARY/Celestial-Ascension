@@ -71,9 +71,15 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 	}
 
-	for (Entity *entity : m_bullets)
+	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
-		entity->Update(dt);
+		(*bulletIter)->Update(dt);
+		sf::Vector2f pos = (*bulletIter)->getPos();
+
+		if (pos.x < 0.0f || pos.x > 1080)
+		{
+
+		}
 	}
 
 	// Check if the bullets and enemies have collided
@@ -86,7 +92,7 @@ void EntityManager::Update(sf::Int32 dt)
 		{
 			if (Collision(*iter, *bulletIter))
 			{
-				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(216, 114, 30));
+				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				indexesToRemove.push_back(count);
 			}
 		}
