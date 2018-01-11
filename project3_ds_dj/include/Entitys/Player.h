@@ -37,7 +37,7 @@ private:
 	const uint16_t FIRE_RATE = 200;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
-	BulletType m_bulletType = BulletType::NORMAL;
+	BulletType m_bulletType = BulletType::DOUBLE_BULLET;
 };
 
 #endif
