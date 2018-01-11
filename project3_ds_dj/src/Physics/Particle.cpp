@@ -28,10 +28,10 @@ void Particle::update(sf::Rect<float> &worldBound)
 {
 	m_position += m_velocity;
 
-	if (m_position.x < worldBound.top || m_position.x > worldBound.width)
+	if (m_position.x < worldBound.left || m_position.x > worldBound.width)
 		m_velocity.x *= -1.0f;
 	
-	if (m_position.y < worldBound.left || m_position.y > worldBound.height)
+	if (m_position.y < worldBound.top || m_position.y > worldBound.height)
 		m_velocity.y *= -1.0f;
 
 	if (fabs(sf::magnitude(m_velocity)) < 0.001f)

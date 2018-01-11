@@ -79,8 +79,15 @@ void EntityManager::Update(sf::Int32 dt)
 	auto outOfBounds = [](Entity *entity)
 	{
 		// @todo(darren): I should be storing these in some global class
-		return entity->getPos().x < 70.0f || entity->getPos().x > 1850 || 
-				entity->getPos().y < 70 || entity->getPos().y > 1020;
+		bool isOutOfBounds = entity->getPos().x < 90.0f || entity->getPos().x > 1830 || 
+				entity->getPos().y < 90 || entity->getPos().y > 1000;
+
+		if (isOutOfBounds)
+		{
+			ParticleManager::instance()->createExplosion(entity->getPos(), sf::Color(105, 23, 137));
+		}
+
+		return isOutOfBounds;
 	};
 
 	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), outOfBounds), m_bullets.end());
@@ -101,6 +108,7 @@ void EntityManager::Update(sf::Int32 dt)
 		}
 	}
 
+	// @todo(darren): Remove this
 	for (int index : enemeisToRemove)
 	{
 		m_enemies.erase(m_enemies.begin() + (index - 1));

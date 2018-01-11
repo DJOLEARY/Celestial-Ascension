@@ -12,7 +12,8 @@ public:
 	static ParticleManager *instance()
 	{
 		if (!m_instance)
-			m_instance = new ParticleManager(sf::Rect<float>(80.0f, 70.0f, 1900.0f, 1060.0f));
+			// @todo(darren): Should really have global values for these i can use in other classes
+			m_instance = new ParticleManager(sf::Rect<float>(70.0f, 70.0f, 1850.0f, 1020.0f));
 
 		return m_instance;
 	}
