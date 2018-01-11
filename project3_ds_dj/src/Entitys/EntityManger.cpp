@@ -74,17 +74,20 @@ void EntityManager::Update(sf::Int32 dt)
 	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
 		(*bulletIter)->Update(dt);
-		sf::Vector2f pos = (*bulletIter)->getPos();
-
-		if (pos.x < 0.0f || pos.x > 1080)
-		{
-
-		}
 	}
+
+	auto outOfBounds = [](Entity *entity)
+	{
+		// @todo(darren): I should be storing these in some global class
+		return entity->getPos().x < 70.0f || entity->getPos().x > 1850 || 
+				entity->getPos().y < 70 || entity->getPos().y > 1020;
+	};
+
+	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), outOfBounds), m_bullets.end());
 
 	// Check if the bullets and enemies have collided
 	int count = 0;
-	std::vector<int> indexesToRemove;
+	std::vector<int> enemeisToRemove;
 	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 	{
 		count++;
@@ -93,17 +96,17 @@ void EntityManager::Update(sf::Int32 dt)
 			if (Collision(*iter, *bulletIter))
 			{
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
-				indexesToRemove.push_back(count);
+				enemeisToRemove.push_back(count);
 			}
 		}
 	}
 
-	for (int index : indexesToRemove)
+	for (int index : enemeisToRemove)
 	{
 		m_enemies.erase(m_enemies.begin() + (index - 1));
 	}
 
-	indexesToRemove.clear();
+	enemeisToRemove.clear();
 }
 
 /// <summary>
