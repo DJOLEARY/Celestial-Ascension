@@ -101,15 +101,14 @@ void EntityManager::Update(sf::Int32 dt)
 			{
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
+				(*bulletIter)->setAlive(false);
 			}
 		}
 	}
 
-	auto isEnemyAlive = [](Entity *entity)
-	{
-		return !entity->getAlive();
-	};
-	m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(), isEnemyAlive), m_enemies.end());
+	auto isAlive = [](Entity *entity) { return !entity->getAlive(); };
+	m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(), isAlive), m_enemies.end());
+	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), isAlive), m_bullets.end());
 }
 
 /// <summary>
