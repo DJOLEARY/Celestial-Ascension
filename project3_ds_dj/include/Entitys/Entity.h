@@ -9,7 +9,7 @@
 class Entity
 {
 public:
-	Entity() : m_orientation(0.0f), m_targetOrientation(0.0f) {};
+	Entity() : m_orientation(0.0f), m_targetOrientation(0.0f), m_alive(true) {};
 	virtual ~Entity() {};
 
 	virtual void Update(double dt) = 0;

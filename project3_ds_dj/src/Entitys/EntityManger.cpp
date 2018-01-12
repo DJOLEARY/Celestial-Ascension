@@ -93,28 +93,23 @@ void EntityManager::Update(sf::Int32 dt)
 	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), outOfBounds), m_bullets.end());
 
 	// Check if the bullets and enemies have collided
-	int count = 0;
-	std::vector<int> enemeisToRemove;
 	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 	{
-		count++;
 		for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 		{
 			if (Collision(*iter, *bulletIter))
 			{
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
-				enemeisToRemove.push_back(count);
+				(*iter)->setAlive(false);
 			}
 		}
 	}
 
-	// @todo(darren): Remove this
-	for (int index : enemeisToRemove)
+	auto isEnemyAlive = [](Entity *entity)
 	{
-		m_enemies.erase(m_enemies.begin() + (index - 1));
-	}
-
-	enemeisToRemove.clear();
+		return !entity->getAlive();
+	};
+	m_enemies.erase(std::remove_if(m_enemies.begin(), m_enemies.end(), isEnemyAlive), m_enemies.end());
 }
 
 /// <summary>
