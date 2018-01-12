@@ -5,7 +5,7 @@ Options::Options(sf::View &view)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
-	sf::Color fillColor(0, 0, 255);
+	sf::Color fillColor(178, 85, 23);
 
 	// Initiaise the GUI elements
 	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 200.0f), sf::Vector2f(1920.0f / 2, 200.0f));
@@ -33,6 +33,7 @@ Options::Options(sf::View &view)
 	// @refactor(darren): change order of end position for button
 	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
 		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
+	m_applyButton->select = std::bind(&Options::applyButtonSelected, this);
 
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();
@@ -160,7 +161,6 @@ void Options::volumeDownSliderEffects()
 void Options::applyButtonSelected()
 {
 	m_applyButtonPressed = true;
-	m_applyButton->demoteFocus();
 }
 
 /// <summary>

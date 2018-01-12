@@ -25,6 +25,7 @@ CheckBox::CheckBox(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &
 	m_checkBoxRect.setSize(sf::Vector2f(boxWidth, boxHeight));
 	m_checkBoxRect.setOutlineThickness(3.f);
 	m_checkBoxRect.setOrigin(m_checkBoxRect.getLocalBounds().width / 2.0f, m_checkBoxRect.getLocalBounds().height / 2.0f);
+	m_checkBoxRect.setFillColor(sf::Color(0, 0, 0, 0));
 }
 
 /// <summary>
@@ -105,7 +106,7 @@ void CheckBox::switchState()
 	}
 	else
 	{
-		m_checkBoxRect.setFillColor(sf::Color::White); // Otherwise set the color White
+		m_checkBoxRect.setFillColor(sf::Color(0, 0, 0, 0));
 	}
 }
 

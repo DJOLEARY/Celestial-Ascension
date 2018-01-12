@@ -56,7 +56,7 @@ bool Slider::processInput(XboxController &controller)
 	{
 		noFocusColor.a = m_alpha;
 		m_base.setOutlineColor(noFocusColor);
-		m_base.setFillColor(sf::Color(255, 255, 255, m_alpha));
+		m_base.setFillColor(sf::Color(0, 0, 0, 0));
 		fillColor.a = m_alpha;
 		m_bar.setFillColor(fillColor);
 		return false;
@@ -66,7 +66,7 @@ bool Slider::processInput(XboxController &controller)
 		// @refactor(darren): Refactor this into set colors
 		focusColor.a = m_alpha;
 		m_base.setOutlineColor(focusColor);
-		m_base.setFillColor(sf::Color(255, 255, 255, m_alpha));
+		m_base.setFillColor(sf::Color(0, 0, 0, 0));
 		fillColor.a = m_alpha;
 		m_bar.setFillColor(fillColor);
 		if (controller.isButtonHeldDown(XBOX360_RIGHT))

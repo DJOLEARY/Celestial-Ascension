@@ -168,6 +168,6 @@ void RadioButton::setColors()
 	}
 	else
 	{
-		m_radioButtonRect.setFillColor(sf::Color::White);
+		m_radioButtonRect.setFillColor(sf::Color(0, 0, 0, 0));
 	}
 }
