@@ -1,7 +1,8 @@
 #include "..\HUD\HUD.h"
+#include "MathHelper.h"
 
 HUD::HUD()
-	: m_lives(3)
+	: m_lives(3), m_timeToWaveUILerp(0)
 {
 	if (!m_leftHUDTex.loadFromFile("Assets/HUD/left_HUD.png"))
 		std::cout << "HUD::left hud texture is not laoded" << std::endl;
@@ -27,7 +28,13 @@ HUD::HUD()
 	m_waveNumText.setFont(m_font);
 	m_waveNumText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_waveNumText.setString("1");
-	m_waveNumText.setCharacterSize(50);
+	m_waveNumText.setCharacterSize(80);
+
+	m_waveText.setFont(m_font);
+	m_waveText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
+	m_waveText.setString("Wave");
+	m_waveText.setCharacterSize(80);
+	m_waveTextOffset = sf::Vector2f(210.0f, 150.0f);
 }
 
 void HUD::setScore(uint16_t score)
@@ -38,6 +45,9 @@ void HUD::setScore(uint16_t score)
 void HUD::setWave(uint8_t wave)
 {	
 	m_waveNumText.setString(std::to_string(wave));
+	displayNewWave = true;
+	m_timeToWaveUILerp = 0;
+	m_waveNumText.setCharacterSize(80);
 }
 
 void HUD::setLives(uint8_t lives)
@@ -62,7 +72,43 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 
 	float scoreTextWidth = m_scoreText.getLocalBounds().width;
 	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -440.0f));
-	m_waveNumText.setPosition(pos + sf::Vector2f(830.0f, -470.0f));
+
+	sf::Time elapsedTime = m_clock.getElapsedTime();
+	if (displayNewWave)
+	{
+		if (m_timeToWaveUILerp <= 2)
+		{
+			m_waveNumText.setPosition(pos - sf::Vector2f(-30.0f, 150.0f));
+			m_waveText.setPosition(pos - m_waveTextOffset);
+
+			if (elapsedTime.asSeconds() > 1)
+			{
+				m_timeToWaveUILerp++;
+				m_clock.restart();
+			}
+		}
+		else
+		{
+			sf::Vector2f lerpWaveNumPos = sf::lerp(pos - sf::Vector2f(-30.0f, 150.0f), 
+				pos + sf::Vector2f(830.0f, -470.0f), elapsedTime.asSeconds() * 2);
+			m_waveNumText.setPosition(lerpWaveNumPos);
+
+			sf::Vector2f lerpWaveTextPos = sf::lerp(pos - m_waveTextOffset, 
+				pos - m_waveTextOffset - sf::Vector2f(1000.0f, 0.0f), elapsedTime.asSeconds() * 2);
+			m_waveText.setPosition(lerpWaveTextPos);
+
+			if (elapsedTime.asSeconds() > 0.5)
+			{
+				m_waveNumText.setCharacterSize(50);
+				displayNewWave = false;
+				m_clock.restart();
+			}
+		}
+	}
+	else
+	{
+		m_waveNumText.setPosition(pos + sf::Vector2f(830.0f, -470.0f));
+	}
 }
 
 void HUD::render(sf::RenderTexture &texture)
@@ -76,4 +122,6 @@ void HUD::render(sf::RenderTexture &texture)
 	texture.draw(m_rightHUDSprite);
 	texture.draw(m_scoreText);
 	texture.draw(m_waveNumText);
+	if(displayNewWave)
+		texture.draw(m_waveText);
 }

@@ -8,7 +8,7 @@
 
 enum class BulletType
 {
-	NORMAL,
+	SINGLE_BULLET,
 	DOUBLE_BULLET,
 	MISSILE_HOMING
 };
@@ -37,7 +37,7 @@ private:
 	const uint16_t FIRE_RATE = 200;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
-	BulletType m_bulletType = BulletType::DOUBLE_BULLET;
+	BulletType m_bulletType = BulletType::SINGLE_BULLET;
 };
 
 #endif

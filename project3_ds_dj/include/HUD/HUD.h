@@ -21,9 +21,14 @@ private:
 	sf::Sprite m_heartSprite;
 	sf::Font m_font;
 	sf::Text m_scoreText, m_waveNumText;
+	bool displayNewWave;
 	uint8_t m_lives;
 	static const int MAX_LIVES = 5;
 	sf::Vector2f m_heartPositions[MAX_LIVES];
+	sf::Clock m_clock;
+	uint16_t m_timeToWaveUILerp;
+	sf::Text m_waveText;
+	sf::Vector2f m_waveTextOffset;
 };
 
 #endif

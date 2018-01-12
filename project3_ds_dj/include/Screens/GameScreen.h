@@ -29,8 +29,8 @@ private:
     EntityManager m_entityManager;
 	Player *m_player;
 	int m_maxEnemies;
-
 	bool isPaused;
+	void setWave(uint8_t waveNum);
 
 	// GUI widgets
 	Button *m_resume;

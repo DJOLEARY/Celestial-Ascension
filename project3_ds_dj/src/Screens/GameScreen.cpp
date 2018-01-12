@@ -21,6 +21,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
 	}
 
+	// Set the wave for the game and display on the hud
+	m_hud.setWave(1);
+
 	// Camera
 	m_cameraPosition = *m_player->getPosition();
 
@@ -63,6 +66,15 @@ void GameScreen::reset()
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
+
+	// @remove
+	// testing hud wave
+	if (controller.isButtonPressed(XBOX360_LEFT))
+	{
+		setWave(2);
+	}
+
+
 	if (isPaused)
 		m_gui.processInput(controller);
 	else
@@ -71,8 +83,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_hud.update(dt, m_cameraPosition);
 		if (m_player->FireBullet())
 		{
-			if(m_player->getBulletType() == BulletType::NORMAL)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
+			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
@@ -113,6 +125,11 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			transitionIn = false;
 		}
 	}
+}
+
+void GameScreen::setWave(uint8_t waveNum)
+{
+	m_hud.setWave(waveNum);
 }
 
 void GameScreen::render(sf::RenderTexture &renderTexture)
