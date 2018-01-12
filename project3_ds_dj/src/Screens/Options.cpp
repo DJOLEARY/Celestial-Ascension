@@ -27,13 +27,13 @@ Options::Options(sf::View &view)
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
 		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 475.0f, 700.0f), 22, 30.0f, 30.0f));
 
-	if (!m_applyTexure.loadFromFile("Assets/GUI/ApplyButton.png"))
-		std::cout << "ERROR::Options::ApplyButton image not loaded";
+	if (!m_backTexure.loadFromFile("Assets/GUI/BackButton.png"))
+		std::cout << "ERROR::Options::backButton image not loaded";
 
 	// @refactor(darren): change order of end position for button
-	m_applyButton = new Button(m_applyTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
+	m_backButton = new Button(m_backTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
 		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
-	m_applyButton->select = std::bind(&Options::applyButtonSelected, this);
+	m_backButton->select = std::bind(&Options::backButtonSelected, this);
 
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();
@@ -50,13 +50,13 @@ Options::Options(sf::View &view)
 	m_windowStyleOptions[0]->activate();
 	m_windowStyleOptions[0]->m_up = m_muteCheckBox;
 	m_windowStyleOptions[1]->m_up = m_muteCheckBox;
-	m_windowStyleOptions[0]->m_down = m_applyButton;
-	m_windowStyleOptions[1]->m_down = m_applyButton;
+	m_windowStyleOptions[0]->m_down = m_backButton;
+	m_windowStyleOptions[1]->m_down = m_backButton;
 	m_windowStyleOptions[0]->m_right = m_windowStyleOptions[1];
 	m_windowStyleOptions[1]->m_left = m_windowStyleOptions[0];
 	m_windowStyleOptions[0]->select = std::bind(&Options::windowedSelected, this);
 	m_windowStyleOptions[1]->select = std::bind(&Options::fullscreenSelected, this);
-	m_applyButton->m_up = m_windowStyleOptions[0];
+	m_backButton->m_up = m_windowStyleOptions[0];
 
 	m_gui.add(m_optionsTitle);
 	m_gui.add(m_musicTitle);
@@ -69,7 +69,7 @@ Options::Options(sf::View &view)
 		m_gui.add(windowOpt);
 	m_gui.add(m_windowedLabel);
 	m_gui.add(m_fullscreenLabel);
-	m_gui.add(m_applyButton);
+	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
 }
@@ -82,7 +82,7 @@ void Options::reset()
 	// Reset the top Gui elements to be in focus
 	transitionIn = true;
 	interpolation = 0.0f;
-	m_applyButtonPressed = false;
+	m_backButtonPressed = false;
 
 	for (Widget *widget : m_gui.m_widgets)
 		widget->demoteFocus();
@@ -100,10 +100,10 @@ void Options::update(XboxController &controller, sf::Int32 dt)
 
 	if (controller.isButtonPressed(XBOX360_B))
 	{
-		m_applyButtonPressed = true;
+		m_backButtonPressed = true;
 	}
 
-	if (m_applyButtonPressed)
+	if (m_backButtonPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation);
 
@@ -159,11 +159,11 @@ void Options::volumeDownSliderEffects()
 }
 
 /// <summary>
-/// Function linked to a callback function for the apply button
+/// Function linked to a callback function for the back button
 /// </summary>
-void Options::applyButtonSelected()
+void Options::backButtonSelected()
 {
-	m_applyButtonPressed = true;
+	m_backButtonPressed = true;
 }
 
 /// <summary>

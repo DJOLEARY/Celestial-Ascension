@@ -27,7 +27,7 @@ private:
 	void volumeDownSliderMusic();
 	void volumeUpSliderEffects();
 	void volumeDownSliderEffects();
-	void applyButtonSelected();
+	void backButtonSelected();
 	void checkBoxSwitched();
 	void setColorSliders();
 	void setColor();
@@ -46,12 +46,12 @@ private:
 	Label *m_windowedLabel;
 	std::vector<RadioButton*> m_windowStyleOptions;
 	Label *m_fullscreenLabel;
-	// @todo(darren): Should i make apply button 'Back' instead? 
-	// Going to apply changes when player interacts with UI
-	Button *m_applyButton;
-	sf::Texture m_applyTexure;
+	// @todo(darren): Should i make back button 'Back' instead? 
+	// Going to back changes when player interacts with UI
+	Button *m_backButton;
+	sf::Texture m_backTexure;
 
-	bool m_applyButtonPressed;
+	bool m_backButtonPressed;
 	bool transitionIn;
 	float interpolation;
 };
