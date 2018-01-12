@@ -47,12 +47,15 @@ Options::Options(sf::View &view)
 	m_effectsVolume->m_up = m_musicVolume;
 	m_muteCheckBox->m_down = m_windowStyleOptions[0];
 	m_muteCheckBox->m_up = m_effectsVolume;
+	m_windowStyleOptions[0]->activate();
 	m_windowStyleOptions[0]->m_up = m_muteCheckBox;
 	m_windowStyleOptions[1]->m_up = m_muteCheckBox;
 	m_windowStyleOptions[0]->m_down = m_applyButton;
 	m_windowStyleOptions[1]->m_down = m_applyButton;
 	m_windowStyleOptions[0]->m_right = m_windowStyleOptions[1];
 	m_windowStyleOptions[1]->m_left = m_windowStyleOptions[0];
+	m_windowStyleOptions[0]->select = std::bind(&Options::windowedSelected, this);
+	m_windowStyleOptions[1]->select = std::bind(&Options::fullscreenSelected, this);
 	m_applyButton->m_up = m_windowStyleOptions[0];
 
 	m_gui.add(m_optionsTitle);
@@ -195,4 +198,16 @@ void Options::setColor()
 void Options::changeDifficulty()
 {
 	
+}
+
+void Options::windowedSelected()
+{
+	if (m_windowStyleOptions[0]->getState() == true)
+		m_goToWindowedMode = true;
+}
+
+void Options::fullscreenSelected()
+{
+	if(m_windowStyleOptions[1]->getState() == true)
+		m_goToFullscreenMode = true;
 }

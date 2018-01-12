@@ -20,6 +20,7 @@ public:
 	Options(sf::View &view);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
+	bool m_goToFullscreenMode, m_goToWindowedMode;
 
 private:
 	void volumeUpSliderMusic();
@@ -31,6 +32,8 @@ private:
 	void setColorSliders();
 	void setColor();
 	void changeDifficulty();
+	void windowedSelected();
+	void fullscreenSelected();
 
 	// GUI elements
 	Label *m_optionsTitle;
@@ -43,6 +46,8 @@ private:
 	Label *m_windowedLabel;
 	std::vector<RadioButton*> m_windowStyleOptions;
 	Label *m_fullscreenLabel;
+	// @todo(darren): Should i make apply button 'Back' instead? 
+	// Going to apply changes when player interacts with UI
 	Button *m_applyButton;
 	sf::Texture m_applyTexure;
 

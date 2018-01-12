@@ -31,6 +31,7 @@ private:
 	int m_maxEnemies;
 	bool isPaused;
 	void setWave(uint8_t waveNum);
+	uint8_t m_currentWave;
 
 	// GUI widgets
 	Button *m_resume;

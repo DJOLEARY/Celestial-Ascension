@@ -32,8 +32,9 @@ private:
 	sf::RenderTexture m_renderTexture;
 	Bloom m_bloom;
 	ExitMenu *exitMenu;
+	Options *m_options;
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
-
+	bool m_inFullscreenMode, m_inWindowedMode;
 };
 #endif // !GAME_H

@@ -11,7 +11,6 @@ RadioButton::RadioButton(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf
 	// Set the position, size, colour and outline of the RadioButton Box
 	m_radioButtonRect.setPosition(widgetPos);
 	m_radioButtonRect.setSize(sf::Vector2f(boxWidth, boxHeight));
-	m_radioButtonRect.setFillColor(sf::Color::White);
 	m_radioButtonRect.setOutlineColor(sf::Color::White);
 	m_radioButtonRect.setOutlineThickness(3.0f);
 	// Set the position of the Label
@@ -119,7 +118,7 @@ void RadioButton::draw(sf::RenderTarget & target, sf::RenderStates states) const
 /// </summary>
 void RadioButton::deActivate()
 {
-	m_radioButtonRect.setFillColor(sf::Color::White); // Change the fill color
+	m_radioButtonRect.setFillColor(sf::Color(0, 0, 0, 0)); // Change the fill color
 	m_state = false; // Set the state to false
 }
 

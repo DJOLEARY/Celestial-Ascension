@@ -2,7 +2,8 @@
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view): 
 	Screen(GameState::GamePlay, view), 
-	isPaused(false)
+	isPaused(false),
+	m_currentWave(1)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -22,7 +23,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 	}
 
 	// Set the wave for the game and display on the hud
-	m_hud.setWave(1);
+	m_hud.setWave(m_currentWave);
 
 	// Camera
 	m_cameraPosition = *m_player->getPosition();
@@ -66,14 +67,13 @@ void GameScreen::reset()
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
-
 	// @remove
 	// testing hud wave
 	if (controller.isButtonPressed(XBOX360_LEFT))
 	{
-		setWave(2);
+		m_currentWave++;
+		setWave(m_currentWave);
 	}
-
 
 	if (isPaused)
 		m_gui.processInput(controller);
