@@ -21,6 +21,7 @@ private:
 	std::vector<Screen *> m_screens;
 	GameState m_gameState;
 	uint8_t m_currentScreen;
+	sf::Clock m_clock;
 };
 
 #endif

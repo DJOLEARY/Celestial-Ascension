@@ -1,4 +1,6 @@
 #include "Screens\ScreenManager.h"
+#include "Physics\Grid.h"
+#include "Physics\ParticleManager.h"
 
 ScreenManager::ScreenManager()
 	: m_gameState(GameState::SplashScreen), m_currentScreen(0)
@@ -26,6 +28,15 @@ void ScreenManager::update(XboxController &controller, sf::Int32 dt)
             if (m_gameState != GameState::GamePlay)
             {
                 m_screens.at(m_currentScreen)->update(controller); // Update the current screen
+
+				sf::Time elapsedTime = m_clock.getElapsedTime();
+				if (elapsedTime.asSeconds() > 2)
+				{
+					sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 2000.0f));
+					ParticleManager::instance()->createExplosion(position, sf::Color(216, 114, 30));
+					Grid::instance()->applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
+					m_clock.restart();
+				}
             }
             else
             {

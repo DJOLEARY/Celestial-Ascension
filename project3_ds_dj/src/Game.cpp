@@ -12,7 +12,6 @@ Game::Game()
 		<< "." << m_window.getSettings().minorVersion << std::endl << std::endl;
 
 	m_view.zoom(1.0f);
-	m_window.setView(m_view);
 	m_window.setMouseCursorVisible(false);
 
 	m_screenManager.add(new SplashScreen(m_view));
@@ -82,18 +81,6 @@ void Game::run()
 
 void Game::update(sf::Int32 dt)
 {
-
-	// @remove
-	// @todo(darren): This is for testing
-	if (m_xboxController.isButtonPressed(XBOX360_RIGHT_JOY_BUTTON))
-	{
-		sf::Vector2f position(sf::randF(100.0f, 1500.0f), sf::randF(100.0f, 1000.0f));
-		ParticleManager::instance()->createExplosion(position, sf::Color(216, 114, 30));
-		Grid::instance()->applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
-	}
-
-
-
 	ParticleManager::instance()->update();
 	Grid::instance()->update();
 	m_screenManager.update(m_xboxController, dt);
