@@ -13,7 +13,7 @@ Player::Player(XboxController &controller) :
 		std::cout << "ERROR::Player::Image not loaded";
 	}
 
-	SpawnPlayer();
+	m_position = sf::Vector2f(1000.0f, 500.0f);
 	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));

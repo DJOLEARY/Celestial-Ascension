@@ -13,7 +13,7 @@ public:
 	{
 		if (!m_instance)
 			// @todo(darren): Should really have global values for these i can use in other classes
-			m_instance = new ParticleManager(sf::Rect<float>(70.0f, 70.0f, 1850.0f, 1020.0f));
+			m_instance = new ParticleManager(sf::Rect<float>(70.0f, 70.0f, 1700.0f, 1020.0f));
 
 		return m_instance;
 	}
