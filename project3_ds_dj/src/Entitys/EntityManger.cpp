@@ -1,4 +1,6 @@
 #include "Entitys\EntityManager.h"
+#include "Entitys\Player.h"
+#include <iostream>
 
 /// <summary>
 /// 
@@ -49,20 +51,19 @@ void EntityManager::SetPlayer(Entity * player)
 /// <param name="dt">Delta time of game</param>
 void EntityManager::Update(sf::Int32 dt)
 {
-	if (m_player->getAlive())
+	m_player->Update(dt);
+
+	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 	{
-		m_player->Update(dt);
+		(*iter)->Update(dt);
 
-		for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
+		if (Collision(m_player, *iter))
 		{
-			(*iter)->Update(dt);
-
-			if (Collision(m_player, *iter))
-			{
-				m_player->setAlive(false);
-				m_enemies.erase(iter);
-				break;
-			}
+			m_enemies.erase(iter);
+			Player *player = dynamic_cast<Player*>(m_player);
+			player->setAlive(false);
+			ParticleManager::instance()->createExplosion(player->getPos(), sf::Color(200, 96, 58));
+			break;
 		}
 	}
 
@@ -71,9 +72,9 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 	}
 
-	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
+	for (Entity *entity : m_bullets)
 	{
-		(*bulletIter)->Update(dt);
+		entity->Update(dt);
 	}
 
 	auto outOfBounds = [](Entity *entity)

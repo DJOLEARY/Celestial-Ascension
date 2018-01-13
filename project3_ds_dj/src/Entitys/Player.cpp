@@ -1,4 +1,6 @@
 #include "Entitys\Player.h"
+#include "Physics\ParticleManager.h"
+#include "Physics\Grid.h"
 
 /// <summary>
 /// 
@@ -11,12 +13,24 @@ Player::Player(XboxController &controller) :
 		std::cout << "ERROR::Player::Image not loaded";
 	}
 
-	m_alive = true;
-
+	SpawnPlayer();
 	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+}
+
+void Player::SpawnPlayer()
+{
+	sf::Time elapsedTime = m_clock.getElapsedTime();
+	if (elapsedTime.asSeconds() > TIME_TO_SPAWN)
+	{
+		m_alive = true;
+		m_velocity = sf::Vector2f();
+		m_position = sf::Vector2f(1000.0f, 500.0f);
+		Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(m_position.x, m_position.y, -50.0f), 100.0f);
+		m_clock.restart();
+	}
 }
 
 /// <summary>
@@ -86,6 +100,10 @@ void Player::Update(double dt)
 		ProcessInput(dt);
 
 		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+	}
+	else
+	{
+		SpawnPlayer();
 	}
 }
 
