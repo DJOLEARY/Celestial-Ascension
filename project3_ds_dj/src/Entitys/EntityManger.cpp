@@ -7,7 +7,15 @@
 /// </summary>
 EntityManager::EntityManager()
 {
-	
+
+	m_font = new sf::Font();
+	// @todo(darren): Really need a resource manager
+	if (!m_font->loadFromFile("Assets/Fonts/OCRAEXT.TTF"))
+		std::cout << "EntityManager::font has not loaded" << std::endl;
+
+	m_scoreText.setFont(*m_font);
+	m_scoreText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
+	m_scoreText.setString("Darren");
 }
 
 /// <summary>
@@ -103,6 +111,7 @@ void EntityManager::Update(sf::Int32 dt)
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
 				(*bulletIter)->setAlive(false);
+				entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 			}
 		}
 	}
@@ -137,13 +146,16 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 	{
 		m_player->Draw(renderTexture);
 	}
+
+	for (EntityScore entityScore : entityScores)
+	{
+		m_scoreText.setPosition(entityScore.scoreDisplayPos);
+		m_scoreText.setString(std::to_string(entityScore.score));
+		renderTexture.draw(m_scoreText);
+	}
 }
 
-/// <summary>
-/// Checks if entity2 is colliding with entity1
-/// </summary>
-/// <param name="entity1"></param>
-/// <param name="entity2"></param>
+// Checks if entity2 is colliding with entity1
 bool EntityManager::Collision(Entity* entity1, Entity* entity2)
 {
 	//	Makes sure both entitys are alive.
@@ -155,13 +167,11 @@ bool EntityManager::Collision(Entity* entity1, Entity* entity2)
 			//	Cycles though the values of -1 to 1 for the y axis.
 			for (int j = -1; j < 2; j++)
 			{
-				/// <summary>
-				/// Checks if both entitys are in the same section.
-				/// i and j are to check sections around entity 1 as parts of the sprite could protrude into other sections.
-				/// </summary>
-				/// <param name="entity1"></param>
-				/// <param name="entity2"></param>
-				if (entity1->getSection().x + i == entity2->getSection().x && entity1->getSection().y + j == entity2->getSection().y)
+				// Checks if both entitys are in the same section.
+				// i and j are to check sections around entity 1 as parts of the sprite 
+				// could protrude into other sections.
+				if (entity1->getSection().x + i == entity2->getSection().x && 
+					entity1->getSection().y + j == entity2->getSection().y)
 				{
 					//	Checks the distance between the two entitys.
 					if (sf::distance(entity1->getPos(), entity2->getPos()) < 20.0f)

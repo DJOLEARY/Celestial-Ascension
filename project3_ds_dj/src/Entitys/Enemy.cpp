@@ -1,7 +1,7 @@
 #include "Entitys\Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
-    m_playerPos(playerPos)
+    m_playerPos(playerPos), m_scoreValue(100)
 {
 	// @refactor(darren): This should not be here. Loading a texture into memory for each enemy
 	if (!m_texture.loadFromFile("Assets/Wanderer.png"))

@@ -1,5 +1,5 @@
 /// <summary>
-/// @author DJ O'Leary
+/// @author DJ O'Leary and Darren Sweeney
 /// </summary>
 
 #ifndef ENEMY_H
@@ -12,13 +12,14 @@
 class Enemy : public Entity
 {
 public:
-    Enemy(sf::Vector2f *playerPos);    //  Enemy constructor.
-    ~Enemy();   //  Enemy destructor.
+    Enemy(sf::Vector2f *playerPos);
+    ~Enemy();
 
     virtual void Update(double dt) override;
     virtual void Draw(sf::RenderTexture &renderTexture) override;
 private:
 
+	uint16_t m_scoreValue;
     void seekPlayer();
     sf::Vector2f *m_playerPos;
 };

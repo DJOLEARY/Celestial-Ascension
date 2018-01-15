@@ -31,7 +31,16 @@ private:
 	std::vector<Entity*> m_enemies;
 	std::vector<Entity*> m_bullets;
 	Entity* m_player;
-	
+	sf::Font *m_font;
+	sf::Text m_scoreText;
+
+	struct EntityScore
+	{
+		sf::Vector2f scoreDisplayPos;
+		uint16_t score;
+	};
+	std::vector<EntityScore> entityScores;
+
 	bool Collision(Entity* entity1, Entity* entity2);
 };
 
