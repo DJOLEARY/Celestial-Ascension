@@ -19,7 +19,6 @@ public:
 	void Update(double dt) override;
 	void Draw(sf::RenderTexture &renderTexture) override;
 
-private:
 	sf::Sprite m_protectorSprite;
 	sf::Texture m_protectorTexture;
 };

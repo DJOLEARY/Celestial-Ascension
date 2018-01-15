@@ -26,6 +26,7 @@ protected:
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	sf::Vector2f m_position;
+	sf::Vector2f m_offsetShieldPos;
 	float m_speed;
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_accleration;
@@ -33,7 +34,7 @@ protected:
 	float m_orientation;
 	float m_targetOrientation;
 	sf::Vector2i m_inSection;	// What section the centre of the Entity is in.
-	bool m_alive;	// Whether to update/draw the current Entity.
+	bool m_alive;
 };
 
 #endif

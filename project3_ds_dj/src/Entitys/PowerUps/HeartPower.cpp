@@ -12,5 +12,5 @@ HeartPower::HeartPower()
 	m_position = sf::Vector2f(500.0f, 400.0f);
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.7f, 0.7f));
-	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+	m_sprite.setOrigin(m_protectorSprite.getLocalBounds().width / 2.0f, m_protectorSprite.getLocalBounds().height / 2.0f);
 }
