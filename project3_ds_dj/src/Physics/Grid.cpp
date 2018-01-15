@@ -3,6 +3,7 @@
 Grid *Grid::m_instance = 0;
 
 Grid::Grid()
+	: m_paused(false)
 {
 	const int maxGridPoints = 600;
 	sf::Vector2f gridSpacing = sf::Vector2f(sqrtf(1920 * 1080 / maxGridPoints), sqrtf(1920 * 1080 / maxGridPoints));
@@ -111,13 +112,21 @@ void Grid::applyExplosiveForce(float force, const sf::Vector3f &position, float 
 	}
 }
 
+void Grid::setPause(bool pause)
+{
+	m_paused = pause;
+}
+
 void Grid::update()
 {
-	for (size_t i = 0; i < m_springs.size(); i++)
-		m_springs[i].update();
+	if (!m_paused)
+	{
+		for (size_t i = 0; i < m_springs.size(); i++)
+			m_springs[i].update();
 
-	for (size_t i = 0; i < m_cols * m_rows; i++)
-		m_points[i].update();
+		for (size_t i = 0; i < m_cols * m_rows; i++)
+			m_points[i].update();
+	}
 }
 
 void Grid::draw(sf::RenderTexture &texture)

@@ -32,7 +32,7 @@ void ScreenManager::update(XboxController &controller, sf::Int32 dt)
 				sf::Time elapsedTime = m_clock.getElapsedTime();
 				if (elapsedTime.asSeconds() > 2)
 				{
-					sf::Vector2f position(sf::randF(100.0f, 2000.0f), sf::randF(100.0f, 1000.0f));
+					sf::Vector2f position(sf::randF(100.0f, 1800.0f), sf::randF(100.0f, 1000.0f));
 					ParticleManager::instance()->createExplosion(position, sf::Color(216, 114, 30));
 					Grid::instance()->applyImplosiveForce(50.0f, sf::Vector3f(position.x, position.y, -20.0f), 100.0f);
 					m_clock.restart();
