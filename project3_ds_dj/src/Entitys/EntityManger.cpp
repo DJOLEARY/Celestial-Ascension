@@ -9,7 +9,7 @@ EntityManager::EntityManager()
 {
 
 	m_font = new sf::Font();
-	// @todo(darren): Really need a resource manager
+	// @todo(darren): Really need a resource manager :(
 	if (!m_font->loadFromFile("Assets/Fonts/OCRAEXT.TTF"))
 		std::cout << "EntityManager::font has not loaded" << std::endl;
 
@@ -85,6 +85,17 @@ void EntityManager::Update(sf::Int32 dt)
 		entity->Update(dt);
 	}
 
+	for (EntityScore &entityScore : m_entityScores)
+	{
+		if (entityScore.displayTime > 700)
+			entityScore.removeScore = true;
+		else
+			entityScore.displayTime += dt;
+	}
+
+	auto isDisplaying = [](EntityScore entityScore) { return entityScore.removeScore; };
+	m_entityScores.erase(std::remove_if(m_entityScores.begin(), m_entityScores.end(), isDisplaying), m_entityScores.end());
+
 	auto outOfBounds = [](Entity *entity)
 	{
 		// @todo(darren): I should be storing these in some global class
@@ -111,7 +122,7 @@ void EntityManager::Update(sf::Int32 dt)
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
 				(*bulletIter)->setAlive(false);
-				entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
+				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 			}
 		}
 	}
@@ -147,7 +158,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 		m_player->Draw(renderTexture);
 	}
 
-	for (EntityScore entityScore : entityScores)
+	for (EntityScore entityScore : m_entityScores)
 	{
 		m_scoreText.setPosition(entityScore.scoreDisplayPos);
 		m_scoreText.setString(std::to_string(entityScore.score));

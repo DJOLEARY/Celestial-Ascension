@@ -38,8 +38,10 @@ private:
 	{
 		sf::Vector2f scoreDisplayPos;
 		uint16_t score;
+		uint16_t displayTime;
+		bool removeScore;
 	};
-	std::vector<EntityScore> entityScores;
+	std::vector<EntityScore> m_entityScores;
 
 	bool Collision(Entity* entity1, Entity* entity2);
 };
