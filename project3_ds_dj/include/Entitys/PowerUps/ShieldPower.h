@@ -7,7 +7,7 @@
 class ShieldPower : public PowerUp
 {
 public:
-	ShieldPower();
+	ShieldPower(sf::Vector2f &position);
 };
 
 #endif

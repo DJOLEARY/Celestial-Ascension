@@ -13,8 +13,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
     m_player = new Player(controller);
 
 	m_entityManager.SetPlayer(m_player);
-	m_entityManager.AddPowerUp(new HeartPower());
-	//m_entityManager.AddPowerUp(new ShieldPower());
+	m_entityManager.AddPowerUp(new HeartPower(sf::Vector2f(400.0f, 500.0f)));
+	m_entityManager.AddPowerUp(new ShieldPower(sf::Vector2f(500.0f, 500.0f)));
 
 	m_maxEnemies = 10;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)

@@ -18,6 +18,7 @@ public:
 
 	void Update(double dt) override;
 	void Draw(sf::RenderTexture &renderTexture) override;
+	void SetPosition(sf::Vector2f &position);
 
 	sf::Sprite m_protectorSprite;
 	sf::Texture m_protectorTexture;

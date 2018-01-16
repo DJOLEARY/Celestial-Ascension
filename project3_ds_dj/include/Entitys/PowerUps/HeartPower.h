@@ -7,7 +7,7 @@
 class HeartPower : public PowerUp
 {
 public:
-	HeartPower();
+	HeartPower(sf::Vector2f &position);
 };
 
 #endif
