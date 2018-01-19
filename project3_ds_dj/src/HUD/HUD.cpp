@@ -29,6 +29,7 @@ HUD::HUD()
 	m_waveNumText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_waveNumText.setString("1");
 	m_waveNumText.setCharacterSize(80);
+	m_targetWaveNumPos = sf::Vector2f(815.0f, -470.0f);
 
 	m_waveText.setFont(m_font);
 	m_waveText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
@@ -44,7 +45,10 @@ void HUD::setScore(uint16_t score)
 
 void HUD::setWave(uint8_t wave)
 {	
-	m_waveNumText.setString(std::to_string(wave));
+	if(wave < 10)
+		m_waveNumText.setString("0" + std::to_string(wave));
+	else
+		m_waveNumText.setString(std::to_string(wave));
 	displayNewWave = true;
 	m_timeToWaveUILerp = 0;
 	m_waveNumText.setCharacterSize(80);
@@ -90,7 +94,9 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 		else
 		{
 			sf::Vector2f lerpWaveNumPos = sf::lerp(pos - sf::Vector2f(-30.0f, 150.0f), 
-				pos + sf::Vector2f(830.0f, -470.0f), elapsedTime.asSeconds() * 2);
+				pos + m_targetWaveNumPos, elapsedTime.asSeconds() * 2);
+			int lerpFontSize = sf::floatLerp(80, 50, elapsedTime.asSeconds() * 2);
+			m_waveNumText.setCharacterSize(lerpFontSize);
 			m_waveNumText.setPosition(lerpWaveNumPos);
 
 			sf::Vector2f lerpWaveTextPos = sf::lerp(pos - m_waveTextOffset, 
@@ -99,7 +105,6 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 
 			if (elapsedTime.asSeconds() > 0.5)
 			{
-				m_waveNumText.setCharacterSize(50);
 				displayNewWave = false;
 				m_clock.restart();
 			}
@@ -107,7 +112,7 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 	}
 	else
 	{
-		m_waveNumText.setPosition(pos + sf::Vector2f(830.0f, -470.0f));
+		m_waveNumText.setPosition(pos + m_targetWaveNumPos);
 	}
 }
 

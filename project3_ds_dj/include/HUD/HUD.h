@@ -29,6 +29,7 @@ private:
 	uint16_t m_timeToWaveUILerp;
 	sf::Text m_waveText;
 	sf::Vector2f m_waveTextOffset;
+	sf::Vector2f m_targetWaveNumPos;
 };
 
 #endif
