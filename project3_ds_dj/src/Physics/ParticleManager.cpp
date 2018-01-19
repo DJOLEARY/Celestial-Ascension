@@ -3,7 +3,7 @@
 ParticleManager *ParticleManager::m_instance = 0;
 
 ParticleManager::ParticleManager(sf::Rect<float> &worldBound)
-	: m_particleArray(1024), m_worldBound(worldBound)
+	: m_particleArray(2048), m_worldBound(worldBound)
 {
 	if (!m_particleTexture.loadFromFile("Assets/Particle.png"))
 		std::cout << "Could not load particle texture" << std::endl;
@@ -61,10 +61,13 @@ void ParticleManager::createStream(sf::Vector2f &position, sf::Vector2f &velocit
 	if (sf::magnitude(velocity) > 0.1f)
 	{
 		sf::Vector2f linearVel = velocity + sf::Vector2f(sf::randF(0.0f, 1.0f), sf::randF(0.0f, 1.0f));
-		sf::Vector2f perpVel = sf::Vector2f(velocity.y, -velocity.x) * (0.6f * sin(dt * 10));
-		float rotation = sf::radiansToDegress(0);
+		float angle = atan2(velocity.y, velocity.x);
+		float rotation = sf::radiansToDegress(angle);
 
 		createParticle(color, 1.0f, position, linearVel, rotation, 0.1f);
+		// @note(darren): The way lifetime currently works is that it's decremented after each second so 0.1 
+		// wound count as 1 second. Leave for now and maybe adjust for polish.
+		createParticle(sf::Color(255, 255, 255), 0.1f, position, linearVel, rotation, 0.1f);
 	}
 }
 

@@ -45,7 +45,7 @@ void Player::ProcessInput(double dt)
 		m_targetOrientation = (atan2(m_movementDir.y, m_movementDir.x) * 180) / 3.14;
 		m_velocity = m_speed * m_movementDir * (float)dt;
 		m_rotationDiff = m_targetOrientation - m_orientation;
-		ParticleManager::instance()->createStream(m_position, m_velocity, sf::Color(193, 56, 90), dt);
+		ParticleManager::instance()->createStream(m_position, m_velocity, sf::Color(119, 2, 2), dt);
 	}
 
 	m_position += m_velocity * (float)dt;
