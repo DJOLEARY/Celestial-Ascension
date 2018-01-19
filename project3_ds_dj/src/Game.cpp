@@ -90,8 +90,8 @@ void Game::draw()
 {
 	m_renderTexture.clear();
 	Grid::instance()->draw(m_renderTexture);
-	m_screenManager.draw(m_renderTexture);
 	ParticleManager::instance()->draw(m_renderTexture);
+	m_screenManager.draw(m_renderTexture);
 	m_renderTexture.display();
 
     m_window.clear();

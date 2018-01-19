@@ -60,13 +60,11 @@ void ParticleManager::createStream(sf::Vector2f &position, sf::Vector2f &velocit
 {
 	if (sf::magnitude(velocity) > 0.1f)
 	{
-		float speed = (rand() % 10) + 2;
-		float theta = sf::randF(0, 2.0f * PI);
-		sf::Vector2f velocity = sf::Vector2f(speed * cos(theta), speed * sin(theta));
+		sf::Vector2f linearVel = velocity + sf::Vector2f(sf::randF(0.0f, 1.0f), sf::randF(0.0f, 1.0f));
 		sf::Vector2f perpVel = sf::Vector2f(velocity.y, -velocity.x) * (0.6f * sin(dt * 10));
-		float rotation = sf::radiansToDegress(theta);
+		float rotation = sf::radiansToDegress(0);
 
-		createParticle(color, 1.0f, position, velocity, rotation, 0.1f);
+		createParticle(color, 1.0f, position, linearVel, rotation, 0.1f);
 	}
 }
 
