@@ -114,6 +114,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		transitionIn = true;
 		setPauseGUIPos();
 		Grid::instance()->setPause(true);
+		ParticleManager::instance()->setPause(true);
 	}
 
 	if (transitionIn)
@@ -177,6 +178,7 @@ void GameScreen::resumeButtonSelected()
 {
 	isPaused = false;
 	Grid::instance()->setPause(false);
+	ParticleManager::instance()->setPause(false);
 	reset();
 }
 
@@ -185,5 +187,6 @@ void GameScreen::mainMenuButtonSelected()
 	m_nextGameState = GameState::MainMenu;
 	isPaused = false;
 	Grid::instance()->setPause(false);
+	ParticleManager::instance()->setPause(false);
 	reset();
 }

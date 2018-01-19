@@ -19,6 +19,7 @@ public:
 	}
 
 	void update();
+	void setPause(bool pause);
 	void draw(sf::RenderTexture &renderTexture);
 	void clearParticles();
 	void createExplosion(sf::Vector2f &position = sf::Vector2f(), sf::Color &color = sf::Color(255, 255, 255));
@@ -34,6 +35,7 @@ private:
 	sf::Texture m_particleTexture;
 	sf::Sprite m_particleSprite;
 	sf::Rect<float> m_worldBound;
+	bool m_paused;
 };
 
 #endif

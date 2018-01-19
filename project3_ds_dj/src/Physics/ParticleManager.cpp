@@ -3,7 +3,7 @@
 ParticleManager *ParticleManager::m_instance = 0;
 
 ParticleManager::ParticleManager(sf::Rect<float> &worldBound)
-	: m_particleArray(2048), m_worldBound(worldBound)
+	: m_particleArray(2048), m_worldBound(worldBound), m_paused(false)
 {
 	if (!m_particleTexture.loadFromFile("Assets/Particle.png"))
 		std::cout << "Could not load particle texture" << std::endl;
@@ -15,19 +15,27 @@ ParticleManager::ParticleManager(sf::Rect<float> &worldBound)
 
 void ParticleManager::update()
 {
-	uint32_t removalCount = 0;
-
-	for (uint32_t particleIndex = 0; particleIndex < m_particleArray.getCount(); particleIndex++)
+	if (!m_paused)
 	{
-		Particle &particle = m_particleArray[particleIndex];
-		m_particleArray.swap(particleIndex - removalCount, particleIndex);
-		particle.update(m_worldBound);
+		uint32_t removalCount = 0;
 
-		if (particle.isDead())
-			removalCount++;
+		for (uint32_t particleIndex = 0; particleIndex < m_particleArray.getCount(); particleIndex++)
+		{
+			Particle &particle = m_particleArray[particleIndex];
+			m_particleArray.swap(particleIndex - removalCount, particleIndex);
+			particle.update(m_worldBound);
+
+			if (particle.isDead())
+				removalCount++;
+		}
+
+		m_particleArray.setCount(m_particleArray.getCount() - removalCount);
 	}
+}
 
-	m_particleArray.setCount(m_particleArray.getCount() - removalCount);
+void ParticleManager::setPause(bool pause)
+{
+	m_paused = pause;
 }
 
 void ParticleManager::draw(sf::RenderTexture & renderTexture)

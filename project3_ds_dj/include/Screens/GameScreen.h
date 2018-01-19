@@ -32,6 +32,8 @@ private:
 	bool isPaused;
 	void setWave(uint8_t waveNum);
 	uint8_t m_currentWave;
+	uint32_t m_currentScore;
+	uint8_t m_currentLives;
 
 	// GUI widgets
 	Button *m_resume;
