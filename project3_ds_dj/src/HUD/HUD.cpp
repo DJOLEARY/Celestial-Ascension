@@ -71,6 +71,9 @@ void HUD::setLives(uint8_t lives)
 
 void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 {
+	if (m_displayScore < m_currentScore)
+		m_displayScore += 1;
+
 	m_leftHUDSprite.setPosition(pos + sf::Vector2f(-930.0f, -510.0f));
 	m_heartSprite.setPosition(pos + sf::Vector2f(-770.0f, -465.0f));
 	m_rightHUDSprite.setPosition(pos + sf::Vector2f(760.0f, -510.0f));
