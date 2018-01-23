@@ -1,7 +1,8 @@
 #include "Screens\SplashScreen.h"
 
-SplashScreen::SplashScreen(sf::View &view)
-	: Screen(GameState::SplashScreen, view), m_alphaFadeValue(0)
+SplashScreen::SplashScreen(sf::View &view) : 
+	Screen(GameState::SplashScreen, view), 
+	m_alphaFadeValue(0)
 {
 	if(!m_teamLogoTexture.loadFromFile("Assets/SplashScreen/DarrenDJ_Games.png"))
 		std::cout << "ERROR::SplashScreen::Team Logo image not loaded";

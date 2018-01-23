@@ -36,5 +36,11 @@ private:
 	ScreenManager m_screenManager;
     XboxController m_xboxController;
 	bool m_inFullscreenMode, m_inWindowedMode;
+	
+	sf::Music m_music;
+	bool m_musicPlaying;
+
+	sf::SoundBuffer m_confirmBuffer;
+	sf::Sound m_confirmSound;
 };
 #endif // !GAME_H

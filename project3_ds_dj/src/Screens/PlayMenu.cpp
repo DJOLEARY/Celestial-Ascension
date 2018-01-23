@@ -1,7 +1,9 @@
 #include "Screens\PlayMenu.h"
 
-PlayMenu::PlayMenu(sf::View &view)
-	: Screen(GameState::PlayMenu, view), transitionIn(true)
+PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound) : 
+	Screen(GameState::PlayMenu, view), 
+	transitionIn(true),
+	m_confirmSound(confirmSound)
 {
 	// @refactor(darren): Pull this out
 	sf::Color focusIn(50, 200, 50);
@@ -89,9 +91,11 @@ void PlayMenu::reset()
 void PlayMenu::playButtonSelected()
 {
 	m_playButtonPressed = true;
+	m_confirmSound->play();
 }
 
 void PlayMenu::upgradeButtonSelected()
 {
 	m_upgradeButtonPressed = true;
+	m_confirmSound->play();
 }

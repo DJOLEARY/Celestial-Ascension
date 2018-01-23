@@ -1,16 +1,19 @@
 #include "Screens\GameScreen.h"
 
-GameScreen::GameScreen(XboxController &controller, sf::View &view): 
+GameScreen::GameScreen(XboxController &controller, sf::View &view, bool *muted, int *effectsVolume, bool *effectsVolumeChanged):
 	Screen(GameState::GamePlay, view), 
 	isPaused(false),
-	m_currentWave(1)
+	m_currentWave(1),
+	m_muted(muted),
+	m_effectsVolume(effectsVolume),
+	m_effectsVolumeChanged(effectsVolumeChanged)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
 
 	m_entityManager = EntityManager();
-    m_player = new Player(controller);
+    m_player = new Player(controller, m_muted, m_effectsVolume, m_effectsVolumeChanged);
 
 	m_entityManager.SetPlayer(m_player);
 	m_entityManager.AddPowerUp(new HeartPower());
@@ -33,6 +36,26 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view):
 
 	if (!m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png"))
 		std::cout << "Hey this main menu texture didn't load, but that's just my opinion man...." << std::endl;
+
+	//	PickUp Sound
+	if (!m_pickUpSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav"))
+	{
+		std::cout << "ERROR::GameScreen:PickUp sound didn't load" << std::endl;
+	}
+	else
+	{
+		m_pickUpSound.setBuffer(m_pickUpSoundBuffer);
+	}
+
+	//	WaveCompleteSound
+	if (!m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/WaveCompleteSound.wav"))
+	{
+		std::cout << "ERROR::GameScreen:WaveCompleteSound didn't load" << std::endl;
+	}
+	else
+	{
+		m_waveCompleteSound.setBuffer(m_waveCompleteSoundBuffer);
+	}
 
 	m_pauseLabel = new Label("PAUSED", 84);
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
@@ -67,12 +90,20 @@ void GameScreen::reset()
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
+	if (*m_effectsVolumeChanged)
+	{
+		m_pickUpSound.setVolume(*m_effectsVolume);
+		m_waveCompleteSound.setVolume(*m_effectsVolume);
+	}
+
+
 	// @remove
 	// testing hud wave
 	if (controller.isButtonPressed(XBOX360_LEFT))
 	{
 		m_currentWave++;
 		setWave(m_currentWave);
+		m_waveCompleteSound.play();
 	}
 
 	if (isPaused)
@@ -84,7 +115,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		if (m_player->FireBullet())
 		{
 			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{

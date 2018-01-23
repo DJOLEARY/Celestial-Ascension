@@ -14,7 +14,7 @@
 class MainMenu : public Screen
 {
 public:
-	MainMenu(sf::View &view);
+	MainMenu(sf::View &view, sf::Sound *confirmSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void render(sf::RenderTexture & renderTexture) override;
 	void reset() override;
@@ -50,6 +50,8 @@ private:
 	// Used in the transition of the screen
 	bool transitionIn;
 	float interpolation;
+
+	sf::Sound *m_confirmSound;
 };
 
 #endif
