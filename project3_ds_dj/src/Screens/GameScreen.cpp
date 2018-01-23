@@ -79,7 +79,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 	{
-		cameraFollow(dt);
+		cameraFollow();
 		m_hud.update(dt, m_cameraPosition);
 		if (m_player->FireBullet())
 		{
@@ -147,18 +147,9 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	}
 }
 
-void GameScreen::cameraFollow(sf::Int32 dt)
+void GameScreen::cameraFollow()
 {
-	m_cameraPosition += m_cameraVelocity * (float)dt;
-
-	if (sf::distance(m_cameraPosition, *m_player->getPosition()) < 10.0f)
-	{
-		m_cameraVelocity = sf::Vector2f();
-	}
-	else
-	{
-		m_cameraVelocity = sf::normalize(*m_player->getPosition() - m_cameraPosition) * 0.35f;
-	}
+	m_cameraPosition += (*m_player->getPosition() - m_cameraPosition) * 0.1f;
 }
 
 void GameScreen::setPauseGUIPos()

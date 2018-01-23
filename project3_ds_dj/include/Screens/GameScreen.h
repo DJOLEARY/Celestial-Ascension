@@ -49,7 +49,7 @@ private:
 
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;
-	void cameraFollow(sf::Int32 dt);
+	void cameraFollow();
 	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
