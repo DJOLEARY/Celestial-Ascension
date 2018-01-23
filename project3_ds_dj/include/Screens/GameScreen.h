@@ -31,8 +31,9 @@ private:
 	int m_maxEnemies;
 	bool isPaused;
 	void setWave(uint8_t waveNum);
+
+	// @todo(darren): Maybe we should get HUD info from the HUD itself?
 	uint8_t m_currentWave;
-	uint32_t m_currentScore;
 	uint8_t m_currentLives;
 
 	// GUI widgets

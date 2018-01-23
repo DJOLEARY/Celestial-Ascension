@@ -2,7 +2,7 @@
 #include "MathHelper.h"
 
 HUD::HUD()
-	: m_lives(3), m_timeToWaveUILerp(0)
+	: m_lives(3), m_timeToWaveUILerp(0), m_displayScore(0)
 {
 	if (!m_leftHUDTex.loadFromFile("Assets/HUD/left_HUD.png"))
 		std::cout << "HUD::left hud texture is not laoded" << std::endl;
@@ -41,6 +41,11 @@ HUD::HUD()
 void HUD::setScore(uint16_t score)
 {
 	m_scoreText.setString(std::to_string(score));
+}
+
+uint32_t *HUD::getScore()
+{
+	return &m_currentScore;
 }
 
 void HUD::setWave(uint8_t wave)
@@ -125,6 +130,7 @@ void HUD::render(sf::RenderTexture &texture)
 		texture.draw(m_heartSprite);
 	}
 	texture.draw(m_rightHUDSprite);
+	m_scoreText.setString(std::to_string(m_displayScore));
 	texture.draw(m_scoreText);
 	texture.draw(m_waveNumText);
 	if(displayNewWave)

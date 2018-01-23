@@ -104,7 +104,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), enemyPos));
 			}
 		}
-		m_entityManager.Update(dt);
+		m_entityManager.Update(dt, *m_hud.getScore());
 		m_view.setCenter(m_cameraPosition);
 	}
 

@@ -11,6 +11,7 @@ public:
 	void update(sf::Int32 dt, sf::Vector2f &pos);
 	void render(sf::RenderTexture &texture);
 	void setScore(uint16_t score);
+	uint32_t *getScore();
 	void setWave(uint8_t wave);
 	void setLives(uint8_t lives);
 
@@ -21,6 +22,9 @@ private:
 	sf::Sprite m_heartSprite;
 	sf::Font m_font;
 	sf::Text m_scoreText, m_waveNumText;
+	uint32_t m_currentScore;
+	// Want to have the score increment on screen, nice visual effect
+	uint32_t m_displayScore;
 	bool displayNewWave;
 	uint8_t m_lives;
 	static const int MAX_LIVES = 5;

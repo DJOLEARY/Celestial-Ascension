@@ -21,7 +21,7 @@ public:
 	void AddEnemy(Entity *entity);
 	void AddPowerUp(Entity *entity);
 	void SetPlayer(Entity* player);
-	void Update(sf::Int32 dt);
+	void Update(sf::Int32 dt, uint32_t &score);
 	void Draw(sf::RenderTexture &renderTexture);
 	std::vector<Entity*> GetEnemies();
 	std::vector<Entity*> GetPowerUps();

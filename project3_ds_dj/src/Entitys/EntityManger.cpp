@@ -57,7 +57,7 @@ void EntityManager::SetPlayer(Entity * player)
 /// 
 /// </summary>
 /// <param name="dt">Delta time of game</param>
-void EntityManager::Update(sf::Int32 dt)
+void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 {
 	m_player->Update(dt);
 
@@ -122,6 +122,7 @@ void EntityManager::Update(sf::Int32 dt)
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
 				(*bulletIter)->setAlive(false);
+				score += 100;
 				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 			}
 		}
