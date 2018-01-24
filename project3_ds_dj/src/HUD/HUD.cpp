@@ -135,6 +135,7 @@ void HUD::render(sf::RenderTexture &texture)
 	texture.draw(m_rightHUDSprite);
 	m_scoreText.setString(std::to_string(m_displayScore));
 	texture.draw(m_scoreText);
+	// @CRASH @todo(darren): If you pause the game while a new wave transitions and go back to menu it will crash
 	texture.draw(m_waveNumText);
 	if(displayNewWave)
 		texture.draw(m_waveText);
