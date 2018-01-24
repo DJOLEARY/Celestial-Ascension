@@ -23,10 +23,14 @@ EntityManager::EntityManager()
 /// </summary>
 EntityManager::~EntityManager()
 {
-	for (Entity *entity : m_enemies)
-	{
+	for (Entity *entity : m_powerUps)
 		delete entity;
-	}
+	for (Entity *entity : m_enemies)
+		delete entity;
+	for (Entity *entity : m_bullets)
+		delete entity;
+	delete m_player;
+	delete m_font;
 }
 
 void EntityManager::AddBullet(Entity *entity)
