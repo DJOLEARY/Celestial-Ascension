@@ -14,6 +14,10 @@ Game::Game()
 	m_view.zoom(1.0f);
 	m_window.setMouseCursorVisible(false);
 
+
+	//-----------------Load all sounds here-----------------//
+	
+	//	Game music
 	if (!m_music.openFromFile("Assets/Sounds/GameMusic.wav"))
 	{
 		std::cout << "ERROR::Game::music not loaded";
@@ -23,21 +27,64 @@ Game::Game()
 	m_music.setLoop(true);
 	m_music.play();
 
+	//	Confirm Sound
 	if (!m_confirmBuffer.loadFromFile("Assets/Sounds/MenuSelect.wav"))
 	{
 		std::cout << "ERROR::Game:confirmBuffer not loaded";
 	}
 	m_confirmSound.setBuffer(m_confirmBuffer);
+	m_confirmSound.setVolume(100);
+
+	//	Pick-Up Sound
+	if (!m_pickUpSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav"))
+	{
+		std::cout << "ERROR::Game:PickUp sound didn't load" << std::endl;
+	}
+	m_pickUpSound.setBuffer(m_pickUpSoundBuffer);
+	m_pickUpSound.setVolume(100);
+
+	//	Wave Complete Sound
+	if (!m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/WaveCompleteSound.wav"))
+	{
+		std::cout << "ERROR::Game:WaveCompleteSound didn't load" << std::endl;
+	}
+	m_waveCompleteSound.setBuffer(m_waveCompleteSoundBuffer);
+	m_waveCompleteSound.setVolume(100);
+
+	//	Death Sound
+	if (!m_deathSoundBuffer.loadFromFile("Assets/Sounds/DeathSound.wav"))
+	{
+		std::cout << "ERROR::Game:DeathSound not loaded" << std::endl;
+	}
+	m_deathSound.setBuffer(m_deathSoundBuffer);
+	m_deathSound.setVolume(100);
+
+	//	Shot Sound
+	if (!m_shotSoundBuffer.loadFromFile("Assets/Sounds/ShotSound.wav"))
+	{
+		std::cout << "ERROR::Game:ShotSound not loaded" << std::endl;
+	}
+	m_shotSound.setBuffer(m_shotSoundBuffer);
+	m_shotSound.setVolume(25);
+
+	//	Shot Sound
+	if (!m_hitWallSoundBuffer.loadFromFile("Assets/Sounds/HitWall.wav"))
+	{
+		std::cout << "ERROR::Game:HitWall not loaded" << std::endl;
+	}
+	m_hitWallSound.setBuffer(m_hitWallSoundBuffer);
+
+	//------------------------------------------------------//
 
 	m_screenManager.add(new SplashScreen(m_view));
+	m_screenManager.add(new Credits(m_view));
 	m_screenManager.add(new MainMenu(m_view, &m_confirmSound));
-	m_options = new Options(m_view, &m_confirmSound);
-	m_screenManager.add(m_options);
+	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
 	exitMenu = new ExitMenu(m_view, &m_confirmSound);
 	m_screenManager.add(exitMenu);
-	m_screenManager.add(new Credits(m_view));
-	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
-    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_options->m_muted, &m_options->m_effectsVolumeValue, &m_options->m_effectsVolumeChanged));
+	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound);
+	m_screenManager.add(m_options);
+    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_hitWallSound));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 
@@ -81,30 +128,6 @@ void Game::run()
 			m_options->m_goToWindowedMode = false;
 			m_inWindowedMode = true;
 			m_inFullscreenMode = false;
-		}
-		
-		if (m_options->m_muted)
-		{
-			m_confirmSound.setVolume(0);
-			m_music.pause();
-			m_musicPlaying = false;
-		}
-		else if (!m_options->m_muted && m_musicPlaying == false)
-		{
-			m_confirmSound.setVolume(m_options->m_effectsVolumeValue);
-			m_music.play();
-			m_musicPlaying = true;
-		}
-
-		if (m_options->m_musicVolumeChanged && !m_options->m_muted)
-		{
-			m_music.setVolume(m_options->m_musicVolumeValue);
-			m_options->m_musicVolumeChanged = false;
-		}
-
-		if (m_options->m_effectsVolumeChanged && !m_options->m_muted)
-		{
-			m_confirmSound.setVolume(m_options->m_effectsVolumeValue);
 		}
 
 		timeSinceLastUpdate += clock.restart();

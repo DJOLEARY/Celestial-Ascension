@@ -42,5 +42,20 @@ private:
 
 	sf::SoundBuffer m_confirmBuffer;
 	sf::Sound m_confirmSound;
+
+	sf::SoundBuffer m_deathSoundBuffer;
+	sf::Sound m_deathSound;
+
+	sf::SoundBuffer m_shotSoundBuffer;
+	sf::Sound m_shotSound;
+
+	sf::SoundBuffer m_pickUpSoundBuffer;
+	sf::Sound m_pickUpSound;
+
+	sf::SoundBuffer m_waveCompleteSoundBuffer;
+	sf::Sound m_waveCompleteSound;
+
+	sf::SoundBuffer m_hitWallSoundBuffer;
+	sf::Sound m_hitWallSound;
 };
 #endif // !GAME_H

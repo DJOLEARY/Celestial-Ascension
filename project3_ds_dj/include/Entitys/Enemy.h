@@ -9,6 +9,12 @@
 #include "MathHelper.h"
 #include <iostream>
 
+enum State
+{
+	Flee,
+	Chase
+};
+
 class Enemy : public Entity
 {
 public:
@@ -22,5 +28,6 @@ private:
 	uint16_t m_scoreValue;
     void seekPlayer();
     sf::Vector2f *m_playerPos;
+	State enemyState;
 };
 #endif // !ENEMY_H

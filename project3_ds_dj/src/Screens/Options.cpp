@@ -1,9 +1,14 @@
 #include "Screens\Options.h"
 
-Options::Options(sf::View &view, sf::Sound *confirmSound) : 
+Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound):
 	Screen(GameState::Options, view), 
 	transitionIn(true),
-	m_confirmSound(confirmSound)
+	m_music(music),
+	m_confirmSound(confirmSound),
+	m_shotSound(shotSound),
+	m_waveCompleteSound(waveCompleteSound),
+	m_pickUpSound(pickUpSound),
+	m_deathSound(deathSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -77,8 +82,6 @@ Options::Options(sf::View &view, sf::Sound *confirmSound) :
 	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
-
-	m_muted = false;
 }
 
 /// <summary>
@@ -139,7 +142,9 @@ void Options::update(XboxController &controller, sf::Int32 dt)
 void Options::volumeChangeSliderMusic()
 {
 	m_musicVolumeValue = m_musicVolume->getPercentageFull();
-	m_musicVolumeChanged = true;
+
+	//----Set All Sounds Volumes Here----//
+	m_music->setVolume(m_musicVolumeValue);
 }
 
 /// <summary>
@@ -148,7 +153,13 @@ void Options::volumeChangeSliderMusic()
 void Options::volumeChangeSliderEffects()
 {
 	m_effectsVolumeValue = m_effectsVolume->getPercentageFull();
-	m_effectsVolumeChanged = true;
+
+	//----Set All Sounds Volumes Here----//
+	m_confirmSound->setVolume(m_effectsVolumeValue);
+	m_shotSound->setVolume(m_effectsVolumeValue / 4);
+	m_waveCompleteSound->setVolume(m_effectsVolumeValue);
+	m_pickUpSound->setVolume(m_effectsVolumeValue);
+	m_deathSound->setVolume(m_effectsVolumeValue);
 }
 
 /// <summary>
@@ -168,12 +179,29 @@ void Options::checkBoxSwitched()
 	if (m_muted == true)
 	{
 		m_muted = false;
+
+		//----Set All Sounds Volumes Here----//
+		m_music->play();
+		m_confirmSound->setVolume(m_effectsVolumeValue);
+		m_shotSound->setVolume(m_effectsVolumeValue / 4);
+		m_waveCompleteSound->setVolume(m_effectsVolumeValue);
+		m_pickUpSound->setVolume(m_effectsVolumeValue);
+		m_deathSound->setVolume(m_effectsVolumeValue);
+
+		m_confirmSound->play();
 	}
 	else if (m_muted == false)
 	{
 		m_muted = true;
+
+		//----Set All Sounds Volumes Here----//
+		m_music->pause();
+		m_confirmSound->setVolume(0);
+		m_shotSound->setVolume(0);
+		m_waveCompleteSound->setVolume(0);
+		m_pickUpSound->setVolume(0);
+		m_deathSound->setVolume(0);
 	}
-	m_confirmSound->play();
 }
 
 /// <summary>

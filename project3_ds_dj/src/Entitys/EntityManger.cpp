@@ -6,7 +6,10 @@
 /// <summary>
 /// 
 /// </summary>
-EntityManager::EntityManager()
+EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::Sound *hitWallSound) :
+	m_deathSound(deathSound),
+	m_pickUpSound(pickUpSound),
+	m_hitWallSound(hitWallSound)
 {
 	m_font = new sf::Font();
 	// @todo(darren): Really need a resource manager :(
@@ -72,6 +75,8 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		{
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
+			m_deathSound->play();
+
 			m_player->m_lives--;
 			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
 			break;
@@ -99,6 +104,8 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				m_player->m_shieldActive = true;
 				m_powerUp->setAlive(false);
 			}
+
+			m_pickUpSound->play();
 		}
 	}
 	m_powerUp->Update(dt);
@@ -122,8 +129,8 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	auto outOfBounds = [](Entity *entity)
 	{
 		// @todo(darren): I should be storing these in some global class
-		bool isOutOfBounds = entity->getPos().x < 90.0f || entity->getPos().x > 1830 || 
-				entity->getPos().y < 90 || entity->getPos().y > 1000;
+		bool isOutOfBounds = entity->getPos().x < 90.0f || entity->getPos().x > 1830.0f || 
+							 entity->getPos().y < 90.0f || entity->getPos().y > 1000.0f;
 
 		if (isOutOfBounds)
 		{
@@ -131,9 +138,16 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		}
 
 		return isOutOfBounds;
+
 	};
 
 	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), outOfBounds), m_bullets.end());
+
+	if (outOfBounds(m_player))
+	{
+		m_player->OutOfBounds();
+		m_hitWallSound->play();
+	}
 
 	// Check if the bullets and enemies have collided
 	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
@@ -230,6 +244,11 @@ bool EntityManager::SimpleCollision(Entity* entity1, Entity* entity2)
 std::vector<Entity*> EntityManager::GetEnemies()
 {
 	return m_enemies;
+}
+
+int EntityManager::GetEnemiesSize()
+{
+	return m_enemies.size();
 }
 
 Entity *EntityManager::GetPowerUp()

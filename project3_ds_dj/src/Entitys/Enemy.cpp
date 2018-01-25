@@ -1,7 +1,8 @@
 #include "Entitys\Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos) : 
-    m_playerPos(playerPos), m_scoreValue(100)
+    m_playerPos(playerPos), 
+	m_scoreValue(100)
 {
 	// @refactor(darren): This should not be here. Loading a texture into memory for each enemy
 	if (!m_texture.loadFromFile("Assets/Wanderer.png"))
@@ -11,8 +12,16 @@ Enemy::Enemy(sf::Vector2f *playerPos) :
 
 	m_alive = true;
 
-	m_speed = 0.05f;
-	m_position = sf::Vector2f(rand() % 1920, rand() % 1080);
+	m_speed = 0.075f;
+
+	m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
+
+	while (sf::distance(m_position, *m_playerPos) < 200.0f)
+	{
+		m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
+	}
+
+	enemyState = State::Chase;
 
     m_sprite.setTexture(m_texture);
     m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -28,7 +37,15 @@ void Enemy::Update(double dt)
 {
 	if (m_alive)
 	{
-		seekPlayer();
+		if (enemyState == State::Chase)
+		{
+			seekPlayer();
+		}
+		else if (enemyState == State::Flee)
+		{
+
+		}
+		
 		m_position += m_velocity * (float)dt;
 		m_orientation += 0.5f;
 

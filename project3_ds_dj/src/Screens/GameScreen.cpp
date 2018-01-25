@@ -1,26 +1,26 @@
 #include "Screens\GameScreen.h"
 #include "Physics\ParticleManager.h"
 
-GameScreen::GameScreen(XboxController &controller, sf::View &view, bool *muted, int *effectsVolume, bool *effectsVolumeChanged):
-	Screen(GameState::GamePlay, view), 
+GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *hitWallSound) :
+	Screen(GameState::GamePlay, view),
 	isPaused(false),
 	m_currentWave(1),
-	m_entityManager(),
-	m_muted(muted),
-	m_effectsVolume(effectsVolume),
-	m_effectsVolumeChanged(effectsVolumeChanged)
+	m_entityManager(deathSound, pickUpSound, hitWallSound),
+	m_confirmSound(confirmSound),
+	m_shotSound(shotSound),
+	m_waveCompleteSound(waveCompleteSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
 
 
-    m_player = new Player(controller, m_muted, m_effectsVolume, m_effectsVolumeChanged);
+    m_player = new Player(controller, m_shotSound);
 
 	m_entityManager.SetPlayer(m_player);
 	m_entityManager.AddPowerUp(new ShieldPower(sf::Vector2f(400.0f, 500.0f)));
 
-	m_maxEnemies = 20;	// The number of enemies.
+	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
 		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
@@ -37,26 +37,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, bool *muted, 
 
 	if (!m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png"))
 		std::cout << "Hey this main menu texture didn't load, but that's just my opinion man...." << std::endl;
-
-	//	PickUp Sound
-	if (!m_pickUpSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav"))
-	{
-		std::cout << "ERROR::GameScreen:PickUp sound didn't load" << std::endl;
-	}
-	else
-	{
-		m_pickUpSound.setBuffer(m_pickUpSoundBuffer);
-	}
-
-	//	WaveCompleteSound
-	if (!m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/WaveCompleteSound.wav"))
-	{
-		std::cout << "ERROR::GameScreen:WaveCompleteSound didn't load" << std::endl;
-	}
-	else
-	{
-		m_waveCompleteSound.setBuffer(m_waveCompleteSoundBuffer);
-	}
 
 	m_pauseLabel = new Label("PAUSED", 84);
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
@@ -90,27 +70,27 @@ void GameScreen::reset()
 }
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
-{
-	if (*m_effectsVolumeChanged)
-	{
-		m_pickUpSound.setVolume(*m_effectsVolume);
-		m_waveCompleteSound.setVolume(*m_effectsVolume);
-	}
-
-
-	// @remove
-	// testing hud wave
-	if (controller.isButtonPressed(XBOX360_LEFT))
+{	
+	// Increase wave when all enemies are dead.
+	if (m_entityManager.GetEnemiesSize() == 0)
 	{
 		m_currentWave++;
 		setWave(m_currentWave);
-		m_waveCompleteSound.play();
 	}
 
 	if (isPaused)
 		m_gui.processInput(controller);
 	else
 	{
+
+		if (m_player->m_lives <= 0)
+		{
+			//	run game over code
+
+			//ejects the player to the menu for now.
+			mainMenuButtonSelected();
+		}
+
 		cameraFollow();
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
@@ -164,7 +144,25 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::setWave(uint8_t waveNum)
 {
-	m_hud.setWave(waveNum);
+	if (m_leftViaPause)
+	{
+		m_hud.setWave(waveNum);
+
+		for (int i = 0; i < m_maxEnemies * waveNum; i++)
+		{
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+		}
+	}
+	else
+	{
+		m_hud.setWave(waveNum);
+		m_waveCompleteSound->play();
+
+		for (int i = 0; i < m_maxEnemies * waveNum; i++)
+		{
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+		}
+	}
 }
 
 void GameScreen::render(sf::RenderTexture &renderTexture)
@@ -203,6 +201,7 @@ void GameScreen::resumeButtonSelected()
 	isPaused = false;
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
+	m_confirmSound->play();
 	reset();
 }
 
@@ -212,5 +211,22 @@ void GameScreen::mainMenuButtonSelected()
 	isPaused = false;
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
+
+	m_currentWave = 0;
+	m_hud.setWave(m_currentWave);
+	m_leftViaPause = true;
+
+	for (Entity* enemy : m_entityManager.GetEnemies())
+	{
+		enemy->setAlive(false);
+	}
+
+	sf::Vector2f* m_playerPos = m_player->getPosition();
+	*m_playerPos = sf::Vector2f(1000, 500);
+
+	m_player->m_lives = 3;
+	
+	m_confirmSound->play();
+
 	reset();
 }

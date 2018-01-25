@@ -17,13 +17,10 @@
 class Options : public Screen
 {
 public:
-	Options(sf::View &view, sf::Sound *confirmSound);
+	Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool m_goToFullscreenMode, m_goToWindowedMode;
-	bool m_muted;
-	bool m_musicVolumeChanged, m_effectsVolumeChanged;
-	int m_musicVolumeValue, m_effectsVolumeValue;
 
 private:
 	void volumeChangeSliderMusic();
@@ -56,7 +53,16 @@ private:
 	bool transitionIn;
 	float interpolation;
 
+	sf::Music *m_music;
 	sf::Sound *m_confirmSound;
+	sf::Sound *m_shotSound;
+	sf::Sound *m_waveCompleteSound;
+	sf::Sound *m_pickUpSound;
+	sf::Sound *m_deathSound;
+
+	int m_musicVolumeValue;
+	int m_effectsVolumeValue;
+	bool m_muted;
 };
 
 #endif
