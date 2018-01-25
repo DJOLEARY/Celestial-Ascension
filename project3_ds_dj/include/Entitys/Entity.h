@@ -2,6 +2,7 @@
 #define ENTITY_H
 
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 
 /// <summary>
 /// Base class for game entities in the game scene.

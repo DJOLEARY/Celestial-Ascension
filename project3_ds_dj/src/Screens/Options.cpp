@@ -1,7 +1,9 @@
 #include "Screens\Options.h"
 
-Options::Options(sf::View &view)
-	: Screen(GameState::Options, view), transitionIn(true)
+Options::Options(sf::View &view, sf::Sound *confirmSound) : 
+	Screen(GameState::Options, view), 
+	transitionIn(true),
+	m_confirmSound(confirmSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -39,8 +41,13 @@ Options::Options(sf::View &view)
 	m_musicVolume->promoteFocus();
 
 	// Assingn call back function here
-	m_musicVolume->increase = std::bind(&Options::volumeUpSliderMusic, this);
-	m_musicVolume->decrease = std::bind(&Options::volumeDownSliderMusic, this);
+	m_musicVolume->increase = std::bind(&Options::volumeChangeSliderMusic, this);
+	m_musicVolume->decrease = std::bind(&Options::volumeChangeSliderMusic, this);
+	m_effectsVolume->increase = std::bind(&Options::volumeChangeSliderEffects, this);
+	m_effectsVolume->decrease = std::bind(&Options::volumeChangeSliderEffects, this);
+	m_muteCheckBox->select = std::bind(&Options::checkBoxSwitched, this);
+	m_windowStyleOptions[0]->select = std::bind(&Options::windowedSelected, this);
+	m_windowStyleOptions[1]->select = std::bind(&Options::fullscreenSelected, this);
 
 	m_musicVolume->m_down = m_effectsVolume;
 	m_effectsVolume->m_down = m_muteCheckBox;
@@ -54,8 +61,6 @@ Options::Options(sf::View &view)
 	m_windowStyleOptions[1]->m_down = m_backButton;
 	m_windowStyleOptions[0]->m_right = m_windowStyleOptions[1];
 	m_windowStyleOptions[1]->m_left = m_windowStyleOptions[0];
-	m_windowStyleOptions[0]->select = std::bind(&Options::windowedSelected, this);
-	m_windowStyleOptions[1]->select = std::bind(&Options::fullscreenSelected, this);
 	m_backButton->m_up = m_windowStyleOptions[0];
 
 	m_gui.add(m_optionsTitle);
@@ -72,6 +77,8 @@ Options::Options(sf::View &view)
 	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
+
+	m_muted = false;
 }
 
 /// <summary>
@@ -127,35 +134,21 @@ void Options::update(XboxController &controller, sf::Int32 dt)
 }
 
 /// <summary>
-/// Function linked to a callback function for thhe volume music slider
+/// Function linked to a callback function for the volume music slider
 /// </summary>
-void Options::volumeUpSliderMusic()
+void Options::volumeChangeSliderMusic()
 {
-
+	m_musicVolumeValue = m_musicVolume->getPercentageFull();
+	m_musicVolumeChanged = true;
 }
 
 /// <summary>
-///  Function linked to a callback function for thhe volume music slider
+///  Function linked to a callback function for the volume effects slider
 /// </summary>
-void Options::volumeDownSliderMusic()
+void Options::volumeChangeSliderEffects()
 {
-	
-}
-
-/// <summary>
-///  Function linked to a callback function for thhe volume effects slider
-/// </summary>
-void Options::volumeUpSliderEffects()
-{
-	
-}
-
-/// <summary>
-///  Function linked to a callback function for thhe volume effects slider
-/// </summary>
-void Options::volumeDownSliderEffects()
-{
-	
+	m_effectsVolumeValue = m_effectsVolume->getPercentageFull();
+	m_effectsVolumeChanged = true;
 }
 
 /// <summary>
@@ -164,6 +157,7 @@ void Options::volumeDownSliderEffects()
 void Options::backButtonSelected()
 {
 	m_backButtonPressed = true;
+	m_confirmSound->play();
 }
 
 /// <summary>
@@ -171,7 +165,15 @@ void Options::backButtonSelected()
 /// </summary>
 void Options::checkBoxSwitched()
 {
-	
+	if (m_muted == true)
+	{
+		m_muted = false;
+	}
+	else if (m_muted == false)
+	{
+		m_muted = true;
+	}
+	m_confirmSound->play();
 }
 
 /// <summary>
@@ -204,10 +206,12 @@ void Options::windowedSelected()
 {
 	if (m_windowStyleOptions[0]->getState() == true)
 		m_goToWindowedMode = true;
+	m_confirmSound->play();
 }
 
 void Options::fullscreenSelected()
 {
 	if(m_windowStyleOptions[1]->getState() == true)
 		m_goToFullscreenMode = true;
+	m_confirmSound->play();
 }

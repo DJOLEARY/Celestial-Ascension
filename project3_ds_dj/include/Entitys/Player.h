@@ -19,7 +19,7 @@ enum class BulletType
 class Player : public Entity
 {
 public:
-	Player(XboxController &controller);
+	Player(XboxController &controller, bool *muted, int *effectsVolume, bool *effectsVolumeChanged);
 
 	void ProcessInput(double dt);
 	bool FireBullet();
@@ -49,6 +49,14 @@ private:
 	double m_timeToShieldOver;
 	sf::Sprite m_playerShieldSprite;
 	sf::Texture m_playerShieldTexture;
+	sf::SoundBuffer m_deathSoundBuffer;
+	sf::Sound m_deathSound;
+	bool m_deathSoundPlayed;
+	sf::SoundBuffer m_shotSoundBuffer;
+	sf::Sound m_shotSound;
+	bool *m_muted;
+	int *m_effectsVolume;
+	bool *m_effectsVolumeChanged;
 };
 
 #endif

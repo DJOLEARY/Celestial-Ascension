@@ -14,7 +14,7 @@
 class ExitMenu : public Screen
 {
 public:
-	ExitMenu(sf::View &view);
+	ExitMenu(sf::View &view, sf::Sound *confirmSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool getExitState();
@@ -32,6 +32,7 @@ private:
 	bool m_noButtonPressed, m_yesButtonPressed;
 	bool transitionIn;
 	float interpolation;
+	sf::Sound *m_confirmSound;
 };
 
 #endif

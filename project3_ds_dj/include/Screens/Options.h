@@ -17,16 +17,17 @@
 class Options : public Screen
 {
 public:
-	Options(sf::View &view);
+	Options(sf::View &view, sf::Sound *confirmSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool m_goToFullscreenMode, m_goToWindowedMode;
+	bool m_muted;
+	bool m_musicVolumeChanged, m_effectsVolumeChanged;
+	int m_musicVolumeValue, m_effectsVolumeValue;
 
 private:
-	void volumeUpSliderMusic();
-	void volumeDownSliderMusic();
-	void volumeUpSliderEffects();
-	void volumeDownSliderEffects();
+	void volumeChangeSliderMusic();
+	void volumeChangeSliderEffects();
 	void backButtonSelected();
 	void checkBoxSwitched();
 	void setColorSliders();
@@ -54,6 +55,8 @@ private:
 	bool m_backButtonPressed;
 	bool transitionIn;
 	float interpolation;
+
+	sf::Sound *m_confirmSound;
 };
 
 #endif
