@@ -3,13 +3,13 @@
 SplashScreen::SplashScreen(sf::View &view)
 	: Screen(GameState::SplashScreen, view), m_alphaFadeValue(0)
 {
-	if(!m_teamLogoTexture.loadFromFile("Assets/SplashScreen/DarrenDJ_Games.png"))
+	if(!m_teamLogoTexture.loadFromFile("Assets/SplashScreen/dragon.png"))
 		std::cout << "ERROR::SplashScreen::Team Logo image not loaded";
 
 	m_teamLogoSprite.setTexture(m_teamLogoTexture);
 	m_teamLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 1080.0f / 2));
-	m_teamLogoSprite.scale(sf::Vector2f(0.30f, 0.30f));
 	m_teamLogoSprite.setOrigin(m_teamLogoSprite.getLocalBounds().width / 2.0f, m_teamLogoSprite.getLocalBounds().height / 2.0f);
+	m_teamLogoSprite.setColor(sf::Color(255, 0, 191));
 
 	m_fadeRectangle.setFillColor(sf::Color(0, 0, 0, m_alphaFadeValue));
 	m_fadeRectangle.setSize(sf::Vector2f(1920.0f, 1080.0f));
@@ -37,7 +37,7 @@ void SplashScreen::update(XboxController &controller, sf::Int32 dt)
 void SplashScreen::render(sf::RenderTexture &renderTexture)
 {
 	renderTexture.setView(m_view);
-	renderTexture.clear(sf::Color(125, 125, 125));
+	renderTexture.clear(sf::Color(0, 0, 0));
 	renderTexture.draw(m_teamLogoSprite);
 	renderTexture.draw(m_fadeRectangle);
 }
