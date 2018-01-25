@@ -145,7 +145,7 @@ void Slider::draw(sf::RenderTarget & target, sf::RenderStates states) const
 /// <returns>The percentage of the slider Bar that is full as a float</returns>
 float Slider::getPercentageFull()
 {
-	return (m_barSize / m_barBaseWidth); // Simple conversion to a percentage
+	return (m_barSize / m_barBaseWidth) * 100; // Simple conversion to a percentage
 }
 
 /// <summary>

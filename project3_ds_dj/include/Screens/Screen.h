@@ -6,6 +6,7 @@
 #define SCREEN_H
 
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include "XboxController.h"	
 #include "GUI\GUI.h"
 

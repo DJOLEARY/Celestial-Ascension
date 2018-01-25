@@ -1,7 +1,9 @@
 #include "Screens\MainMenu.h"
 
-MainMenu::MainMenu(sf::View &view)
-	: Screen(GameState::MainMenu, view), m_alphaFadeValue(255)
+MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound) : 
+	Screen(GameState::MainMenu, view), 
+	m_alphaFadeValue(255),
+	m_confirmSound(confirmSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -154,6 +156,7 @@ void MainMenu::render(sf::RenderTexture & renderTexture)
 void MainMenu::playButtonSelected()
 {
 	playButtonPressed = true;
+	m_confirmSound->play();
 }
 
 /// <summary>
@@ -162,6 +165,7 @@ void MainMenu::playButtonSelected()
 void MainMenu::optionsButtonSelected()
 {
 	optionsButtonPressed = true;
+	m_confirmSound->play();
 }
 
 /// <summary>
@@ -170,6 +174,7 @@ void MainMenu::optionsButtonSelected()
 void MainMenu::quitButtonSelected()
 {
 	exitButtonPressed = true;
+	m_confirmSound->play();
 }
 
 /// <summary>
@@ -178,4 +183,5 @@ void MainMenu::quitButtonSelected()
 void MainMenu::creditsButtonSelected()
 {
 	creditsButtonsPressed = true;
+	m_confirmSound->play();
 }

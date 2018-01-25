@@ -5,13 +5,33 @@
 /// <summary>
 /// 
 /// </summary>
-Player::Player(XboxController &controller) : 
-	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0), m_lives(3), m_shieldActive(false)
+Player::Player(XboxController &controller, bool *muted, int *effectsVolume, bool *effectsVolumeChanged) :
+	m_xboxController(controller),
+	m_lives(3), 
+	m_shieldActive(false),
+	m_rotationDiff(0.0f), 
+	m_timeToNextShot(0),
+	m_muted(muted),
+	m_effectsVolume(effectsVolume),
+	m_effectsVolumeChanged(effectsVolumeChanged)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image ship not loaded";
 	if(!m_playerShieldTexture.loadFromFile("Assets/PowerUps/player_shield.png"))
 		std::cout << "ERROR::Player::Image Shield not loaded";
+
+	if (m_deathSoundBuffer.loadFromFile("Assets/Sounds/DeathSound.wav"))
+	{
+		std::cout << "ERROR::Player:DeathSound not loaded";
+	}
+	m_deathSound.setBuffer(m_deathSoundBuffer);
+
+	if (m_shotSoundBuffer.loadFromFile("Assets/Sounds/ShotSound.wav"))
+	{
+		std::cout << "ERROR::Player:ShotSound not loaded";
+	}
+	m_shotSound.setBuffer(m_shotSoundBuffer);
+	m_shotSound.setVolume(50);
 
 	m_position = sf::Vector2f(1000.0f, 500.0f);
 	m_speed = 0.025f;
@@ -78,11 +98,16 @@ void Player::ProcessInput(double dt)
 
 bool Player::FireBullet()
 {
-	if (sf::magnitude(m_xboxController.getLeftStick()) > INPUT_THRESHOLD && m_alive)
+	if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD && m_alive)
 	{
 		sf::Time elapsedTime = m_clock.getElapsedTime();
 		if (elapsedTime.asMilliseconds() > FIRE_RATE)
 		{
+			if (!*m_muted)
+			{
+				m_shotSound.play();
+			}
+
 			m_timeToNextShot++;
 			m_clock.restart();
 			return true;
@@ -105,13 +130,32 @@ void Player::Update(double dt)
 {
 	if (m_alive)
 	{
+		if (m_deathSoundPlayed)
+		{
+			m_deathSoundPlayed = false;
+		}
+
 		ProcessInput(dt);
 
 		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
 	}
 	else
 	{
+		if (!m_deathSoundPlayed && !m_muted)
+		{
+			m_deathSound.play();
+			m_deathSoundPlayed = true;
+		}
+
 		SpawnPlayer();
+	}
+
+	if (*m_effectsVolumeChanged)
+	{
+		m_deathSound.setVolume(*m_effectsVolume);
+		m_shotSound.setVolume(*m_effectsVolume / 2);
+		
+		*m_effectsVolumeChanged = false;
 	}
 }
 

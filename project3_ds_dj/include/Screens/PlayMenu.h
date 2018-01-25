@@ -7,7 +7,7 @@
 class PlayMenu : public Screen
 {
 public:
-	PlayMenu(sf::View &view);
+	PlayMenu(sf::View &view, sf::Sound *confirmSound);
 	void update(XboxController &controller, sf::Int32 dt) override;
 	void reset() override;
 
@@ -22,6 +22,7 @@ private:
 	bool m_backButtonPressed;
 	bool transitionIn;
 	float interpolation;
+	sf::Sound *m_confirmSound;
 };
 
 #endif

@@ -14,15 +14,30 @@ Game::Game()
 	m_view.zoom(1.0f);
 	m_window.setMouseCursorVisible(false);
 
+	if (!m_music.openFromFile("Assets/Sounds/GameMusic.wav"))
+	{
+		std::cout << "ERROR::Game::music not loaded";
+	}
+	m_musicPlaying = true;
+	m_music.setVolume(100);
+	m_music.setLoop(true);
+	m_music.play();
+
+	if (!m_confirmBuffer.loadFromFile("Assets/Sounds/MenuSelect.wav"))
+	{
+		std::cout << "ERROR::Game:confirmBuffer not loaded";
+	}
+	m_confirmSound.setBuffer(m_confirmBuffer);
+
 	m_screenManager.add(new SplashScreen(m_view));
-	m_screenManager.add(new MainMenu(m_view));
-	m_options = new Options(m_view);
+	m_screenManager.add(new MainMenu(m_view, &m_confirmSound));
+	m_options = new Options(m_view, &m_confirmSound);
 	m_screenManager.add(m_options);
-	exitMenu = new ExitMenu(m_view);
+	exitMenu = new ExitMenu(m_view, &m_confirmSound);
 	m_screenManager.add(exitMenu);
 	m_screenManager.add(new Credits(m_view));
-	m_screenManager.add(new PlayMenu(m_view));
-    m_screenManager.add(new GameScreen(m_xboxController, m_view));
+	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
+    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_options->m_muted, &m_options->m_effectsVolumeValue, &m_options->m_effectsVolumeChanged));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 
@@ -66,6 +81,30 @@ void Game::run()
 			m_options->m_goToWindowedMode = false;
 			m_inWindowedMode = true;
 			m_inFullscreenMode = false;
+		}
+		
+		if (m_options->m_muted)
+		{
+			m_confirmSound.setVolume(0);
+			m_music.pause();
+			m_musicPlaying = false;
+		}
+		else if (!m_options->m_muted && m_musicPlaying == false)
+		{
+			m_confirmSound.setVolume(m_options->m_effectsVolumeValue);
+			m_music.play();
+			m_musicPlaying = true;
+		}
+
+		if (m_options->m_musicVolumeChanged && !m_options->m_muted)
+		{
+			m_music.setVolume(m_options->m_musicVolumeValue);
+			m_options->m_musicVolumeChanged = false;
+		}
+
+		if (m_options->m_effectsVolumeChanged && !m_options->m_muted)
+		{
+			m_confirmSound.setVolume(m_options->m_effectsVolumeValue);
 		}
 
 		timeSinceLastUpdate += clock.restart();

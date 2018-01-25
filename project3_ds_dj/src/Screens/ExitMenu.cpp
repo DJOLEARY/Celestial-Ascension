@@ -1,7 +1,9 @@
 #include "Screens\ExitMenu.h"
 
-ExitMenu::ExitMenu(sf::View &view)
-	: Screen(GameState::ExitMenu, view), transitionIn(true)
+ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound) : 
+	Screen(GameState::ExitMenu, view), 
+	transitionIn(true),
+	m_confirmSound(confirmSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -84,9 +86,11 @@ void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 void ExitMenu::yesButtonSelected()
 {
 	m_yesButtonPressed = true;
+	m_confirmSound->play();
 }
 
 void ExitMenu::noButtonSelected()
 {
 	m_noButtonPressed = true;
+	m_confirmSound->play();
 }
