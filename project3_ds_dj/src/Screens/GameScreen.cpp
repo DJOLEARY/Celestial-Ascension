@@ -80,6 +80,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	else
 	{
 		cameraFollow();
+		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
 		if (m_player->FireBullet())
 		{

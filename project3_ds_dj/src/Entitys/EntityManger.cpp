@@ -72,6 +72,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		{
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
+			m_player->m_lives--;
 			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
 			break;
 		}

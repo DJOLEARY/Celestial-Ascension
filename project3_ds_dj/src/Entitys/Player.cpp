@@ -6,7 +6,7 @@
 /// 
 /// </summary>
 Player::Player(XboxController &controller) : 
-	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0)
+	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0), m_lives(3)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 	{
