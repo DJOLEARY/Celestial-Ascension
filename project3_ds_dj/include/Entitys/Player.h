@@ -24,6 +24,7 @@ public:
 	void ProcessInput(double dt);
 	bool FireBullet();
 	BulletType getBulletType();
+	uint32_t m_lives;
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;

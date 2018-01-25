@@ -1,5 +1,6 @@
 #include "Entitys\EntityManager.h"
-#include "Entitys\Player.h"
+#include "Physics\ParticleManager.h"
+#include "Physics\Grid.h"
 #include <iostream>
 
 /// <summary>
@@ -7,7 +8,6 @@
 /// </summary>
 EntityManager::EntityManager()
 {
-
 	m_font = new sf::Font();
 	// @todo(darren): Really need a resource manager :(
 	if (!m_font->loadFromFile("Assets/Fonts/OCRAEXT.TTF"))
@@ -23,8 +23,7 @@ EntityManager::EntityManager()
 /// </summary>
 EntityManager::~EntityManager()
 {
-	for (Entity *entity : m_powerUps)
-		delete entity;
+	delete m_powerUp;
 	for (Entity *entity : m_enemies)
 		delete entity;
 	for (Entity *entity : m_bullets)
@@ -47,12 +46,12 @@ void EntityManager::AddEnemy(Entity * entity)
 	m_enemies.push_back(entity);
 }
 
-void EntityManager::AddPowerUp(Entity * entity)
+void EntityManager::AddPowerUp(PowerUp * entity)
 {
-	m_powerUps.push_back(entity);
+	m_powerUp = entity;
 }
 
-void EntityManager::SetPlayer(Entity * player)
+void EntityManager::SetPlayer(Player * player)
 {
 	m_player = player;
 }
@@ -72,17 +71,32 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		if (Collision(m_player, *iter))
 		{
 			m_enemies.erase(iter);
-			Player *player = dynamic_cast<Player*>(m_player);
-			player->setAlive(false);
-			ParticleManager::instance()->createExplosion(player->getPos(), sf::Color(200, 96, 58));
+			m_player->setAlive(false);
+			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
 			break;
 		}
 	}
 
-	for (Entity *entity : m_powerUps)
+	if (SimpleCollision(m_player, m_powerUp))
 	{
-		entity->Update(dt);
+		if (m_powerUp->getAlive())
+		{
+			if (m_powerUp->m_type == PowerUp::PowerUpType::HEART_POWER)
+			{
+				sf::Vector2f pos = m_powerUp->getPos();
+				ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
+				Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
+				m_player->m_lives++;
+				m_powerUp->setAlive(false);
+			}
+			else if (m_powerUp->m_type == PowerUp::PowerUpType::SHIELD_POWER)
+			{
+				// @todo(darren): Give the player abilities
+				m_powerUp->setAlive(false);
+			}
+		}
 	}
+	m_powerUp->Update(dt);
 
 	for (Entity *entity : m_bullets)
 	{
@@ -148,10 +162,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 		entity->Draw(renderTexture);
 	}
 
-	for (Entity *entity : m_powerUps)
-	{
-		entity->Draw(renderTexture);
-	}
+	m_powerUp->Draw(renderTexture);
 
 	for (Entity *entity : m_bullets)
 	{
@@ -202,12 +213,21 @@ bool EntityManager::Collision(Entity* entity1, Entity* entity2)
 	return false;
 }
 
+bool EntityManager::SimpleCollision(Entity* entity1, Entity* entity2)
+{
+	sf::Vector2f vec = entity2->getPos() - entity1->getPos();
+	if (sf::magnitude(vec) < 50.0f)
+		return true;
+
+	return false;
+}
+
 std::vector<Entity*> EntityManager::GetEnemies()
 {
 	return m_enemies;
 }
 
-std::vector<Entity*> EntityManager::GetPowerUps()
+Entity *EntityManager::GetPowerUp()
 {
-	return m_powerUps;
+	return m_powerUp;
 }

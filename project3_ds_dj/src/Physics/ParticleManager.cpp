@@ -51,9 +51,9 @@ void ParticleManager::clearParticles()
 	m_particleArray.setCount(0);
 }
 
-void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &color)
+void ParticleManager::createExplosion(sf::Vector2f &position, sf::Color &color, uint32_t amount)
 {
-	for (uint32_t i = 0; i < 100; i++)
+	for (uint32_t i = 0; i < amount; i++)
 	{
 		float speed = (rand() % 10) + 2;
 		float theta = sf::randF(0, 2.0f * PI);

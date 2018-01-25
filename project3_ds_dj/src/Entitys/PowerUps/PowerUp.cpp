@@ -26,6 +26,8 @@ PowerUp::PowerUp()
 
 void PowerUp::SetPosition(sf::Vector2f &position)
 {
+	m_position = position;
+	m_inSection = { (int)position.x / 160, (int)position.y / 90 };
 	m_sprite.setPosition(position);
 	m_protectorSprite.setPosition(position);
 }
@@ -41,7 +43,10 @@ void PowerUp::Update(double dt)
 
 void PowerUp::Draw(sf::RenderTexture &renderTexture)
 {
-	m_protectorSprite.setRotation(m_orientation);
-	renderTexture.draw(m_protectorSprite);
-	renderTexture.draw(m_sprite);
+	if (m_alive)
+	{
+		m_protectorSprite.setRotation(m_orientation);
+		renderTexture.draw(m_protectorSprite);
+		renderTexture.draw(m_sprite);
+	}
 }

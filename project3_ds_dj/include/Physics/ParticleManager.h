@@ -22,7 +22,7 @@ public:
 	void setPause(bool pause);
 	void draw(sf::RenderTexture &renderTexture);
 	void clearParticles();
-	void createExplosion(sf::Vector2f &position = sf::Vector2f(), sf::Color &color = sf::Color(255, 255, 255));
+	void createExplosion(sf::Vector2f &position = sf::Vector2f(), sf::Color &color = sf::Color(255, 255, 255), uint32_t amount = 100);
 	void createStream(sf::Vector2f &position = sf::Vector2f(), sf::Vector2f &velocity = sf::Vector2f(), sf::Color &color = sf::Color(255, 255, 255), float dt = 0.0f);
 	void createParticle(sf::Color &color, float lifeTime, sf::Vector2f &position,
 		sf::Vector2f &velocity, float rotation, float scale);

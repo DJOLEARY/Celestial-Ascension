@@ -1,19 +1,19 @@
 #include "Screens\GameScreen.h"
+#include "Physics\ParticleManager.h"
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view): 
 	Screen(GameState::GamePlay, view), 
 	isPaused(false),
-	m_currentWave(1)
+	m_currentWave(1),
+	m_entityManager()
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
 
-	m_entityManager = EntityManager();
     m_player = new Player(controller);
 
 	m_entityManager.SetPlayer(m_player);
-
 	m_entityManager.AddPowerUp(new HeartPower(sf::Vector2f(400.0f, 500.0f)));
 
 	m_maxEnemies = 20;	// The number of enemies.

@@ -6,7 +6,8 @@
 #include <vector>
 #include <typeinfo>
 #include <iostream>
-#include "Physics\ParticleManager.h"
+#include "Entitys\Player.h"
+#include "Entitys\PowerUps\PowerUp.h"
 
 /// <summary>
 /// Handles all game entites update and render in the game.
@@ -19,18 +20,18 @@ public:
 
 	void AddBullet(Entity *entity);
 	void AddEnemy(Entity *entity);
-	void AddPowerUp(Entity *entity);
-	void SetPlayer(Entity* player);
+	void AddPowerUp(PowerUp *entity);
+	void SetPlayer(Player* player);
 	void Update(sf::Int32 dt, uint32_t &score);
 	void Draw(sf::RenderTexture &renderTexture);
 	std::vector<Entity*> GetEnemies();
-	std::vector<Entity*> GetPowerUps();
+	Entity* GetPowerUp();
 
 private:
-	std::vector<Entity*> m_powerUps;
+	PowerUp *m_powerUp;
 	std::vector<Entity*> m_enemies;
 	std::vector<Entity*> m_bullets;
-	Entity* m_player;
+	Player* m_player;
 	sf::Font *m_font;
 	sf::Text m_scoreText;
 
@@ -44,6 +45,7 @@ private:
 	std::vector<EntityScore> m_entityScores;
 
 	bool Collision(Entity* entity1, Entity* entity2);
+	bool SimpleCollision(Entity* entity1, Entity* entity2);
 };
 
 #endif

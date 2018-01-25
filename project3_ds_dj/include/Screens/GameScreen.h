@@ -32,16 +32,13 @@ private:
 	bool isPaused;
 	void setWave(uint8_t waveNum);
 
-	// @todo(darren): Maybe we should get HUD info from the HUD itself?
-	uint8_t m_currentWave;
-	uint8_t m_currentLives;
-
 	// GUI widgets
 	Button *m_resume;
 	Button *m_mainMenu;
 	Label *m_pauseLabel;
 	sf::Texture m_resumeTexture, m_mainMenuTexture;
 	HUD m_hud;
+	uint8_t m_currentWave;
 	sf::Rect<float> m_pauseBackground;
 	// @refactor(darren): Put interpolation and transitionIn in the base gui
 	float interpolation;
