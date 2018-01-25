@@ -1,7 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Entity.h"
+#include "Entity.h" 
 #include <iostream>
 #include "XboxController.h"
 #include "MathHelper.h"
@@ -25,6 +25,7 @@ public:
 	bool FireBullet();
 	BulletType getBulletType();
 	uint32_t m_lives;
+	bool m_shieldActive;
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
@@ -42,6 +43,8 @@ private:
 	sf::Clock m_clock;
 	float m_timeToNextShot;
 	BulletType m_bulletType = BulletType::SINGLE_BULLET;
+	sf::Sprite m_playerShieldSprite;
+	sf::Texture m_playerShieldTexture;
 };
 
 #endif

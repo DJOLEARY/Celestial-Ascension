@@ -6,18 +6,24 @@
 /// 
 /// </summary>
 Player::Player(XboxController &controller) : 
-	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0), m_lives(3)
+	m_xboxController(controller), m_rotationDiff(0.0f), m_timeToNextShot(0), m_lives(3), m_shieldActive(false)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
-	{
-		std::cout << "ERROR::Player::Image not loaded";
-	}
+		std::cout << "ERROR::Player::Image ship not loaded";
+	if(!m_playerShieldTexture.loadFromFile("Assets/PowerUps/player_shield.png"))
+		std::cout << "ERROR::Player::Image Shield not loaded";
 
 	m_position = sf::Vector2f(1000.0f, 500.0f);
 	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+
+	m_playerShieldSprite.setTexture(m_playerShieldTexture);
+	m_playerShieldSprite.setPosition(m_position);
+	m_playerShieldSprite.setScale(sf::Vector2f(0.5f, 0.5f));
+	m_playerShieldSprite.setOrigin(m_playerShieldSprite.getLocalBounds().width  / 2.0f, 
+								   m_playerShieldSprite.getLocalBounds().height / 2.0f);
 }
 
 void Player::SpawnPlayer()
@@ -26,6 +32,7 @@ void Player::SpawnPlayer()
 	if (elapsedTime.asSeconds() > TIME_TO_SPAWN)
 	{
 		m_alive = true;
+		m_shieldActive = false;
 		m_velocity = sf::Vector2f();
 		m_position = sf::Vector2f(1000.0f, 500.0f);
 		Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(m_position.x, m_position.y, -50.0f), 100.0f);
@@ -117,6 +124,11 @@ void Player::Draw(sf::RenderTexture &renderTexture)
 	m_sprite.setPosition(m_position);
 	m_sprite.setRotation(m_targetOrientation);
 	renderTexture.draw(m_sprite);
+	if (m_shieldActive)
+	{
+		m_playerShieldSprite.setPosition(m_position);
+		renderTexture.draw(m_playerShieldSprite);
+	}
 }
 
 sf::Vector2f* Player::getPosition()
