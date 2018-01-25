@@ -11,7 +11,10 @@ Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_shieldActive(false),
 	m_rotationDiff(0.0f), 
 	m_timeToNextShot(0),
-	m_shotSound(shotSound)
+	m_shotSound(shotSound),
+	m_shieldScale(0.0f),
+	m_shieldDeactive(false),
+	m_timeToShieldOver(MAX_SHIELD_TIME)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image ship not loaded";
@@ -21,12 +24,12 @@ Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_position = sf::Vector2f(1000.0f, 500.0f);
 	m_speed = 0.025f;
 	m_sprite.setTexture(m_texture);
-	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
+	m_sprite.setScale(0.3f, 0.3f);
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
 	m_playerShieldSprite.setTexture(m_playerShieldTexture);
 	m_playerShieldSprite.setPosition(m_position);
-	m_playerShieldSprite.setScale(sf::Vector2f(0.5f, 0.5f));
+	m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
 	m_playerShieldSprite.setOrigin(m_playerShieldSprite.getLocalBounds().width  / 2.0f, 
 								   m_playerShieldSprite.getLocalBounds().height / 2.0f);
 }
@@ -113,6 +116,41 @@ void Player::Update(double dt)
 	if (m_alive)
 	{
 		ProcessInput(dt);
+
+		if (m_shieldActive)
+		{
+			m_timeToShieldOver -= dt;
+
+			if (m_timeToShieldOver <= 0.0)
+			{
+				if (m_shieldScale <= 0.0f)
+				{
+					m_shieldScale = 0.0f;
+					m_timeToShieldOver = MAX_SHIELD_TIME;
+					m_shieldActive = false;
+					m_shieldDeactive = false;
+					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
+				}
+				else
+				{
+					m_shieldScale -= 0.001f * dt;
+					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
+				}
+			}
+			else
+			{
+				if (m_shieldScale >= 0.5f)
+				{
+					m_shieldScale = 0.5f;
+					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
+				}
+				else
+				{
+					m_shieldScale += 0.001f * dt;
+					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
+				}
+			}
+		}
 
 		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
 	}

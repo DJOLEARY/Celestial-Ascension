@@ -51,6 +51,9 @@ void EntityManager::AddEnemy(Entity * entity)
 
 void EntityManager::AddPowerUp(PowerUp * entity)
 {
+	if (m_powerUp)
+		delete m_powerUp;
+
 	m_powerUp = entity;
 }
 

@@ -44,10 +44,12 @@ private:
 	sf::Clock m_clock;
 	float m_timeToNextShot;
 	BulletType m_bulletType = BulletType::SINGLE_BULLET;
-
+	const double MAX_SHIELD_TIME = 6000.0;
+	float m_shieldScale;
+	bool m_shieldDeactive;
+	double m_timeToShieldOver;
 	sf::Sprite m_playerShieldSprite;
 	sf::Texture m_playerShieldTexture;
-
 	sf::Sound* m_shotSound;
 };
 
