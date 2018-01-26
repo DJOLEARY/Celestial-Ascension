@@ -15,7 +15,7 @@
 class EntityManager
 {
 public:
-	EntityManager();
+	EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::Sound *hitWallSound);
 	~EntityManager();
 
 	void AddBullet(Entity *entity);
@@ -25,6 +25,7 @@ public:
 	void Update(sf::Int32 dt, uint32_t &score);
 	void Draw(sf::RenderTexture &renderTexture);
 	std::vector<Entity*> GetEnemies();
+	int GetEnemiesSize();
 	Entity* GetPowerUp();
 
 private:
@@ -34,6 +35,10 @@ private:
 	Player* m_player;
 	sf::Font *m_font;
 	sf::Text m_scoreText;
+
+	sf::Sound *m_deathSound;
+	sf::Sound *m_pickUpSound;
+	sf::Sound *m_hitWallSound;
 
 	struct EntityScore
 	{

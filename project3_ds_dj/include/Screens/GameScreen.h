@@ -19,7 +19,9 @@
 class GameScreen : public Screen
 {
 public:
-	GameScreen(XboxController &controller, sf::View &view, bool *muted, int *effectsVolume, bool *effectsVolumeChanged);
+	GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
+		sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound,
+		sf::Sound *deathSound, sf::Sound *hitWallSound);
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
 	virtual void reset() override;
@@ -50,15 +52,12 @@ private:
 	void setPauseGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
+
+	bool m_leftViaPause;
 	
-	bool *m_muted;
-	int *m_effectsVolume;
-	bool *m_effectsVolumeChanged;
-
-	sf::SoundBuffer m_pickUpSoundBuffer;
-	sf::Sound m_pickUpSound;
-
-	sf::SoundBuffer m_waveCompleteSoundBuffer;
-	sf::Sound m_waveCompleteSound;
+	//	Sounds
+	sf::Sound *m_confirmSound;
+	sf::Sound *m_shotSound;
+	sf::Sound *m_waveCompleteSound;
 };
 #endif // !GAME_SCREEN_H
