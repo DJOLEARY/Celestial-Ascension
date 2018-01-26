@@ -14,7 +14,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, bool *muted, 
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
 
-
     m_player = new Player(controller, m_muted, m_effectsVolume, m_effectsVolumeChanged);
 
 	m_entityManager.SetPlayer(m_player);
@@ -97,7 +96,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_waveCompleteSound.setVolume(*m_effectsVolume);
 	}
 
-
 	// @remove
 	// testing hud wave
 	if (controller.isButtonPressed(XBOX360_LEFT))
@@ -117,7 +115,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		if (m_player->FireBullet())
 		{
 			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{

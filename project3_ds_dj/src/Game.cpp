@@ -37,6 +37,10 @@ Game::Game()
 	m_screenManager.add(exitMenu);
 	m_screenManager.add(new Credits(m_view));
 	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
+
+	// I HATE SOUND 
+	m_options->m_muted = true;
+
     m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_options->m_muted, &m_options->m_effectsVolumeValue, &m_options->m_effectsVolumeChanged));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
