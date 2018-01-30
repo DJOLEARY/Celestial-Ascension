@@ -85,9 +85,10 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 
 void GameScreen::reset()
 {
-	m_resume->promoteFocus();
-	m_mainMenu->demoteFocus();
 	m_retry->promoteFocus();
+	m_resume->promoteFocus();
+	m_mainMenuGameOver->demoteFocus();
+	m_mainMenu->demoteFocus();
 	interpolation = 0.0f;
 }
 
@@ -263,7 +264,10 @@ void GameScreen::mainMenuButtonSelected()
 		enemy->setAlive(false);
 	m_entityManager.GetEnemyScores().clear();
 	m_player->m_lives = 1;
+	m_player->setAlive(true);
+	m_player->SpawnPlayer(true);
 	m_confirmSound->play();
+	m_isGameOver = false;
 	reset();
 }
 
