@@ -218,9 +218,9 @@ void GameScreen::mainMenuButtonSelected()
 	m_leftViaPause = true;
 
 	for (Entity* enemy : m_entityManager.GetEnemies())
-	{
 		enemy->setAlive(false);
-	}
+
+	m_entityManager.GetEnemyScores().clear();
 
 	sf::Vector2f* m_playerPos = m_player->getPosition();
 	*m_playerPos = sf::Vector2f(1000, 500);

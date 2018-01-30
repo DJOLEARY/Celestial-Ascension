@@ -27,9 +27,6 @@ private:
 	void volumeChangeSliderEffects();
 	void backButtonSelected();
 	void checkBoxSwitched();
-	void setColorSliders();
-	void setColor();
-	void changeDifficulty();
 	void windowedSelected();
 	void fullscreenSelected();
 

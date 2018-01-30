@@ -21,7 +21,7 @@ public:
 private:
 	// GUI elements
 	Label *m_creditsLabel;
-	Label *m_names[3];
+	Label *m_text[4];
 	sf::Texture m_teamPhoto;
 
 	bool m_backButtonPressed;

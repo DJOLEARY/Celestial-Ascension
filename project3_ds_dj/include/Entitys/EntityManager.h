@@ -9,6 +9,14 @@
 #include "Entitys\Player.h"
 #include "Entitys\PowerUps\PowerUp.h"
 
+struct EntityScore
+{
+	sf::Vector2f scoreDisplayPos;
+	uint16_t score;
+	uint16_t displayTime;
+	bool removeScore;
+};
+
 /// <summary>
 /// Handles all game entites update and render in the game.
 /// </summary>
@@ -25,6 +33,7 @@ public:
 	void Update(sf::Int32 dt, uint32_t &score);
 	void Draw(sf::RenderTexture &renderTexture);
 	std::vector<Entity*> GetEnemies();
+	std::vector<EntityScore> &GetEnemyScores();
 	int GetEnemiesSize();
 	Entity* GetPowerUp();
 
@@ -32,6 +41,7 @@ private:
 	PowerUp *m_powerUp;
 	std::vector<Entity*> m_enemies;
 	std::vector<Entity*> m_bullets;
+	std::vector<EntityScore> m_entityScores;
 	Player* m_player;
 	sf::Font *m_font;
 	sf::Text m_scoreText;
@@ -39,15 +49,6 @@ private:
 	sf::Sound *m_deathSound;
 	sf::Sound *m_pickUpSound;
 	sf::Sound *m_hitWallSound;
-
-	struct EntityScore
-	{
-		sf::Vector2f scoreDisplayPos;
-		uint16_t score;
-		uint16_t displayTime;
-		bool removeScore;
-	};
-	std::vector<EntityScore> m_entityScores;
 
 	bool Collision(Entity* entity1, Entity* entity2);
 	bool SimpleCollision(Entity* entity1, Entity* entity2);

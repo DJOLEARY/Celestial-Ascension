@@ -249,6 +249,11 @@ std::vector<Entity*> EntityManager::GetEnemies()
 	return m_enemies;
 }
 
+std::vector<EntityScore> &EntityManager::GetEnemyScores()
+{
+	return m_entityScores;
+}
+
 int EntityManager::GetEnemiesSize()
 {
 	return m_enemies.size();

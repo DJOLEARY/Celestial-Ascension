@@ -82,6 +82,16 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
+
+
+
+	// @todo(darren): Take this out, just don't want to listen to game sound
+	m_music->pause();
+	m_confirmSound->setVolume(0);
+	m_shotSound->setVolume(0);
+	m_waveCompleteSound->setVolume(0);
+	m_pickUpSound->setVolume(0);
+	m_deathSound->setVolume(0);
 }
 
 /// <summary>
@@ -202,32 +212,6 @@ void Options::checkBoxSwitched()
 		m_pickUpSound->setVolume(0);
 		m_deathSound->setVolume(0);
 	}
-}
-
-/// <summary>
-/// Function used for determining the starting positions for each RGB
-/// when the colour radio buttons are interacted with
-/// </summary>
-void Options::setColorSliders()
-{
-	
-}
-
-/// <summary>
-/// Function determines which RGB value of which colour should be changed
-/// </summary>
-void Options::setColor()
-{
-	
-}
-
-/// <summary>
-/// Function is linked to the call back functions for the difficulty
-/// radio buttons
-/// </summary>
-void Options::changeDifficulty()
-{
-	
 }
 
 void Options::windowedSelected()
