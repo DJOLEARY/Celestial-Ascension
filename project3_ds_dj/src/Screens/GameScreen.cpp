@@ -36,6 +36,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	if (!m_resumeTexture.loadFromFile("Assets/GUI/Resume.png"))
 		std::cout << "Hey this resume texture didn't load, but that's just my opinion man...." << std::endl;
 
+	if (!m_retryTexture.loadFromFile("Assets/GUI/Retry.png"))
+		std::cout << "Hey this resume texture didn't load, but that's just my opinion man...." << std::endl;
+
 	if (!m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png"))
 		std::cout << "Hey this main menu texture didn't load, but that's just my opinion man...." << std::endl;
 
@@ -49,7 +52,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
 	m_mainMenuGameOver = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
-	m_retry = new Button(m_resumeTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
+	m_retry = new Button(m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
