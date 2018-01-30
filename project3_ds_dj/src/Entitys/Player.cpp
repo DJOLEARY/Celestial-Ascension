@@ -7,7 +7,7 @@
 /// </summary>
 Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_xboxController(controller),
-	m_lives(3), 
+	m_lives(1), 
 	m_shieldActive(false),
 	m_rotationDiff(0.0f), 
 	m_timeToNextShot(0),
@@ -34,10 +34,10 @@ Player::Player(XboxController &controller, sf::Sound *shotSound) :
 								   m_playerShieldSprite.getLocalBounds().height / 2.0f);
 }
 
-void Player::SpawnPlayer()
+void Player::SpawnPlayer(bool immediateSpawn)
 {
 	sf::Time elapsedTime = m_clock.getElapsedTime();
-	if (elapsedTime.asSeconds() > TIME_TO_SPAWN)
+	if (elapsedTime.asSeconds() > TIME_TO_SPAWN || immediateSpawn)
 	{
 		m_alive = true;
 		m_shieldActive = false;
@@ -153,10 +153,6 @@ void Player::Update(double dt)
 		}
 
 		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
-	}
-	else
-	{
-		SpawnPlayer();
 	}
 }
 

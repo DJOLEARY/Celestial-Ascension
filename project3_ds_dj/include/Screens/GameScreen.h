@@ -31,13 +31,18 @@ private:
     EntityManager m_entityManager;
 	Player *m_player;
 	int m_maxEnemies;
-	bool isPaused;
+	bool m_isPaused;
+	bool m_isGameOver;
 	void setWave(uint8_t waveNum);
 
 	// GUI widgets
+	Gui m_gameOverGui;
 	Button *m_resume;
 	Button *m_mainMenu;
+	Button *m_mainMenuGameOver;
 	Label *m_pauseLabel;
+	Label *m_gameOverLabel;
+	Button *m_retry;
 	sf::Texture m_resumeTexture, m_mainMenuTexture;
 	HUD m_hud;
 	uint8_t m_currentWave;
@@ -50,8 +55,10 @@ private:
 	sf::Vector2f m_cameraVelocity;
 	void cameraFollow();
 	void setPauseGUIPos();
+	void setGameOverGUIPos();
 	void resumeButtonSelected();
 	void mainMenuButtonSelected();
+	void retryButtonSelected();
 
 	bool m_leftViaPause;
 	

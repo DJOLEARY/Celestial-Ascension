@@ -24,7 +24,7 @@ public:
 	void ProcessInput(double dt);
 	bool FireBullet();
 	BulletType getBulletType();
-	uint32_t m_lives;
+	int m_lives;
 	bool m_shieldActive;
 
 	virtual void Update(double dt) override;
@@ -32,9 +32,9 @@ public:
 
     sf::Vector2f* getPosition();
 	void OutOfBounds();
+	void SpawnPlayer(bool immediate = false);
 
 private:
-	void SpawnPlayer();
 
 	XboxController &m_xboxController;
 	float m_rotationDiff;

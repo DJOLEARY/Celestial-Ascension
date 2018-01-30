@@ -5,7 +5,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
 	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *hitWallSound) :
 	Screen(GameState::GamePlay, view),
-	isPaused(false),
+	m_isPaused(false),
 	m_currentWave(1),
 	m_entityManager(deathSound, pickUpSound, hitWallSound),
 	m_confirmSound(confirmSound),
@@ -40,16 +40,25 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 		std::cout << "Hey this main menu texture didn't load, but that's just my opinion man...." << std::endl;
 
 	m_pauseLabel = new Label("PAUSED", 84);
+	m_gameOverLabel = new Label("GAME OVER", 84);
+	m_gameOverLabel->setTextColor(sf::Color(255, 0, 0));
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
 	m_resume = new Button(m_resumeTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
 	m_mainMenu = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f), 
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
+	m_mainMenuGameOver = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
+	m_retry = new Button(m_resumeTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
 	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
+	m_retry->select = std::bind(&GameScreen::retryButtonSelected, this);
+	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
 
 	m_resume->promoteFocus();
+	m_retry->promoteFocus();
 
 	m_resume->m_down = m_mainMenu;
 	m_mainMenu->m_up = m_resume;
@@ -58,7 +67,15 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_gui.add(m_mainMenu);
 	m_gui.add(m_pauseLabel);
 
+	m_retry->m_down = m_mainMenuGameOver;
+	m_mainMenuGameOver->m_up = m_retry;
+
+	m_gameOverGui.add(m_retry);
+	m_gameOverGui.add(m_mainMenuGameOver);
+	m_gameOverGui.add(m_gameOverLabel);
+
 	m_gui.setWidgetsAlpha(0.0f);
+	m_gameOverGui.setWidgetsAlpha(0.0f);
 
 	m_hud.setScore(100);
 }
@@ -67,6 +84,7 @@ void GameScreen::reset()
 {
 	m_resume->promoteFocus();
 	m_mainMenu->demoteFocus();
+	m_retry->promoteFocus();
 	interpolation = 0.0f;
 }
 
@@ -79,17 +97,21 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		setWave(m_currentWave);
 	}
 
-	if (isPaused)
+	if (m_isPaused)
 		m_gui.processInput(controller);
 	else
 	{
+		if(m_isGameOver)
+			m_gameOverGui.processInput(controller);
 
 		if (m_player->m_lives <= 0)
 		{
-			//	run game over code
-
-			//ejects the player to the menu for now.
-			mainMenuButtonSelected();
+			if (!m_isGameOver)
+			{
+				setGameOverGUIPos();
+				transitionIn = true;
+				m_isGameOver = true;
+			}
 		}
 
 		cameraFollow();
@@ -118,13 +140,14 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), enemyPos));
 			}
 		}
+
 		m_entityManager.Update(dt, *m_hud.getScore());
 		m_view.setCenter(m_cameraPosition);
 	}
 
-	if (controller.isButtonPressed(XBOX360_START) && !isPaused)
+	if (controller.isButtonPressed(XBOX360_START) && !m_isPaused && !m_isGameOver)
 	{
-		isPaused = true;
+		m_isPaused = true;
 		transitionIn = true;
 		setPauseGUIPos();
 		Grid::instance()->setPause(true);
@@ -134,6 +157,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	if (transitionIn)
 	{
 		m_gui.transitionIn(0.05f, interpolation);
+		m_gameOverGui.transitionIn(0.05f, interpolation);
 
 		if (interpolation >= 1.0f)
 		{
@@ -172,7 +196,11 @@ void GameScreen::render(sf::RenderTexture &renderTexture)
 	m_hud.render(renderTexture);
     m_entityManager.Draw(renderTexture);
 
-	if (isPaused)
+	if (m_isGameOver)
+	{
+		renderTexture.draw(m_gameOverGui);
+	}
+	else if (m_isPaused)
 	{
 		renderTexture.setView(m_view);
 		renderTexture.draw(m_gui);
@@ -197,9 +225,22 @@ void GameScreen::setPauseGUIPos()
 	m_mainMenu->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 80.0f));
 }
 
+void GameScreen::setGameOverGUIPos()
+{
+	sf::Vector2f guiCenter = m_cameraPosition;
+	m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
+	m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
+
+	m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 80.0f));
+	m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 80.0f));
+
+	m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 80.0f));
+	m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 80.0f));
+}
+
 void GameScreen::resumeButtonSelected()
 {
-	isPaused = false;
+	m_isPaused = false;
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
 	m_confirmSound->play();
@@ -209,25 +250,30 @@ void GameScreen::resumeButtonSelected()
 void GameScreen::mainMenuButtonSelected()
 {
 	m_nextGameState = GameState::MainMenu;
-	isPaused = false;
+	m_isPaused = false;
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
-
 	m_currentWave = 0;
 	m_hud.setWave(m_currentWave);
 	m_leftViaPause = true;
-
 	for (Entity* enemy : m_entityManager.GetEnemies())
 		enemy->setAlive(false);
-
 	m_entityManager.GetEnemyScores().clear();
-
-	sf::Vector2f* m_playerPos = m_player->getPosition();
-	*m_playerPos = sf::Vector2f(1000, 500);
-
-	m_player->m_lives = 3;
-	
+	m_player->m_lives = 1;
 	m_confirmSound->play();
-
 	reset();
+}
+
+
+void GameScreen::retryButtonSelected()
+{
+	m_isGameOver = false;
+	m_player->m_lives = 1;
+	m_player->setAlive(true);
+	m_player->SpawnPlayer(true);
+	m_currentWave = 0;
+	m_hud.setWave(m_currentWave);
+	for (Entity* enemy : m_entityManager.GetEnemies())
+		enemy->setAlive(false);
+	m_entityManager.GetEnemyScores().clear();
 }
