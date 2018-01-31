@@ -24,5 +24,7 @@ private:
 	sf::Texture m_backTexure;
 	Button *m_backButton;
 	Label *m_leaderboardTitle;
+	Label *m_numbers[10];
 	Label *m_names[10];
+	Label *m_scores[10];
 };

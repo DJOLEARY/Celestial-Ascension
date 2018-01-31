@@ -69,7 +69,7 @@ unsigned int Label::getCharacterSize() const
 
 void Label::setColors()
 {
-	//setTextColor(sf::Color(255, 255, 255, m_alpha));
+	setTextColor(sf::Color(255, 255, 255, m_alpha));
 }
 
 /// <summary>
