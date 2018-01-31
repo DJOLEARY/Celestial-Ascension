@@ -42,6 +42,7 @@
       <Filter>Source\Entity</Filter>
     </ClCompile>
     <ClCompile Include="src\Entitys\Bullets\HomingMissile.cpp" />
+    <ClCompile Include="src\Screens\Leaderboard.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -84,6 +85,7 @@
     <ClInclude Include="include\Entitys\Bullets\Bullet.h">
       <Filter>Header\Entity</Filter>
     </ClInclude>
+    <ClInclude Include="include\Screens\Leaderboard.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

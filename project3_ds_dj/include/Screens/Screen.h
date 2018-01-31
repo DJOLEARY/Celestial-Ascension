@@ -22,7 +22,8 @@ enum class GameState
 	ExitMenu,
 	Credits,
 	PlayMenu,
-	GamePlay
+	GamePlay,
+	Leaderboard
 };
 
 /// <summary>

@@ -85,6 +85,7 @@ Game::Game()
 	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound);
 	m_screenManager.add(m_options);
     m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_hitWallSound));
+	m_screenManager.add(new Leaderboard(m_view));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
 

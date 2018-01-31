@@ -10,6 +10,7 @@
 #include "Screens\ExitMenu.h"
 #include "Screens\Credits.h"
 #include "Screens\PlayMenu.h"
+#include "Screens\Leaderboard.h"
 #include "Screens\SplashScreen.h"
 #include "Graphics\Bloom.h"
 #include "Physics\Grid.h"

@@ -53,14 +53,27 @@ void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
-
-	if (m_playButtonPressed)
+	else if (m_playButtonPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation);
 
 		if (interpolation >= 1.0f)
 		{
 			m_nextGameState = GameState::GamePlay;
+			m_playButton->promoteFocus();
+			m_leaderboardButton->demoteFocus();
+			reset();
+		}
+	}
+	else if (m_leaderboardButtonPressed)
+	{
+		m_gui.transitionOut(0.05f, interpolation);
+
+		if (interpolation >= 1.0f)
+		{
+			m_nextGameState = GameState::Leaderboard;
+			m_playButton->demoteFocus();
+			m_leaderboardButton->promoteFocus();
 			reset();
 		}
 	}
@@ -79,8 +92,6 @@ void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 
 void PlayMenu::reset()
 {
-	m_playButton->promoteFocus();
-	m_leaderboardButton->demoteFocus();
 	m_playButtonPressed = false;
 	m_leaderboardButtonPressed = false;
 	m_backButtonPressed = false;
