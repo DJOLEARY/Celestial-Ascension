@@ -37,13 +37,14 @@ private:
 
 	// GUI widgets
 	Gui m_gameOverGui;
+	Button *m_arrowButtons[6];
 	Button *m_resume;
 	Button *m_mainMenu;
 	Button *m_mainMenuGameOver;
 	Label *m_pauseLabel;
 	Label *m_gameOverLabel;
 	Button *m_retry;
-	sf::Texture m_resumeTexture, m_mainMenuTexture, m_retryTexture;
+	sf::Texture m_resumeTexture, m_mainMenuTexture, m_retryTexture, m_arrowTexture;
 	HUD m_hud;
 	uint8_t m_currentWave;
 	sf::Rect<float> m_pauseBackground;

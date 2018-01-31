@@ -33,27 +33,29 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	// Camera
 	m_cameraPosition = *m_player->getPosition();
 
-	if (!m_resumeTexture.loadFromFile("Assets/GUI/Resume.png"))
-		std::cout << "Hey this resume texture didn't load, but that's just my opinion man...." << std::endl;
-
-	if (!m_retryTexture.loadFromFile("Assets/GUI/Retry.png"))
-		std::cout << "Hey this resume texture didn't load, but that's just my opinion man...." << std::endl;
-
-	if (!m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png"))
-		std::cout << "Hey this main menu texture didn't load, but that's just my opinion man...." << std::endl;
+	m_resumeTexture.loadFromFile("Assets/GUI/Resume.png");
+	m_retryTexture.loadFromFile("Assets/GUI/Retry.png");
+	m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png");
+	m_arrowTexture.loadFromFile("Assets/GUI/arrow.png");
 
 	m_pauseLabel = new Label("PAUSED", 84);
 	m_gameOverLabel = new Label("GAME OVER", 84);
 	m_gameOverLabel->setTextColor(sf::Color(255, 0, 0));
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
-	m_resume = new Button(m_resumeTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
-		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
+	m_resume = new Button(m_resumeTexture, sf::Vector2f(),
+		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f());
 	m_mainMenu = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f), 
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
 	m_mainMenuGameOver = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
 	m_retry = new Button(m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
+
+	for (int i = 0; i < 6; i++)
+	{
+		m_arrowButtons[i] = new Button(m_arrowTexture, sf::Vector2f(1920.0f / 2.0f + (20 * i), (1080.0f / 2.0f) - 20.0f),
+			focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
+	}
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
 	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
@@ -72,6 +74,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 
 	m_retry->m_down = m_mainMenuGameOver;
 	m_mainMenuGameOver->m_up = m_retry;
+
+	for (int i = 0; i < 6; i++)
+		m_gameOverGui.add(m_arrowButtons[i]);
 
 	m_gameOverGui.add(m_retry);
 	m_gameOverGui.add(m_mainMenuGameOver);
@@ -108,6 +113,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		if(m_isGameOver)
 			m_gameOverGui.processInput(controller);
 
+		cameraFollow();
+
 		if (m_player->m_lives <= 0)
 		{
 			if (!m_isGameOver)
@@ -118,7 +125,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			}
 		}
 
-		cameraFollow();
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
 		if (m_player->FireBullet())
@@ -235,11 +241,17 @@ void GameScreen::setGameOverGUIPos()
 	m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
 	m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
 
-	m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 80.0f));
-	m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 80.0f));
+	m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 20.0f));
+	m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 20.0f));
 
-	m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 80.0f));
-	m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 80.0f));
+	m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 180.0f));
+	m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 180.0f));
+
+	for (int i = 0; i < 6; i++)
+	{
+		m_arrowButtons[i]->setPosition(sf::Vector2f(guiCenter.x - (80 * i), guiCenter.y - 80.0f));
+		m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x - (80 * i), guiCenter.y - 80.0f));
+	}
 }
 
 void GameScreen::resumeButtonSelected()
