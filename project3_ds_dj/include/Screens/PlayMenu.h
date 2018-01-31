@@ -13,12 +13,12 @@ public:
 
 private:
 	void playButtonSelected();
-	void upgradeButtonSelected();
+	void leaderboardButtonSelected();
 
-	Button *m_playButton, *m_upgradeButton;
-	sf::Texture m_playTexture, m_upgradeTexture;
+	Button *m_playButton, *m_leaderboardButton;
+	sf::Texture m_playTexture, m_leaderboardTexture;
 
-	bool m_playButtonPressed, m_upgradeButtonPressed;
+	bool m_playButtonPressed, m_leaderboardButtonPressed;
 	bool m_backButtonPressed;
 	bool transitionIn;
 	float interpolation;
