@@ -27,4 +27,6 @@ private:
 	Label *m_numbers[10];
 	Label *m_names[10];
 	Label *m_scores[10];
+	std::string m_readInNames[10];
+	uint32_t m_readInScores[10];
 };

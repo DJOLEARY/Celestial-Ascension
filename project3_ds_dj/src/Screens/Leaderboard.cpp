@@ -1,14 +1,33 @@
 #include "Screens\Leaderboard.h"
+#include <fstream>
 
 Leaderboard::Leaderboard(sf::View &view)
 	: Screen(GameState::Leaderboard, view), m_transitionIn(true)
 {
-	// 1. Create a leaderboard file if one does not exsist
+	// @todo(darren): If file does not exsist then create it
+	const char *names[10] = {"DAR", "LIZ", "JHN", "BOB", "XOX", "JOE", "AMY", "POP", "JAN", "WOZ" };
+	std::ofstream outputLeaderboardFile;
+	outputLeaderboardFile.open("leaderboard.txt");
+	if (outputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			outputLeaderboardFile << names[i] << " " << 22400 - (i * 500) << "\n";
+		}
+	}
+	outputLeaderboardFile.close();
 
-	// 2. Populate the leaderboad with default data
-
-	// 3. Get gui to display leaderboard
-
+	std::ifstream inputLeaderboardFile;
+	inputLeaderboardFile.open("leaderboard.txt");
+	if (inputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
+		}
+	}
+	inputLeaderboardFile.close();
+	
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
 
@@ -20,10 +39,10 @@ Leaderboard::Leaderboard(sf::View &view)
 		m_numbers[i] = new Label(std::to_string(i + 1), 30, sf::Vector2f(1920.0f / 2 - 300, (70.0f * i) + 230),
 			sf::Vector2f(1920.0f / 2 + 100, (70.0f * i) + 230));
 
-		m_names[i] = new Label("DAR", 30, sf::Vector2f(1920.0f / 2, (70.0f * i) + 230),
+		m_names[i] = new Label(m_readInNames[i], 30, sf::Vector2f(1920.0f / 2, (70.0f * i) + 230),
 			sf::Vector2f(1920.0f / 2 + 400, (70.0f * i) + 230));
 
-		m_scores[i] = new Label("42030", 30, sf::Vector2f(1920.0f / 2 + 300, (70.0f * i) + 230),
+		m_scores[i] = new Label(std::to_string(m_readInScores[i]), 30, sf::Vector2f(1920.0f / 2 + 300, (70.0f * i) + 230),
 			sf::Vector2f(1920.0f / 2 + 700, (70.0f * i) + 230));
 	}
 
