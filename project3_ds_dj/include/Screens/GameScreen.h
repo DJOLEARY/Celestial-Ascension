@@ -38,6 +38,8 @@ private:
 	// GUI widgets
 	Gui m_gameOverGui;
 	Button *m_arrowButtons[6];
+	Label *m_charNameLables[3];
+	uint8_t m_charNameIndex[3] = {0, 0, 0};
 	Button *m_resume;
 	Button *m_mainMenu;
 	Button *m_mainMenuGameOver;
