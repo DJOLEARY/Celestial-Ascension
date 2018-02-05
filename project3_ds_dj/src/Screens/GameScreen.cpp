@@ -24,7 +24,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 	}
 
 	// Set the wave for the game and display on the hud
@@ -127,18 +127,19 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
+		
 		if (m_player->FireBullet())
 		{
 			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
-					sf::normalize(controller.getRightStick())));
+					sf::normalize(controller.getRightStick()), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
-					sf::normalize(controller.getRightStick())));
+					sf::normalize(controller.getRightStick()), true));
 			}
 			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
 			{
@@ -147,11 +148,20 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				std::vector<Entity*> enemies = m_entityManager.GetEnemies();
 				int randIndex = static_cast<int>(sf::randF(0, enemies.size()));
 				sf::Vector2f *enemyPos = &enemies[randIndex]->getPos();
-				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), enemyPos));
+				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getRightStick()), enemyPos));
 			}
 		}
 
 		m_entityManager.Update(dt, *m_hud.getScore());
+
+		for (auto iter = m_entityManager.GetEnemies().begin(); iter != m_entityManager.GetEnemies().end(); iter++)
+		{
+			if ((*iter)->getFireBullet())
+			{
+				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, m_player->getPos().y - (*iter)->getPos().y)), false));
+			}
+		}
+
 		m_view.setCenter(m_cameraPosition);
 	}
 
@@ -185,7 +195,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 	else
@@ -195,7 +205,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 }

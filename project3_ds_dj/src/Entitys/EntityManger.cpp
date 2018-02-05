@@ -35,7 +35,7 @@ EntityManager::~EntityManager()
 	delete m_font;
 }
 
-void EntityManager::AddBullet(Entity *entity)
+void EntityManager::AddBullet(Bullet *entity)
 {
 	m_bullets.push_back(entity);
 }
@@ -157,7 +157,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	{
 		for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 		{
-			if (Collision(*iter, *bulletIter))
+			if ((*bulletIter)->isPlayerBullet() && Collision(*iter, *bulletIter))
 			{
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
@@ -165,6 +165,17 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				score += 100;
 				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 			}
+		}
+	}
+
+	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
+	{
+		if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter))
+		{
+			ParticleManager::instance()->createExplosion((m_player)->getPos(), sf::Color(31, 196, 58));
+			(m_player)->m_lives--;
+			m_player->setAlive(false);
+			(*bulletIter)->setAlive(false);
 		}
 	}
 
@@ -244,7 +255,7 @@ bool EntityManager::SimpleCollision(Entity* entity1, Entity* entity2)
 	return false;
 }
 
-std::vector<Entity*> EntityManager::GetEnemies()
+std::vector<Entity*> &EntityManager::GetEnemies()
 {
 	return m_enemies;
 }
