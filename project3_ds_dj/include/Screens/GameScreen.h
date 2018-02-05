@@ -1,5 +1,5 @@
 /// <summary>
-/// @author DJ O'Leary & Darren Sweeney
+/// @author DJ O"Leary & Darren Sweeney
 /// </summary>
 
 #ifndef GAME_SCREEN_H
@@ -40,6 +40,8 @@ private:
 	Button *m_arrowButtons[6];
 	Label *m_charNameLables[3];
 	uint8_t m_charNameIndex[3] = {0, 0, 0};
+	const static int MAX_USER_NAME_CHARS = 38;
+	std::string m_userNameChars[MAX_USER_NAME_CHARS] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "#", "/", "*", "(", ")" };
 	Button *m_resume;
 	Button *m_mainMenu;
 	Button *m_mainMenuGameOver;

@@ -83,17 +83,17 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_arrowButtons[0]->m_right = m_arrowButtons[1];
 	m_arrowButtons[0]->m_down = m_arrowButtons[3];
 
-	auto arrowFunc0 = [&]() { m_charNameIndex[0]++; };
+	auto arrowFunc0 = [&]() { m_charNameIndex[0] = (m_charNameIndex[0] + 1) % MAX_USER_NAME_CHARS; };
 	m_arrowButtons[0]->select = std::bind(arrowFunc0);
-	auto arrowFunc1 = [&]() { m_charNameIndex[1]++; };
+	auto arrowFunc1 = [&]() { m_charNameIndex[1] = (m_charNameIndex[1] + 1) % MAX_USER_NAME_CHARS; };
 	m_arrowButtons[1]->select = std::bind(arrowFunc1);
-	auto arrowFunc2 = [&]() { m_charNameIndex[2]++; };
+	auto arrowFunc2 = [&]() { m_charNameIndex[2] = (m_charNameIndex[2] + 1) % MAX_USER_NAME_CHARS; };
 	m_arrowButtons[2]->select = std::bind(arrowFunc2);
-	auto arrowFunc3 = [&]() { m_charNameIndex[0]--; };
+	auto arrowFunc3 = [&]() { m_charNameIndex[0] = (m_charNameIndex[0] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS;};
 	m_arrowButtons[3]->select = std::bind(arrowFunc3);
-	auto arrowFunc4 = [&]() { m_charNameIndex[1]--; };
+	auto arrowFunc4 = [&]() { m_charNameIndex[1] = (m_charNameIndex[1] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS; };
 	m_arrowButtons[4]->select = std::bind(arrowFunc4);
-	auto arrowFunc5 = [&]() { m_charNameIndex[2]--; };
+	auto arrowFunc5 = [&]() { m_charNameIndex[2] = (m_charNameIndex[2] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS; };
 	m_arrowButtons[5]->select = std::bind(arrowFunc5);
 
 	m_arrowButtons[1]->m_left = m_arrowButtons[0];
@@ -157,9 +157,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 			for (int i = 0; i < 3; i++)
 			{
-				std::string s = std::to_string(m_charNameIndex[i] + 65);
-				char const *character = s.c_str();
-				m_charNameLables[i]->setText(std::string(character));
+				m_charNameLables[i]->setText(m_userNameChars[m_charNameIndex[i]]);
 			}
 		}
 
