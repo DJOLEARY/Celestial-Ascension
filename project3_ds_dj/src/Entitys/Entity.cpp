@@ -24,3 +24,8 @@ void Entity::setAlive(bool isAlive)
 {
 	m_alive = isAlive;
 }
+
+bool Entity::getFireBullet()
+{
+	return m_fireBullet;
+}
