@@ -248,7 +248,13 @@ void GameScreen::setWave(uint8_t waveNum)
 	else
 	{
 		sf::Vector2f randomPos = sf::Vector2f(sf::randF(50.0f, 1500.0f), sf::randF(50.0f, 1000.0f));
-		m_entityManager.AddPowerUp(new ShieldPower(randomPos));
+		int randomPowerUp = sf::randF(0, 3);
+		if(randomPowerUp == 0)
+			m_entityManager.AddPowerUp(new ShieldPower(randomPos));
+		else if (randomPowerUp == 1)
+			m_entityManager.AddPowerUp(new HeartPower(randomPos));
+		else if (randomPowerUp == 2)
+			m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
 		m_hud.setWave(waveNum);
 		m_waveCompleteSound->play();
 
