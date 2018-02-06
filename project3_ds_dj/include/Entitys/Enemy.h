@@ -9,38 +9,34 @@
 #include "MathHelper.h"
 #include <iostream>
 
-enum State
-{
-	Flee,
-	Chase,
-	Shoot
-};
-
 enum EnemyType
 {
 	Wanderer,
 	Turret,
-	Seeker,
-	Snake
+	Seeker
 };
 
 class Enemy : public Entity
 {
 public:
-    Enemy(sf::Vector2f *playerPos, int randNum);
+    Enemy(sf::Vector2f *playerPos, bool *playerAlive,int randNum);
     ~Enemy();
 
     virtual void Update(double dt) override;
     virtual void Draw(sf::RenderTexture &renderTexture) override;
 
 	void FireBullet();
+
 private:
 
 	uint16_t m_scoreValue;
+
     void seekPlayer();
+	void fleePlayer();
+
     sf::Vector2f *m_playerPos;
+	bool *m_playerAlive;
 	float m_rotationDiff;
-	State m_enemyState;
 	EnemyType m_enemyType;
 
 	const uint16_t FIRE_RATE = 600;
