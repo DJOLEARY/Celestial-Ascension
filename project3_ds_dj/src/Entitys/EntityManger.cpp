@@ -74,6 +74,16 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	{
 		(*iter)->Update(dt);
 
+		if (m_player->m_shieldActive)
+		{
+			sf::Vector2f vec = m_player->getPos() - (*iter)->getPos();
+			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
+			{
+				m_enemies.erase(iter);
+				ParticleManager::instance()->createExplosion(m_player->getPos() - vec, sf::Color(48, 168, 211));
+				break;
+			}
+		}
 		if (Collision(m_player, *iter))
 		{
 			m_enemies.erase(iter);

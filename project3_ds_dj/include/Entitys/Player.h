@@ -27,6 +27,7 @@ public:
 	int m_lives;
 	bool m_shieldActive;
 	bool m_doubleBulletActive;
+	float m_shieldScale;
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
@@ -46,7 +47,6 @@ private:
 	BulletType m_bulletType = BulletType::SINGLE_BULLET;
 	const double MAX_SHIELD_TIME = 6000.0;
 	const double MAX_BULLET_TIME = 6000.0;
-	float m_shieldScale;
 	bool m_shieldDeactive;
 	double m_timeToShieldOver;
 	double m_timeToDoubleBulletOver;
