@@ -20,7 +20,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
     m_player = new Player(controller, m_shotSound);
 
 	m_entityManager.SetPlayer(m_player);
-	m_entityManager.AddPowerUp(new ShieldPower(sf::Vector2f(400.0f, 500.0f)));
+	spawnPowerUp();
 	
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -234,6 +234,18 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 	}
 }
 
+void GameScreen::spawnPowerUp()
+{
+	sf::Vector2f randomPos = sf::Vector2f(sf::randF(50.0f, 1500.0f), sf::randF(50.0f, 1000.0f));
+	int randomPowerUp = sf::randF(0, 3);
+	if (randomPowerUp == 0)
+		m_entityManager.AddPowerUp(new ShieldPower(randomPos));
+	else if (randomPowerUp == 1)
+		m_entityManager.AddPowerUp(new HeartPower(randomPos));
+	else if (randomPowerUp == 2)
+		m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
+}
+
 void GameScreen::setWave(uint8_t waveNum)
 {
 	if (m_leftViaPause)
@@ -247,16 +259,10 @@ void GameScreen::setWave(uint8_t waveNum)
 	}
 	else
 	{
-		sf::Vector2f randomPos = sf::Vector2f(sf::randF(50.0f, 1500.0f), sf::randF(50.0f, 1000.0f));
-		int randomPowerUp = sf::randF(0, 3);
-		if(randomPowerUp == 0)
-			m_entityManager.AddPowerUp(new ShieldPower(randomPos));
-		else if (randomPowerUp == 1)
-			m_entityManager.AddPowerUp(new HeartPower(randomPos));
-		else if (randomPowerUp == 2)
-			m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
 		m_hud.setWave(waveNum);
 		m_waveCompleteSound->play();
+
+		spawnPowerUp();
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
