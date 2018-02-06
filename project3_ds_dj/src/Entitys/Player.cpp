@@ -14,7 +14,8 @@ Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_shotSound(shotSound),
 	m_shieldScale(0.0f),
 	m_shieldDeactive(false),
-	m_timeToShieldOver(MAX_SHIELD_TIME)
+	m_timeToShieldOver(MAX_SHIELD_TIME),
+	m_timeToDoubleBulletOver(MAX_BULLET_TIME)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image ship not loaded";
@@ -155,6 +156,17 @@ void Player::Update(double dt)
 					m_shieldScale += 0.001f * dt;
 					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
 				}
+			}
+		}
+		else if (m_doubleBulletActive)
+		{
+			m_timeToDoubleBulletOver -= dt;
+
+			if (m_timeToDoubleBulletOver <= 0.0)
+			{
+				m_timeToDoubleBulletOver = MAX_BULLET_TIME;
+				m_doubleBulletActive = false;
+				setBulletType(BulletType::SINGLE_BULLET);
 			}
 		}
 
