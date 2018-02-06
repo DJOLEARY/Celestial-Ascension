@@ -284,17 +284,3 @@ Entity *EntityManager::GetPowerUp()
 {
 	return m_powerUp;
 }
-
-void EntityManager::reset()
-{
-	for (auto enemy : m_enemies)
-	{
-		enemy->setAlive(false);
-	}
-
-	for (auto bullet : m_bullets)
-	{
-		bullet->setAlive(false);
-	}
-
-}

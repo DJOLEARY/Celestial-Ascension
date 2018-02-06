@@ -25,7 +25,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), m_player->getAlive(),sf::randF(1, 100)));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 	}
 
 	// Set the wave for the game and display on the hud
@@ -237,7 +237,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), m_player->getAlive(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 	else
@@ -247,7 +247,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), m_player->getAlive(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 }
@@ -355,17 +355,12 @@ void GameScreen::mainMenuButtonSelected()
 void GameScreen::retryButtonSelected()
 {
 	m_isGameOver = false;
-
-	//	Reset the player.
 	m_player->m_lives = 1;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
-
-	//	Reset the hud.
 	m_currentWave = 0;
 	m_hud.setWave(m_currentWave);
-	m_hud.setScore(0);
-
-	//	Reset the other entitys.
-	m_entityManager.reset();
+	for (Entity* enemy : m_entityManager.GetEnemies())
+		enemy->setAlive(false);
+	m_entityManager.GetEnemyScores().clear();
 }
