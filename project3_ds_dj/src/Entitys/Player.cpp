@@ -42,6 +42,11 @@ void Player::SpawnPlayer(bool immediateSpawn)
 	{
 		m_alive = true;
 		m_shieldActive = false;
+		m_shieldScale = 0.0f;
+		m_timeToShieldOver = MAX_SHIELD_TIME;
+		m_timeToDoubleBulletOver = MAX_BULLET_TIME;
+		m_doubleBulletActive = false;
+		setBulletType(BulletType::SINGLE_BULLET);
 		m_velocity = sf::Vector2f();
 		m_position = sf::Vector2f(1000.0f, 500.0f);
 		Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(m_position.x, m_position.y, -50.0f), 100.0f);
