@@ -41,8 +41,8 @@
     <ClCompile Include="src\Entitys\Bullets\Bullet.cpp">
       <Filter>Source\Entity</Filter>
     </ClCompile>
-    <ClCompile Include="src\Entitys\Bullets\HomingMissile.cpp" />
     <ClCompile Include="src\Screens\Leaderboard.cpp" />
+    <ClCompile Include="src\Entitys\PowerUps\DoubleBullet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -81,11 +81,11 @@
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\HeartPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
-    <ClInclude Include="include\Entitys\Bullets\HomingMissile.h" />
     <ClInclude Include="include\Entitys\Bullets\Bullet.h">
       <Filter>Header\Entity</Filter>
     </ClInclude>
     <ClInclude Include="include\Screens\Leaderboard.h" />
+    <ClInclude Include="include\Entitys\PowerUps\DoubleBullet.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />
