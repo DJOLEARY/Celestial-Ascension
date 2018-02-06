@@ -22,6 +22,7 @@ public:
 
 	bool getAlive();
 	void setAlive(bool isAlive);
+	bool getFireBullet();
 
 protected:
 	sf::Texture m_texture;
@@ -36,6 +37,7 @@ protected:
 	float m_targetOrientation;
 	sf::Vector2i m_inSection;	// What section the centre of the Entity is in.
 	bool m_alive;
+	bool m_fireBullet;
 };
 
 #endif

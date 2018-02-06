@@ -2,7 +2,8 @@
 
 Bullet::Bullet() { }
 
-Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction)
+Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, bool playerBullet) :
+	m_playerBullet(playerBullet)
 {
 	if (!m_texture.loadFromFile("Assets/Bullet.png"))
 	{
@@ -42,4 +43,9 @@ bool Bullet::getAlive()
 void Bullet::setAlive(bool alive)
 {
 	m_alive = alive;
+}
+
+bool Bullet::isPlayerBullet()
+{
+	return m_playerBullet;
 }

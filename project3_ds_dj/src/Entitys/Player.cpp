@@ -86,7 +86,7 @@ void Player::ProcessInput(double dt)
 
 bool Player::FireBullet()
 {
-	if (sf::magnitude(m_xboxController.getLeftStick()) > INPUT_THRESHOLD && m_alive)
+	if (sf::magnitude(m_xboxController.getRightStick()) > INPUT_THRESHOLD && m_alive)
 	{
 		sf::Time elapsedTime = m_clock.getElapsedTime();
 		if (elapsedTime.asMilliseconds() > FIRE_RATE)

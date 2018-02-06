@@ -1,5 +1,6 @@
 #include "Screens\GameScreen.h"
 #include "Physics\ParticleManager.h"
+#include <stdlib.h>
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
 	sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
@@ -24,7 +25,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 	}
 
 	// Set the wave for the game and display on the hud
@@ -53,9 +54,12 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i] = new Button(m_arrowTexture, sf::Vector2f(1920.0f / 2.0f + (20 * i), (1080.0f / 2.0f) - 20.0f),
-			focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
+		m_arrowButtons[i] = new Button(m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
+
+	m_charNameLables[0] = new Label("A", 60);
+	m_charNameLables[1] = new Label("A", 60);
+	m_charNameLables[2] = new Label("A", 60);
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
 	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
@@ -63,7 +67,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
 
 	m_resume->promoteFocus();
-	m_retry->promoteFocus();
 
 	m_resume->m_down = m_mainMenu;
 	m_mainMenu->m_up = m_resume;
@@ -72,11 +75,48 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_gui.add(m_mainMenu);
 	m_gui.add(m_pauseLabel);
 
+	m_retry->m_up = m_arrowButtons[3];
 	m_retry->m_down = m_mainMenuGameOver;
 	m_mainMenuGameOver->m_up = m_retry;
 
+	m_arrowButtons[0]->promoteFocus();
+	m_arrowButtons[0]->m_right = m_arrowButtons[1];
+	m_arrowButtons[0]->m_down = m_arrowButtons[3];
+
+	auto arrowFunc0 = [&]() { m_charNameIndex[0] = (m_charNameIndex[0] + 1) % MAX_USER_NAME_CHARS; };
+	m_arrowButtons[0]->select = std::bind(arrowFunc0);
+	auto arrowFunc1 = [&]() { m_charNameIndex[1] = (m_charNameIndex[1] + 1) % MAX_USER_NAME_CHARS; };
+	m_arrowButtons[1]->select = std::bind(arrowFunc1);
+	auto arrowFunc2 = [&]() { m_charNameIndex[2] = (m_charNameIndex[2] + 1) % MAX_USER_NAME_CHARS; };
+	m_arrowButtons[2]->select = std::bind(arrowFunc2);
+	auto arrowFunc3 = [&]() { m_charNameIndex[0] = (m_charNameIndex[0] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS;};
+	m_arrowButtons[3]->select = std::bind(arrowFunc3);
+	auto arrowFunc4 = [&]() { m_charNameIndex[1] = (m_charNameIndex[1] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS; };
+	m_arrowButtons[4]->select = std::bind(arrowFunc4);
+	auto arrowFunc5 = [&]() { m_charNameIndex[2] = (m_charNameIndex[2] + MAX_USER_NAME_CHARS - 1) % MAX_USER_NAME_CHARS; };
+	m_arrowButtons[5]->select = std::bind(arrowFunc5);
+
+	m_arrowButtons[1]->m_left = m_arrowButtons[0];
+	m_arrowButtons[1]->m_right = m_arrowButtons[2];
+	m_arrowButtons[1]->m_down = m_arrowButtons[4];
+	m_arrowButtons[2]->m_left = m_arrowButtons[1];
+	m_arrowButtons[2]->m_down = m_arrowButtons[5];
+	m_arrowButtons[3]->m_up = m_arrowButtons[0];
+	m_arrowButtons[3]->m_right = m_arrowButtons[4];
+	m_arrowButtons[3]->m_down = m_retry;
+	m_arrowButtons[4]->m_up = m_arrowButtons[1];
+	m_arrowButtons[4]->m_left = m_arrowButtons[3];
+	m_arrowButtons[4]->m_right = m_arrowButtons[5];
+	m_arrowButtons[4]->m_down = m_retry;
+	m_arrowButtons[5]->m_up = m_arrowButtons[2];
+	m_arrowButtons[5]->m_left = m_arrowButtons[4];
+	m_arrowButtons[5]->m_down = m_retry;
+
 	for (int i = 0; i < 6; i++)
 		m_gameOverGui.add(m_arrowButtons[i]);
+
+	for (int i = 0; i < 3; i++)
+		m_gameOverGui.add(m_charNameLables[i]);
 
 	m_gameOverGui.add(m_retry);
 	m_gameOverGui.add(m_mainMenuGameOver);
@@ -90,8 +130,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 
 void GameScreen::reset()
 {
-	m_retry->promoteFocus();
+	m_arrowButtons[0]->promoteFocus();
 	m_resume->promoteFocus();
+	m_retry->demoteFocus();
 	m_mainMenuGameOver->demoteFocus();
 	m_mainMenu->demoteFocus();
 	interpolation = 0.0f;
@@ -110,8 +151,15 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 	{
-		if(m_isGameOver)
+		if (m_isGameOver)
+		{
 			m_gameOverGui.processInput(controller);
+
+			for (int i = 0; i < 3; i++)
+			{
+				m_charNameLables[i]->setText(m_userNameChars[m_charNameIndex[i]]);
+			}
+		}
 
 		cameraFollow();
 
@@ -127,18 +175,19 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
+		
 		if (m_player->FireBullet())
 		{
 			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick())));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
-					sf::normalize(controller.getRightStick())));
+					sf::normalize(controller.getRightStick()), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
-					sf::normalize(controller.getRightStick())));
+					sf::normalize(controller.getRightStick()), true));
 			}
 			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
 			{
@@ -147,11 +196,20 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				std::vector<Entity*> enemies = m_entityManager.GetEnemies();
 				int randIndex = static_cast<int>(sf::randF(0, enemies.size()));
 				sf::Vector2f *enemyPos = &enemies[randIndex]->getPos();
-				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), enemyPos));
+				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getRightStick()), enemyPos));
 			}
 		}
 
 		m_entityManager.Update(dt, *m_hud.getScore());
+
+		for (auto iter = m_entityManager.GetEnemies().begin(); iter != m_entityManager.GetEnemies().end(); iter++)
+		{
+			if ((*iter)->getFireBullet())
+			{
+				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, m_player->getPos().y - (*iter)->getPos().y)), false));
+			}
+		}
+
 		m_view.setCenter(m_cameraPosition);
 	}
 
@@ -185,7 +243,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 	else
@@ -195,7 +253,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition()));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
 		}
 	}
 }
@@ -238,8 +296,8 @@ void GameScreen::setPauseGUIPos()
 void GameScreen::setGameOverGUIPos()
 {
 	sf::Vector2f guiCenter = m_cameraPosition;
-	m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
-	m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
+	m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 400.0f));
+	m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 400.0f));
 
 	m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 20.0f));
 	m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 20.0f));
@@ -249,8 +307,24 @@ void GameScreen::setGameOverGUIPos()
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i]->setPosition(sf::Vector2f(guiCenter.x - (80 * i), guiCenter.y - 80.0f));
-		m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x - (80 * i), guiCenter.y - 80.0f));
+		float gap = 120.0f;
+
+		if (i <= 2)
+		{
+			m_charNameLables[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+			m_charNameLables[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+		}
+
+		if (i <= 2)
+		{
+			m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+			m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+		}
+		else
+		{
+			m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
+			m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
+		}
 	}
 }
 
