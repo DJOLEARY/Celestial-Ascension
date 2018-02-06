@@ -20,7 +20,7 @@ public:
 	sf::Vector2i getSection();
 	sf::Sprite getSprite();
 
-	bool getAlive();
+	bool *getAlive();
 	void setAlive(bool isAlive);
 	bool getFireBullet();
 
