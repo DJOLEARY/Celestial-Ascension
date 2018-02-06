@@ -1,8 +1,7 @@
 #include "Entitys\Enemy.h"
 
-Enemy::Enemy(sf::Vector2f *playerPos, bool *playerAlive, int randNum) : 
-    m_playerPos(playerPos),
-	m_playerAlive(playerAlive)
+Enemy::Enemy(sf::Vector2f *playerPos, int randNum) : 
+    m_playerPos(playerPos)
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
@@ -95,69 +94,38 @@ void Enemy::Update(double dt)
 {
 	if (m_alive)
 	{
-		if (m_playerAlive)
+		switch (m_enemyType)
 		{
-			switch (m_enemyType)
+		//	Regular Enemies that slowly follows the player || Enemies that are smaller and faster then regular enemies.
+		case Wanderer: case Seeker:
+
+			seekPlayer();
+
+			m_position += m_velocity * (float)dt;
+
+			if (m_enemyType == EnemyType::Wanderer)
 			{
-			//	Regular Enemies that slowly follows the player || Enemies that are smaller and faster then regular enemies.
-			case Wanderer: case Seeker:
-
-				seekPlayer();
-
-				m_position += m_velocity * (float)dt;
-
-				if (m_enemyType == EnemyType::Wanderer)
-				{
-					m_orientation += 0.5f;
-				}
-				else
-				{
-					m_orientation += 2.0f;
-				}
-
-				break;
-
-			//	Enemies that cannot move but can shoot at the player.
-			case Turret:
-
-				FireBullet();
-
-				m_orientation += 0.1f;
-
-				break;
+				m_orientation += 0.5f;
+			}
+			else
+			{
+				m_orientation += 2.0f;
 			}
 
-			//	Update what section the object is in for collision purposes.
-			m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
+			break;
+
+		//	Enemies that cannot move but can shoot at the player.
+		case Turret:
+
+			FireBullet();
+
+			m_orientation += 0.1f;
+
+			break;
 		}
-		else
-		{
-			switch (m_enemyType)
-			{
-			//	Regular Enemies that slowly follows the player || Enemies that are smaller and faster then regular enemies.
-			case Wanderer: case Seeker:
 
-				fleePlayer();
-
-				m_position += m_velocity * (float)dt;
-
-				if (m_enemyType == EnemyType::Wanderer)
-				{
-					m_orientation += 0.5f;
-				}
-				else
-				{
-					m_orientation += 2.0f;
-				}
-
-				break;
-
-			//	Enemies that cannot move but can shoot at the player.
-			case Turret:
-				m_orientation += 0.1f;
-				break;
-			}
-		}
+		//	Update what section the object is in for collision purposes.
+		m_inSection = { (int)m_position.x / 160, (int)m_position.y / 90 };
 	}
 }
 
@@ -203,7 +171,7 @@ void Enemy::seekPlayer()
 
 void Enemy::fleePlayer()
 {
-	if (sf::distance(m_position, *m_playerPos) > 250.0f)
+	if (sf::distance(m_position, *m_playerPos) > 150.0f)
 	{
 		m_velocity = sf::Vector2f();
 	}

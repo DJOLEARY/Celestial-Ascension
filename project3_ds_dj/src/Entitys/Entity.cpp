@@ -15,9 +15,9 @@ sf::Sprite Entity::getSprite()
 	return m_sprite;
 }
 
-bool* Entity::getAlive()
+bool Entity::getAlive()
 {
-	return &m_alive;
+	return m_alive;
 }
 
 void Entity::setAlive(bool isAlive)

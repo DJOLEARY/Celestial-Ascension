@@ -19,7 +19,7 @@ enum EnemyType
 class Enemy : public Entity
 {
 public:
-    Enemy(sf::Vector2f *playerPos, bool *playerAlive,int randNum);
+    Enemy(sf::Vector2f *playerPos, int randNum);
     ~Enemy();
 
     virtual void Update(double dt) override;
@@ -35,7 +35,6 @@ private:
 	void fleePlayer();
 
     sf::Vector2f *m_playerPos;
-	bool *m_playerAlive;
 	float m_rotationDiff;
 	EnemyType m_enemyType;
 
