@@ -173,6 +173,11 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			}
 		}
 
+		if (!m_player->getAlive() && !m_isGameOver)
+		{
+			m_player->SpawnPlayer(false);
+		}
+
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
 		
@@ -345,7 +350,7 @@ void GameScreen::mainMenuButtonSelected()
 	for (Entity* enemy : m_entityManager.GetEnemies())
 		enemy->setAlive(false);
 	m_entityManager.GetEnemyScores().clear();
-	m_player->m_lives = 1;
+	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
 	m_confirmSound->play();
@@ -357,12 +362,13 @@ void GameScreen::mainMenuButtonSelected()
 void GameScreen::retryButtonSelected()
 {
 	m_isGameOver = false;
-	m_player->m_lives = 1;
+
+	//	Reset the player.
+	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
 	m_currentWave = 0;
+	m_hud.setScore(0);
 	m_hud.setWave(m_currentWave);
-	for (Entity* enemy : m_entityManager.GetEnemies())
-		enemy->setAlive(false);
-	m_entityManager.GetEnemyScores().clear();
+	m_entityManager.reset();
 }

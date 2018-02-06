@@ -9,13 +9,6 @@
 #include "MathHelper.h"
 #include <iostream>
 
-enum State
-{
-	Flee,
-	Chase,
-	Shoot
-};
-
 enum EnemyType
 {
 	Wanderer,
@@ -39,8 +32,6 @@ private:
 	uint16_t m_scoreValue;
     void seekPlayer();
     sf::Vector2f *m_playerPos;
-	float m_rotationDiff;
-	State m_enemyState;
 	EnemyType m_enemyType;
 
 	const uint16_t FIRE_RATE = 600;

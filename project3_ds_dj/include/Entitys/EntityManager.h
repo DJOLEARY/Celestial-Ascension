@@ -38,6 +38,8 @@ public:
 	int GetEnemiesSize();
 	Entity* GetPowerUp();
 
+	void reset();
+
 private:
 	PowerUp *m_powerUp;
 	std::vector<Entity*> m_enemies;

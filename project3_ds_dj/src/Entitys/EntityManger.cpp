@@ -294,3 +294,9 @@ Entity *EntityManager::GetPowerUp()
 {
 	return m_powerUp;
 }
+
+void EntityManager::reset()
+{
+	m_enemies.clear();
+	m_bullets.clear();
+}

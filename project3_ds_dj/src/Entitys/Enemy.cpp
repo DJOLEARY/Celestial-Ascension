@@ -1,25 +1,20 @@
 #include "Entitys\Enemy.h"
 
 Enemy::Enemy(sf::Vector2f *playerPos, int randNum) : 
-    m_playerPos(playerPos),
-	m_scoreValue(100)
+    m_playerPos(playerPos)
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
 	{
 		m_enemyType = EnemyType::Wanderer;
 	}
-	else if (randNum > 51 && randNum <= 85)
+	else if (randNum > 51 && randNum <= 90)
 	{
 		m_enemyType = EnemyType::Seeker;
 	}
-	else if (randNum > 85 && randNum <= 95)
+	else if (randNum > 91 && randNum <= 100)
 	{
 		m_enemyType = EnemyType::Turret;
-	}
-	else
-	{
-		m_enemyType = EnemyType::Snake;
 	}
 
 	switch (m_enemyType)
@@ -38,8 +33,6 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		m_enemyState = State::Chase;
-
 		break;
 	case Turret:
 
@@ -53,8 +46,6 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-
-		m_enemyState = State::Shoot;
 
 		break;
 	case Seeker:
@@ -70,26 +61,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		m_enemyState = State::Chase;
 
-		break;
-	case Snake:
-
-		if (!m_texture.loadFromFile("Assets/SnakeHead.png"))
-		{
-			std::cout << "ERROR::Enemy::Image not loaded";
-		}
-
-		m_speed = 0.075f;
-
-		m_sprite.setTexture(m_texture);
-		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
-		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-
-		m_enemyState = State::Chase;
-
-		break;
-	default:
 		break;
 	}
 
@@ -114,84 +86,31 @@ void Enemy::Update(double dt)
 	{
 		switch (m_enemyType)
 		{
-		case Wanderer:
+		//	Regular Enemies that slowly follows the player || Enemies that are smaller and faster then regular enemies.
+		case Wanderer: case Seeker:
 
-			switch (m_enemyState)
-			{
-			case Flee:
-				
-				break;
-			case Chase:
-				seekPlayer();
-				break;
-			default:
-				break;
-			}
+			seekPlayer();
 
 			m_position += m_velocity * (float)dt;
-			m_orientation += 0.5f;
+
+			if (m_enemyType == EnemyType::Wanderer)
+			{
+				m_orientation += 0.5f;
+			}
+			else
+			{
+				m_orientation += 2.0f;
+			}
 
 			break;
 
 		//	Enemies that cannot move but can shoot at the player.
 		case Turret:
 
-			switch (m_enemyState)
-			{
-			case Flee:
-				
-				break;
-			case Chase:
+			FireBullet();
 
-				break;
-			case Shoot:
-				FireBullet();
-				break;
-			default:
-				break;
-			}
+			m_orientation += 0.1f;
 
-			break;
-
-		//	Enemies that are smaller and faster then regular enemies.
-		case Seeker:
-
-			switch (m_enemyState)
-			{
-			case Flee:
-				
-				break;
-			case Chase:
-				seekPlayer();
-				break;
-			default:
-				break;
-			}
-
-			m_position += m_velocity * (float)dt;
-			m_orientation += 2.0f;
-
-			break;
-
-		//	Enemies that move in a sine wave motion and cannot be shot in the head.
-		case Snake:
-
-			switch (m_enemyState)
-			{
-			case Flee:
-
-				break;
-			case Chase:
-
-				break;
-			default:
-				break;
-			}
-
-			m_position += m_velocity * (float)dt;
-
-			break;
-		default:
 			break;
 		}
 
@@ -230,12 +149,12 @@ void Enemy::FireBullet()
 
 void Enemy::seekPlayer()
 {
-    if (sf::distance(m_position, *m_playerPos) < 10.0f)
-    {
-        m_velocity = sf::Vector2f();
-    }
-    else
-    {
-        m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
-    }
+	if (sf::distance(m_position, *m_playerPos) < 10.0f)
+	{
+		m_velocity = sf::Vector2f();
+	}
+	else
+	{
+		m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
+	}
 }
