@@ -287,12 +287,17 @@ void GameScreen::mainMenuButtonSelected()
 void GameScreen::retryButtonSelected()
 {
 	m_isGameOver = false;
+
+	//	Reset the player.
 	m_player->m_lives = 1;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
+
+	//	Reset the hud.
 	m_currentWave = 0;
 	m_hud.setWave(m_currentWave);
-	for (Entity* enemy : m_entityManager.GetEnemies())
-		enemy->setAlive(false);
-	m_entityManager.GetEnemyScores().clear();
+	m_hud.setScore(0);
+
+	//	Reset the other entitys.
+	m_entityManager.reset();
 }
