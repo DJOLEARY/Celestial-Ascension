@@ -14,7 +14,7 @@
 #include "HUD\HUD.h"
 #include "Entitys\PowerUps\ShieldPower.h"
 #include "Entitys\PowerUps\HeartPower.h"
-#include "Entitys\Bullets\HomingMissile.h"
+#include "Entitys\PowerUps\DoubleBullet.h"
 
 class GameScreen : public Screen
 {

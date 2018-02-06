@@ -20,7 +20,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
     m_player = new Player(controller, m_shotSound);
 
 	m_entityManager.SetPlayer(m_player);
-	m_entityManager.AddPowerUp(new ShieldPower(sf::Vector2f(400.0f, 500.0f)));
+	m_entityManager.AddPowerUp(new DoubleBulletPowerUp(sf::Vector2f(400.0f, 500.0f)));
 
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -178,25 +178,19 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		
 		if (m_player->FireBullet())
 		{
-			if(m_player->getBulletType() == BulletType::SINGLE_BULLET)
+			if (m_player->getBulletType() == BulletType::SINGLE_BULLET)
+			{
+				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
+			}
 			// @todo(darren): Fix an issue with double bullets
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
-				sf::Vector2f offset = sf::Vector2f(sf::randF(0, 10), sf::randF(-20, 20));
+				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
 					sf::normalize(controller.getRightStick()), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
 					sf::normalize(controller.getRightStick()), true));
-			}
-			else if (m_player->getBulletType() == BulletType::MISSILE_HOMING)
-			{
-				// Find an enemey position to track
-				// @todo(darren): This does not work, get basic bullets working first and gameplay loop
-				std::vector<Entity*> enemies = m_entityManager.GetEnemies();
-				int randIndex = static_cast<int>(sf::randF(0, enemies.size()));
-				sf::Vector2f *enemyPos = &enemies[randIndex]->getPos();
-				m_entityManager.AddBullet(new HomingMissile(*m_player->getPosition(), sf::normalize(controller.getRightStick()), enemyPos));
 			}
 		}
 

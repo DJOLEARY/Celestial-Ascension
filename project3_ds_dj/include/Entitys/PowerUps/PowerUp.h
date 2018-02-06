@@ -12,7 +12,8 @@ public:
 	enum PowerUpType
 	{
 		SHIELD_POWER,
-		HEART_POWER
+		HEART_POWER,
+		DOUBLE_BULLET_POWER
 	};
 	PowerUpType m_type;
 

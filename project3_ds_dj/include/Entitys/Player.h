@@ -10,7 +10,6 @@ enum class BulletType
 {
 	SINGLE_BULLET,
 	DOUBLE_BULLET,
-	MISSILE_HOMING
 };
 
 /// <summary>
@@ -24,6 +23,7 @@ public:
 	void ProcessInput(double dt);
 	bool FireBullet();
 	BulletType getBulletType();
+	void setBulletType(BulletType type);
 	int m_lives;
 	bool m_shieldActive;
 

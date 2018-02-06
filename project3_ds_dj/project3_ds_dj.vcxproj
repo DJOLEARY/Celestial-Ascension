@@ -165,8 +165,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Entitys\Bullets\HomingMissile.cpp" />
     <ClCompile Include="src\Entitys\Player.cpp" />
+    <ClCompile Include="src\Entitys\PowerUps\DoubleBullet.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\HeartPower.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\PowerUp.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\ShieldPower.cpp" />
@@ -207,7 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\CircularArray.h" />
-    <ClInclude Include="include\Entitys\Bullets\HomingMissile.h" />
+    <ClInclude Include="include\Entitys\PowerUps\DoubleBullet.h" />
     <ClInclude Include="include\Entitys\PowerUps\HeartPower.h" />
     <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
