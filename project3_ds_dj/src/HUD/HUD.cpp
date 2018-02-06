@@ -41,6 +41,12 @@ HUD::HUD()
 void HUD::setScore(uint16_t score)
 {
 	m_scoreText.setString(std::to_string(score));
+
+	if (score == 0)
+	{
+		m_displayScore = 0;
+		m_currentScore = 0;
+	}
 }
 
 uint32_t *HUD::getScore()

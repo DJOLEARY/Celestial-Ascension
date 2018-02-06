@@ -365,12 +365,8 @@ void GameScreen::retryButtonSelected()
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
-
-	//	Reset the hud.
 	m_currentWave = 0;
-	m_hud.setWave(m_currentWave);
 	m_hud.setScore(0);
-
-	//	Reset the other entitys.
+	m_hud.setWave(m_currentWave);
 	m_entityManager.reset();
 }

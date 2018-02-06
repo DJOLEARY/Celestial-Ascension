@@ -7,14 +7,15 @@
 /// </summary>
 Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_xboxController(controller),
-	m_lives(1), 
+	m_lives(3), 
 	m_shieldActive(false),
 	m_rotationDiff(0.0f), 
 	m_timeToNextShot(0),
 	m_shotSound(shotSound),
 	m_shieldScale(0.0f),
 	m_shieldDeactive(false),
-	m_timeToShieldOver(MAX_SHIELD_TIME)
+	m_timeToShieldOver(MAX_SHIELD_TIME),
+	m_timeToDoubleBulletOver(MAX_BULLET_TIME)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image ship not loaded";
@@ -41,6 +42,11 @@ void Player::SpawnPlayer(bool immediateSpawn)
 	{
 		m_alive = true;
 		m_shieldActive = false;
+		m_shieldScale = 0.0f;
+		m_timeToShieldOver = MAX_SHIELD_TIME;
+		m_timeToDoubleBulletOver = MAX_BULLET_TIME;
+		m_doubleBulletActive = false;
+		setBulletType(BulletType::SINGLE_BULLET);
 		m_velocity = sf::Vector2f();
 		m_position = sf::Vector2f(1000.0f, 500.0f);
 		Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(m_position.x, m_position.y, -50.0f), 100.0f);
@@ -155,6 +161,17 @@ void Player::Update(double dt)
 					m_shieldScale += 0.001f * dt;
 					m_playerShieldSprite.setScale(m_shieldScale, m_shieldScale);
 				}
+			}
+		}
+		else if (m_doubleBulletActive)
+		{
+			m_timeToDoubleBulletOver -= dt;
+
+			if (m_timeToDoubleBulletOver <= 0.0)
+			{
+				m_timeToDoubleBulletOver = MAX_BULLET_TIME;
+				m_doubleBulletActive = false;
+				setBulletType(BulletType::SINGLE_BULLET);
 			}
 		}
 

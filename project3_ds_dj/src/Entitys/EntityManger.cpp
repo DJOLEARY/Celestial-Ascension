@@ -114,9 +114,9 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				sf::Vector2f pos = m_powerUp->getPos();
 				ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
 				Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
+				m_player->m_doubleBulletActive = true;
 				m_powerUp->setAlive(false);
 			}
-
 
 			m_pickUpSound->play();
 		}

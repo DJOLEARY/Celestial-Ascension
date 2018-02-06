@@ -33,10 +33,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		m_scoreValue = 100;
-
 		break;
-
 	case Turret:
 
 		if (!m_texture.loadFromFile("Assets/Turret.png"))
@@ -50,10 +47,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		m_scoreValue = 500;
-
 		break;
-
 	case Seeker:
 
 		if (!m_texture.loadFromFile("Assets/Seeker.png"))
@@ -67,11 +61,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		m_scoreValue = 350;
 
-		break;
-
-	default:
 		break;
 	}
 
@@ -159,24 +149,12 @@ void Enemy::FireBullet()
 
 void Enemy::seekPlayer()
 {
-    if (sf::distance(m_position, *m_playerPos) < 10.0f)
-    {
-        m_velocity = sf::Vector2f();
-    }
-    else
-    {
-        m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
-    }
-}
-
-void Enemy::fleePlayer()
-{
-	if (sf::distance(m_position, *m_playerPos) > 150.0f)
+	if (sf::distance(m_position, *m_playerPos) < 10.0f)
 	{
 		m_velocity = sf::Vector2f();
 	}
 	else
 	{
-		m_velocity = sf::normalize(m_position - *m_playerPos) * m_speed;
+		m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
 	}
 }
