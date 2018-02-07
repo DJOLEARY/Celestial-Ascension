@@ -58,6 +58,7 @@ private:
 
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;
+	void spawnPowerUp();
 	void cameraFollow();
 	void setPauseGUIPos();
 	void setGameOverGUIPos();

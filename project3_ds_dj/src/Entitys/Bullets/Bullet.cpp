@@ -31,8 +31,11 @@ void Bullet::Update(double dt)
 
 void Bullet::Draw(sf::RenderTexture &renderTexture)
 {
-	m_sprite.setPosition(m_position);
-	renderTexture.draw(m_sprite);
+	if (m_alive)
+	{
+		m_sprite.setPosition(m_position);
+		renderTexture.draw(m_sprite);
+	}
 }
 
 bool Bullet::getAlive()

@@ -16,6 +16,7 @@ struct EntityScore
 	sf::Vector2f scoreDisplayPos;
 	uint16_t score;
 	uint16_t displayTime;
+	sf::Color color = sf::Color(226.0f, 96.0f, 9.0f, 255.0f);
 	bool removeScore;
 };
 

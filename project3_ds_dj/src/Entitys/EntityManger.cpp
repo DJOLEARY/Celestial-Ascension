@@ -79,17 +79,18 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			sf::Vector2f vec = m_player->getPos() - (*iter)->getPos();
 			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
 			{
+				score += 100;
+				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 				m_enemies.erase(iter);
 				ParticleManager::instance()->createExplosion(m_player->getPos() - vec, sf::Color(48, 168, 211));
 				break;
 			}
 		}
-		if (Collision(m_player, *iter))
+		else if (Collision(m_player, *iter))
 		{
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
 			m_deathSound->play();
-
 			m_player->m_lives--;
 			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
 			break;
@@ -141,7 +142,15 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	for (EntityScore &entityScore : m_entityScores)
 	{
 		if (entityScore.displayTime > 700)
-			entityScore.removeScore = true;
+		{
+			if (entityScore.color.a <= 0.0f)
+			{
+				entityScore.removeScore = true;
+				entityScore.color.a = 0.0f;
+			}
+			else
+				entityScore.color.a -= 15.0f;
+		}
 		else
 			entityScore.displayTime += dt;
 	}
@@ -191,7 +200,17 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 
 	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
-		if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter))
+		if (m_player->m_shieldActive && !(*bulletIter)->isPlayerBullet())
+		{
+			sf::Vector2f vec = m_player->getPos() - (*bulletIter)->getPos();
+			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
+			{
+				ParticleManager::instance()->createExplosion(m_player->getPos() - vec, sf::Color(48, 168, 211));
+				(*bulletIter)->setAlive(false);
+				break;
+			}
+		}
+		else if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter))
 		{
 			ParticleManager::instance()->createExplosion((m_player)->getPos(), sf::Color(31, 196, 58));
 			(m_player)->m_lives--;
@@ -232,6 +251,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 	{
 		m_scoreText.setPosition(entityScore.scoreDisplayPos);
 		m_scoreText.setString(std::to_string(entityScore.score));
+		m_scoreText.setFillColor(entityScore.color);
 		renderTexture.draw(m_scoreText);
 	}
 }
