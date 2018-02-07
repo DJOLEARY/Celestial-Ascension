@@ -79,6 +79,8 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			sf::Vector2f vec = m_player->getPos() - (*iter)->getPos();
 			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
 			{
+				score += 100;
+				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
 				m_enemies.erase(iter);
 				ParticleManager::instance()->createExplosion(m_player->getPos() - vec, sf::Color(48, 168, 211));
 				break;
@@ -89,7 +91,6 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
 			m_deathSound->play();
-
 			m_player->m_lives--;
 			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
 			break;
