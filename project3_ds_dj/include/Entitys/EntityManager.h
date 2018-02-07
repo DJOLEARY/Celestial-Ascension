@@ -7,6 +7,7 @@
 #include <typeinfo>
 #include <iostream>
 #include "Entitys\Player.h"
+#include "Enemy.h"
 #include "Entitys\PowerUps\PowerUp.h"
 #include "Bullets\Bullet.h"
 
@@ -28,12 +29,12 @@ public:
 	~EntityManager();
 
 	void AddBullet(Bullet *entity);
-	void AddEnemy(Entity *entity);
+	void AddEnemy(Enemy *entity);
 	void AddPowerUp(PowerUp *entity);
 	void SetPlayer(Player* player);
 	void Update(sf::Int32 dt, uint32_t &score);
 	void Draw(sf::RenderTexture &renderTexture);
-	std::vector<Entity*> &GetEnemies();
+	std::vector<Enemy*> &GetEnemies();
 	std::vector<EntityScore> &GetEnemyScores();
 	int GetEnemiesSize();
 	Entity* GetPowerUp();
@@ -42,7 +43,7 @@ public:
 
 private:
 	PowerUp *m_powerUp;
-	std::vector<Entity*> m_enemies;
+	std::vector<Enemy*> m_enemies;
 	std::vector<Bullet*> m_bullets;
 	std::vector<EntityScore> m_entityScores;
 	Player* m_player;

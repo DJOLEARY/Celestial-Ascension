@@ -25,7 +25,7 @@ public:
 
     virtual void Update(double dt) override;
     virtual void Draw(sf::RenderTexture &renderTexture) override;
-
+	uint16_t getScore();
 	void FireBullet();
 private:
 
