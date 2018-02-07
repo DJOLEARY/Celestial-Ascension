@@ -4,7 +4,7 @@ Game::Game()
 	:
 	m_windowSettings(),
 	m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings),
-	m_xboxController(CONTROLLER_TWO),	// @note(darren): Chirst
+	m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
 	m_bloom(m_window.getSize(), 0.0f, 1.0f)
 {

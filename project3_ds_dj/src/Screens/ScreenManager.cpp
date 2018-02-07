@@ -5,7 +5,25 @@
 ScreenManager::ScreenManager()
 	: m_gameState(GameState::SplashScreen), m_currentScreen(0)
 {
-	
+	m_xboxButtonTexture.loadFromFile("Assets/Xbox_Controller_Buttons.png");
+	m_xboxLeftStick.setTexture(m_xboxButtonTexture);
+	m_xboxLeftStick.setTextureRect(sf::IntRect(0, 0, 80, 90));
+	m_xboxLeftStick.setPosition(sf::Vector2f(75.0f, 910.0f));
+
+	m_xboxArrowButton.setTexture(m_xboxButtonTexture);
+	m_xboxArrowButton.setTextureRect(sf::IntRect(80, 0, 80, 90));
+	m_xboxArrowButton.setPosition(sf::Vector2f(175.0f, 910.0f));
+
+	m_xboxButtonA.setTexture(m_xboxButtonTexture);
+	m_xboxButtonA.setTextureRect(sf::IntRect(160, 0, 80, 90));
+	m_xboxButtonA.setPosition(sf::Vector2f(1615.0f, 910.0f));
+
+	m_xboxButtonB.setTexture(m_xboxButtonTexture);
+	m_xboxButtonB.setTextureRect(sf::IntRect(240, 0, 90, 90));
+	m_xboxButtonB.setPosition(sf::Vector2f(1760.0f, 910.0f));
+
+	m_font.loadFromFile("Assets/Fonts/OCRAEXT.TTF");
+	m_buttonUIText.setFont(m_font);
 }
 
 ScreenManager::~ScreenManager()
@@ -70,6 +88,25 @@ void ScreenManager::update(XboxController &controller, sf::Int32 dt)
 /// <param name="renderTexture">The render texture used for drawing the screens</param>
 void ScreenManager::draw(sf::RenderTexture &renderTexture)
 {
+	if (m_gameState != GameState::GamePlay)
+	{
+		renderTexture.draw(m_xboxLeftStick);
+		renderTexture.draw(m_xboxArrowButton);
+		m_buttonUIText.setPosition(sf::Vector2f(95.0f, 975.0f));
+		m_buttonUIText.setString("Navigate");
+		renderTexture.draw(m_buttonUIText);
+
+		renderTexture.draw(m_xboxButtonA);
+		m_buttonUIText.setPosition(sf::Vector2f(1600.0f, 975.0f));
+		m_buttonUIText.setString("Select");
+		renderTexture.draw(m_buttonUIText);
+
+		renderTexture.draw(m_xboxButtonB);
+		m_buttonUIText.setPosition(sf::Vector2f(1755.0f, 975.0f));
+		m_buttonUIText.setString("Back");
+		renderTexture.draw(m_buttonUIText);
+	}
+
 	if (m_currentScreen < m_screens.size())
 		m_screens.at(m_currentScreen)->render(renderTexture);
 }
