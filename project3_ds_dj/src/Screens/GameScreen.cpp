@@ -356,17 +356,22 @@ void GameScreen::mainMenuButtonSelected()
 	m_isPaused = false;
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
-	m_currentWave = 0;
-	m_hud.setWave(m_currentWave);
 	m_leftViaPause = true;
-	for (Entity* enemy : m_entityManager.GetEnemies())
-		enemy->setAlive(false);
-	m_entityManager.GetEnemyScores().clear();
+	m_confirmSound->play();
+	m_isGameOver = false;
+	m_isGameOver = false;
+
+	//	Reset the player.
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
-	m_confirmSound->play();
-	m_isGameOver = false;
+	//	Reset the hud
+	m_currentWave = 0;
+	m_hud.setScore(0);
+	m_hud.setWave(m_currentWave);
+	//	Reset all other entitys
+	m_entityManager.reset();
+
 	reset();
 }
 
@@ -379,8 +384,10 @@ void GameScreen::retryButtonSelected()
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
+	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
 	m_hud.setWave(m_currentWave);
+	//	Reset all other entitys
 	m_entityManager.reset();
 }
