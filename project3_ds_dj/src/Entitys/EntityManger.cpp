@@ -320,4 +320,5 @@ void EntityManager::reset()
 {
 	m_enemies.clear();
 	m_bullets.clear();
+	m_powerUp->setAlive(false);
 }

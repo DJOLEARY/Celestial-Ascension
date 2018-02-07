@@ -56,6 +56,8 @@ private:
 	float interpolation;
 	bool transitionIn;
 
+	bool m_playerWasAlive;
+
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;
 	void spawnPowerUp();

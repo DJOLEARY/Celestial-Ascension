@@ -178,6 +178,12 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			m_player->SpawnPlayer(false);
 		}
 
+		if (m_player->getAlive() && !m_playerWasAlive)
+		{
+			m_entityManager.reset();
+			m_currentWave--;
+		}
+
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
 		
@@ -232,6 +238,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			transitionIn = false;
 		}
 	}
+
+	m_playerWasAlive = m_player->getAlive();
 }
 
 void GameScreen::spawnPowerUp()

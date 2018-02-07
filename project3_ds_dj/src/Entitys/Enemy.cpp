@@ -74,7 +74,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 
 	m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
 
-	while (sf::distance(m_position, *m_playerPos) < 200.0f)
+	while (sf::distance(m_position, *m_playerPos) < 400.0f)
 	{
 		m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
 	}
