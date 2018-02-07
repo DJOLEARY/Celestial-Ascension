@@ -133,11 +133,11 @@
       <AdditionalIncludeDirectories>.\include;..\SFML\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>sfml-audio.lib;sfml-graphics.lib;sfml-window.lib;sfml-system.lib;sfml-main.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>..\SFML\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
     <PostBuildEvent>
@@ -165,6 +165,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\PlayerShipIconDump.cpp" />
     <ClCompile Include="src\Entitys\Player.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\DoubleBullet.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\HeartPower.cpp" />
@@ -212,6 +213,7 @@
     <ClInclude Include="include\Entitys\PowerUps\PowerUp.h" />
     <ClInclude Include="include\Entitys\PowerUps\ShieldPower.h" />
     <ClInclude Include="include\HUD\HUD.h" />
+    <ClInclude Include="include\ImageIcon.h" />
     <ClInclude Include="include\Physics\Grid.h" />
     <ClInclude Include="include\Entitys\Enemy.h" />
     <ClInclude Include="include\Entitys\Entity.h" />

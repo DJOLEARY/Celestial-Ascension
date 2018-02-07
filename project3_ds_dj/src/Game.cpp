@@ -1,18 +1,20 @@
 #include "Game.h"
+#include "ImageIcon.h"
 
-Game::Game()
-	:
+Game::Game() :
 	m_windowSettings(),
-	m_window(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings),
 	m_xboxController(CONTROLLER_ONE),
 	m_view(sf::FloatRect(0, 0, 1920, 1080)),
+	m_window(sf::VideoMode::getDesktopMode(), "      Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings),
 	m_bloom(m_window.getSize(), 0.0f, 1.0f)
 {
 	std::cout << "openGL version:" << m_window.getSettings().majorVersion 
 		<< "." << m_window.getSettings().minorVersion << std::endl << std::endl;
 
+	m_windowTitle = "      Project 3 - Darren & D.J";
 	m_view.zoom(1.0f);
 	m_window.setMouseCursorVisible(false);
+	m_window.setIcon(icon_image.width, icon_image.height, icon_image.pixel_data);
 
 
 	//-----------------Load all sounds here-----------------//
@@ -116,7 +118,8 @@ void Game::run()
 
 		if (m_options->m_goToFullscreenMode && !m_inFullscreenMode)
 		{
-			m_window.create(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Fullscreen, m_windowSettings);
+			m_window.create(sf::VideoMode::getDesktopMode(), m_windowTitle, sf::Style::Fullscreen, m_windowSettings);
+			m_window.setIcon(icon_image.width, icon_image.height, icon_image.pixel_data);
 			m_window.setMouseCursorVisible(false);
 			m_options->m_goToFullscreenMode = false;
 			m_inFullscreenMode = true;
@@ -124,7 +127,8 @@ void Game::run()
 		}
 		else if(m_options->m_goToWindowedMode && !m_inWindowedMode)
 		{
-			m_window.create(sf::VideoMode::getDesktopMode(), "Project 3 - Darren & D.J", sf::Style::Default, m_windowSettings);
+			m_window.create(sf::VideoMode::getDesktopMode(), m_windowTitle, sf::Style::Default, m_windowSettings);
+			m_window.setIcon(icon_image.width, icon_image.height, icon_image.pixel_data);
 			m_window.setMouseCursorVisible(false);
 			m_options->m_goToWindowedMode = false;
 			m_inWindowedMode = true;
