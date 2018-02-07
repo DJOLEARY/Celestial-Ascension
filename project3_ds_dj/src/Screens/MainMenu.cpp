@@ -55,8 +55,7 @@ MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound) :
 		std::cout << "ERROR::Player::Image not loaded";
 
 	m_gameLogoSprite.setTexture(m_gameLogoTexture);
-	m_gameLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 150.0f));
-	m_gameLogoSprite.setScale(sf::Vector2f(0.40f, 0.40f));
+	m_gameLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 220.0f));
 	m_gameLogoSprite.setOrigin(m_gameLogoSprite.getLocalBounds().width / 2.0f, m_gameLogoSprite.getLocalBounds().height / 2.0f);
 }
 

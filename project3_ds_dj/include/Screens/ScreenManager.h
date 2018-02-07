@@ -22,6 +22,13 @@ private:
 	GameState m_gameState;
 	uint8_t m_currentScreen;
 	sf::Clock m_clock;
+	sf::Texture m_xboxButtonTexture;
+	sf::Sprite m_xboxLeftStick;
+	sf::Sprite m_xboxArrowButton;
+	sf::Sprite m_xboxButtonA;
+	sf::Sprite m_xboxButtonB;
+	sf::Font m_font;
+	sf::Text m_buttonUIText;
 };
 
 #endif

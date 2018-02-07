@@ -43,6 +43,7 @@
     </ClCompile>
     <ClCompile Include="src\Screens\Leaderboard.cpp" />
     <ClCompile Include="src\Entitys\PowerUps\DoubleBullet.cpp" />
+    <ClCompile Include="src\PlayerShipIconDump.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\Game.h" />
@@ -86,6 +87,7 @@
     </ClInclude>
     <ClInclude Include="include\Screens\Leaderboard.h" />
     <ClInclude Include="include\Entitys\PowerUps\DoubleBullet.h" />
+    <ClInclude Include="include\ImageIcon.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />

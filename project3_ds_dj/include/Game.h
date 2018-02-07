@@ -29,6 +29,7 @@ private:
 
 	sf::ContextSettings m_windowSettings;
     sf::RenderWindow m_window;
+	std::string m_windowTitle;
 	sf::View m_view;
 	sf::RenderTexture m_renderTexture;
 	Bloom m_bloom;
