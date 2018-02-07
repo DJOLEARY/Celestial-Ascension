@@ -33,6 +33,8 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
+		m_scoreValue = 100;
+
 		break;
 	case Turret:
 
@@ -46,6 +48,8 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+
+		m_scoreValue = 500;
 
 		break;
 	case Seeker:
@@ -61,6 +65,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
 		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
+		m_scoreValue = 250;
 
 		break;
 	}
@@ -127,6 +132,11 @@ void Enemy::Draw(sf::RenderTexture &renderTexture)
 		m_sprite.setPosition(m_position);
 		renderTexture.draw(m_sprite);
 	}
+}
+
+uint16_t Enemy::getScore()
+{
+	return m_scoreValue;
 }
 
 void Enemy::FireBullet()

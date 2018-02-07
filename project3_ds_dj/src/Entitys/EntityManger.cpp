@@ -18,7 +18,7 @@ EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::
 
 	m_scoreText.setFont(*m_font);
 	m_scoreText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
-	m_scoreText.setString("Darren");
+	m_scoreText.setString("");
 }
 
 /// <summary>
@@ -44,7 +44,7 @@ void EntityManager::AddBullet(Bullet *entity)
 /// Adds Enemy to the entity manager.
 /// </summary>
 /// <param name="entity"></param>
-void EntityManager::AddEnemy(Entity * entity)
+void EntityManager::AddEnemy(Enemy * entity)
 {
 	m_enemies.push_back(entity);
 }
@@ -191,8 +191,9 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
 				(*bulletIter)->setAlive(false);
-				score += 100;
-				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
+				uint16_t enemyScore = (*iter)->getScore();
+				score += enemyScore;
+				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), enemyScore });
 			}
 		}
 	}
@@ -295,7 +296,7 @@ bool EntityManager::SimpleCollision(Entity* entity1, Entity* entity2)
 	return false;
 }
 
-std::vector<Entity*> &EntityManager::GetEnemies()
+std::vector<Enemy*> &EntityManager::GetEnemies()
 {
 	return m_enemies;
 }
