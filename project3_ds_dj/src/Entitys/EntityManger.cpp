@@ -141,7 +141,15 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	for (EntityScore &entityScore : m_entityScores)
 	{
 		if (entityScore.displayTime > 700)
-			entityScore.removeScore = true;
+		{
+			if (entityScore.color.a <= 0.0f)
+			{
+				entityScore.removeScore = true;
+				entityScore.color.a = 0.0f;
+			}
+			else
+				entityScore.color.a -= 15.0f;
+		}
 		else
 			entityScore.displayTime += dt;
 	}
@@ -241,6 +249,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 	{
 		m_scoreText.setPosition(entityScore.scoreDisplayPos);
 		m_scoreText.setString(std::to_string(entityScore.score));
+		m_scoreText.setFillColor(entityScore.color);
 		renderTexture.draw(m_scoreText);
 	}
 }
