@@ -105,7 +105,7 @@ void Game::run()
 	timeSinceLastUpdate = clock.restart();
 
     // Start the game loop
-    while (!exitMenu->getExitState())
+    while (!exitMenu->getExitState() && m_window.isOpen())
     {
         // Process events
         sf::Event event;
