@@ -198,7 +198,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 
 	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
-		if (m_player->m_shieldActive)
+		if (m_player->m_shieldActive && !(*bulletIter)->isPlayerBullet())
 		{
 			sf::Vector2f vec = m_player->getPos() - (*bulletIter)->getPos();
 			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
