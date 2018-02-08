@@ -28,7 +28,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
 			std::cout << "ERROR::Enemy::Image not loaded";
 		}
 
-		m_speed = 0.075f;
+		m_speed = 0.2f;
 
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -60,7 +60,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
 			std::cout << "ERROR::Enemy::Image not loaded";
 		}
 
-		m_speed = 0.2f;
+		m_speed = 0.35f;
 
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
