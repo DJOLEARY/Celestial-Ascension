@@ -259,9 +259,11 @@ void GameScreen::spawnPowerUp()
 
 void GameScreen::setWave(uint8_t waveNum)
 {
-	if (m_leftViaPause)
+	if (!m_leftViaPause)
 	{
 		m_hud.setWave(waveNum);
+		m_waveCompleteSound->play();
+		spawnPowerUp();
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
@@ -271,14 +273,14 @@ void GameScreen::setWave(uint8_t waveNum)
 	else
 	{
 		m_hud.setWave(waveNum);
-		m_waveCompleteSound->play();
-
 		spawnPowerUp();
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
 			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 		}
+
+		m_leftViaPause = false;
 	}
 }
 
