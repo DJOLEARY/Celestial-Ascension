@@ -44,7 +44,7 @@ bool Button::processInput(XboxController & controller)
 		inFocusColor.a = m_alpha;
 		m_buttonSprite.setColor(inFocusColor);
 
-		if (controller.isButtonPressed(XBOX360_UP))
+		if (controller.isButtonPressed(XBOX360_UP) || controller.getLeftStickFlickUp())
 		{
 			if (m_up != nullptr)
 			{
@@ -55,7 +55,7 @@ bool Button::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN))
+		else if (controller.isButtonPressed(XBOX360_DOWN) || controller.getLeftStickFlickDown())
 		{
 			if (m_down != nullptr)
 			{
