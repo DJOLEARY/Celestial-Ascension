@@ -45,6 +45,9 @@ private:
 	sf::SoundBuffer m_confirmBuffer;
 	sf::Sound m_confirmSound;
 
+	sf::SoundBuffer m_navigateBuffer;
+	sf::Sound m_navigateSound;
+
 	sf::SoundBuffer m_deathSoundBuffer;
 	sf::Sound m_deathSound;
 
@@ -56,6 +59,9 @@ private:
 
 	sf::SoundBuffer m_waveCompleteSoundBuffer;
 	sf::Sound m_waveCompleteSound;
+
+	sf::SoundBuffer m_turretShotSoundBuffer;
+	sf::Sound m_turretShotSound;
 
 	sf::SoundBuffer m_hitWallSoundBuffer;
 	sf::Sound m_hitWallSound;

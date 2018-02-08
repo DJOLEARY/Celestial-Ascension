@@ -12,10 +12,11 @@
 /// <param name="sliderHeight">Height of the slider</param>
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
-Slider::Slider(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, sf::Vector2f &position, float sliderWidth,
+Slider::Slider(sf::Sound *navigateSound, sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, sf::Vector2f &position, float sliderWidth,
 	float sliderHeight, sf::Vector2f &endPos):
 	focusColor(focusColorIn), noFocusColor(noFocusColorIn), fillColor(fillColorIn), 
-	m_barBaseWidth(sliderWidth), m_barSize(m_barBaseWidth), m_barBaseHeight(sliderHeight)
+	m_barBaseWidth(sliderWidth), m_barSize(m_barBaseWidth), m_barBaseHeight(sliderHeight),
+	m_navigateSound(navigateSound)
 {
 	widgetPos = position;
 	widgetStartPos = position;
@@ -112,6 +113,7 @@ bool Slider::processInput(XboxController &controller)
 				// @todo(darren): Play sound here
 				m_up->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -122,6 +124,7 @@ bool Slider::processInput(XboxController &controller)
 				// @todo(darren): Play sound here
 				m_down->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}

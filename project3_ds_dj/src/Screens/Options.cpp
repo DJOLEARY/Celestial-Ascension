@@ -1,6 +1,8 @@
 #include "Screens\Options.h"
 
-Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound):
+Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, 
+	sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
+	sf::Sound *hitWallSound, sf::Sound *navigateSound):
 	Screen(GameState::Options, view), 
 	transitionIn(true),
 	m_music(music),
@@ -8,7 +10,10 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_shotSound(shotSound),
 	m_waveCompleteSound(waveCompleteSound),
 	m_pickUpSound(pickUpSound),
-	m_deathSound(deathSound)
+	m_deathSound(deathSound),
+	m_turretShotSound(turretShotSound),
+	m_hitWallSound(hitWallSound),
+	m_navigateSound(navigateSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -17,13 +22,13 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	// Initiaise the GUI elements
 	m_optionsTitle = new Label("Options", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 200.0f), sf::Vector2f(1920.0f / 2, 200.0f));
 	m_musicTitle = new Label("Music Volume", 24, sf::Vector2f(1920.0f / 2, 350), sf::Vector2f(1920.0f / 2 + 400.0f, 350));
-	m_musicVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f), 
+	m_musicVolume = new Slider(m_navigateSound, focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 400.0f), 
 		200.0f, 20.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
 	m_effectsTitle = new Label("Effects Volume", 24, sf::Vector2f(1920 / 2, 450), sf::Vector2f(1920.0f / 2 + 400.0f, 450));
-	m_effectsVolume = new Slider(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 500.0f),
+	m_effectsVolume = new Slider(m_navigateSound, focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2, 500.0f),
 		200.0f, 20.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
 	m_muteTitle = new Label("Mute", 24, sf::Vector2f(1920.0f / 2, 550), sf::Vector2f(1920.0f / 2 + 400.0f, 550));
-	m_muteCheckBox = new CheckBox(sf::Vector2f(1920.0f / 2, 600), focusIn, focusOut, fillColor, 
+	m_muteCheckBox = new CheckBox(m_confirmSound, m_navigateSound, sf::Vector2f(1920.0f / 2, 600), focusIn, focusOut, fillColor,
 		30.0f, 30.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
 
 	m_windowedLabel = new Label("Windowed", 24, sf::Vector2f(1920.0f / 2 - 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 325.0f, 650.0f));
@@ -33,14 +38,6 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_fullscreenLabel = new Label("Fullscreen", 24, sf::Vector2f(1920.0f / 2 + 75.0f, 650.0f), sf::Vector2f(1920.0f / 2 + 475.0f, 650.0f));
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
 		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 475.0f, 700.0f), 22, 30.0f, 30.0f));
-
-	if (!m_backTexure.loadFromFile("Assets/GUI/BackButton.png"))
-		std::cout << "ERROR::Options::backButton image not loaded";
-
-	// @refactor(darren): change order of end position for button
-	m_backButton = new Button(m_backTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
-		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
-	m_backButton->select = std::bind(&Options::backButtonSelected, this);
 
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();
@@ -62,11 +59,8 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_windowStyleOptions[0]->activate();
 	m_windowStyleOptions[0]->m_up = m_muteCheckBox;
 	m_windowStyleOptions[1]->m_up = m_muteCheckBox;
-	m_windowStyleOptions[0]->m_down = m_backButton;
-	m_windowStyleOptions[1]->m_down = m_backButton;
 	m_windowStyleOptions[0]->m_right = m_windowStyleOptions[1];
 	m_windowStyleOptions[1]->m_left = m_windowStyleOptions[0];
-	m_backButton->m_up = m_windowStyleOptions[0];
 
 	m_gui.add(m_optionsTitle);
 	m_gui.add(m_musicTitle);
@@ -79,17 +73,8 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 		m_gui.add(windowOpt);
 	m_gui.add(m_windowedLabel);
 	m_gui.add(m_fullscreenLabel);
-	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
-
-	// @todo(darren): Take this out, just don't want to listen to game sound
-	//m_music->pause();
-	//m_confirmSound->setVolume(0);
-	//m_shotSound->setVolume(0);
-	//m_waveCompleteSound->setVolume(0);
-	//m_pickUpSound->setVolume(0);
-	//m_deathSound->setVolume(0);
 }
 
 /// <summary>
@@ -168,6 +153,9 @@ void Options::volumeChangeSliderEffects()
 	m_waveCompleteSound->setVolume(m_effectsVolumeValue);
 	m_pickUpSound->setVolume(m_effectsVolumeValue);
 	m_deathSound->setVolume(m_effectsVolumeValue);
+	m_turretShotSound->setVolume(m_effectsVolumeValue);
+	m_hitWallSound->setVolume(m_effectsVolumeValue);
+	m_navigateSound->setVolume(m_effectsVolumeValue);
 }
 
 /// <summary>
@@ -195,6 +183,9 @@ void Options::checkBoxSwitched()
 		m_waveCompleteSound->setVolume(m_effectsVolumeValue);
 		m_pickUpSound->setVolume(m_effectsVolumeValue);
 		m_deathSound->setVolume(m_effectsVolumeValue);
+		m_turretShotSound->setVolume(m_effectsVolumeValue);
+		m_hitWallSound->setVolume(m_effectsVolumeValue);
+		m_navigateSound->setVolume(m_effectsVolumeValue);
 
 		m_confirmSound->play();
 	}
@@ -209,6 +200,9 @@ void Options::checkBoxSwitched()
 		m_waveCompleteSound->setVolume(0);
 		m_pickUpSound->setVolume(0);
 		m_deathSound->setVolume(0);
+		m_turretShotSound->setVolume(0);
+		m_hitWallSound->setVolume(0);
+		m_navigateSound->setVolume(0);
 	}
 }
 

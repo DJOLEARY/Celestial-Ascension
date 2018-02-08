@@ -16,13 +16,11 @@ public:
 	void reset();
 
 private:
-	void backButtonSelected();
 	bool m_backButtonPressed;
 	bool m_transitionIn;
 	float m_interpolation;
 
 	sf::Texture m_backTexure;
-	Button *m_backButton;
 	Label *m_leaderboardTitle;
 	Label *m_numbers[10];
 	Label *m_names[10];

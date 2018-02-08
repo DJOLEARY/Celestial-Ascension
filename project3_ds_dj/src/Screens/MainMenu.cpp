@@ -1,9 +1,10 @@
 #include "Screens\MainMenu.h"
 
-MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound) : 
+MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound) :
 	Screen(GameState::MainMenu, view), 
 	m_alphaFadeValue(255),
-	m_confirmSound(confirmSound)
+	m_confirmSound(confirmSound),
+	m_navigateSound(navigateSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -23,13 +24,13 @@ MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound) :
 	if (!m_exitTexture.loadFromFile("Assets/GUI/ExitButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
-	m_playButton = new Button(m_playTexture, sf::Vector2f(1920 / 2, 400.0f),
+	m_playButton = new Button(m_confirmSound, m_navigateSound, m_playTexture, sf::Vector2f(1920 / 2, 400.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
-	m_optionsButton = new Button(m_optionsTexture, sf::Vector2f(1920 / 2, 500.0f),
+	m_optionsButton = new Button(m_confirmSound, m_navigateSound, m_optionsTexture, sf::Vector2f(1920 / 2, 500.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 500.0f));
-	m_creditsButton = new Button(m_creditsTexture, sf::Vector2f(1920 / 2, 600.0f),
+	m_creditsButton = new Button(m_confirmSound, m_navigateSound, m_creditsTexture, sf::Vector2f(1920 / 2, 600.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 600.0f));
-	m_exitButton = new Button(m_exitTexture, sf::Vector2f(1920 / 2, 700.0f),
+	m_exitButton = new Button(m_confirmSound, m_navigateSound, m_exitTexture, sf::Vector2f(1920 / 2, 700.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 700.0f));
 
 	m_playButton->select = std::bind(&MainMenu::playButtonSelected, this);
@@ -155,7 +156,6 @@ void MainMenu::render(sf::RenderTexture & renderTexture)
 void MainMenu::playButtonSelected()
 {
 	playButtonPressed = true;
-	m_confirmSound->play();
 }
 
 /// <summary>
@@ -164,7 +164,6 @@ void MainMenu::playButtonSelected()
 void MainMenu::optionsButtonSelected()
 {
 	optionsButtonPressed = true;
-	m_confirmSound->play();
 }
 
 /// <summary>
@@ -173,7 +172,6 @@ void MainMenu::optionsButtonSelected()
 void MainMenu::quitButtonSelected()
 {
 	exitButtonPressed = true;
-	m_confirmSound->play();
 }
 
 /// <summary>
@@ -182,5 +180,4 @@ void MainMenu::quitButtonSelected()
 void MainMenu::creditsButtonSelected()
 {
 	creditsButtonsPressed = true;
-	m_confirmSound->play();
 }

@@ -1,9 +1,10 @@
 #include "Screens\ExitMenu.h"
 
-ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound) : 
+ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound) :
 	Screen(GameState::ExitMenu, view), 
 	transitionIn(true),
-	m_confirmSound(confirmSound)
+	m_confirmSound(confirmSound),
+	m_navigateSound(navigateSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -17,8 +18,8 @@ ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound) :
 
 	m_exitGameLabel = new Label("Exit", 80, sf::Vector2f(1920.0f / 2 - 400.0f, 200.0f), sf::Vector2f(1920.0f / 2, 200.0f));
 	m_areYouSureLabel = new Label("Are you sure?", 60, sf::Vector2f(1920.0f / 2, 450.0f), sf::Vector2f(1920.0f / 2 + 400.0f, 450.0f));
-	m_noButton = new Button(m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
-	m_yesButton = new Button(m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
+	m_noButton = new Button(m_confirmSound, m_navigateSound, m_noTexture, sf::Vector2f(1920.0f / 2 - 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 150.0f, 650.0f));
+	m_yesButton = new Button(m_confirmSound, m_navigateSound, m_yesTexture, sf::Vector2f(1920.0f / 2 + 150.0f, 550.0f), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 150.0f, 650.0f));
 
 	m_noButton->select = std::bind(&ExitMenu::noButtonSelected, this);
 	m_yesButton->select = std::bind(&ExitMenu::yesButtonSelected, this);

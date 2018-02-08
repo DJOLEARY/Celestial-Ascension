@@ -1,7 +1,8 @@
 #include "Entitys\Enemy.h"
 
-Enemy::Enemy(sf::Vector2f *playerPos, int randNum) : 
-    m_playerPos(playerPos)
+Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
+	m_playerPos(playerPos),
+	m_turretShotSound(turretShotSound)
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
@@ -27,7 +28,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 			std::cout << "ERROR::Enemy::Image not loaded";
 		}
 
-		m_speed = 0.075f;
+		m_speed = 0.2f;
 
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -59,7 +60,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 			std::cout << "ERROR::Enemy::Image not loaded";
 		}
 
-		m_speed = 0.2f;
+		m_speed = 0.35f;
 
 		m_sprite.setTexture(m_texture);
 		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
@@ -74,7 +75,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum) :
 
 	m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
 
-	while (sf::distance(m_position, *m_playerPos) < 200.0f)
+	while (sf::distance(m_position, *m_playerPos) < 400.0f)
 	{
 		m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
 	}
@@ -139,6 +140,11 @@ uint16_t Enemy::getScore()
 	return m_scoreValue;
 }
 
+EnemyType Enemy::getType()
+{
+	return m_enemyType;
+}
+
 void Enemy::FireBullet()
 {
 	if (m_enemyType == EnemyType::Turret && m_alive)
@@ -146,6 +152,7 @@ void Enemy::FireBullet()
 		sf::Time elapsedTime = m_clock.getElapsedTime();
 		if (elapsedTime.asMilliseconds() > FIRE_RATE)
 		{
+			m_turretShotSound->play();
 			m_timeToNextShot++;
 			m_clock.restart();
 			m_fireBullet = true;

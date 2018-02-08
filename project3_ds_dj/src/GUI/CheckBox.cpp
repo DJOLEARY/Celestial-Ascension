@@ -11,11 +11,13 @@
 /// <param name="boxHeight">Height of the Check Box</param>
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
-CheckBox::CheckBox(sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &outOfFocus, sf::Color &fillInColor, float boxWidth,
+CheckBox::CheckBox(sf::Sound *confirmSound, sf::Sound *navigateSound, sf::Vector2f & positionIn, sf::Color &focusColor, sf::Color &outOfFocus, sf::Color &fillInColor, float boxWidth,
 	float boxHeight, sf::Vector2f &endPos):
 	focusColor(focusColor),
 	noFocusColor(outOfFocus),
-	fillColor(fillInColor)
+	fillColor(fillInColor),
+	m_confirmSound(confirmSound),
+	m_navigateSound(navigateSound)
 {
 	widgetPos = positionIn; // Set the position in the base class
 	widgetStartPos = positionIn;
@@ -59,6 +61,7 @@ bool CheckBox::processInput(XboxController & controller)
 			{
 				m_up->promoteFocus(); // Set the button above *this to be in focus
 				demoteFocus(); // Set the check box to be out of focus
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -68,6 +71,7 @@ bool CheckBox::processInput(XboxController & controller)
 			{
 				m_down->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -77,6 +81,7 @@ bool CheckBox::processInput(XboxController & controller)
 			try
 			{
 				select();
+				m_confirmSound->play();
 			}
 			catch (const std::bad_function_call &e) {}
 		}

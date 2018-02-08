@@ -2,16 +2,19 @@
 #include "Physics\ParticleManager.h"
 #include <stdlib.h>
 
-GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
-	sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
-	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *hitWallSound) :
+GameScreen::GameScreen(XboxController &controller, sf::View &view, 
+	sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
+	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
+	sf::Sound *hitWallSound, sf::Sound *navigateSound) :
 	Screen(GameState::GamePlay, view),
 	m_isPaused(false),
 	m_currentWave(1),
 	m_entityManager(deathSound, pickUpSound, hitWallSound),
 	m_confirmSound(confirmSound),
 	m_shotSound(shotSound),
-	m_waveCompleteSound(waveCompleteSound)
+	m_turretShotSound(turretShotSound),
+	m_waveCompleteSound(waveCompleteSound),
+	m_navigateSound(navigateSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -25,7 +28,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 	}
 
 	// Set the wave for the game and display on the hud
@@ -43,18 +46,18 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_gameOverLabel = new Label("GAME OVER", 84);
 	m_gameOverLabel->setTextColor(sf::Color(255, 0, 0));
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
-	m_resume = new Button(m_resumeTexture, sf::Vector2f(),
+	m_resume = new Button(m_confirmSound, m_navigateSound, m_resumeTexture, sf::Vector2f(),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f());
-	m_mainMenu = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f), 
+	m_mainMenu = new Button(m_confirmSound, m_navigateSound, m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
-	m_mainMenuGameOver = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
+	m_mainMenuGameOver = new Button(m_confirmSound, m_navigateSound, m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
-	m_retry = new Button(m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
+	m_retry = new Button(m_confirmSound, m_navigateSound, m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i] = new Button(m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
 
 	m_charNameLables[0] = new Label("A", 60);
@@ -178,6 +181,12 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			m_player->SpawnPlayer(false);
 		}
 
+		if (m_player->getAlive() && !m_playerWasAlive)
+		{
+			m_entityManager.reset();
+			m_currentWave--;
+		}
+
 		m_hud.setLives(m_player->m_lives);
 		m_hud.update(dt, m_cameraPosition);
 		
@@ -185,10 +194,10 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		{
 			if (m_player->getBulletType() == BulletType::SINGLE_BULLET)
 			{
-				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));
+				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));	//	This exists so the game can be tested with a ps4 controller.
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
 			}
-			// @todo(darren): Fix an issue with double bullets
+			// @todo(darren): Fix an issue with double bullets - what issue?
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));
@@ -232,6 +241,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			transitionIn = false;
 		}
 	}
+
+	m_playerWasAlive = m_player->getAlive();
 }
 
 void GameScreen::spawnPowerUp()
@@ -248,26 +259,28 @@ void GameScreen::spawnPowerUp()
 
 void GameScreen::setWave(uint8_t waveNum)
 {
-	if (m_leftViaPause)
+	if (!m_leftViaPause)
 	{
 		m_hud.setWave(waveNum);
+		m_waveCompleteSound->play();
+		spawnPowerUp();
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 		}
 	}
 	else
 	{
 		m_hud.setWave(waveNum);
-		m_waveCompleteSound->play();
-
 		spawnPowerUp();
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 		}
+
+		m_leftViaPause = false;
 	}
 }
 
@@ -378,6 +391,8 @@ void GameScreen::mainMenuButtonSelected()
 
 void GameScreen::retryButtonSelected()
 {
+	m_confirmSound->play();
+
 	m_isGameOver = false;
 
 	//	Reset the player.

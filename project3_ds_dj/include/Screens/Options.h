@@ -17,7 +17,7 @@
 class Options : public Screen
 {
 public:
-	Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound);
+	Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool m_goToFullscreenMode, m_goToWindowedMode;
@@ -41,10 +41,6 @@ private:
 	Label *m_windowedLabel;
 	std::vector<RadioButton*> m_windowStyleOptions;
 	Label *m_fullscreenLabel;
-	// @todo(darren): Should i make back button 'Back' instead? 
-	// Going to back changes when player interacts with UI
-	Button *m_backButton;
-	sf::Texture m_backTexure;
 
 	bool m_backButtonPressed;
 	bool transitionIn;
@@ -56,6 +52,9 @@ private:
 	sf::Sound *m_waveCompleteSound;
 	sf::Sound *m_pickUpSound;
 	sf::Sound *m_deathSound;
+	sf::Sound *m_turretShotSound;
+	sf::Sound *m_hitWallSound; 
+	sf::Sound *m_navigateSound;
 
 	int m_musicVolumeValue;
 	int m_effectsVolumeValue;

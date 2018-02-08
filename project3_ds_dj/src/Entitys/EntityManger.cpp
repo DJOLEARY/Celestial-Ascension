@@ -86,7 +86,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				break;
 			}
 		}
-		else if (Collision(m_player, *iter))
+		else if (Collision(m_player, *iter, 20.0f))
 		{
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
@@ -186,7 +186,20 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	{
 		for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 		{
-			if ((*bulletIter)->isPlayerBullet() && Collision(*iter, *bulletIter))
+			if ((*iter)->getType() == EnemyType::Wanderer)
+			{
+				m_collision = Collision(*iter, *bulletIter, 20.0f);
+			}
+			else if ((*iter)->getType() == EnemyType::Seeker)
+			{
+				m_collision = Collision(*iter, *bulletIter, 20.0f);
+			}
+			else if ((*iter)->getType() == EnemyType::Turret)
+			{
+				m_collision = Collision(*iter, *bulletIter, 30.0f);
+			}
+
+			if ((*bulletIter)->isPlayerBullet() && m_collision)
 			{
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
@@ -210,7 +223,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				break;
 			}
 		}
-		else if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter))
+		else if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter, 20.0f))
 		{
 			ParticleManager::instance()->createExplosion((m_player)->getPos(), sf::Color(31, 196, 58));
 			(m_player)->m_lives--;
@@ -257,7 +270,7 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 }
 
 // Checks if entity2 is colliding with entity1
-bool EntityManager::Collision(Entity* entity1, Entity* entity2)
+bool EntityManager::Collision(Entity* entity1, Entity* entity2, float radius)
 {
 	//	Makes sure both entitys are alive.
 	if (entity1->getAlive() && entity2->getAlive())
@@ -275,7 +288,7 @@ bool EntityManager::Collision(Entity* entity1, Entity* entity2)
 					entity1->getSection().y + j == entity2->getSection().y)
 				{
 					//	Checks the distance between the two entitys.
-					if (sf::distance(entity1->getPos(), entity2->getPos()) < 20.0f)
+					if (sf::distance(entity1->getPos(), entity2->getPos()) < radius)
 					{
 						return true;
 					}
@@ -320,4 +333,5 @@ void EntityManager::reset()
 {
 	m_enemies.clear();
 	m_bullets.clear();
+	m_powerUp->setAlive(false);
 }

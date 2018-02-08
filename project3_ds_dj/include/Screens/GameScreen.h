@@ -1,5 +1,5 @@
 /// <summary>
-/// @author DJ O"Leary & Darren Sweeney
+/// @author DJ O'Leary & Darren Sweeney
 /// </summary>
 
 #ifndef GAME_SCREEN_H
@@ -21,7 +21,7 @@ class GameScreen : public Screen
 public:
 	GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
 		sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound,
-		sf::Sound *deathSound, sf::Sound *hitWallSound);
+		sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound);
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
 	virtual void reset() override;
@@ -56,6 +56,8 @@ private:
 	float interpolation;
 	bool transitionIn;
 
+	bool m_playerWasAlive;
+
 	sf::Vector2f m_cameraPosition;
 	sf::Vector2f m_cameraVelocity;
 	void spawnPowerUp();
@@ -70,7 +72,9 @@ private:
 	
 	//	Sounds
 	sf::Sound *m_confirmSound;
+	sf::Sound *m_navigateSound;
 	sf::Sound *m_shotSound;
 	sf::Sound *m_waveCompleteSound;
+	sf::Sound *m_turretShotSound;
 };
 #endif // !GAME_SCREEN_H

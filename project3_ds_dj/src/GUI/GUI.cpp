@@ -4,7 +4,10 @@
 /// Constructor for the Gui class
 /// </summary>
 /// <param name="parent">parent widget(defaults to nullptr)</param>
-Gui::Gui() { }
+Gui::Gui()
+{ 
+
+}
 
 /// <summary>
 /// Delets all widgets added to the widgets vector

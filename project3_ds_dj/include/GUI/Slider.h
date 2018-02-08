@@ -15,7 +15,7 @@
 class Slider : public Widget
 {
 public:
-	Slider(sf::Color &focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, sf::Vector2f &position, 
+	Slider(sf::Sound *navigateSound, sf::Color &focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, sf::Vector2f &position,
 		float sliderWidth = 100.0f, float sliderHeight = 15.0f, sf::Vector2f &endPos = sf::Vector2f());
 	virtual bool processInput(XboxController & controller) override;
 	virtual void setPosition(sf::Vector2f &position) override;
@@ -39,6 +39,8 @@ private:
 	sf::Color focusColor;
 	sf::Color noFocusColor;
 	sf::Color fillColor;
+
+	sf::Sound *m_navigateSound;
 };
 
 #endif
