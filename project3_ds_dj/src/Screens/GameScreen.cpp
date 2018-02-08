@@ -4,7 +4,8 @@
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view, 
 	sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
-	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound) :
+	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
+	sf::Sound *hitWallSound, sf::Sound *navigateSound) :
 	Screen(GameState::GamePlay, view),
 	m_isPaused(false),
 	m_currentWave(1),
@@ -12,7 +13,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_confirmSound(confirmSound),
 	m_shotSound(shotSound),
 	m_turretShotSound(turretShotSound),
-	m_waveCompleteSound(waveCompleteSound)
+	m_waveCompleteSound(waveCompleteSound),
+	m_navigateSound(navigateSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -387,6 +389,8 @@ void GameScreen::mainMenuButtonSelected()
 
 void GameScreen::retryButtonSelected()
 {
+	m_confirmSound->play();
+
 	m_isGameOver = false;
 
 	//	Reset the player.

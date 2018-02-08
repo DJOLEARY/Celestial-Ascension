@@ -37,6 +37,14 @@ Game::Game() :
 	m_confirmSound.setBuffer(m_confirmBuffer);
 	m_confirmSound.setVolume(100);
 
+	//	Confirm Sound
+	if (!m_navigateBuffer.loadFromFile("Assets/Sounds/MenuNavigate.wav"))
+	{
+		std::cout << "ERROR::Game:navigateBuffer not loaded";
+	}
+	m_navigateSound.setBuffer(m_confirmBuffer);
+	m_navigateSound.setVolume(100);
+
 	//	Pick-Up Sound
 	if (!m_pickUpSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav"))
 	{
@@ -91,9 +99,9 @@ Game::Game() :
 	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
 	exitMenu = new ExitMenu(m_view, &m_confirmSound);
 	m_screenManager.add(exitMenu);
-	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound);
+	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound);
 	m_screenManager.add(m_options);
-    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound));
+    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound));
 	m_screenManager.add(new Leaderboard(m_view));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;
