@@ -33,6 +33,7 @@ Leaderboard::Leaderboard(sf::View &view)
 	}
 
 	m_gui.setWidgetsAlpha(0.0f);
+	gameOpen = true;
 }
 
 void Leaderboard::update(XboxController &controller, sf::Int32 dt)
@@ -93,10 +94,13 @@ void Leaderboard::updateLeaderboard()
 			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
 		}
 
-		for (int i = 0; i < 10; i++)
+		if (gameOpen)
 		{
-			m_names[i]->setText(m_readInNames[i]);
-			m_scores[i]->setText(std::to_string(m_readInScores[i]));
+			for (int i = 0; i < 10; i++)
+			{
+				m_names[i]->setText(m_readInNames[i]);
+				m_scores[i]->setText(std::to_string(m_readInScores[i]));
+			}
 		}
 	}
 	else

@@ -18,6 +18,7 @@ public:
 private:
 	void updateLeaderboard();
 	bool leaderboardUpdated;
+	bool gameOpen;
 
 	bool m_backButtonPressed;
 	bool m_transitionIn;
