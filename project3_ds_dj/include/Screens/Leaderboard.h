@@ -1,5 +1,5 @@
 /// <summary>
-/// @author Darren Sweeney
+/// @author Darren Sweeney & D.J. O'Leary
 /// </summary>
 
 #include <SFML\Graphics.hpp>
@@ -16,6 +16,9 @@ public:
 	void reset();
 
 private:
+	void updateLeaderboard();
+	bool leaderboardUpdated;
+
 	bool m_backButtonPressed;
 	bool m_transitionIn;
 	float m_interpolation;

@@ -4,29 +4,7 @@
 Leaderboard::Leaderboard(sf::View &view)
 	: Screen(GameState::Leaderboard, view), m_transitionIn(true)
 {
-	// @todo(darren): If file does not exsist then create it
-	const char *names[10] = {"DAR", "LIZ", "JHN", "BOB", "XOX", "JOE", "AMY", "POP", "JAN", "WOZ" };
-	std::ofstream outputLeaderboardFile;
-	outputLeaderboardFile.open("leaderboard.txt");
-	if (outputLeaderboardFile.is_open())
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			outputLeaderboardFile << names[i] << " " << 22400 - (i * 500) << "\n";
-		}
-	}
-	outputLeaderboardFile.close();
-
-	std::ifstream inputLeaderboardFile;
-	inputLeaderboardFile.open("leaderboard.txt");
-	if (inputLeaderboardFile.is_open())
-	{
-		for (int i = 0; i < 10; i++)
-		{
-			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
-		}
-	}
-	inputLeaderboardFile.close();
+	updateLeaderboard();
 	
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -59,6 +37,12 @@ Leaderboard::Leaderboard(sf::View &view)
 
 void Leaderboard::update(XboxController &controller, sf::Int32 dt)
 {
+	if (!leaderboardUpdated)
+	{
+		leaderboardUpdated = true;
+		updateLeaderboard();
+	}
+
 	m_gui.processInput(controller);
 
 	if (controller.isButtonPressed(XBOX360_B))
@@ -94,4 +78,48 @@ void Leaderboard::reset()
 	m_transitionIn = true;
 	m_interpolation = 0.0f;
 	m_backButtonPressed = false;
+	leaderboardUpdated = false;
+}
+
+void Leaderboard::updateLeaderboard()
+{
+	std::ifstream inputLeaderboardFile;
+	inputLeaderboardFile.open("leaderboard.txt");
+
+	if (inputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
+		}
+
+		for (int i = 0; i < 10; i++)
+		{
+			m_names[i]->setText(m_readInNames[i]);
+			m_scores[i]->setText(std::to_string(m_readInScores[i]));
+		}
+	}
+	else
+	{
+		const char *names[10] = { "DAR", "DAB", "DNS", "JHN", "PTR", "WOZ", "AMY", "JAN", "DVA", "JOE" };
+		std::ofstream outputLeaderboardFile;
+		outputLeaderboardFile.open("leaderboard.txt");
+		if (outputLeaderboardFile.is_open())
+		{
+			for (int i = 0; i < 10; i++)
+			{
+				outputLeaderboardFile << names[i] << " " << 50400 - (i * 500) << "\n";
+			}
+		}
+		outputLeaderboardFile.close();
+
+		inputLeaderboardFile.open("leaderboard.txt");
+
+		for (int i = 0; i < 10; i++)
+		{
+			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
+		}
+	}
+
+	inputLeaderboardFile.close();
 }
