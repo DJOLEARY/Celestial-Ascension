@@ -1,7 +1,8 @@
 #include "Entitys\Enemy.h"
 
-Enemy::Enemy(sf::Vector2f *playerPos, int randNum) : 
-    m_playerPos(playerPos)
+Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
+	m_playerPos(playerPos),
+	m_turretShotSound(turretShotSound)
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
@@ -146,6 +147,7 @@ void Enemy::FireBullet()
 		sf::Time elapsedTime = m_clock.getElapsedTime();
 		if (elapsedTime.asMilliseconds() > FIRE_RATE)
 		{
+			m_turretShotSound->play();
 			m_timeToNextShot++;
 			m_clock.restart();
 			m_fireBullet = true;

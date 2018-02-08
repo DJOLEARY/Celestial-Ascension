@@ -2,15 +2,16 @@
 #include "Physics\ParticleManager.h"
 #include <stdlib.h>
 
-GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
-	sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
-	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *hitWallSound) :
+GameScreen::GameScreen(XboxController &controller, sf::View &view, 
+	sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
+	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound) :
 	Screen(GameState::GamePlay, view),
 	m_isPaused(false),
 	m_currentWave(1),
 	m_entityManager(deathSound, pickUpSound, hitWallSound),
 	m_confirmSound(confirmSound),
 	m_shotSound(shotSound),
+	m_turretShotSound(turretShotSound),
 	m_waveCompleteSound(waveCompleteSound)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
@@ -25,7 +26,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view, sf::Sound *co
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
 	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 	}
 
 	// Set the wave for the game and display on the hud
@@ -262,7 +263,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 		}
 	}
 	else
@@ -274,7 +275,7 @@ void GameScreen::setWave(uint8_t waveNum)
 
 		for (int i = 0; i < m_maxEnemies * waveNum; i++)
 		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100)));
+			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
 		}
 	}
 }

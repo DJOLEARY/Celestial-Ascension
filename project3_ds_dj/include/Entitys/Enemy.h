@@ -20,7 +20,7 @@ enum EnemyType
 class Enemy : public Entity
 {
 public:
-    Enemy(sf::Vector2f *playerPos, int randNum);
+    Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound);
     ~Enemy();
 
     virtual void Update(double dt) override;
@@ -37,5 +37,6 @@ private:
 	const uint16_t FIRE_RATE = 600;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
+	sf::Sound *m_turretShotSound;
 };
 #endif // !ENEMY_H

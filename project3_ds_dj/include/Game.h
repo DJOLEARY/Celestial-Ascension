@@ -57,6 +57,9 @@ private:
 	sf::SoundBuffer m_waveCompleteSoundBuffer;
 	sf::Sound m_waveCompleteSound;
 
+	sf::SoundBuffer m_turretShotSoundBuffer;
+	sf::Sound m_turretShotSound;
+
 	sf::SoundBuffer m_hitWallSoundBuffer;
 	sf::Sound m_hitWallSound;
 };
