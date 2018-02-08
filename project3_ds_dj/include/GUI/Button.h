@@ -7,7 +7,6 @@
 
 #include "Widget.h"
 #include <functional>
-#include <SFML\Audio.hpp>
 
 /// <summary>
 /// Button Class used for creating buttons onscreen.

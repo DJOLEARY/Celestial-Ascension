@@ -6,6 +6,7 @@
 #define WIDGET_H
 
 #include <SFML\Graphics.hpp>
+#include <SFML\Audio.hpp>
 #include "XboxController.h"
 
 /// <summary>
