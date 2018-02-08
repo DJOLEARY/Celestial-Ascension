@@ -55,7 +55,9 @@ private:
 	sf::Sound *m_pickUpSound;
 	sf::Sound *m_hitWallSound;
 
-	bool Collision(Entity* entity1, Entity* entity2);
+	bool m_collision;
+
+	bool Collision(Entity* entity1, Entity* entity2, float radius);
 	bool SimpleCollision(Entity* entity1, Entity* entity2);
 };
 

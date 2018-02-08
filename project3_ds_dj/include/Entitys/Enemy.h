@@ -13,8 +13,7 @@ enum EnemyType
 {
 	Wanderer,
 	Turret,
-	Seeker,
-	Snake
+	Seeker
 };
 
 class Enemy : public Entity
@@ -26,6 +25,7 @@ public:
     virtual void Update(double dt) override;
     virtual void Draw(sf::RenderTexture &renderTexture) override;
 	uint16_t getScore();
+	EnemyType getType();
 	void FireBullet();
 private:
 

@@ -140,6 +140,11 @@ uint16_t Enemy::getScore()
 	return m_scoreValue;
 }
 
+EnemyType Enemy::getType()
+{
+	return m_enemyType;
+}
+
 void Enemy::FireBullet()
 {
 	if (m_enemyType == EnemyType::Turret && m_alive)
