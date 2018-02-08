@@ -329,6 +329,20 @@ Entity *EntityManager::GetPowerUp()
 	return m_powerUp;
 }
 
+void EntityManager::multiplier()
+{
+	sf::Time elapsedTime = m_clock.getElapsedTime();
+	if (elapsedTime.asSeconds() < SPREE_TIME && m_enemyKilled)
+	{
+		m_enemyKilled = false;
+		m_clock.restart();
+	}
+	else if (elapsedTime.asSeconds() > SPREE_TIME)
+	{
+		m_currentSpree = 0;
+	}
+}
+
 void EntityManager::reset()
 {
 	m_enemies.clear();

@@ -40,6 +40,8 @@ public:
 	int GetEnemiesSize();
 	Entity* GetPowerUp();
 
+	void multiplier();
+
 	void reset();
 
 private:
@@ -57,8 +59,15 @@ private:
 
 	bool m_collision;
 
+	const uint16_t SPREE_TIME = 2;
+	sf::Clock m_clock;
+	bool m_enemyKilled;
+	int m_currentSpree;
+
 	bool Collision(Entity* entity1, Entity* entity2, float radius);
 	bool SimpleCollision(Entity* entity1, Entity* entity2);
+
+	float m_multiplier;
 };
 
 #endif
