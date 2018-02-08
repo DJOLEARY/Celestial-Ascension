@@ -206,6 +206,45 @@ sf::Vector2f XboxController::getLeftStick()
 	return leftThumbStick;
 }
 
+bool XboxController::getLeftStickFlickUp()
+{
+	bool isFlickedUp = false;
+
+	if (getLeftStick().y < -20)
+	{
+		if (m_previousState.leftThumbStick.y > -20)
+		{
+			isFlickedUp  = true;
+		}
+
+	}
+
+	//m_previousState.leftThumbStick = m_currentState.leftThumbStick;
+	//std::cout << "LEFT STICK UP-Prev State: " << m_previousState.leftThumbStick.x << " " << m_previousState.leftThumbStick.y << std::endl;
+
+	return isFlickedUp;
+}
+
+
+bool XboxController::getLeftStickFlickDown()
+{
+	bool isFlickedDown = false;
+
+	if (getLeftStick().y > 20)
+	{
+		if (m_previousState.leftThumbStick.y < 20)
+		{
+			isFlickedDown = true;
+		}
+
+	}
+
+	//m_previousState.leftThumbStick = m_currentState.leftThumbStick;
+	//std::cout << "LEFT STICK DOWN-Prev State: " << m_previousState.leftThumbStick.x << " " << m_previousState.leftThumbStick.y << std::endl;
+
+	return isFlickedDown;
+}
+
 /// <summary>
 /// Gets the coordinates of the x and y axis on the right joystick in the range of [-100, 100].
 /// The current state of the right joystick is updated

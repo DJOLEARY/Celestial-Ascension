@@ -87,6 +87,8 @@ public:
 	bool isButtonPressed(unsigned int button);
 	bool isButtonHeldDown(unsigned int button);
 	sf::Vector2f getLeftStick();
+	bool getLeftStickFlickUp();
+	bool getLeftStickFlickDown();
 	sf::Vector2f getRightStick();
 	float getLeftTrigger();
 	float getRightTrigger();
