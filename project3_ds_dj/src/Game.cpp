@@ -42,7 +42,7 @@ Game::Game() :
 	{
 		std::cout << "ERROR::Game:navigateBuffer not loaded";
 	}
-	m_navigateSound.setBuffer(m_confirmBuffer);
+	m_navigateSound.setBuffer(m_navigateBuffer);
 	m_navigateSound.setVolume(100);
 
 	//	Pick-Up Sound
@@ -95,9 +95,9 @@ Game::Game() :
 
 	m_screenManager.add(new SplashScreen(m_view));
 	m_screenManager.add(new Credits(m_view));
-	m_screenManager.add(new MainMenu(m_view, &m_confirmSound));
-	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound));
-	exitMenu = new ExitMenu(m_view, &m_confirmSound);
+	m_screenManager.add(new MainMenu(m_view, &m_confirmSound, &m_navigateSound));
+	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound, &m_navigateSound));
+	exitMenu = new ExitMenu(m_view, &m_confirmSound, &m_navigateSound);
 	m_screenManager.add(exitMenu);
 	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound);
 	m_screenManager.add(m_options);

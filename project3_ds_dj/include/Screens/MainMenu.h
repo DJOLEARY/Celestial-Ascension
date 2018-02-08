@@ -14,7 +14,7 @@
 class MainMenu : public Screen
 {
 public:
-	MainMenu(sf::View &view, sf::Sound *confirmSound);
+	MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void render(sf::RenderTexture & renderTexture) override;
 	void reset() override;
@@ -52,6 +52,7 @@ private:
 	float interpolation;
 
 	sf::Sound *m_confirmSound;
+	sf::Sound *m_navigateSound;
 };
 
 #endif

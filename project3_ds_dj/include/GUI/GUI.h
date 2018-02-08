@@ -1,5 +1,5 @@
 /// <summary>
-/// @author Darren Sweeney
+/// @author Darren Sweeney & D.J. O'Leary
 /// </summary>
 
 #ifndef GUI_H

@@ -7,7 +7,7 @@
 class PlayMenu : public Screen
 {
 public:
-	PlayMenu(sf::View &view, sf::Sound *confirmSound);
+	PlayMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *m_navigateSound);
 	void update(XboxController &controller, sf::Int32 dt) override;
 	void reset() override;
 
@@ -23,6 +23,7 @@ private:
 	bool transitionIn;
 	float interpolation;
 	sf::Sound *m_confirmSound;
+	sf::Sound *m_navigateSound;
 };
 
 #endif

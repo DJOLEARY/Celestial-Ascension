@@ -39,14 +39,6 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_windowStyleOptions.push_back(new RadioButton(focusIn, focusOut, fillColor, sf::Vector2f(1920.0f / 2 + 75.0f, 700.0f),
 		m_windowStyleOptions, sf::Vector2f(1920.0f / 2 + 475.0f, 700.0f), 22, 30.0f, 30.0f));
 
-	if (!m_backTexure.loadFromFile("Assets/GUI/BackButton.png"))
-		std::cout << "ERROR::Options::backButton image not loaded";
-
-	// @refactor(darren): change order of end position for button
-	m_backButton = new Button(m_backTexure, sf::Vector2f(1920.0f / 2, 800.0f), focusIn, focusOut,
-		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 800.0f));
-	m_backButton->select = std::bind(&Options::backButtonSelected, this);
-
 	// Set the first UI element the user has control over to the volume
 	m_musicVolume->promoteFocus();
 
@@ -67,11 +59,8 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_windowStyleOptions[0]->activate();
 	m_windowStyleOptions[0]->m_up = m_muteCheckBox;
 	m_windowStyleOptions[1]->m_up = m_muteCheckBox;
-	m_windowStyleOptions[0]->m_down = m_backButton;
-	m_windowStyleOptions[1]->m_down = m_backButton;
 	m_windowStyleOptions[0]->m_right = m_windowStyleOptions[1];
 	m_windowStyleOptions[1]->m_left = m_windowStyleOptions[0];
-	m_backButton->m_up = m_windowStyleOptions[0];
 
 	m_gui.add(m_optionsTitle);
 	m_gui.add(m_musicTitle);
@@ -84,7 +73,6 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 		m_gui.add(windowOpt);
 	m_gui.add(m_windowedLabel);
 	m_gui.add(m_fullscreenLabel);
-	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
 }

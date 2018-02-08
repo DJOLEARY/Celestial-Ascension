@@ -41,10 +41,6 @@ private:
 	Label *m_windowedLabel;
 	std::vector<RadioButton*> m_windowStyleOptions;
 	Label *m_fullscreenLabel;
-	// @todo(darren): Should i make back button 'Back' instead? 
-	// Going to back changes when player interacts with UI
-	Button *m_backButton;
-	sf::Texture m_backTexure;
 
 	bool m_backButtonPressed;
 	bool transitionIn;

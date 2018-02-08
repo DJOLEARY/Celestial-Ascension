@@ -46,18 +46,18 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_gameOverLabel = new Label("GAME OVER", 84);
 	m_gameOverLabel->setTextColor(sf::Color(255, 0, 0));
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
-	m_resume = new Button(m_resumeTexture, sf::Vector2f(),
+	m_resume = new Button(m_confirmSound, m_navigateSound, m_resumeTexture, sf::Vector2f(),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f());
-	m_mainMenu = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f), 
+	m_mainMenu = new Button(m_confirmSound, m_navigateSound, m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
-	m_mainMenuGameOver = new Button(m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
+	m_mainMenuGameOver = new Button(m_confirmSound, m_navigateSound, m_mainMenuTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) + 120.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) + 120.0f));
-	m_retry = new Button(m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
+	m_retry = new Button(m_confirmSound, m_navigateSound, m_retryTexture, sf::Vector2f(1920.0f / 2.0f, (1080.0f / 2.0f) - 20.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f((1920.0f / 2.0f) + 80.0f, (1080.0f / 2.0f) - 20.0f));
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i] = new Button(m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
 
 	m_charNameLables[0] = new Label("A", 60);
@@ -194,10 +194,10 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		{
 			if (m_player->getBulletType() == BulletType::SINGLE_BULLET)
 			{
-				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));
+				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));	//	This exists so the game can be tested with a ps4 controller.
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
 			}
-			// @todo(darren): Fix an issue with double bullets
+			// @todo(darren): Fix an issue with double bullets - what issue?
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));

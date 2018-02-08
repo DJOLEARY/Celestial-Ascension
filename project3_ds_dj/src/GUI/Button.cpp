@@ -7,9 +7,11 @@
 /// <param name="positionIn">Position of the Button</param>
 /// <param name="startPos">The start position of the transition</param>
 /// <param name="endPos">The end position of the transition</param>
-Button::Button(sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor, sf::Color &_outOfFocuseColor, 
-	float scaleWidth, float scaleHeight, sf::Vector2f &endPos)
-	: m_buttonTexture(texture)
+Button::Button(sf::Sound *confirmSound, sf::Sound *navigateSound, sf::Texture &texture, sf::Vector2f &positionIn, sf::Color &focusColor, sf::Color &_outOfFocuseColor,
+	float scaleWidth, float scaleHeight, sf::Vector2f &endPos) :
+	m_buttonTexture(texture),
+	m_confirmSound(confirmSound),
+	m_navigateSound(navigateSound)
 {
 	m_buttonSprite.setTexture(m_buttonTexture);
 	m_buttonSprite.setPosition(positionIn);
@@ -49,6 +51,7 @@ bool Button::processInput(XboxController & controller)
 				// @todo(darren): Add in button sound
 				m_up->promoteFocus(); 
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -59,6 +62,7 @@ bool Button::processInput(XboxController & controller)
 				// @todo(darren): Add in button sound
 				m_down->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -69,6 +73,7 @@ bool Button::processInput(XboxController & controller)
 				// @todo(darren): Play sound here
 				m_left->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 
@@ -80,6 +85,7 @@ bool Button::processInput(XboxController & controller)
 				// @todo(darren): Play sound here
 				m_right->promoteFocus();
 				demoteFocus();
+				m_navigateSound->play();
 				return true;
 			}
 		}
@@ -88,6 +94,7 @@ bool Button::processInput(XboxController & controller)
 			if (controller.isButtonPressed(XBOX360_A))
 			{
 				select(); // Call the callback function
+				m_confirmSound->play();
 				return true;
 			}
 		}

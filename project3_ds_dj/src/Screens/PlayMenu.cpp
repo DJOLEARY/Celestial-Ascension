@@ -1,6 +1,6 @@
 #include "Screens\PlayMenu.h"
 
-PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound) : 
+PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *m_navigateSound) :
 	Screen(GameState::PlayMenu, view), 
 	transitionIn(true),
 	m_confirmSound(confirmSound)
@@ -15,9 +15,9 @@ PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound) :
 	if (!m_leaderboardTexture.loadFromFile("Assets/GUI/leaderboard_icon.png"))
 		std::cout << "ERROR::PlayMenu::upgrade_icon image not loaded";
 
-	m_playButton = new Button(m_playTexture, sf::Vector2f(1920.0f / 2 - 300.0f, 500.0f), focusIn, focusOut, 
+	m_playButton = new Button(m_confirmSound, m_navigateSound, m_playTexture, sf::Vector2f(1920.0f / 2 - 300.0f, 500.0f), focusIn, focusOut, 
 		0.75f, 0.75f, sf::Vector2f(1920.0f / 2 - 500.0f, 500));
-	m_leaderboardButton = new Button(m_leaderboardTexture, sf::Vector2f(1920.0f / 2 + 300.0f, 500.0f), focusIn, focusOut,
+	m_leaderboardButton = new Button(m_confirmSound, m_navigateSound, m_leaderboardTexture, sf::Vector2f(1920.0f / 2 + 300.0f, 500.0f), focusIn, focusOut,
 		0.75f, 0.75f, sf::Vector2f(1920.0f / 2 + 500.0f, 500));
 
 	m_playButton->select = std::bind(&PlayMenu::playButtonSelected, this);
@@ -102,11 +102,9 @@ void PlayMenu::reset()
 void PlayMenu::playButtonSelected()
 {
 	m_playButtonPressed = true;
-	m_confirmSound->play();
 }
 
 void PlayMenu::leaderboardButtonSelected()
 {
 	m_leaderboardButtonPressed = true;
-	m_confirmSound->play();
 }

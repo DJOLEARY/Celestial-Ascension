@@ -46,12 +46,6 @@ Leaderboard::Leaderboard(sf::View &view)
 			sf::Vector2f(1920.0f / 2 + 700, (70.0f * i) + 230));
 	}
 
-	m_backTexure.loadFromFile("Assets/GUI/BackButton.png");
-	m_backButton = new Button(m_backTexure, sf::Vector2f(1920.0f / 2, 950.0f), focusIn, focusOut,
-		1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 950.0f));
-	m_backButton->select = std::bind(&Leaderboard::backButtonSelected, this);
-	m_backButton->promoteFocus();
-
 	m_gui.add(m_leaderboardTitle);
 	for (int i = 0; i < 10; i++)
 	{
@@ -59,7 +53,6 @@ Leaderboard::Leaderboard(sf::View &view)
 		m_gui.add(m_names[i]);
 		m_gui.add(m_scores[i]);
 	}
-	m_gui.add(m_backButton);
 
 	m_gui.setWidgetsAlpha(0.0f);
 }
@@ -101,9 +94,4 @@ void Leaderboard::reset()
 	m_transitionIn = true;
 	m_interpolation = 0.0f;
 	m_backButtonPressed = false;
-}
-
-void Leaderboard::backButtonSelected()
-{
-	m_backButtonPressed = true;
 }
