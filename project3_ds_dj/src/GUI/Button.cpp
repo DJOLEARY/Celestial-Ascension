@@ -55,7 +55,7 @@ bool Button::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN) || controller.getLeftStickFlickDown())
+		else if (controller.isButtonPressed(XBOX360_DOWN))// || controller.getLeftStickFlickDown())
 		{
 			if (m_down != nullptr)
 			{

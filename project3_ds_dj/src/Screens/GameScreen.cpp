@@ -223,6 +223,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 	if (controller.isButtonPressed(XBOX360_START) && !m_isPaused && !m_isGameOver)
 	{
+		// @note(darren): Setting vibration here, remove this
+		controller.setVibration(1.0f, 1.0f);
 		m_isPaused = true;
 		transitionIn = true;
 		setPauseGUIPos();

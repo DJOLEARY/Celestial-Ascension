@@ -1,4 +1,8 @@
 #include "XboxController.h"
+#include <Windows.h>
+#include <Xinput.h>
+
+#pragma comment(lib, "XInput.lib") 
 
 /// <summary>
 /// Takes in a controller index which is between range [0, 3] or [CONTROLLER_ONE, CONTROLLER_FOUR]
@@ -190,6 +194,17 @@ bool XboxController::isButtonHeldDown(unsigned int button)
 	return buttonPressed;
 }
 
+void XboxController::setVibration(float leftMotor, float rightMotor)
+{
+	XINPUT_VIBRATION vibration;
+	ZeroMemory(&vibration, sizeof(XINPUT_VIBRATION));
+
+	vibration.wLeftMotorSpeed = static_cast <WORD> (leftMotor  * 65535.0f);
+	vibration.wRightMotorSpeed = static_cast <WORD> (rightMotor * 65535.0f);
+
+	XInputSetState(m_controllerIndex, &vibration);
+}
+
 /// <summary>
 /// Gets the coordinates of the x and y axis on the left joystick in the range of [-100, 100]. 
 /// The current state of left joystick is updated
@@ -208,23 +223,38 @@ sf::Vector2f XboxController::getLeftStick()
 
 bool XboxController::getLeftStickFlickUp()
 {
-	bool isFlickedUp = false;
+	bool buttonPressed = false;
 
-	if (getLeftStick().y < -20)
+	float axis = m_controller.getAxisPosition(m_controllerIndex, sf::Joystick::Axis::Y);
+
+	if (axis < -DPAD_THRESHHOLD)
 	{
-		if (m_previousState.leftThumbStick.y > -20)
-		{
-			isFlickedUp  = true;
-		}
-
+		buttonPressed = true;
 	}
 
-	//m_previousState.leftThumbStick = m_currentState.leftThumbStick;
-	//std::cout << "LEFT STICK UP-Prev State: " << m_previousState.leftThumbStick.x << " " << m_previousState.leftThumbStick.y << std::endl;
+	if (buttonPressed)
+	{
+		// Check if the previous button state is false (button up)
+		if (!m_previousState.leftThumbStick.y > -DPAD_THRESHHOLD)
+		{
+			//m_currentState.buttons[button] = buttonPressed;
+		}
+		else  // If the previous state is true (button down) then button can't be down agian
+		{
+			buttonPressed = false;
+		}
+	}
+	else
+	{
+		// Button is not pressed so update the current state
+		//m_currentState.buttons[button] = false;
+	}
 
-	return isFlickedUp;
+	// Update the previous face button state
+	m_previousState.leftThumbStick = m_currentState.leftThumbStick;
+
+	return buttonPressed;
 }
-
 
 bool XboxController::getLeftStickFlickDown()
 {
@@ -233,14 +263,10 @@ bool XboxController::getLeftStickFlickDown()
 	if (getLeftStick().y > 20)
 	{
 		if (m_previousState.leftThumbStick.y < 20)
-		{
 			isFlickedDown = true;
-		}
 
+		m_previousState.leftThumbStick = m_currentState.leftThumbStick;
 	}
-
-	//m_previousState.leftThumbStick = m_currentState.leftThumbStick;
-	//std::cout << "LEFT STICK DOWN-Prev State: " << m_previousState.leftThumbStick.x << " " << m_previousState.leftThumbStick.y << std::endl;
 
 	return isFlickedDown;
 }
