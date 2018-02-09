@@ -60,9 +60,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 		m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
 
-	m_charNameLables[0] = new Label("A", 60);
-	m_charNameLables[1] = new Label("A", 60);
-	m_charNameLables[2] = new Label("A", 60);
+	m_charNameLabels[0] = new Label("A", 60);
+	m_charNameLabels[1] = new Label("A", 60);
+	m_charNameLabels[2] = new Label("A", 60);
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
 	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
@@ -119,7 +119,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 		m_gameOverGui.add(m_arrowButtons[i]);
 
 	for (int i = 0; i < 3; i++)
-		m_gameOverGui.add(m_charNameLables[i]);
+		m_gameOverGui.add(m_charNameLabels[i]);
 
 	m_gameOverGui.add(m_retry);
 	m_gameOverGui.add(m_mainMenuGameOver);
@@ -160,7 +160,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 			for (int i = 0; i < 3; i++)
 			{
-				m_charNameLables[i]->setText(m_userNameChars[m_charNameIndex[i]]);
+				m_charNameLabels[i]->setText(m_userNameChars[m_charNameIndex[i]]);
 			}
 		}
 
@@ -339,8 +339,8 @@ void GameScreen::setGameOverGUIPos()
 
 		if (i <= 2)
 		{
-			m_charNameLables[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
-			m_charNameLables[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+			m_charNameLabels[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+			m_charNameLabels[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
 		}
 
 		if (i <= 2)
@@ -372,9 +372,9 @@ void GameScreen::mainMenuButtonSelected()
 	Grid::instance()->setPause(false);
 	ParticleManager::instance()->setPause(false);
 	m_leftViaPause = true;
-	m_confirmSound->play();
 	m_isGameOver = false;
-	m_isGameOver = false;
+
+	updateLeaderboard();
 
 	//	Reset the player.
 	m_player->m_lives = 3;
@@ -393,7 +393,7 @@ void GameScreen::mainMenuButtonSelected()
 
 void GameScreen::retryButtonSelected()
 {
-	m_confirmSound->play();
+	updateLeaderboard();
 
 	m_isGameOver = false;
 
@@ -407,4 +407,55 @@ void GameScreen::retryButtonSelected()
 	m_hud.setWave(m_currentWave);
 	//	Reset all other entitys
 	m_entityManager.reset();
+}
+
+void GameScreen::updateLeaderboard()
+{
+	//	Read all the scores from the leaderboard text file.
+	std::ifstream inputLeaderboardFile;
+	inputLeaderboardFile.open("leaderboard.txt");
+
+	if (inputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			inputLeaderboardFile >> m_readInNames[i] >> m_readInScores[i];
+		}
+	}
+
+	inputLeaderboardFile.close();
+
+	//	Get the current score.
+	auto currentScore = m_hud.getScore();
+
+	for (int i = 0; i < 10; i++)
+	{
+		//	Check if the current score is better then any score.
+		if (*currentScore > m_readInScores[i])
+		{
+			std::ofstream outputLeaderboardFile;
+			outputLeaderboardFile.open("leaderboard.txt");
+			if (outputLeaderboardFile.is_open())
+			{
+				//	Rewrite the scores better then the current score.
+				for (int j = 0; j < i; j++)
+				{
+					outputLeaderboardFile << m_readInNames[j] << " " << m_readInScores[j] << "\n";
+				}
+
+				//	Write the current score.
+				outputLeaderboardFile << m_userNameChars[m_charNameIndex[0]] << m_userNameChars[m_charNameIndex[1]] << m_userNameChars[m_charNameIndex[2]] << " " << *currentScore << "\n";
+
+				//	Rewrite the scores worse then the current score.
+				for (int k = i; k < 10; k++)
+				{
+					outputLeaderboardFile << m_readInNames[k] << " " << m_readInScores[k] << "\n";
+				}
+
+			}
+
+			outputLeaderboardFile.close();
+			break;
+		}
+	}
 }
