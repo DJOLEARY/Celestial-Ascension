@@ -50,7 +50,7 @@ private:
 	Label *m_pauseLabel;
 	Label *m_gameOverLabel;
 	Button *m_retry;
-	sf::Texture m_resumeTexture, m_mainMenuTexture, m_retryTexture, m_arrowTexture;
+	sf::Texture m_resumeTexture, m_mainMenuTexture, m_retryTexture, m_arrowTextureUp, m_arrowTextureDown;
 	HUD m_hud;
 	uint8_t m_currentWave;
 	sf::Rect<float> m_pauseBackground;

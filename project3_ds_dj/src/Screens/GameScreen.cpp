@@ -40,7 +40,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_resumeTexture.loadFromFile("Assets/GUI/Resume.png");
 	m_retryTexture.loadFromFile("Assets/GUI/Retry.png");
 	m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png");
-	m_arrowTexture.loadFromFile("Assets/GUI/arrow.png");
+	m_arrowTextureUp.loadFromFile("Assets/GUI/arrowUp.png");
+	m_arrowTextureDown.loadFromFile("Assets/GUI/arrowDown.png");
 
 	m_pauseLabel = new Label("PAUSED", 84);
 	m_gameOverLabel = new Label("GAME OVER", 84);
@@ -57,7 +58,10 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		if (i > 2)
+			m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTextureUp, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		else
+			m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTextureDown, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
 
 	m_charNameLabels[0] = new Label("A", 60);
