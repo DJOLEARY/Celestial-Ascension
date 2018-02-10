@@ -223,52 +223,94 @@ sf::Vector2f XboxController::getLeftStick()
 
 bool XboxController::getLeftStickFlickUp()
 {
-	bool buttonPressed = false;
-
+	bool flickUp = false;
 	float axis = m_controller.getAxisPosition(m_controllerIndex, sf::Joystick::Axis::Y);
 
 	if (axis < -DPAD_THRESHHOLD)
-	{
-		buttonPressed = true;
-	}
+		flickUp = true;
 
-	if (buttonPressed)
+	if (flickUp)
 	{
-		// Check if the previous button state is false (button up)
-		if (!m_previousState.leftThumbStick.y > -DPAD_THRESHHOLD)
-		{
-			//m_currentState.buttons[button] = buttonPressed;
-		}
-		else  // If the previous state is true (button down) then button can't be down agian
-		{
-			buttonPressed = false;
-		}
+		if (!m_previousState.leftStickFlickUp)
+			m_currentState.leftStickFlickUp = flickUp;
+		else
+			flickUp = false;
 	}
 	else
-	{
-		// Button is not pressed so update the current state
-		//m_currentState.buttons[button] = false;
-	}
+		m_currentState.leftStickFlickUp = false;
 
-	// Update the previous face button state
-	m_previousState.leftThumbStick = m_currentState.leftThumbStick;
+	m_previousState.leftStickFlickUp = m_currentState.leftStickFlickUp;
 
-	return buttonPressed;
+	return flickUp;
 }
 
 bool XboxController::getLeftStickFlickDown()
 {
-	bool isFlickedDown = false;
+	bool flickDown = false;
+	float axis = m_controller.getAxisPosition(m_controllerIndex, sf::Joystick::Axis::Y);
 
-	if (getLeftStick().y > 20)
+	if (axis > DPAD_THRESHHOLD)
+		flickDown = true;
+
+	if (flickDown)
 	{
-		if (m_previousState.leftThumbStick.y < 20)
-			isFlickedDown = true;
-
-		m_previousState.leftThumbStick = m_currentState.leftThumbStick;
+		if (!m_previousState.leftStickFlickDown)
+			m_currentState.leftStickFlickDown = flickDown;
+		else
+			flickDown = false;
 	}
+	else
+		m_currentState.leftStickFlickDown = false;
 
-	return isFlickedDown;
+	m_previousState.leftStickFlickDown = m_currentState.leftStickFlickDown;
+
+	return flickDown;
+}
+
+bool XboxController::getLeftStickFlickLeft()
+{
+	bool flickLeft = false;
+	float axis = m_controller.getAxisPosition(m_controllerIndex, sf::Joystick::Axis::X);
+
+	if (axis < -DPAD_THRESHHOLD)
+		flickLeft = true;
+
+	if (flickLeft)
+	{
+		if (!m_previousState.leftStickFlickLeft)
+			m_currentState.leftStickFlickLeft = flickLeft;
+		else
+			flickLeft = false;
+	}
+	else
+		m_currentState.leftStickFlickLeft = false;
+
+	m_previousState.leftStickFlickLeft = m_currentState.leftStickFlickLeft;
+
+	return flickLeft;
+}
+
+bool XboxController::getLeftStickFlickRight()
+{
+	bool flickRight = false;
+	float axis = m_controller.getAxisPosition(m_controllerIndex, sf::Joystick::Axis::X);
+
+	if (axis > DPAD_THRESHHOLD)
+		flickRight = true;
+
+	if (flickRight)
+	{
+		if (!m_previousState.leftStickFlickRight)
+			m_currentState.leftStickFlickRight = flickRight;
+		else
+			flickRight = false;
+	}
+	else
+		m_currentState.leftStickFlickRight = false;
+
+	m_previousState.leftStickFlickRight = m_currentState.leftStickFlickRight;
+
+	return flickRight;
 }
 
 /// <summary>

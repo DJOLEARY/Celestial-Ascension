@@ -43,7 +43,7 @@ bool RadioButton::processInput(XboxController & controller)
 	else
 	{
 		m_radioButtonRect.setOutlineColor(focusColor);
-		if (controller.isButtonPressed(XBOX360_UP))
+		if (controller.isButtonPressed(XBOX360_UP) || controller.getLeftStickFlickUp())
 		{
 			if (m_up != nullptr)
 			{
@@ -53,7 +53,7 @@ bool RadioButton::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN))
+		else if (controller.isButtonPressed(XBOX360_DOWN) || controller.getLeftStickFlickDown())
 		{
 			if (m_down != nullptr)
 			{
@@ -64,7 +64,7 @@ bool RadioButton::processInput(XboxController & controller)
 			}
 			
 		}
-		else if (controller.isButtonPressed(XBOX360_LEFT))
+		else if (controller.isButtonPressed(XBOX360_LEFT) || controller.getLeftStickFlickLeft())
 		{
 			if (m_left  != nullptr)
 			{
@@ -75,7 +75,7 @@ bool RadioButton::processInput(XboxController & controller)
 			}
 			
 		}
-		else if (controller.isButtonPressed(XBOX360_RIGHT))
+		else if (controller.isButtonPressed(XBOX360_RIGHT) || controller.getLeftStickFlickRight())
 		{
 			if (m_right != nullptr)
 			{

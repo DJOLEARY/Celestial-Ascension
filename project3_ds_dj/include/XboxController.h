@@ -53,6 +53,11 @@ private:
 		float LTrigger;
 		sf::Vector2f rightThumbStick;
 		sf::Vector2f leftThumbStick;
+		bool leftStickFlickUp;
+		bool leftStickFlickDown;
+		bool leftStickFlickLeft;
+		bool leftStickFlickRight;
+
 
 		// buttons[] occupies same memory as stuct (same stride in memory)
 		// useful to index array, a continues memory block instead of checking
@@ -90,6 +95,8 @@ public:
 	sf::Vector2f getLeftStick();
 	bool getLeftStickFlickUp();
 	bool getLeftStickFlickDown();
+	bool getLeftStickFlickLeft();
+	bool getLeftStickFlickRight();
 	sf::Vector2f getRightStick();
 	float getLeftTrigger();
 	float getRightTrigger();
