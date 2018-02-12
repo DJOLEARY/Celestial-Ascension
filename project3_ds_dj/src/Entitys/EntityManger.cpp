@@ -19,6 +19,8 @@ EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::
 	m_scoreText.setFont(*m_font);
 	m_scoreText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_scoreText.setString("");
+
+	m_multiplier = 1;
 }
 
 /// <summary>
@@ -69,6 +71,7 @@ void EntityManager::SetPlayer(Player * player)
 void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 {
 	m_player->Update(dt);
+	Multiplier();
 
 	for (auto iter = m_enemies.begin(); iter != m_enemies.end(); iter++)
 	{
@@ -79,8 +82,17 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			sf::Vector2f vec = m_player->getPos() - (*iter)->getPos();
 			if (sf::magnitude(vec) < 170.0f * m_player->m_shieldScale)
 			{
-				score += 100;
-				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), 100 });
+				m_currentSpree++;
+
+				if (m_currentSpree >= 25 * m_multiplier)
+				{
+					m_multiplier++;
+				}
+
+				uint16_t enemyScore = (*iter)->getScore() * m_multiplier;
+				score += enemyScore;
+				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), enemyScore });
+				m_enemyKilled = true;
 				m_enemies.erase(iter);
 				ParticleManager::instance()->createExplosion(m_player->getPos() - vec, sf::Color(48, 168, 211));
 				break;
@@ -88,6 +100,9 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		}
 		else if (Collision(m_player, *iter, 20.0f))
 		{
+			m_currentSpree = 0;
+			m_multiplier = 1.0f;
+
 			m_enemies.erase(iter);
 			m_player->setAlive(false);
 			m_deathSound->play();
@@ -204,15 +219,26 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				ParticleManager::instance()->createExplosion((*iter)->getPos(), sf::Color(31, 196, 58));
 				(*iter)->setAlive(false);
 				(*bulletIter)->setAlive(false);
-				uint16_t enemyScore = (*iter)->getScore();
+
+				m_currentSpree++;
+
+				if (m_currentSpree >= 25 * m_multiplier)
+				{
+					m_multiplier++;
+				}
+
+				uint16_t enemyScore = (*iter)->getScore() * m_multiplier;
 				score += enemyScore;
 				m_entityScores.push_back(EntityScore{ (*iter)->getPos(), enemyScore });
+				m_enemyKilled = true;
 			}
 		}
 	}
 
+	// Check if the bullets and player have collided
 	for (auto bulletIter = m_bullets.begin(); bulletIter != m_bullets.end(); bulletIter++)
 	{
+		//	Bullet collided with shield power up
 		if (m_player->m_shieldActive && !(*bulletIter)->isPlayerBullet())
 		{
 			sf::Vector2f vec = m_player->getPos() - (*bulletIter)->getPos();
@@ -223,12 +249,15 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 				break;
 			}
 		}
+		//	Bullet collided with player
 		else if (!(*bulletIter)->isPlayerBullet() && Collision(m_player, *bulletIter, 20.0f))
 		{
 			ParticleManager::instance()->createExplosion((m_player)->getPos(), sf::Color(31, 196, 58));
 			(m_player)->m_lives--;
 			m_player->setAlive(false);
 			(*bulletIter)->setAlive(false);
+			m_currentSpree = 0;
+			m_multiplier = 1.0f;
 		}
 	}
 
@@ -329,7 +358,12 @@ Entity *EntityManager::GetPowerUp()
 	return m_powerUp;
 }
 
-void EntityManager::multiplier()
+float EntityManager::GetMultiplier()
+{
+	return m_multiplier;
+}
+
+void EntityManager::Multiplier()
 {
 	sf::Time elapsedTime = m_clock.getElapsedTime();
 	if (elapsedTime.asSeconds() < SPREE_TIME && m_enemyKilled)
@@ -340,6 +374,8 @@ void EntityManager::multiplier()
 	else if (elapsedTime.asSeconds() > SPREE_TIME)
 	{
 		m_currentSpree = 0;
+		m_multiplier = 1.0f;
+		m_clock.restart();
 	}
 }
 

@@ -143,6 +143,8 @@ void GameScreen::reset()
 
 void GameScreen::update(XboxController& controller, sf::Int32 dt)
 {
+	m_hud.setMultiplier(m_entityManager.GetMultiplier());
+
 	// Increase wave when all enemies are dead.
 	if (m_entityManager.GetEnemiesSize() == 0)
 	{

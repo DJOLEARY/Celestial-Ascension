@@ -36,6 +36,10 @@ HUD::HUD()
 	m_waveText.setString("Wave");
 	m_waveText.setCharacterSize(80);
 	m_waveTextOffset = sf::Vector2f(210.0f, 150.0f);
+
+	m_multiplierText.setFont(m_font);
+	m_multiplierText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
+	m_multiplierText.setCharacterSize(40);
 }
 
 void HUD::setScore(uint16_t score)
@@ -60,6 +64,7 @@ void HUD::setWave(uint8_t wave)
 		m_waveNumText.setString("0" + std::to_string(wave));
 	else
 		m_waveNumText.setString(std::to_string(wave));
+
 	displayNewWave = true;
 	m_timeToWaveUILerp = 0;
 	m_waveNumText.setCharacterSize(80);
@@ -72,6 +77,20 @@ void HUD::setLives(uint8_t lives)
 	if (m_lives > MAX_LIVES)
 	{
 		m_lives = MAX_LIVES;
+	}
+}
+
+void HUD::setMultiplier(int multiplier)
+{
+	m_multiplier = multiplier;
+	
+	if (m_multiplier < 10)
+	{
+		m_multiplierText.setString("x0" + std::to_string(m_multiplier));
+	}
+	else
+	{
+		m_multiplierText.setString("x" + std::to_string(m_multiplier));
 	}
 }
 
@@ -104,6 +123,8 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 	{
 		m_heartPositions[i] = pos + sf::Vector2f(-770.0f + (i * 25.0f), -460.0f);
 	}
+
+	m_multiplierText.setPosition(pos + sf::Vector2f(-880.0f, -452.5f));
 
 	float scoreTextWidth = m_scoreText.getLocalBounds().width;
 	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -440.0f));
@@ -162,4 +183,5 @@ void HUD::render(sf::RenderTexture &texture)
 	texture.draw(m_waveNumText);
 	if(displayNewWave)
 		texture.draw(m_waveText);
+	texture.draw(m_multiplierText);
 }

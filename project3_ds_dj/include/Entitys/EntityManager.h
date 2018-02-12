@@ -39,9 +39,8 @@ public:
 	std::vector<EntityScore> &GetEnemyScores();
 	int GetEnemiesSize();
 	Entity* GetPowerUp();
-
-	void multiplier();
-
+	float GetMultiplier();
+	void Multiplier();
 	void reset();
 
 private:
@@ -59,15 +58,14 @@ private:
 
 	bool m_collision;
 
-	const uint16_t SPREE_TIME = 2;
+	const uint16_t SPREE_TIME = 3;
 	sf::Clock m_clock;
 	bool m_enemyKilled;
 	int m_currentSpree;
+	int m_multiplier;
 
 	bool Collision(Entity* entity1, Entity* entity2, float radius);
 	bool SimpleCollision(Entity* entity1, Entity* entity2);
-
-	float m_multiplier;
 };
 
 #endif
