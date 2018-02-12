@@ -121,6 +121,18 @@ void Player::setBulletType(BulletType type)
 	m_bulletType = type;
 }
 
+void Player::setShieldActive()
+{
+	m_shieldActive = true;
+	m_timeToShieldOver = MAX_SHIELD_TIME;
+}
+
+void Player::setDoubleBulletActive()
+{
+	m_doubleBulletActive = true;
+	m_timeToDoubleBulletOver = MAX_SHIELD_TIME;
+}
+
 /// <summary>
 /// Updates the player input.
 /// </summary>

@@ -25,9 +25,8 @@ public:
 	BulletType getBulletType();
 	void setBulletType(BulletType type);
 	int m_lives;
-	bool m_shieldActive;
-	bool m_doubleBulletActive;
 	float m_shieldScale;
+	bool m_shieldActive;
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
@@ -35,8 +34,11 @@ public:
     sf::Vector2f* getPosition();
 	void OutOfBounds();
 	void SpawnPlayer(bool immediate = false);
+	void setShieldActive();
+	void setDoubleBulletActive();
 
 private:
+	bool m_doubleBulletActive;
 	XboxController &m_xboxController;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;

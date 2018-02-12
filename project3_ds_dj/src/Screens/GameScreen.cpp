@@ -251,18 +251,22 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::spawnPowerUp()
 {
-	sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
-	int randomPowerUp = sf::randF(0, 3);
-	if (randomPowerUp == 0)
-		m_entityManager.AddPowerUp(new ShieldPower(randomPos));
-	else if (randomPowerUp == 1)
-		m_entityManager.AddPowerUp(new HeartPower(randomPos));
-	else if (randomPowerUp == 2)
-		m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
+	//if (m_entityManager.GetPowerUp() == nullptr)
+	{
+		sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
+		int randomPowerUp = sf::randF(0, 3);
+		if (randomPowerUp == 0)
+			m_entityManager.AddPowerUp(new ShieldPower(randomPos));
+		else if (randomPowerUp == 1)
+			m_entityManager.AddPowerUp(new HeartPower(randomPos));
+		else if (randomPowerUp == 2)
+			m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
+	}
 }
 
 void GameScreen::setWave(uint8_t waveNum)
 {
+	// @note(darren)	:(
 	if (!m_leftViaPause)
 	{
 		m_hud.setWave(waveNum);
