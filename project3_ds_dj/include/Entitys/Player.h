@@ -47,12 +47,15 @@ private:
 	BulletType m_bulletType = BulletType::SINGLE_BULLET;
 	const double MAX_SHIELD_TIME = 6000.0;
 	const double MAX_BULLET_TIME = 6000.0;
+	const double MAX_VIBRATION_TIME = 600.0;
 	bool m_shieldDeactive;
 	double m_timeToShieldOver;
 	double m_timeToDoubleBulletOver;
 	sf::Sprite m_playerShieldSprite;
 	sf::Texture m_playerShieldTexture;
 	sf::Sound* m_shotSound;
+	bool m_startVibration;
+	double m_timeToVibrationOver;
 };
 
 #endif

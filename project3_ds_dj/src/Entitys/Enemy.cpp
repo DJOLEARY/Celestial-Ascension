@@ -2,7 +2,8 @@
 
 Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
 	m_playerPos(playerPos),
-	m_turretShotSound(turretShotSound)
+	m_turretShotSound(turretShotSound),
+	m_color(sf::Color(255, 255, 255, 0))
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
@@ -88,6 +89,11 @@ Enemy::~Enemy()
 
 void Enemy::Update(double dt)
 {
+	if (m_color.a >= 250)
+		m_color.a = 255;
+	else
+		m_color.a += 10;
+
 	if (m_alive)
 	{
 		switch (m_enemyType)
@@ -129,6 +135,7 @@ void Enemy::Draw(sf::RenderTexture &renderTexture)
 {
 	if (m_alive)
 	{
+		m_sprite.setColor(m_color);
 		m_sprite.setRotation(m_orientation);
 		m_sprite.setPosition(m_position);
 		renderTexture.draw(m_sprite);
