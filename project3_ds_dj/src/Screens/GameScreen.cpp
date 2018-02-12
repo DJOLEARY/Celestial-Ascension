@@ -317,14 +317,14 @@ void GameScreen::cameraFollow()
 void GameScreen::setPauseGUIPos()
 {
 	sf::Vector2f guiCenter = m_cameraPosition;
-	m_pauseLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
-	m_pauseLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
+	m_pauseLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 250.0f));
+	m_pauseLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 250.0f));
 
-	m_resume->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 80.0f));
-	m_resume->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 80.0f));
+	m_resume->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 10.0f));
+	m_resume->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 10.0f));
 
-	m_mainMenu->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 80.0f));
-	m_mainMenu->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 80.0f));
+	m_mainMenu->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 150.0f));
+	m_mainMenu->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 150.0f));
 }
 
 void GameScreen::setGameOverGUIPos()

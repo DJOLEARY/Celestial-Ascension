@@ -35,7 +35,7 @@ HUD::HUD()
 	m_waveText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_waveText.setString("Wave");
 	m_waveText.setCharacterSize(80);
-	m_waveTextOffset = sf::Vector2f(210.0f, 150.0f);
+	m_waveTextOffset = sf::Vector2f(160.0f, 150.0f);
 }
 
 void HUD::setScore(uint16_t score)
@@ -113,7 +113,7 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 	{
 		if (m_timeToWaveUILerp <= 2)
 		{
-			m_waveNumText.setPosition(pos - sf::Vector2f(-30.0f, 150.0f));
+			m_waveNumText.setPosition(pos - sf::Vector2f(-60.0f, 150.0f));
 			m_waveText.setPosition(pos - m_waveTextOffset);
 
 			if (elapsedTime.asSeconds() > 1)
