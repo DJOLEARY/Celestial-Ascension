@@ -126,7 +126,10 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 		{
 			sf::Vector2f lerpWaveNumPos = sf::lerp(pos - sf::Vector2f(-30.0f, 150.0f), 
 				pos + m_targetWaveNumPos, elapsedTime.asSeconds() * 2);
-			int lerpFontSize = sf::floatLerp(80, 50, elapsedTime.asSeconds() * 2);
+			float interpolate = elapsedTime.asSeconds() * 2;
+			if (interpolate >= 1.0f)
+				interpolate = 1.0f;
+			int lerpFontSize = sf::floatLerp(80, 50, interpolate);
 			m_waveNumText.setCharacterSize(lerpFontSize);
 			m_waveNumText.setPosition(lerpWaveNumPos);
 
@@ -158,7 +161,6 @@ void HUD::render(sf::RenderTexture &texture)
 	texture.draw(m_rightHUDSprite);
 	m_scoreText.setString(std::to_string(m_displayScore));
 	texture.draw(m_scoreText);
-	// @crash @bug @todo(darren): Pause the game, wait for a few seconds and unpause while the wave in transitioning the UI
 	texture.draw(m_waveNumText);
 	if(displayNewWave)
 		texture.draw(m_waveText);
