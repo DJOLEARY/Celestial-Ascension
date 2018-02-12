@@ -158,6 +158,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 	{
+		cameraFollow();
+
 		if (m_isGameOver)
 		{
 			m_gameOverGui.processInput(controller);
@@ -165,18 +167,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			for (int i = 0; i < 3; i++)
 			{
 				m_charNameLabels[i]->setText(m_userNameChars[m_charNameIndex[i]]);
-			}
-		}
-
-		cameraFollow();
-
-		if (m_player->m_lives <= 0)
-		{
-			if (!m_isGameOver)
-			{
-				setGameOverGUIPos();
-				transitionIn = true;
-				m_isGameOver = true;
 			}
 		}
 
@@ -223,6 +213,16 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		}
 
 		m_view.setCenter(m_cameraPosition);
+
+		if (m_player->m_lives <= 0)
+		{
+			if (!m_isGameOver)
+			{
+				setGameOverGUIPos();
+				transitionIn = true;
+				m_isGameOver = true;
+			}
+		}
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !m_isPaused && !m_isGameOver)
