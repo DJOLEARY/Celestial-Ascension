@@ -103,7 +103,10 @@ void Enemy::Update(double dt)
 
 			seekPlayer();
 
-			m_position += m_velocity * (float)dt;
+			if (m_color.a >= 250)	// Move at full speed when fully faded in
+				m_position += m_velocity * (float)dt;
+			else // Move at 75% speed during fading, ease the motion on the players eyes
+				m_position += m_velocity * (float)dt * 0.75f;
 
 			if (m_enemyType == EnemyType::Wanderer)
 			{
