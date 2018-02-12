@@ -59,6 +59,8 @@ void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 		m_noButtonPressed = true;
 	}
 
+	m_gui.processInput(controller);
+
 	if (m_noButtonPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation);
@@ -69,8 +71,6 @@ void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
-	else 
-		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{

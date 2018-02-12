@@ -1,4 +1,4 @@
-#include "GUI\RadioButton.h"
+ #include "GUI\RadioButton.h"
 
 RadioButton::RadioButton(sf::Color & focusColorIn, sf::Color &noFocusColorIn, sf::Color &fillColorIn, 
 	sf::Vector2f & positionIn, std::vector<RadioButton *> & radGroup, sf::Vector2f &endPos,
@@ -37,11 +37,13 @@ bool RadioButton::processInput(XboxController & controller)
 {
 	if (!m_hasFocus)
 	{
+		noFocusColor.a = m_alpha;
 		m_radioButtonRect.setOutlineColor(noFocusColor);
 		return false;
 	}
 	else
 	{
+		focusColor.a = m_alpha;
 		m_radioButtonRect.setOutlineColor(focusColor);
 		if (controller.isButtonPressed(XBOX360_UP) || controller.getLeftStickFlickUp())
 		{
@@ -137,6 +139,7 @@ bool RadioButton::getState() const
 /// <param name="stateIn">The state you want to set the radioButton to</param>
 void RadioButton::activate()
 {
+	fillColor.a = m_alpha;
 	m_radioButtonRect.setFillColor(fillColor);
 	m_state = true;
 	for (auto & otherRadioButton : m_otherButtons)
@@ -155,14 +158,18 @@ void RadioButton::setColors()
 {
 	if (m_hasFocus)
 	{
+		focusColor.a = m_alpha;
 		m_radioButtonRect.setOutlineColor(focusColor);
 	}
 	else
 	{
+		noFocusColor.a = m_alpha;
 		m_radioButtonRect.setOutlineColor(noFocusColor);
 	}
+
 	if (m_state)
 	{
+		fillColor.a = m_alpha;
 		m_radioButtonRect.setFillColor(fillColor);
 	}
 	else

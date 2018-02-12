@@ -49,11 +49,13 @@ bool CheckBox::processInput(XboxController & controller)
 {
 	if (!m_hasFocus)
 	{
+		noFocusColor.a = m_alpha;
 		m_checkBoxRect.setOutlineColor(noFocusColor);
 		return false;
 	}
 	else
 	{
+		focusColor.a = m_alpha;
 		m_checkBoxRect.setOutlineColor(focusColor); 
 		if (controller.isButtonPressed(XBOX360_UP) || controller.getLeftStickFlickUp())
 		{
@@ -124,6 +126,30 @@ void CheckBox::setState(bool stateIn)
 	if (stateIn)
 	{
 		switchState();
+	}
+}
+
+void CheckBox::setColors()
+{
+	if (m_hasFocus)
+	{
+		focusColor.a = m_alpha;
+		m_checkBoxRect.setOutlineColor(focusColor);
+	}
+	else
+	{
+		noFocusColor.a = m_alpha;
+		m_checkBoxRect.setOutlineColor(noFocusColor);
+	}
+
+	if (m_state)
+	{
+		fillColor.a = m_alpha;
+		m_checkBoxRect.setFillColor(fillColor);
+	}
+	else
+	{
+		m_checkBoxRect.setFillColor(sf::Color(0, 0, 0, 0));
 	}
 }
 
