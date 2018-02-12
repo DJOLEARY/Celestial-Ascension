@@ -110,7 +110,6 @@ void Options::reset()
 /// <param name="controller">controller used for processing input</param>
 void Options::update(XboxController &controller, sf::Int32 dt)
 {
-	m_gui.processInput(controller);
 
 	if (controller.isButtonPressed(XBOX360_B))
 	{
@@ -127,6 +126,8 @@ void Options::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
+	else 
+		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{

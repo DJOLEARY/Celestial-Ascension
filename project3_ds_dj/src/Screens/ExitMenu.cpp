@@ -54,8 +54,6 @@ bool ExitMenu::getExitState()
 
 void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 {
-	m_gui.processInput(controller);
-
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_noButtonPressed = true;
@@ -71,6 +69,8 @@ void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
+	else 
+		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{

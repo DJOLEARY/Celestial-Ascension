@@ -36,8 +36,6 @@ PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *m_navigat
 
 void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 {
-	m_gui.processInput(controller);
-
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
@@ -77,6 +75,8 @@ void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
+	else
+		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{
