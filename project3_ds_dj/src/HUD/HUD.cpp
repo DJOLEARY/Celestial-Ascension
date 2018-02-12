@@ -10,7 +10,7 @@ HUD::HUD()
 	if (!m_rightHUDTex.loadFromFile("Assets/HUD/right_HUD.png"))
 		std::cout << "HUD::left hud texture is not laoded" << std::endl;
 
-	if (!m_heartTexture.loadFromFile("Assets/HUD/heart.png"))
+	if (!m_heartTexture.loadFromFile("Assets/HUD/heart_2.png"))
 		std::cout << "HUD::heart texture has not loaded" << std::endl;
 
 	if (!m_font.loadFromFile("Assets/Fonts/OCRAEXT.TTF"))
@@ -21,7 +21,7 @@ HUD::HUD()
 	m_rightHUDSprite.setTexture(m_rightHUDTex);
 	m_rightHUDSprite.setScale(sf::Vector2f(0.5f, 0.5f));
 	m_heartSprite.setTexture(m_heartTexture);
-	m_heartSprite.setScale(sf::Vector2f(0.5f, 0.5f));
+	m_heartSprite.setColor(sf::Color(183, 27, 121));
 	m_scoreText.setFont(m_font);
 	m_scoreText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_scoreText.setString("1000");
@@ -102,11 +102,11 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 	m_rightHUDSprite.setPosition(pos + sf::Vector2f(760.0f, -510.0f));
 	for (uint8_t i = 0; i < m_lives; i++)
 	{
-		m_heartPositions[i] = pos + sf::Vector2f(-770.0f + (i * 25.0f), -460.0f);
+		m_heartPositions[i] = pos + sf::Vector2f(-770.0f + (i * 35.0f), -460.0f);
 	}
 
 	float scoreTextWidth = m_scoreText.getLocalBounds().width;
-	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -440.0f));
+	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -438.0f));
 
 	sf::Time elapsedTime = m_clock.getElapsedTime();
 	if (displayNewWave)
