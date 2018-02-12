@@ -85,8 +85,6 @@ void MainMenu::update(XboxController &controller, sf::Int32 dt)
 		m_alphaFadeValue -= FADE_RATE;
 	}
 
-	m_gui.processInput(controller);
-
 	if (playButtonPressed)
 	{
 		m_gui.transitionOut(0.05f, interpolation); 
@@ -127,6 +125,9 @@ void MainMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
+	else
+		m_gui.processInput(controller);
+
 	if (transitionIn)
 	{
 		m_gui.transitionIn(0.05f, interpolation); 

@@ -9,8 +9,9 @@ SplashScreen::SplashScreen(sf::View &view) :
 
 	m_teamLogoSprite.setTexture(m_teamLogoTexture);
 	m_teamLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 1080.0f / 2));
-	m_teamLogoSprite.setOrigin(m_teamLogoSprite.getLocalBounds().width / 2.0f, m_teamLogoSprite.getLocalBounds().height / 2.0f);
-	m_teamLogoSprite.setColor(sf::Color(255, 0, 191));
+	m_teamLogoSprite.setOrigin(m_teamLogoSprite.getLocalBounds().width / 2.0f, 
+		m_teamLogoSprite.getLocalBounds().height / 2.0f);
+	m_teamLogoSprite.setColor(sf::Color(132, 76, 15));
 
 	m_fadeRectangle.setFillColor(sf::Color(0, 0, 0, m_alphaFadeValue));
 	m_fadeRectangle.setSize(sf::Vector2f(1920.0f, 1080.0f));

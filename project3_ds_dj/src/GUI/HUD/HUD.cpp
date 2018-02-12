@@ -10,7 +10,7 @@ HUD::HUD()
 	if (!m_rightHUDTex.loadFromFile("Assets/HUD/right_HUD.png"))
 		std::cout << "HUD::left hud texture is not laoded" << std::endl;
 
-	if (!m_heartTexture.loadFromFile("Assets/HUD/heart.png"))
+	if (!m_heartTexture.loadFromFile("Assets/HUD/heart_2.png"))
 		std::cout << "HUD::heart texture has not loaded" << std::endl;
 
 	if (!m_font.loadFromFile("Assets/Fonts/OCRAEXT.TTF"))
@@ -21,7 +21,7 @@ HUD::HUD()
 	m_rightHUDSprite.setTexture(m_rightHUDTex);
 	m_rightHUDSprite.setScale(sf::Vector2f(0.5f, 0.5f));
 	m_heartSprite.setTexture(m_heartTexture);
-	m_heartSprite.setScale(sf::Vector2f(0.5f, 0.5f));
+	m_heartSprite.setColor(sf::Color(183, 27, 121));
 	m_scoreText.setFont(m_font);
 	m_scoreText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_scoreText.setString("1000");
@@ -35,7 +35,7 @@ HUD::HUD()
 	m_waveText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
 	m_waveText.setString("Wave");
 	m_waveText.setCharacterSize(80);
-	m_waveTextOffset = sf::Vector2f(210.0f, 150.0f);
+	m_waveTextOffset = sf::Vector2f(160.0f, 150.0f);
 
 	m_multiplierText.setFont(m_font);
 	m_multiplierText.setFillColor(sf::Color(226.0f, 96.0f, 9.0f));
@@ -121,20 +121,20 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 	m_rightHUDSprite.setPosition(pos + sf::Vector2f(760.0f, -510.0f));
 	for (uint8_t i = 0; i < m_lives; i++)
 	{
-		m_heartPositions[i] = pos + sf::Vector2f(-770.0f + (i * 25.0f), -460.0f);
+		m_heartPositions[i] = pos + sf::Vector2f(-770.0f + (i * 35.0f), -460.0f);
 	}
 
 	m_multiplierText.setPosition(pos + sf::Vector2f(-880.0f, -452.5f));
 
 	float scoreTextWidth = m_scoreText.getLocalBounds().width;
-	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -440.0f));
+	m_scoreText.setPosition(pos + sf::Vector2f(-570.0f - scoreTextWidth, -438.0f));
 
 	sf::Time elapsedTime = m_clock.getElapsedTime();
 	if (displayNewWave)
 	{
 		if (m_timeToWaveUILerp <= 2)
 		{
-			m_waveNumText.setPosition(pos - sf::Vector2f(-30.0f, 150.0f));
+			m_waveNumText.setPosition(pos - sf::Vector2f(-60.0f, 150.0f));
 			m_waveText.setPosition(pos - m_waveTextOffset);
 
 			if (elapsedTime.asSeconds() > 1)
@@ -147,7 +147,10 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 		{
 			sf::Vector2f lerpWaveNumPos = sf::lerp(pos - sf::Vector2f(-30.0f, 150.0f), 
 				pos + m_targetWaveNumPos, elapsedTime.asSeconds() * 2);
-			int lerpFontSize = sf::floatLerp(80, 50, elapsedTime.asSeconds() * 2);
+			float interpolate = elapsedTime.asSeconds() * 2;
+			if (interpolate >= 1.0f)
+				interpolate = 1.0f;
+			int lerpFontSize = sf::floatLerp(80, 50, interpolate);
 			m_waveNumText.setCharacterSize(lerpFontSize);
 			m_waveNumText.setPosition(lerpWaveNumPos);
 
@@ -179,7 +182,6 @@ void HUD::render(sf::RenderTexture &texture)
 	texture.draw(m_rightHUDSprite);
 	m_scoreText.setString(std::to_string(m_displayScore));
 	texture.draw(m_scoreText);
-	// @crash @bug @todo(darren): Pause the game, wait for a few seconds and unpause while the wave in transitioning the UI
 	texture.draw(m_waveNumText);
 	if(displayNewWave)
 		texture.draw(m_waveText);

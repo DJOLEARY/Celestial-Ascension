@@ -75,6 +75,17 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_gui.add(m_fullscreenLabel);
 
 	m_gui.setWidgetsAlpha(0.0f);
+
+	//----Set All Sounds Volumes Here----//
+	m_music->pause();
+	m_confirmSound->setVolume(0);
+	m_shotSound->setVolume(0);
+	m_waveCompleteSound->setVolume(0);
+	m_pickUpSound->setVolume(0);
+	m_deathSound->setVolume(0);
+	m_turretShotSound->setVolume(0);
+	m_hitWallSound->setVolume(0);
+	m_navigateSound->setVolume(0);
 }
 
 /// <summary>
@@ -99,7 +110,6 @@ void Options::reset()
 /// <param name="controller">controller used for processing input</param>
 void Options::update(XboxController &controller, sf::Int32 dt)
 {
-	m_gui.processInput(controller);
 
 	if (controller.isButtonPressed(XBOX360_B))
 	{
@@ -116,6 +126,8 @@ void Options::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
+	else 
+		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{

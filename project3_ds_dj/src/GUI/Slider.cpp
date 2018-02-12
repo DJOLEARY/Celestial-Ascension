@@ -70,7 +70,7 @@ bool Slider::processInput(XboxController &controller)
 		m_base.setFillColor(sf::Color(0, 0, 0, 0));
 		fillColor.a = m_alpha;
 		m_bar.setFillColor(fillColor);
-		if (controller.isButtonHeldDown(XBOX360_RIGHT))
+		if (controller.isButtonHeldDown(XBOX360_RIGHT) || controller.getLeftStick().x > 20)
 		{
 			if (m_barSize < m_barBaseWidth - 2)
 			{
@@ -88,7 +88,7 @@ bool Slider::processInput(XboxController &controller)
 			m_bar.setSize(sf::Vector2f(m_barSize, m_barBaseHeight)); // Set the new size of the bar
 			return true;
 		}
-		else if (controller.isButtonHeldDown(XBOX360_LEFT))
+		else if (controller.isButtonHeldDown(XBOX360_LEFT) || controller.getLeftStick().x < -20)
 		{
 			if (m_barSize >= 2)
 			{
@@ -106,7 +106,7 @@ bool Slider::processInput(XboxController &controller)
 			m_bar.setSize(sf::Vector2f(m_barSize, m_barBaseHeight)); // Set the new size of the bar
 			return true;
 		}
-		else if (controller.isButtonPressed(XBOX360_UP))
+		else if (controller.isButtonPressed(XBOX360_UP) || controller.getLeftStickFlickUp())
 		{
 			if (m_up != nullptr)
 			{
@@ -117,7 +117,7 @@ bool Slider::processInput(XboxController &controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_DOWN))
+		else if (controller.isButtonPressed(XBOX360_DOWN) || controller.getLeftStickFlickDown())
 		{
 			if (m_down != nullptr)
 			{

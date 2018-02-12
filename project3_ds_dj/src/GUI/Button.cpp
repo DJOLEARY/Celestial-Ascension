@@ -66,7 +66,7 @@ bool Button::processInput(XboxController & controller)
 				return true;
 			}
 		}
-		else if (controller.isButtonPressed(XBOX360_LEFT))
+		else if (controller.isButtonPressed(XBOX360_LEFT) || controller.getLeftStickFlickLeft())
 		{
 			if (m_left != nullptr)
 			{
@@ -78,7 +78,7 @@ bool Button::processInput(XboxController & controller)
 			}
 
 		}
-		else if (controller.isButtonPressed(XBOX360_RIGHT))
+		else if (controller.isButtonPressed(XBOX360_RIGHT) || controller.getLeftStickFlickRight())
 		{
 			if (m_right != nullptr)
 			{

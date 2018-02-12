@@ -40,7 +40,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_resumeTexture.loadFromFile("Assets/GUI/Resume.png");
 	m_retryTexture.loadFromFile("Assets/GUI/Retry.png");
 	m_mainMenuTexture.loadFromFile("Assets/GUI/MainMenu.png");
-	m_arrowTexture.loadFromFile("Assets/GUI/arrow.png");
+	m_arrowTextureUp.loadFromFile("Assets/GUI/arrowUp.png");
+	m_arrowTextureDown.loadFromFile("Assets/GUI/arrowDown.png");
 
 	m_pauseLabel = new Label("PAUSED", 84);
 	m_gameOverLabel = new Label("GAME OVER", 84);
@@ -57,7 +58,10 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 
 	for (int i = 0; i < 6; i++)
 	{
-		m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTexture, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		if (i > 2)
+			m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTextureUp, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
+		else
+			m_arrowButtons[i] = new Button(m_confirmSound, m_navigateSound, m_arrowTextureDown, sf::Vector2f(), focusIn, focusOut, 0.75f, 0.75f, sf::Vector2f());
 	}
 
 	m_charNameLabels[0] = new Label("A", 60);
@@ -156,6 +160,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		m_gui.processInput(controller);
 	else
 	{
+		cameraFollow();
+
 		if (m_isGameOver)
 		{
 			m_gameOverGui.processInput(controller);
@@ -163,18 +169,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			for (int i = 0; i < 3; i++)
 			{
 				m_charNameLabels[i]->setText(m_userNameChars[m_charNameIndex[i]]);
-			}
-		}
-
-		cameraFollow();
-
-		if (m_player->m_lives <= 0)
-		{
-			if (!m_isGameOver)
-			{
-				setGameOverGUIPos();
-				transitionIn = true;
-				m_isGameOver = true;
 			}
 		}
 
@@ -221,6 +215,16 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		}
 
 		m_view.setCenter(m_cameraPosition);
+
+		if (m_player->m_lives <= 0)
+		{
+			if (!m_isGameOver)
+			{
+				setGameOverGUIPos();
+				transitionIn = true;
+				m_isGameOver = true;
+			}
+		}
 	}
 
 	if (controller.isButtonPressed(XBOX360_START) && !m_isPaused && !m_isGameOver)
@@ -249,18 +253,22 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::spawnPowerUp()
 {
-	sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
-	int randomPowerUp = sf::randF(0, 3);
-	if (randomPowerUp == 0)
-		m_entityManager.AddPowerUp(new ShieldPower(randomPos));
-	else if (randomPowerUp == 1)
-		m_entityManager.AddPowerUp(new HeartPower(randomPos));
-	else if (randomPowerUp == 2)
-		m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
+	//if (m_entityManager.GetPowerUp() == nullptr)
+	{
+		sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
+		int randomPowerUp = sf::randF(0, 3);
+		if (randomPowerUp == 0)
+			m_entityManager.AddPowerUp(new ShieldPower(randomPos));
+		else if (randomPowerUp == 1)
+			m_entityManager.AddPowerUp(new HeartPower(randomPos));
+		else if (randomPowerUp == 2)
+			m_entityManager.AddPowerUp(new DoubleBulletPowerUp(randomPos));
+	}
 }
 
 void GameScreen::setWave(uint8_t waveNum)
 {
+	// @note(darren)	:(
 	if (!m_leftViaPause)
 	{
 		m_hud.setWave(waveNum);
@@ -311,14 +319,14 @@ void GameScreen::cameraFollow()
 void GameScreen::setPauseGUIPos()
 {
 	sf::Vector2f guiCenter = m_cameraPosition;
-	m_pauseLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
-	m_pauseLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
+	m_pauseLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 250.0f));
+	m_pauseLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 250.0f));
 
-	m_resume->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 80.0f));
-	m_resume->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 80.0f));
+	m_resume->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 10.0f));
+	m_resume->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 10.0f));
 
-	m_mainMenu->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 80.0f));
-	m_mainMenu->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 80.0f));
+	m_mainMenu->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 150.0f));
+	m_mainMenu->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 150.0f));
 }
 
 void GameScreen::setGameOverGUIPos()

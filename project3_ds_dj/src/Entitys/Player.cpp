@@ -15,7 +15,8 @@ Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_shieldScale(0.0f),
 	m_shieldDeactive(false),
 	m_timeToShieldOver(MAX_SHIELD_TIME),
-	m_timeToDoubleBulletOver(MAX_BULLET_TIME)
+	m_timeToDoubleBulletOver(MAX_BULLET_TIME),
+	m_timeToVibrationOver(MAX_VIBRATION_TIME)
 {
 	if (!m_texture.loadFromFile("Assets/PlayerShip.png"))
 		std::cout << "ERROR::Player::Image ship not loaded";
@@ -40,6 +41,7 @@ void Player::SpawnPlayer(bool immediateSpawn)
 	sf::Time elapsedTime = m_clock.getElapsedTime();
 	if (elapsedTime.asSeconds() > TIME_TO_SPAWN || immediateSpawn)
 	{
+		m_startVibration = true;
 		m_alive = true;
 		m_shieldActive = false;
 		m_shieldScale = 0.0f;
@@ -119,6 +121,18 @@ void Player::setBulletType(BulletType type)
 	m_bulletType = type;
 }
 
+void Player::setShieldActive()
+{
+	m_shieldActive = true;
+	m_timeToShieldOver = MAX_SHIELD_TIME;
+}
+
+void Player::setDoubleBulletActive()
+{
+	m_doubleBulletActive = true;
+	m_timeToDoubleBulletOver = MAX_SHIELD_TIME;
+}
+
 /// <summary>
 /// Updates the player input.
 /// </summary>
@@ -128,6 +142,20 @@ void Player::Update(double dt)
 	if (m_alive)
 	{
 		ProcessInput(dt);
+
+		if (m_startVibration)
+		{
+			m_xboxController.setVibration(0.3f, 0.3f);
+
+			m_timeToVibrationOver -= dt;
+
+			if (m_timeToVibrationOver <= 0.0)
+			{
+				m_timeToVibrationOver = MAX_VIBRATION_TIME;
+				m_startVibration = false;
+				m_xboxController.setVibration(0.0f, 0.0f);
+			}
+		}
 
 		if (m_shieldActive)
 		{

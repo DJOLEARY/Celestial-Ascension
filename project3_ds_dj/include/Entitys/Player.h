@@ -25,9 +25,8 @@ public:
 	BulletType getBulletType();
 	void setBulletType(BulletType type);
 	int m_lives;
-	bool m_shieldActive;
-	bool m_doubleBulletActive;
 	float m_shieldScale;
+	bool m_shieldActive;
 
 	virtual void Update(double dt) override;
 	virtual void Draw(sf::RenderTexture &renderTexture) override;
@@ -35,8 +34,11 @@ public:
     sf::Vector2f* getPosition();
 	void OutOfBounds();
 	void SpawnPlayer(bool immediate = false);
+	void setShieldActive();
+	void setDoubleBulletActive();
 
 private:
+	bool m_doubleBulletActive;
 	XboxController &m_xboxController;
 	float m_rotationDiff;
 	const float INPUT_THRESHOLD = 30.0f;
@@ -47,12 +49,15 @@ private:
 	BulletType m_bulletType = BulletType::SINGLE_BULLET;
 	const double MAX_SHIELD_TIME = 6000.0;
 	const double MAX_BULLET_TIME = 6000.0;
+	const double MAX_VIBRATION_TIME = 600.0;
 	bool m_shieldDeactive;
 	double m_timeToShieldOver;
 	double m_timeToDoubleBulletOver;
 	sf::Sprite m_playerShieldSprite;
 	sf::Texture m_playerShieldTexture;
 	sf::Sound* m_shotSound;
+	bool m_startVibration;
+	double m_timeToVibrationOver;
 };
 
 #endif
