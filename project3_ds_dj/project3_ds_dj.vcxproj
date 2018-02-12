@@ -248,6 +248,7 @@
     <ClInclude Include="include\Screens\ScreenManager.h" />
     <ClInclude Include="include\Screens\SplashScreen.h" />
     <ClInclude Include="include\XboxController.h" />
+    <ClInclude Include="resource.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Bloom.frag" />
@@ -256,6 +257,12 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="GameWin32Resource.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="GameIcon.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
