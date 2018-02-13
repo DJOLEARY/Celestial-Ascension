@@ -109,7 +109,7 @@ void CheckBox::switchState()
 
 	if (m_state)
 	{
-		m_checkBoxRect.setFillColor(fillColor); // Set the fill color to Blue if the box is checked
+		m_checkBoxRect.setFillColor(fillColor);
 	}
 	else
 	{
