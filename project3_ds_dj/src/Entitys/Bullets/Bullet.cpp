@@ -2,7 +2,7 @@
 
 Bullet::Bullet() { }
 
-Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, bool playerBullet) :
+Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, sf::Color color, bool playerBullet) :
 	m_playerBullet(playerBullet)
 {
 	if (!m_texture.loadFromFile("Assets/Bullet.png"))
@@ -12,6 +12,7 @@ Bullet::Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, bool
 
 	m_sprite.setTexture(m_texture);
 	m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
+	m_sprite.setColor(color);
 	m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
 	m_speed = 1.0f;

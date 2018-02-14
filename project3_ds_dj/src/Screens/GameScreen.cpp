@@ -190,16 +190,17 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			if (m_player->getBulletType() == BulletType::SINGLE_BULLET)
 			{
 				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));	//	This exists so the game can be tested with a ps4 controller.
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), 
+					sf::normalize(controller.getRightStick()), sf::Color(255, 255, 255), true));
 			}
 			// @todo(darren): Fix an issue with double bullets - what issue?
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
-					sf::normalize(controller.getRightStick()), true));
+					sf::normalize(controller.getRightStick()), sf::Color(226, 219, 9), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
-					sf::normalize(controller.getRightStick()), true));
+					sf::normalize(controller.getRightStick()), sf::Color(226, 219, 9), true));
 			}
 		}
 
@@ -209,7 +210,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		{
 			if ((*iter)->getFireBullet())
 			{
-				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, m_player->getPos().y - (*iter)->getPos().y)), false));
+				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, 
+					m_player->getPos().y - (*iter)->getPos().y)), sf::Color(214, 105, 17), false));
 			}
 		}
 
