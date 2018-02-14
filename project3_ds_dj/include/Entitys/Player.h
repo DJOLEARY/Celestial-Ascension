@@ -36,8 +36,10 @@ public:
 	void SpawnPlayer(bool immediate = false);
 	void setShieldActive();
 	void setDoubleBulletActive();
+	void StopVibration();
 
 private:
+	bool m_startVibration;
 	bool m_doubleBulletActive;
 	XboxController &m_xboxController;
 	float m_rotationDiff;
@@ -56,7 +58,6 @@ private:
 	sf::Sprite m_playerShieldSprite;
 	sf::Texture m_playerShieldTexture;
 	sf::Sound* m_shotSound;
-	bool m_startVibration;
 	double m_timeToVibrationOver;
 };
 

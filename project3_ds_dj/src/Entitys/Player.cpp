@@ -133,6 +133,13 @@ void Player::setDoubleBulletActive()
 	m_timeToDoubleBulletOver = MAX_SHIELD_TIME;
 }
 
+void Player::StopVibration()
+{
+	m_timeToVibrationOver = MAX_VIBRATION_TIME;
+	m_startVibration = false;
+	m_xboxController.setVibration(0.0f, 0.0f);
+}
+
 /// <summary>
 /// Updates the player input.
 /// </summary>
@@ -150,11 +157,7 @@ void Player::Update(double dt)
 			m_timeToVibrationOver -= dt;
 
 			if (m_timeToVibrationOver <= 0.0)
-			{
-				m_timeToVibrationOver = MAX_VIBRATION_TIME;
-				m_startVibration = false;
-				m_xboxController.setVibration(0.0f, 0.0f);
-			}
+				StopVibration();
 		}
 
 		if (m_shieldActive)

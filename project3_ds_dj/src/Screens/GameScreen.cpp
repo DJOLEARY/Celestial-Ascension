@@ -235,6 +235,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		setPauseGUIPos();
 		Grid::instance()->setPause(true);
 		ParticleManager::instance()->setPause(true);
+		m_player->StopVibration();
 	}
 
 	if (transitionIn)
