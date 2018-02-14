@@ -68,9 +68,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_charNameLabels[2] = new Label("A", 60);
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
-	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
+	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonResumeSelected, this);
 	m_retry->select = std::bind(&GameScreen::retryButtonSelected, this);
-	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
+	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonGameOverSelected, this);
 
 	m_resume->promoteFocus();
 
@@ -219,6 +219,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 		if (m_player->m_lives <= 0)
 		{
+			m_player->StopVibration();
+
 			if (!m_isGameOver)
 			{
 				setGameOverGUIPos();
@@ -375,7 +377,7 @@ void GameScreen::resumeButtonSelected()
 	reset();
 }
 
-void GameScreen::mainMenuButtonSelected()
+void GameScreen::mainMenuButtonGameOverSelected()
 {
 	m_nextGameState = GameState::MainMenu;
 	m_isPaused = false;
@@ -401,22 +403,41 @@ void GameScreen::mainMenuButtonSelected()
 	reset();
 }
 
-void GameScreen::retryButtonSelected()
+void GameScreen::mainMenuButtonResumeSelected()
 {
-	updateLeaderboard();
-
+	m_nextGameState = GameState::MainMenu;
+	m_isPaused = false;
+	Grid::instance()->setPause(false);
+	ParticleManager::instance()->setPause(false);
+	m_leftViaPause = true;
 	m_isGameOver = false;
 
 	//	Reset the player.
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
+	m_player->StopVibration();
 	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
 	m_hud.setWave(m_currentWave);
 	//	Reset all other entitys
 	m_entityManager.reset();
+
+	reset();
+}
+
+void GameScreen::retryButtonSelected()
+{
+	updateLeaderboard();
+	m_isGameOver = false;
+	m_currentWave = 0;
+	m_hud.setScore(0);
+	m_hud.setWave(m_currentWave);
+	m_entityManager.reset();
+	m_player->SpawnPlayer(true);
+	m_player->setAlive(true);
+	m_player->m_lives = 3;
 }
 
 void GameScreen::updateLeaderboard()
