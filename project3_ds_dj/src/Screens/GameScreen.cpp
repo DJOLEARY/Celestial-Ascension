@@ -23,7 +23,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
     m_player = new Player(controller, m_shotSound);
 
 	m_entityManager.SetPlayer(m_player);
-	spawnPowerUp();
 	
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -253,7 +252,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::spawnPowerUp()
 {
-	//if (m_player->getAlive())
+	if (m_entityManager.GetPowerUp() == nullptr)
 	{
 		sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
 		int randomPowerUp = sf::randF(0, 3);
