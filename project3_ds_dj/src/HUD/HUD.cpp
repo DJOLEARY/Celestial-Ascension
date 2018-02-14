@@ -112,7 +112,7 @@ void HUD::update(sf::Int32 dt, sf::Vector2f &pos)
 		{
 			m_displayScore += 50;
 		}
-		else if (m_currentScore - m_displayScore < 10000)
+		else
 		{
 			m_displayScore += 500;
 		}
