@@ -14,7 +14,7 @@ class Bullet : public Entity
 {
 public:
 	Bullet();
-	Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, bool playerBullet);
+	Bullet(const sf::Vector2f &position, const sf::Vector2f &direction, sf::Color color, bool playerBullet);
 
 	virtual void Update(double dt) override;
 	void Draw(sf::RenderTexture& renderTexture) override;

@@ -67,9 +67,11 @@ private:
 	void setPauseGUIPos();
 	void setGameOverGUIPos();
 	void resumeButtonSelected();
-	void mainMenuButtonSelected();
+	void mainMenuButtonGameOverSelected();
+	void mainMenuButtonResumeSelected();
 	void retryButtonSelected();
 	void updateLeaderboard();
+	uint32_t findMinimumLeaderboardScore();
 
 	bool m_leftViaPause;
 	

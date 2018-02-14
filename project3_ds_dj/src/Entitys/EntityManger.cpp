@@ -28,7 +28,8 @@ EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::
 /// </summary>
 EntityManager::~EntityManager()
 {
-	delete m_powerUp;
+	if (m_powerUp)
+		delete m_powerUp;
 	for (Entity *entity : m_enemies)
 		delete entity;
 	for (Entity *entity : m_bullets)
@@ -112,43 +113,51 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		}
 	}
 
-	if (SimpleCollision(m_player, m_powerUp))
+	if (m_powerUp)
 	{
-		if (m_powerUp->getAlive())
+		if (SimpleCollision(m_player, m_powerUp))
 		{
-			if (m_powerUp->m_type == PowerUp::PowerUpType::HEART_POWER)
+			if (m_powerUp->getAlive())
 			{
-				sf::Vector2f pos = m_powerUp->getPos();
-				ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
-				Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
-				m_powerUp->setAlive(false);
-				if (m_player->m_lives < 5)
-					m_player->m_lives++;
-			}
-			else if (m_powerUp->m_type == PowerUp::PowerUpType::SHIELD_POWER)
-			{
-				// @todo(darren): Give the player abilities
-				sf::Vector2f pos = m_powerUp->getPos();
-				ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
-				Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
-				m_player->setShieldActive();
-				m_powerUp->setAlive(false);
-			}
-			else if (m_powerUp->m_type == PowerUp::PowerUpType::DOUBLE_BULLET_POWER)
-			{
-				// @todo(darren): Give the player abilities
-				m_player->setBulletType(BulletType::DOUBLE_BULLET);
-				sf::Vector2f pos = m_powerUp->getPos();
-				ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
-				Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
-				m_player->setDoubleBulletActive();
-				m_powerUp->setAlive(false);
-			}
+				if (m_powerUp->m_type == PowerUp::PowerUpType::HEART_POWER)
+				{
+					sf::Vector2f pos = m_powerUp->getPos();
+					ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
+					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
+					m_powerUp->setAlive(false);
+					if (m_player->m_lives < 5)
+						m_player->m_lives++;
+				}
+				else if (m_powerUp->m_type == PowerUp::PowerUpType::SHIELD_POWER)
+				{
+					sf::Vector2f pos = m_powerUp->getPos();
+					ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
+					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
+					m_player->setShieldActive();
+					m_powerUp->setAlive(false);
+				}
+				else if (m_powerUp->m_type == PowerUp::PowerUpType::DOUBLE_BULLET_POWER)
+				{
+					m_player->setBulletType(BulletType::DOUBLE_BULLET);
+					sf::Vector2f pos = m_powerUp->getPos();
+					ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
+					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
+					m_player->setDoubleBulletActive();
+					m_powerUp->setAlive(false);
+				}
 
-			m_pickUpSound->play();
+				m_pickUpSound->play();
+			}
+		}
+
+		m_powerUp->Update(dt);
+
+		if (m_powerUp->getAlive() == false)
+		{
+			delete m_powerUp;
+			m_powerUp = nullptr;
 		}
 	}
-	m_powerUp->Update(dt);
 
 	for (Entity *entity : m_bullets)
 	{
@@ -278,7 +287,8 @@ void EntityManager::Draw(sf::RenderTexture &renderTexture)
 		entity->Draw(renderTexture);
 	}
 
-	m_powerUp->Draw(renderTexture);
+	if (m_powerUp)
+		m_powerUp->Draw(renderTexture);
 
 	for (Entity *entity : m_bullets)
 	{
@@ -384,5 +394,6 @@ void EntityManager::reset()
 {
 	m_enemies.clear();
 	m_bullets.clear();
-	m_powerUp->setAlive(false);
+	if(m_powerUp)
+		m_powerUp->setAlive(false);
 }

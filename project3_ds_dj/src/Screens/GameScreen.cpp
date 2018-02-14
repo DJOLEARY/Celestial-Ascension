@@ -23,7 +23,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
     m_player = new Player(controller, m_shotSound);
 
 	m_entityManager.SetPlayer(m_player);
-	spawnPowerUp();
 	
 	m_maxEnemies = 5;	// The number of enemies.
 	for (int i = 0; i < m_maxEnemies; i++)
@@ -69,9 +68,9 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_charNameLabels[2] = new Label("A", 60);
 	
 	m_resume->select = std::bind(&GameScreen::resumeButtonSelected, this);
-	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
+	m_mainMenu->select = std::bind(&GameScreen::mainMenuButtonResumeSelected, this);
 	m_retry->select = std::bind(&GameScreen::retryButtonSelected, this);
-	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonSelected, this);
+	m_mainMenuGameOver->select = std::bind(&GameScreen::mainMenuButtonGameOverSelected, this);
 
 	m_resume->promoteFocus();
 
@@ -191,16 +190,17 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 			if (m_player->getBulletType() == BulletType::SINGLE_BULLET)
 			{
 				//m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getLeftStick()), true));	//	This exists so the game can be tested with a ps4 controller.
-				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), sf::normalize(controller.getRightStick()), true));
+				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), 
+					sf::normalize(controller.getRightStick()), sf::Color(255, 255, 255), true));
 			}
 			// @todo(darren): Fix an issue with double bullets - what issue?
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() + offset,
-					sf::normalize(controller.getRightStick()), true));
+					sf::normalize(controller.getRightStick()), sf::Color(226, 219, 9), true));
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition() - offset,
-					sf::normalize(controller.getRightStick()), true));
+					sf::normalize(controller.getRightStick()), sf::Color(226, 219, 9), true));
 			}
 		}
 
@@ -210,7 +210,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		{
 			if ((*iter)->getFireBullet())
 			{
-				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, m_player->getPos().y - (*iter)->getPos().y)), false));
+				m_entityManager.AddBullet(new Bullet((*iter)->getPos(), sf::normalize(sf::Vector2f(m_player->getPos().x - (*iter)->getPos().x, 
+					m_player->getPos().y - (*iter)->getPos().y)), sf::Color(214, 105, 17), false));
 			}
 		}
 
@@ -218,6 +219,8 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 		if (m_player->m_lives <= 0)
 		{
+			m_player->StopVibration();
+
 			if (!m_isGameOver)
 			{
 				setGameOverGUIPos();
@@ -234,6 +237,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 		setPauseGUIPos();
 		Grid::instance()->setPause(true);
 		ParticleManager::instance()->setPause(true);
+		m_player->StopVibration();
 	}
 
 	if (transitionIn)
@@ -253,7 +257,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::spawnPowerUp()
 {
-	//if (m_player->getAlive())
+	if (m_entityManager.GetPowerUp() == nullptr)
 	{
 		sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
 		int randomPowerUp = sf::randF(0, 3);
@@ -373,7 +377,7 @@ void GameScreen::resumeButtonSelected()
 	reset();
 }
 
-void GameScreen::mainMenuButtonSelected()
+void GameScreen::mainMenuButtonGameOverSelected()
 {
 	m_nextGameState = GameState::MainMenu;
 	m_isPaused = false;
@@ -388,6 +392,31 @@ void GameScreen::mainMenuButtonSelected()
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
+	m_player->StopVibration();
+	//	Reset the hud
+	m_currentWave = 0;
+	m_hud.setScore(0);
+	m_hud.setWave(m_currentWave);
+	//	Reset all other entitys
+	m_entityManager.reset();
+
+	reset();
+}
+
+void GameScreen::mainMenuButtonResumeSelected()
+{
+	m_nextGameState = GameState::MainMenu;
+	m_isPaused = false;
+	Grid::instance()->setPause(false);
+	ParticleManager::instance()->setPause(false);
+	m_leftViaPause = true;
+	m_isGameOver = false;
+
+	//	Reset the player.
+	m_player->m_lives = 3;
+	m_player->setAlive(true);
+	m_player->SpawnPlayer(true);
+	m_player->StopVibration();
 	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
@@ -401,19 +430,38 @@ void GameScreen::mainMenuButtonSelected()
 void GameScreen::retryButtonSelected()
 {
 	updateLeaderboard();
-
 	m_isGameOver = false;
-
-	//	Reset the player.
-	m_player->m_lives = 3;
-	m_player->setAlive(true);
-	m_player->SpawnPlayer(true);
-	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
 	m_hud.setWave(m_currentWave);
-	//	Reset all other entitys
 	m_entityManager.reset();
+	m_player->SpawnPlayer(true);
+	m_player->setAlive(true);
+	m_player->m_lives = 3;
+}
+
+uint32_t GameScreen::findMinimumLeaderboardScore()
+{
+	std::ifstream inputLeaderboardFile;
+	inputLeaderboardFile.open("leaderboard.txt");
+	uint32_t lowestScore = 0;
+
+	if (inputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			std::string name = "";
+			uint32_t score = 0;
+			inputLeaderboardFile >> name >> score;
+
+			if (i == 9)
+				lowestScore = score;
+		}
+	}
+
+	inputLeaderboardFile.close();
+
+	return lowestScore;
 }
 
 void GameScreen::updateLeaderboard()
