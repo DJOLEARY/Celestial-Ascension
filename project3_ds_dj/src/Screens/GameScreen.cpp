@@ -253,7 +253,7 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 void GameScreen::spawnPowerUp()
 {
-	//if (m_entityManager.GetPowerUp() == nullptr)
+	//if (m_player->getAlive())
 	{
 		sf::Vector2f randomPos = sf::Vector2f(sf::randF(150.0f, 1500.0f), sf::randF(150.0f, 1000.0f));
 		int randomPowerUp = sf::randF(0, 3);
