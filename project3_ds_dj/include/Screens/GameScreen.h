@@ -42,8 +42,8 @@ private:
 	Button *m_arrowButtons[6];
 	Label *m_charNameLabels[3];
 	uint8_t m_charNameIndex[3] = {0, 0, 0};
-	const static int MAX_USER_NAME_CHARS = 38;
-	std::string m_userNameChars[MAX_USER_NAME_CHARS] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "V", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "#", "/", "*", "(", ")" };
+	const static int MAX_USER_NAME_CHARS = 43;
+	std::string m_userNameChars[MAX_USER_NAME_CHARS] = { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z", "1", "2", "3", "4", "5", "6", "7", "8", "9", ".", "#", "/", "*", "(", ")", "_", "-" };
 	Button *m_resume;
 	Button *m_mainMenu;
 	Button *m_mainMenuGameOver;
