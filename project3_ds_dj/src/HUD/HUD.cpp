@@ -1,5 +1,7 @@
 #include "..\HUD\HUD.h"
 #include "MathHelper.h"
+#include <locale>
+#include <sstream>
 
 HUD::HUD()
 	: m_lives(3), m_timeToWaveUILerp(0), m_displayScore(0)
@@ -180,7 +182,10 @@ void HUD::render(sf::RenderTexture &texture)
 		texture.draw(m_heartSprite);
 	}
 	texture.draw(m_rightHUDSprite);
-	m_scoreText.setString(std::to_string(m_displayScore));
+	std::stringstream ss;
+	ss.imbue(std::locale(""));
+	ss << std::fixed << m_displayScore;
+	m_scoreText.setString(ss.str());
 	texture.draw(m_scoreText);
 	texture.draw(m_waveNumText);
 	if(displayNewWave)

@@ -23,13 +23,13 @@ public:
 	void deActivate();
 	bool getState() const;
 	void activate();
-	void setColors() override;
 
 	// Callback function to link to external functions
 	typedef std::function<void()> Callback;
 	Callback select;
 
 private:
+	void setColors() override;
 	bool m_state = false;
 	sf::RectangleShape m_radioButtonRect; 
 	std::vector<RadioButton *> &m_otherButtons;

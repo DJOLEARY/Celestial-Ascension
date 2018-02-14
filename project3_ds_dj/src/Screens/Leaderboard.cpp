@@ -1,5 +1,7 @@
 #include "Screens\Leaderboard.h"
 #include <fstream>
+#include <locale>
+#include <sstream>
 
 Leaderboard::Leaderboard(sf::View &view)
 	: Screen(GameState::Leaderboard, view), m_transitionIn(true)
@@ -99,7 +101,11 @@ void Leaderboard::updateLeaderboard()
 			for (int i = 0; i < 10; i++)
 			{
 				m_names[i]->setText(m_readInNames[i]);
-				m_scores[i]->setText(std::to_string(m_readInScores[i]));
+
+				std::stringstream ss;
+				ss.imbue(std::locale(""));
+				ss << std::fixed << m_readInScores[i];
+				m_scores[i]->setText(ss.str());
 			}
 		}
 	}

@@ -84,6 +84,8 @@ void MainMenu::update(XboxController &controller, sf::Int32 dt)
 	{
 		m_alphaFadeValue -= FADE_RATE;
 	}
+	
+	m_gui.processInput(controller);
 
 	if (playButtonPressed)
 	{
@@ -125,8 +127,6 @@ void MainMenu::update(XboxController &controller, sf::Int32 dt)
 			reset();
 		}
 	}
-	else
-		m_gui.processInput(controller);
 
 	if (transitionIn)
 	{

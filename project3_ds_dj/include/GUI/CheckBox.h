@@ -34,6 +34,7 @@ private:
 	sf::Color fillColor;
 
 	void switchState();
+	void setColors() override;
 
 	sf::Sound *m_confirmSound;
 	sf::Sound *m_navigateSound;

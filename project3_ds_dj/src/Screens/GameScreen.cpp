@@ -398,7 +398,6 @@ void GameScreen::mainMenuButtonSelected()
 	reset();
 }
 
-
 void GameScreen::retryButtonSelected()
 {
 	updateLeaderboard();
