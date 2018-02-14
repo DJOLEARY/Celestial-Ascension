@@ -390,6 +390,7 @@ void GameScreen::mainMenuButtonSelected()
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
+	m_player->StopVibration();
 	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
