@@ -71,6 +71,7 @@ private:
 	void mainMenuButtonResumeSelected();
 	void retryButtonSelected();
 	void updateLeaderboard();
+	uint32_t findMinimumLeaderboardScore();
 
 	bool m_leftViaPause;
 	

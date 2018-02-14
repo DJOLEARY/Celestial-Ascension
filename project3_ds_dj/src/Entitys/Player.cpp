@@ -7,7 +7,7 @@
 /// </summary>
 Player::Player(XboxController &controller, sf::Sound *shotSound) :
 	m_xboxController(controller),
-	m_lives(3), 
+	m_lives(1), 
 	m_shieldActive(false),
 	m_rotationDiff(0.0f), 
 	m_timeToNextShot(0),

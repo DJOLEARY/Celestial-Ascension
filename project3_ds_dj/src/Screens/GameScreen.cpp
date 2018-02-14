@@ -440,6 +440,30 @@ void GameScreen::retryButtonSelected()
 	m_player->m_lives = 3;
 }
 
+uint32_t GameScreen::findMinimumLeaderboardScore()
+{
+	std::ifstream inputLeaderboardFile;
+	inputLeaderboardFile.open("leaderboard.txt");
+	uint32_t lowestScore = 0;
+
+	if (inputLeaderboardFile.is_open())
+	{
+		for (int i = 0; i < 10; i++)
+		{
+			std::string name = "";
+			uint32_t score = 0;
+			inputLeaderboardFile >> name >> score;
+
+			if (i == 9)
+				lowestScore = score;
+		}
+	}
+
+	inputLeaderboardFile.close();
+
+	return lowestScore;
+}
+
 void GameScreen::updateLeaderboard()
 {
 	//	Read all the scores from the leaderboard text file.
