@@ -444,19 +444,14 @@ void GameScreen::mainMenuButtonResumeSelected()
 	ParticleManager::instance()->setPause(false);
 	m_leftViaPause = true;
 	m_isGameOver = false;
-
-	//	Reset the player.
 	m_player->m_lives = 3;
 	m_player->setAlive(true);
 	m_player->SpawnPlayer(true);
 	m_player->StopVibration();
-	//	Reset the hud
 	m_currentWave = 0;
 	m_hud.setScore(0);
 	m_hud.setWave(m_currentWave);
-	//	Reset all other entitys
 	m_entityManager.reset();
-
 	reset();
 }
 
