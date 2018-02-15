@@ -23,6 +23,7 @@ public:
 	virtual bool processInput(XboxController &controller);
 	virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 
+	bool m_isActive;
 	// Pointers to up, down let and right widgets if any
 	Widget *m_up;
 	Widget *m_down;

@@ -193,7 +193,6 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 				m_entityManager.AddBullet(new Bullet(*m_player->getPosition(), 
 					sf::normalize(controller.getRightStick()), sf::Color(255, 255, 255), true));
 			}
-			// @todo(darren): Fix an issue with double bullets - what issue?
 			else if (m_player->getBulletType() == BulletType::DOUBLE_BULLET)
 			{
 				sf::Vector2f offset = sf::Vector2f(sf::randF(-20, 20), sf::randF(-20, 20));
@@ -223,9 +222,10 @@ void GameScreen::update(XboxController& controller, sf::Int32 dt)
 
 			if (!m_isGameOver)
 			{
-				setGameOverGUIPos();
 				transitionIn = true;
 				m_isGameOver = true;
+				m_minimumLeaderboardScore = findMinimumLeaderboardScore();
+				setGameOverGUIPos();
 			}
 		}
 	}
@@ -335,36 +335,69 @@ void GameScreen::setPauseGUIPos()
 
 void GameScreen::setGameOverGUIPos()
 {
-	sf::Vector2f guiCenter = m_cameraPosition;
-	m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 400.0f));
-	m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 400.0f));
+	uint32_t currentScore = *m_hud.getScore();
 
-	m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 20.0f));
-	m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 20.0f));
-
-	m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 180.0f));
-	m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 180.0f));
-
-	for (int i = 0; i < 6; i++)
+	if (currentScore > m_minimumLeaderboardScore)
 	{
-		float gap = 120.0f;
+		sf::Vector2f guiCenter = m_cameraPosition;
 
-		if (i <= 2)
+		m_arrowButtons[0]->promoteFocus();
+		for (int i = 0; i < 6; i++)
 		{
-			m_charNameLabels[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
-			m_charNameLabels[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+			float gap = 120.0f;
+
+			if (i <= 2)
+			{
+				m_charNameLabels[i]->m_isActive = true;
+				m_charNameLabels[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+				m_charNameLabels[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+			}
+
+			m_arrowButtons[i]->m_isActive = true;
+			if (i <= 2)
+			{
+				m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+				m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+			}
+			else
+			{
+				m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
+				m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
+			}
 		}
 
-		if (i <= 2)
+		m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 400.0f));
+		m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 400.0f));
+
+		m_retry->m_up = m_arrowButtons[3];
+		m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 20.0f));
+		m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 20.0f));
+
+		m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 180.0f));
+		m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 180.0f));
+	}
+	else
+	{
+		for (int i = 0; i < 6; i++)
 		{
-			m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
-			m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+			if (i <= 2)
+				m_charNameLabels[i]->m_isActive = false;
+
+			m_arrowButtons[i]->m_isActive = false;
 		}
-		else
-		{
-			m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
-			m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * (i - 3) - gap), guiCenter.y - 100.0f));
-		}
+
+		sf::Vector2f guiCenter = m_cameraPosition;
+		m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 250.0f));
+		m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 250.0f));
+
+		m_retry->m_up = nullptr;
+		m_arrowButtons[0]->demoteFocus();
+		m_retry->promoteFocus();
+		m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 10.0f));
+		m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y - 10.0f));
+
+		m_mainMenuGameOver->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 150.0f));
+		m_mainMenuGameOver->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 150.0f));
 	}
 }
 

@@ -57,7 +57,7 @@ private:
 	// @refactor(darren): Put interpolation and transitionIn in the base gui
 	float interpolation;
 	bool transitionIn;
-
+	uint32_t m_minimumLeaderboardScore;
 	bool m_playerWasAlive;
 
 	sf::Vector2f m_cameraPosition;

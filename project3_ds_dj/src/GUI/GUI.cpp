@@ -109,7 +109,8 @@ void Gui::draw(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	for (Widget* widget : m_widgets)
 	{
-		target.draw(*widget, states);
+		if(widget->m_isActive)
+			target.draw(*widget, states);
 	}
 }
 

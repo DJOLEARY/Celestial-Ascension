@@ -5,7 +5,7 @@
 /// Sets all realtive pointers that the gui might have to nullptr
 /// </summary>
 Widget::Widget()
-	: m_alpha(255)
+	: m_alpha(255), m_isActive(true)
 {
 	m_up = nullptr;
 	m_down = nullptr;
