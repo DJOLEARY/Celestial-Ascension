@@ -341,6 +341,7 @@ void GameScreen::setGameOverGUIPos()
 	{
 		sf::Vector2f guiCenter = m_cameraPosition;
 
+		m_retry->demoteFocus();
 		m_arrowButtons[0]->promoteFocus();
 		for (int i = 0; i < 6; i++)
 		{
