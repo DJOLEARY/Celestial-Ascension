@@ -52,7 +52,7 @@ MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateS
 	m_gui.add(m_creditsButton);
 	m_gui.add(m_exitButton);
 
-	if (!m_gameLogoTexture.loadFromFile("Assets/game_logo.png"))
+	if (!m_gameLogoTexture.loadFromFile("Assets/GameTitleLogo.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
 	m_gameLogoSprite.setTexture(m_gameLogoTexture);
