@@ -45,6 +45,8 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_pauseLabel = new Label("PAUSED", 84);
 	m_gameOverLabel = new Label("GAME OVER", 84);
 	m_gameOverLabel->setTextColor(sf::Color(255, 0, 0));
+	m_enterNameMessageLabel = new Label("High score achieved, please enter your name", 30);
+	m_enterNameMessageLabel->setTextColor(sf::Color(255, 0, 0));
 	// @refactor(darren): Refactor the order of these parameters, don't need them.
 	m_resume = new Button(m_confirmSound, m_navigateSound, m_resumeTexture, sf::Vector2f(),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f());
@@ -127,6 +129,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_gameOverGui.add(m_retry);
 	m_gameOverGui.add(m_mainMenuGameOver);
 	m_gameOverGui.add(m_gameOverLabel);
+	m_gameOverGui.add(m_enterNameMessageLabel);
 
 	m_gui.setWidgetsAlpha(0.0f);
 	m_gameOverGui.setWidgetsAlpha(0.0f);
@@ -336,13 +339,14 @@ void GameScreen::setPauseGUIPos()
 void GameScreen::setGameOverGUIPos()
 {
 	uint32_t currentScore = *m_hud.getScore();
+	sf::Vector2f guiCenter = m_cameraPosition;
 
 	if (currentScore > m_minimumLeaderboardScore)
 	{
-		sf::Vector2f guiCenter = m_cameraPosition;
 
 		m_retry->demoteFocus();
 		m_arrowButtons[0]->promoteFocus();
+		m_enterNameMessageLabel->m_isActive = true;
 		for (int i = 0; i < 6; i++)
 		{
 			float gap = 120.0f;
@@ -350,15 +354,15 @@ void GameScreen::setGameOverGUIPos()
 			if (i <= 2)
 			{
 				m_charNameLabels[i]->m_isActive = true;
-				m_charNameLabels[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
-				m_charNameLabels[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 200.0f));
+				m_charNameLabels[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 170.0f));
+				m_charNameLabels[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 170.0f));
 			}
 
 			m_arrowButtons[i]->m_isActive = true;
 			if (i <= 2)
 			{
-				m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
-				m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 270.0f));
+				m_arrowButtons[i]->setStartPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 220.0f));
+				m_arrowButtons[i]->setEndPos(sf::Vector2f(guiCenter.x + (gap * i) - gap, guiCenter.y - 220.0f));
 			}
 			else
 			{
@@ -370,6 +374,9 @@ void GameScreen::setGameOverGUIPos()
 		m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 400.0f));
 		m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 400.0f));
 
+		m_enterNameMessageLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 300.0f));
+		m_enterNameMessageLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 300.0f));
+
 		m_retry->m_up = m_arrowButtons[3];
 		m_retry->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y + 20.0f));
 		m_retry->setEndPos(sf::Vector2f(guiCenter.x + 80.0f, guiCenter.y + 20.0f));
@@ -379,6 +386,7 @@ void GameScreen::setGameOverGUIPos()
 	}
 	else
 	{
+		m_enterNameMessageLabel->m_isActive = false;
 		for (int i = 0; i < 6; i++)
 		{
 			if (i <= 2)
@@ -387,7 +395,6 @@ void GameScreen::setGameOverGUIPos()
 			m_arrowButtons[i]->m_isActive = false;
 		}
 
-		sf::Vector2f guiCenter = m_cameraPosition;
 		m_gameOverLabel->setStartPos(sf::Vector2f(guiCenter.x, guiCenter.y - 250.0f));
 		m_gameOverLabel->setEndPos(sf::Vector2f(guiCenter.x - 80.0f, guiCenter.y - 250.0f));
 

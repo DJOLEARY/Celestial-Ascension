@@ -47,6 +47,7 @@ private:
 	Button *m_resume;
 	Button *m_mainMenu;
 	Button *m_mainMenuGameOver;
+	Label *m_enterNameMessageLabel;
 	Label *m_pauseLabel;
 	Label *m_gameOverLabel;
 	Button *m_retry;
