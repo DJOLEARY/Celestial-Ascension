@@ -111,7 +111,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			m_player->setAlive(false);
 			m_deathSound->play();
 			m_player->m_lives--;
-			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(200, 96, 58));
+			ParticleManager::instance()->createExplosion(m_player->getPos(), sf::Color(255, 255, 255));
 			break;
 		}
 	}

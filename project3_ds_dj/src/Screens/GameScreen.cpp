@@ -21,7 +21,6 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	sf::Color focusOut(100, 20, 50);
 
     m_player = new Player(controller, m_shotSound);
-
 	m_entityManager.SetPlayer(m_player);
 	
 	m_maxEnemies = 5;	// The number of enemies.

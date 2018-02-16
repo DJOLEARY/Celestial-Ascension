@@ -54,7 +54,7 @@ Game::Game() :
 	m_heartSound.setVolume(100);
 
 	//	Wave Complete Sound
-	m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/WaveCompleteSound.wav");
+	m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/wave_start.wav");
 	m_waveCompleteSound.setBuffer(m_waveCompleteSoundBuffer);
 	m_waveCompleteSound.setVolume(100);
 
