@@ -3,8 +3,8 @@
 #include <locale>
 #include <sstream>
 
-Leaderboard::Leaderboard(sf::View &view)
-	: Screen(GameState::Leaderboard, view), m_transitionIn(true)
+Leaderboard::Leaderboard(sf::View &view, sf::Sound *backSound)
+	: Screen(GameState::Leaderboard, view), m_transitionIn(true), m_backSound(backSound)
 {
 	updateLeaderboard();
 	
@@ -51,6 +51,7 @@ void Leaderboard::update(XboxController &controller, sf::Int32 dt)
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
+		m_backSound->play();
 	}
 
 	if (m_backButtonPressed)

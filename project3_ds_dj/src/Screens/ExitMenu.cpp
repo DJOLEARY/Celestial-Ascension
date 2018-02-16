@@ -1,10 +1,13 @@
 #include "Screens\ExitMenu.h"
 
-ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound) :
+ExitMenu::ExitMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound, sf::Sound *backSound) :
 	Screen(GameState::ExitMenu, view), 
 	transitionIn(true),
 	m_confirmSound(confirmSound),
-	m_navigateSound(navigateSound)
+	m_navigateSound(navigateSound),
+	m_backSound(backSound),
+	m_noButtonPressed(false),
+	m_yesButtonPressed(false)
 {
 	// @refactor(darren): Move this into scene manager and have all scens uses the same colors
 	sf::Color focusIn(50, 200, 50);
@@ -57,6 +60,7 @@ void ExitMenu::update(XboxController &controller, sf::Int32 dt)
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_noButtonPressed = true;
+		m_backSound->play();
 	}
 
 	m_gui.processInput(controller);

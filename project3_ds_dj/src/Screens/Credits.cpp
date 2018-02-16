@@ -1,7 +1,7 @@
 #include "Screens\Credits.h"
 
-Credits::Credits(sf::View &view)
-	: Screen(GameState::Credits, view), transitionIn(true)
+Credits::Credits(sf::View &view, sf::Sound *backSound)
+	: Screen(GameState::Credits, view), transitionIn(true), m_backSound(backSound)
 {
 	m_creditsLabel = new Label("Credits", 80, sf::Vector2f(1920.0f / 2 - 300.0f, 200.0f), 
 		sf::Vector2f(1920.0f / 2, 200.0f));
@@ -30,6 +30,7 @@ void Credits::update(XboxController& controller, sf::Int32 dt)
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
+		m_backSound->play();
 	}
 
 	if (m_backButtonPressed)

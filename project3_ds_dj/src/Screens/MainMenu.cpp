@@ -1,10 +1,11 @@
 #include "Screens\MainMenu.h"
 
-MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound) :
+MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound, sf::Sound *backSound) :
 	Screen(GameState::MainMenu, view), 
 	m_alphaFadeValue(255),
 	m_confirmSound(confirmSound),
-	m_navigateSound(navigateSound)
+	m_navigateSound(navigateSound),
+	m_backSound(backSound)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);

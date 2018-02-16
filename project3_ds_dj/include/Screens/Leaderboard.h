@@ -11,7 +11,7 @@
 class Leaderboard : public Screen
 {
 public:
-	Leaderboard(sf::View &view);
+	Leaderboard(sf::View &view, sf::Sound *backSound);
 	void update(XboxController &controller, sf::Int32 dt) override;
 	void reset();
 
@@ -31,4 +31,5 @@ private:
 	Label *m_scores[10];
 	std::string m_readInNames[10];
 	uint32_t m_readInScores[10];
+	sf::Sound *m_backSound;
 };

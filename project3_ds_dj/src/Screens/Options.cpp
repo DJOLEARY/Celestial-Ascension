@@ -2,7 +2,7 @@
 
 Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, 
 	sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
-	sf::Sound *hitWallSound, sf::Sound *navigateSound):
+	sf::Sound *hitWallSound, sf::Sound *navigateSound, sf::Sound *backButton):
 	Screen(GameState::Options, view), 
 	transitionIn(true),
 	m_music(music),
@@ -13,7 +13,8 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_deathSound(deathSound),
 	m_turretShotSound(turretShotSound),
 	m_hitWallSound(hitWallSound),
-	m_navigateSound(navigateSound)
+	m_navigateSound(navigateSound),
+	m_backSound(backButton)
 {
 	sf::Color focusIn(50, 200, 50);
 	sf::Color focusOut(100, 20, 50);
@@ -78,14 +79,14 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 
 	//----Set All Sounds Volumes Here----//
 	m_music->pause();
-	m_confirmSound->setVolume(0);
-	m_shotSound->setVolume(0);
-	m_waveCompleteSound->setVolume(0);
-	m_pickUpSound->setVolume(0);
-	m_deathSound->setVolume(0);
-	m_turretShotSound->setVolume(0);
-	m_hitWallSound->setVolume(0);
-	m_navigateSound->setVolume(0);
+	//m_confirmSound->setVolume(0);
+	//m_shotSound->setVolume(0);
+	//m_waveCompleteSound->setVolume(0);
+	//m_pickUpSound->setVolume(0);
+	//m_deathSound->setVolume(0);
+	//m_turretShotSound->setVolume(0);
+	//m_hitWallSound->setVolume(0);
+	//m_navigateSound->setVolume(0);
 }
 
 /// <summary>
@@ -110,10 +111,10 @@ void Options::reset()
 /// <param name="controller">controller used for processing input</param>
 void Options::update(XboxController &controller, sf::Int32 dt)
 {
-
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
+		m_backSound->play();
 	}
 
 	m_gui.processInput(controller);
@@ -176,7 +177,8 @@ void Options::volumeChangeSliderEffects()
 void Options::backButtonSelected()
 {
 	m_backButtonPressed = true;
-	m_confirmSound->play();
+	//m_confirmSound->play();
+	m_backSound->play();
 }
 
 /// <summary>

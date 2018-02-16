@@ -1,9 +1,10 @@
 #include "Screens\PlayMenu.h"
 
-PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *m_navigateSound) :
+PlayMenu::PlayMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *m_navigateSound, sf::Sound *backSound) :
 	Screen(GameState::PlayMenu, view), 
 	transitionIn(true),
-	m_confirmSound(confirmSound)
+	m_confirmSound(confirmSound),
+	m_backSound(backSound)
 {
 	// @refactor(darren): Pull this out
 	sf::Color focusIn(50, 200, 50);
@@ -39,6 +40,7 @@ void PlayMenu::update(XboxController &controller, sf::Int32 dt)
 	if (controller.isButtonPressed(XBOX360_B))
 	{
 		m_backButtonPressed = true;
+		m_backSound->play();
 	}
 
 	m_gui.processInput(controller);

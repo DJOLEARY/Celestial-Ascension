@@ -14,7 +14,7 @@
 class ExitMenu : public Screen
 {
 public:
-	ExitMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound);
+	ExitMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateSound, sf::Sound *backSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool getExitState();
@@ -34,6 +34,7 @@ private:
 	float interpolation;
 	sf::Sound *m_confirmSound;
 	sf::Sound *m_navigateSound;
+	sf::Sound *m_backSound;
 };
 
 #endif

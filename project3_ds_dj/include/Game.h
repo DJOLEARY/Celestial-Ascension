@@ -45,6 +45,12 @@ private:
 	sf::SoundBuffer m_confirmBuffer;
 	sf::Sound m_confirmSound;
 
+	sf::SoundBuffer m_backBuffer;
+	sf::Sound m_backSound;
+
+	sf::SoundBuffer m_toggleSoundBuffer;
+	sf::Sound m_toggleSound;
+
 	sf::SoundBuffer m_navigateBuffer;
 	sf::Sound m_navigateSound;
 

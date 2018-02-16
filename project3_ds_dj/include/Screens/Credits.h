@@ -14,7 +14,7 @@
 class Credits : public Screen
 {
 public:
-	Credits(sf::View &view);
+	Credits(sf::View &view, sf::Sound *backSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 
@@ -23,6 +23,7 @@ private:
 	Label *m_creditsLabel;
 	Label *m_text[4];
 	sf::Texture m_teamPhoto;
+	sf::Sound *m_backSound;
 
 	bool m_backButtonPressed;
 	bool transitionIn;
