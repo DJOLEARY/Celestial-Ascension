@@ -24,6 +24,11 @@ MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateS
 	if (!m_exitTexture.loadFromFile("Assets/GUI/ExitButton.png"))
 		std::cout << "ERROR::Player::Image not loaded";
 
+	if (!m_gameLogoTexture.loadFromFile("Assets/GameTitleLogo.png"))
+		std::cout << "ERROR::Player::Image not loaded";
+
+	m_logo = new Button(m_confirmSound, m_navigateSound, m_gameLogoTexture, sf::Vector2f(1920.0f / 2, 220.0f),
+		sf::Color(255, 255, 255), sf::Color(255, 255, 255), 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 220.0f));
 	m_playButton = new Button(m_confirmSound, m_navigateSound, m_playTexture, sf::Vector2f(1920 / 2, 400.0f),
 		focusIn, focusOut, 1.0f, 1.0f, sf::Vector2f(1920.0f / 2 + 400.0f, 400.0f));
 	m_optionsButton = new Button(m_confirmSound, m_navigateSound, m_optionsTexture, sf::Vector2f(1920 / 2, 500.0f),
@@ -47,17 +52,11 @@ MainMenu::MainMenu(sf::View &view, sf::Sound *confirmSound, sf::Sound *navigateS
 	m_creditsButton->m_down = m_exitButton;
 	m_exitButton->m_up = m_creditsButton;
 
+	m_gui.add(m_logo);
 	m_gui.add(m_playButton);
 	m_gui.add(m_optionsButton);
 	m_gui.add(m_creditsButton);
 	m_gui.add(m_exitButton);
-
-	if (!m_gameLogoTexture.loadFromFile("Assets/GameTitleLogo.png"))
-		std::cout << "ERROR::Player::Image not loaded";
-
-	m_gameLogoSprite.setTexture(m_gameLogoTexture);
-	m_gameLogoSprite.setPosition(sf::Vector2f(1920.0f / 2, 220.0f));
-	m_gameLogoSprite.setOrigin(m_gameLogoSprite.getLocalBounds().width / 2.0f, m_gameLogoSprite.getLocalBounds().height / 2.0f);
 }
 
 /// <summary>
@@ -147,7 +146,6 @@ void MainMenu::render(sf::RenderTexture & renderTexture)
 {
 	renderTexture.setView(m_view);
 	renderTexture.draw(m_gui);
-	renderTexture.draw(m_gameLogoSprite);
 	renderTexture.draw(m_fadeRectangle);
 }
 
