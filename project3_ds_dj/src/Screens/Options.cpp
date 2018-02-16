@@ -78,16 +78,7 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 
 	m_gui.setWidgetsAlpha(0.0f);
 
-	//----Set All Sounds Volumes Here----//
-	m_music->pause();
-	//m_confirmSound->setVolume(0);
-	//m_shotSound->setVolume(0);
-	//m_waveCompleteSound->setVolume(0);
-	//m_pickUpSound->setVolume(0);
-	//m_deathSound->setVolume(0);
-	//m_turretShotSound->setVolume(0);
-	//m_hitWallSound->setVolume(0);
-	//m_navigateSound->setVolume(0);
+	//m_music->pause();
 }
 
 /// <summary>

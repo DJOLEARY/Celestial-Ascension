@@ -187,7 +187,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 	auto isDisplaying = [](EntityScore entityScore) { return entityScore.removeScore; };
 	m_entityScores.erase(std::remove_if(m_entityScores.begin(), m_entityScores.end(), isDisplaying), m_entityScores.end());
 
-	auto outOfBounds = [](Entity *entity)
+	auto outOfBounds = [&](Entity *entity)
 	{
 		// @todo(darren): I should be storing these in some global class
 		bool isOutOfBounds = entity->getPos().x < 90.0f || entity->getPos().x > 1830.0f || 
@@ -196,10 +196,10 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		if (isOutOfBounds)
 		{
 			ParticleManager::instance()->createExplosion(entity->getPos(), sf::Color(105, 23, 137));
+			// @todo(darren): Implement a wall hitting sound, although this may get annoying?
 		}
 
 		return isOutOfBounds;
-
 	};
 
 	m_bullets.erase(std::remove_if(m_bullets.begin(), m_bullets.end(), outOfBounds), m_bullets.end());
@@ -268,6 +268,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		{
 			ParticleManager::instance()->createExplosion((m_player)->getPos(), sf::Color(31, 196, 58));
 			(m_player)->m_lives--;
+			m_deathSound->play();
 			m_player->setAlive(false);
 			(*bulletIter)->setAlive(false);
 			m_currentSpree = 0;
