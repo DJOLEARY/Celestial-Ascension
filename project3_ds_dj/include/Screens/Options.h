@@ -18,9 +18,8 @@ class Options : public Screen
 {
 public:
 	Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound,
-		sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound,
-		sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound,
-		sf::Sound *backSound);
+		sf::Sound *waveCompleteSound, sf::Sound *shieldSound, sf::Sound *m_doubleBulletSound, sf::Sound *m_heartSound, 
+		sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound, sf::Sound *backSound);
 	void update(XboxController& controller, sf::Int32 dt) override;
 	void reset() override;
 	bool m_goToFullscreenMode, m_goToWindowedMode;
@@ -53,7 +52,7 @@ private:
 	sf::Sound *m_confirmSound;
 	sf::Sound *m_shotSound;
 	sf::Sound *m_waveCompleteSound;
-	sf::Sound *m_pickUpSound;
+	sf::Sound *m_shieldSound, *m_doubleBulletSound, *m_heartSound;
 	sf::Sound *m_deathSound;
 	sf::Sound *m_turretShotSound;
 	sf::Sound *m_hitWallSound; 

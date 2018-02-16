@@ -60,8 +60,12 @@ private:
 	sf::SoundBuffer m_shotSoundBuffer;
 	sf::Sound m_shotSound;
 
-	sf::SoundBuffer m_pickUpSoundBuffer;
-	sf::Sound m_pickUpSound;
+	sf::SoundBuffer m_shiledSoundBuffer;
+	sf::Sound m_shiledSound;
+	sf::SoundBuffer m_doubleBulletBuffer;
+	sf::Sound m_doubleBulletSound;
+	sf::SoundBuffer m_heartSoundBuffer;
+	sf::Sound m_heartSound;
 
 	sf::SoundBuffer m_waveCompleteSoundBuffer;
 	sf::Sound m_waveCompleteSound;

@@ -4,12 +4,12 @@
 
 GameScreen::GameScreen(XboxController &controller, sf::View &view, 
 	sf::Sound *confirmSound, sf::Sound *shotSound, sf::Sound *waveCompleteSound, 
-	sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
-	sf::Sound *hitWallSound, sf::Sound *navigateSound) :
+	sf::Sound *shieldSound, sf::Sound *doubleBulletSound, sf::Sound *heartSound,
+	sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound) :
 	Screen(GameState::GamePlay, view),
 	m_isPaused(false),
 	m_currentWave(1),
-	m_entityManager(deathSound, pickUpSound, hitWallSound),
+	m_entityManager(deathSound, shieldSound, doubleBulletSound, heartSound, hitWallSound),
 	m_confirmSound(confirmSound),
 	m_shotSound(shotSound),
 	m_turretShotSound(turretShotSound),

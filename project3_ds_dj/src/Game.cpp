@@ -33,7 +33,7 @@ Game::Game() :
 	m_backSound.setVolume(100);
 
 	//	Toggle Sound
-	m_toggleSoundBuffer.loadFromFile("Assets/Sounds/options_toggle.wav");
+	//m_toggleSoundBuffer.loadFromFile("Assets/Sounds/options_toggle.wav");
 	m_toggleSound.setBuffer(m_toggleSoundBuffer);
 	m_toggleSound.setVolume(100);
 
@@ -43,9 +43,15 @@ Game::Game() :
 	m_navigateSound.setVolume(100);
 
 	//	Pick-Up Sound
-	m_pickUpSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav");
-	m_pickUpSound.setBuffer(m_pickUpSoundBuffer);
-	m_pickUpSound.setVolume(100);
+	m_shiledSoundBuffer.loadFromFile("Assets/Sounds/PickUp.wav");
+	m_shiledSound.setBuffer(m_shiledSoundBuffer);
+	m_shiledSound.setVolume(100);
+	m_doubleBulletBuffer.loadFromFile("Assets/Sounds/bullet_power_up.wav");
+	m_doubleBulletSound.setBuffer(m_doubleBulletBuffer);
+	m_doubleBulletSound.setVolume(100);
+	m_heartSoundBuffer.loadFromFile("Assets/Sounds/heart_power_up.wav");
+	m_heartSound.setBuffer(m_heartSoundBuffer);
+	m_heartSound.setVolume(100);
 
 	//	Wave Complete Sound
 	m_waveCompleteSoundBuffer.loadFromFile("Assets/Sounds/WaveCompleteSound.wav");
@@ -76,9 +82,11 @@ Game::Game() :
 	m_screenManager.add(new PlayMenu(m_view, &m_confirmSound, &m_navigateSound, &m_backSound));
 	exitMenu = new ExitMenu(m_view, &m_confirmSound, &m_navigateSound, &m_backSound);
 	m_screenManager.add(exitMenu);
-	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound, &m_backSound);
+	m_options = new Options(m_view, &m_music, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_shiledSound, 
+		&m_doubleBulletSound, &m_heartSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound, &m_backSound);
 	m_screenManager.add(m_options);
-    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, &m_pickUpSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound));
+    m_screenManager.add(new GameScreen(m_xboxController, m_view, &m_confirmSound, &m_shotSound, &m_waveCompleteSound, 
+		&m_shiledSound, &m_doubleBulletSound, &m_heartSound, &m_deathSound, &m_turretShotSound, &m_hitWallSound, &m_navigateSound));
 	m_screenManager.add(new Leaderboard(m_view, &m_backSound));
 
 	std::cout << m_window.getSize().x << " " << m_window.getSize().y << std::endl;

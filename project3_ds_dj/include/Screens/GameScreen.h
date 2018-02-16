@@ -22,8 +22,8 @@ class GameScreen : public Screen
 {
 public:
 	GameScreen(XboxController &controller, sf::View &view, sf::Sound *confirmSound, 
-		sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *pickUpSound,
-		sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound);
+		sf::Sound *shotSound, sf::Sound *waveCompleteSound, sf::Sound *shieldSound, sf::Sound *doubleBulletSound, 
+		sf::Sound *heartSound, sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound);
 
     virtual void update(XboxController &controller, sf::Int32 dt) override;
 	virtual void reset() override;

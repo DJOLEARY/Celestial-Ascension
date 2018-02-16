@@ -26,7 +26,8 @@ struct EntityScore
 class EntityManager
 {
 public:
-	EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::Sound *hitWallSound);
+	EntityManager(sf::Sound *deathSound, sf::Sound *shiledSound, sf::Sound *doubleBulletSound,
+						sf::Sound *heartSound, sf::Sound *hitWallSound);
 	~EntityManager();
 
 	void AddBullet(Bullet *entity);
@@ -53,7 +54,7 @@ private:
 	sf::Text m_scoreText;
 
 	sf::Sound *m_deathSound;
-	sf::Sound *m_pickUpSound;
+	sf::Sound *m_shieldSound, *m_doubleBulletSound, *m_heartSound;
 	sf::Sound *m_hitWallSound;
 
 	bool m_collision;

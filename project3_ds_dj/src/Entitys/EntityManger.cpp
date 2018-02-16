@@ -6,9 +6,12 @@
 /// <summary>
 /// 
 /// </summary>
-EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *pickUpSound, sf::Sound *hitWallSound) :
+EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *shiledSound, sf::Sound *doubleBulletSound,
+	sf::Sound *heartSound, sf::Sound *hitWallSound) :
 	m_deathSound(deathSound),
-	m_pickUpSound(pickUpSound),
+	m_shieldSound(shiledSound),
+	m_doubleBulletSound(doubleBulletSound),
+	m_heartSound(heartSound),
 	m_hitWallSound(hitWallSound)
 {
 	m_font = new sf::Font();
@@ -125,6 +128,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 					ParticleManager::instance()->createExplosion(pos, sf::Color(229, 16, 172), 30);
 					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
 					m_powerUp->setAlive(false);
+					m_heartSound->play();
 					if (m_player->m_lives < 5)
 						m_player->m_lives++;
 				}
@@ -135,6 +139,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
 					m_player->setShieldActive();
 					m_powerUp->setAlive(false);
+					m_shieldSound->play();
 				}
 				else if (m_powerUp->m_type == PowerUp::PowerUpType::DOUBLE_BULLET_POWER)
 				{
@@ -144,9 +149,8 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 					Grid::instance()->applyImplosiveForce(150.0f, sf::Vector3f(pos.x, pos.y, -50.0f), 100.0f);
 					m_player->setDoubleBulletActive();
 					m_powerUp->setAlive(false);
+					m_doubleBulletSound->play();
 				}
-
-				m_pickUpSound->play();
 			}
 		}
 

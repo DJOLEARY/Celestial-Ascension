@@ -1,15 +1,16 @@
 #include "Screens\Options.h"
 
 Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::Sound *shotSound, 
-	sf::Sound *waveCompleteSound, sf::Sound *pickUpSound, sf::Sound *deathSound, sf::Sound *turretShotSound, 
-	sf::Sound *hitWallSound, sf::Sound *navigateSound, sf::Sound *backButton):
+	sf::Sound *waveCompleteSound, sf::Sound *m_shieldSound, sf::Sound *m_doubleBulletSound, sf::Sound *m_heartSound, 
+	sf::Sound *deathSound, sf::Sound *turretShotSound, sf::Sound *hitWallSound, sf::Sound *navigateSound, sf::Sound *backButton):
 	Screen(GameState::Options, view), 
 	transitionIn(true),
 	m_music(music),
 	m_confirmSound(confirmSound),
-	m_shotSound(shotSound),
+	m_shieldSound(m_shieldSound),
+	m_doubleBulletSound(m_doubleBulletSound),
+	m_heartSound(m_heartSound),
 	m_waveCompleteSound(waveCompleteSound),
-	m_pickUpSound(pickUpSound),
 	m_deathSound(deathSound),
 	m_turretShotSound(turretShotSound),
 	m_hitWallSound(hitWallSound),
@@ -164,7 +165,9 @@ void Options::volumeChangeSliderEffects()
 	m_confirmSound->setVolume(m_effectsVolumeValue);
 	m_shotSound->setVolume(m_effectsVolumeValue / 4);
 	m_waveCompleteSound->setVolume(m_effectsVolumeValue);
-	m_pickUpSound->setVolume(m_effectsVolumeValue);
+	m_shieldSound->setVolume(m_effectsVolumeValue);
+	m_doubleBulletSound->setVolume(m_effectsVolumeValue);
+	m_heartSound->setVolume(m_effectsVolumeValue);
 	m_deathSound->setVolume(m_effectsVolumeValue);
 	m_turretShotSound->setVolume(m_effectsVolumeValue);
 	m_hitWallSound->setVolume(m_effectsVolumeValue);
@@ -195,7 +198,9 @@ void Options::checkBoxSwitched()
 		m_confirmSound->setVolume(m_effectsVolumeValue);
 		m_shotSound->setVolume(m_effectsVolumeValue / 4);
 		m_waveCompleteSound->setVolume(m_effectsVolumeValue);
-		m_pickUpSound->setVolume(m_effectsVolumeValue);
+		m_shieldSound->setVolume(m_effectsVolumeValue);
+		m_doubleBulletSound->setVolume(m_effectsVolumeValue);
+		m_heartSound->setVolume(m_effectsVolumeValue);
 		m_deathSound->setVolume(m_effectsVolumeValue);
 		m_turretShotSound->setVolume(m_effectsVolumeValue);
 		m_hitWallSound->setVolume(m_effectsVolumeValue);
@@ -212,7 +217,9 @@ void Options::checkBoxSwitched()
 		m_confirmSound->setVolume(0);
 		m_shotSound->setVolume(0);
 		m_waveCompleteSound->setVolume(0);
-		m_pickUpSound->setVolume(0);
+		m_shieldSound->setVolume(0);
+		m_doubleBulletSound->setVolume(0);
+		m_heartSound->setVolume(0);
 		m_deathSound->setVolume(0);
 		m_turretShotSound->setVolume(0);
 		m_hitWallSound->setVolume(0);
