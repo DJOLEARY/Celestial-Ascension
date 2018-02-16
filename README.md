@@ -9,7 +9,7 @@ Build Instructions:
 
 3. Run project
 
-Evo was created by Darren Sweeney and D.J. O' Leary with project supervision from Philip Bourke.
+Celestial Ascension was created by Darren Sweeney and D.J. O' Leary with project supervision from Philip Bourke.
 
 
 ![alt tag](https://github.com/ITCGamesProg2/project3-darren-dj/blob/master/project3_ds_dj/Assets/evo_screenshot.png)
