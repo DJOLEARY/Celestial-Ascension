@@ -1,5 +1,5 @@
-# EVO
-EVO is a twin stick shooter where you survive as long as possible and score as many points as possible by destroying an ever-increasing swarm of enemies. 
+# Celestial Ascension
+Celestial Ascension is a twin stick shooter where you survive as long as possible and score as many points as possible by destroying an ever-increasing swarm of enemies. 
 
 Build Instructions:
 
