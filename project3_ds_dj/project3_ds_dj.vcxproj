@@ -22,7 +22,6 @@
     <ProjectGuid>{2E28DBE4-3B4C-45A5-8983-5A9485774E69}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
     <RootNamespace>project3_ds_dj</RootNamespace>
-    <WindowsTargetPlatformVersion>10.0.15063.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -257,9 +256,6 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="todo.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ResourceCompile Include="GameWin32Resource.rc" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="GameIcon.ico" />

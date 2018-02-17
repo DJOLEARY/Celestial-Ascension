@@ -9,7 +9,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	Screen(GameState::GamePlay, view),
 	m_isPaused(false),
 	m_currentWave(1),
-	m_entityManager(deathSound, shieldSound, doubleBulletSound, heartSound, hitWallSound),
+	m_entityManager(deathSound, shieldSound, doubleBulletSound, heartSound, hitWallSound, turretShotSound),
 	m_confirmSound(confirmSound),
 	m_shotSound(shotSound),
 	m_turretShotSound(turretShotSound),
@@ -24,10 +24,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
 	m_entityManager.SetPlayer(m_player);
 	
 	m_maxEnemies = 5;	// The number of enemies.
-	for (int i = 0; i < m_maxEnemies; i++)
-	{
-		m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
-	}
+    m_entityManager.CreateEnemies(m_maxEnemies);
 
 	// Set the wave for the game and display on the hud
 	m_hud.setWave(m_currentWave);
@@ -281,20 +278,14 @@ void GameScreen::setWave(uint8_t waveNum)
 		m_waveCompleteSound->play();
 		spawnPowerUp();
 
-		for (int i = 0; i < m_maxEnemies * waveNum; i++)
-		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
-		}
+        m_entityManager.CreateEnemies(m_maxEnemies * waveNum);
 	}
 	else
 	{
 		m_hud.setWave(waveNum);
 		spawnPowerUp();
 
-		for (int i = 0; i < m_maxEnemies * waveNum; i++)
-		{
-			m_entityManager.AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretShotSound));
-		}
+        m_entityManager.CreateEnemies(m_maxEnemies * waveNum);
 
 		m_leftViaPause = false;
 	}

@@ -19,7 +19,7 @@ enum EnemyType
 class Enemy : public Entity
 {
 public:
-    Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound);
+    Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, sf::Texture *m_wandererTexture, sf::Texture *m_seekerTexture, sf::Texture *m_turretTexture);
     ~Enemy();
 
     virtual void Update(double dt) override;
@@ -31,6 +31,7 @@ private:
 
 	uint16_t m_scoreValue;
     void seekPlayer();
+    void Wander();
     sf::Vector2f *m_playerPos;
 	EnemyType m_enemyType;
 	const uint16_t FIRE_RATE = 600;
@@ -38,5 +39,10 @@ private:
 	float m_timeToNextShot;
 	sf::Sound *m_turretShotSound;
 	sf::Color m_color;
+    sf::Vector2f m_randPos;
+
+    sf::Texture *m_wandererTexture;
+    sf::Texture *m_seekerTexture;
+    sf::Texture *m_turretTexture;
 };
 #endif // !ENEMY_H

@@ -7,12 +7,13 @@
 /// 
 /// </summary>
 EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *shiledSound, sf::Sound *doubleBulletSound,
-	sf::Sound *heartSound, sf::Sound *hitWallSound) :
-	m_deathSound(deathSound),
-	m_shieldSound(shiledSound),
-	m_doubleBulletSound(doubleBulletSound),
-	m_heartSound(heartSound),
-	m_hitWallSound(hitWallSound)
+    sf::Sound *heartSound, sf::Sound *hitWallSound, sf::Sound *turretSound) :
+    m_deathSound(deathSound),
+    m_shieldSound(shiledSound),
+    m_doubleBulletSound(doubleBulletSound),
+    m_heartSound(heartSound),
+    m_hitWallSound(hitWallSound),
+    m_turretSound(turretSound)
 {
 	m_font = new sf::Font();
 	// @todo(darren): Really need a resource manager :(
@@ -24,6 +25,22 @@ EntityManager::EntityManager(sf::Sound *deathSound, sf::Sound *shiledSound, sf::
 	m_scoreText.setString("");
 
 	m_multiplier = 1;
+
+    if (!m_wandererTexture.loadFromFile("Assets/Wanderer.png"))
+    {
+        std::cout << "ERROR::Enemy::Image not loaded";
+    }
+
+
+    if (!m_turretTexture.loadFromFile("Assets/Turret.png"))
+    {
+        std::cout << "ERROR::Enemy::Image not loaded";
+    }
+
+    if (!m_seekerTexture.loadFromFile("Assets/Seeker.png"))
+    {
+        std::cout << "ERROR::Enemy::Image not loaded";
+    }
 }
 
 /// <summary>
@@ -401,4 +418,12 @@ void EntityManager::reset()
 	m_bullets.clear();
 	if(m_powerUp)
 		m_powerUp->setAlive(false);
+}
+
+void EntityManager::CreateEnemies(int numOfEnemies)
+{
+    for (int i = 0; i < numOfEnemies; ++i)
+    {
+        AddEnemy(new Enemy(m_player->getPosition(), sf::randF(1, 100), m_turretSound, &m_wandererTexture, &m_seekerTexture, &m_turretTexture));
+    }
 }

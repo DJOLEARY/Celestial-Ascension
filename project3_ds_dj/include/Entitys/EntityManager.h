@@ -27,7 +27,7 @@ class EntityManager
 {
 public:
 	EntityManager(sf::Sound *deathSound, sf::Sound *shiledSound, sf::Sound *doubleBulletSound,
-						sf::Sound *heartSound, sf::Sound *hitWallSound);
+						sf::Sound *heartSound, sf::Sound *hitWallSound, sf::Sound *turretSound);
 	~EntityManager();
 
 	void AddBullet(Bullet *entity);
@@ -44,6 +44,8 @@ public:
 	void Multiplier();
 	void reset();
 
+    void CreateEnemies(int numOfEnemies);
+
 private:
 	PowerUp *m_powerUp;
 	std::vector<Enemy*> m_enemies;
@@ -56,6 +58,7 @@ private:
 	sf::Sound *m_deathSound;
 	sf::Sound *m_shieldSound, *m_doubleBulletSound, *m_heartSound;
 	sf::Sound *m_hitWallSound;
+    sf::Sound *m_turretSound;
 
 	bool m_collision;
 
@@ -64,6 +67,10 @@ private:
 	bool m_enemyKilled;
 	int m_currentSpree;
 	int m_multiplier;
+
+    sf::Texture m_wandererTexture;
+    sf::Texture m_turretTexture;
+    sf::Texture m_seekerTexture;
 
 	bool Collision(Entity* entity1, Entity* entity2, float radius);
 	bool SimpleCollision(Entity* entity1, Entity* entity2);

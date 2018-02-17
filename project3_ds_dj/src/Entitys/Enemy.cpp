@@ -1,84 +1,56 @@
 #include "Entitys\Enemy.h"
 
-Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound) :
+Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, sf::Texture *wandererTexture, sf::Texture *seekerTexture, sf::Texture *turretTexture) :
 	m_playerPos(playerPos),
 	m_turretShotSound(turretShotSound),
-	m_color(sf::Color(255, 255, 255, 0))
+	m_color(sf::Color(255, 255, 255, 0)),
+    m_wandererTexture(wandererTexture),
+    m_seekerTexture(seekerTexture),
+    m_turretTexture(turretTexture)
 {
 	//	The weight chance of each enemy type
 	if (randNum <= 50)
 	{
 		m_enemyType = EnemyType::Wanderer;
+        m_speed = 0.4f;
+
+        m_sprite.setTexture(*m_wandererTexture);
+        m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
+        m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+
+        m_scoreValue = 100;
 	}
 	else if (randNum > 51 && randNum <= 90)
 	{
 		m_enemyType = EnemyType::Seeker;
+        m_speed = 0.35f;
+
+        m_sprite.setTexture(*m_seekerTexture);
+        m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
+        m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
+
+        m_scoreValue = 250;
 	}
 	else if (randNum > 91 && randNum <= 100)
 	{
 		m_enemyType = EnemyType::Turret;
-	}
+        m_speed = 0;
 
-	switch (m_enemyType)
-	{
-	case Wanderer:
+        m_sprite.setTexture(*m_turretTexture);
+        m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
+        m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
-		// @refactor(darren): This should not be here. Loading a texture into memory for each enemy
-		if (!m_texture.loadFromFile("Assets/Wanderer.png"))
-		{
-			std::cout << "ERROR::Enemy::Image not loaded";
-		}
-
-		m_speed = 0.2f;
-
-		m_sprite.setTexture(m_texture);
-		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
-		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-
-		m_scoreValue = 100;
-
-		break;
-	case Turret:
-
-		if (!m_texture.loadFromFile("Assets/Turret.png"))
-		{
-			std::cout << "ERROR::Enemy::Image not loaded";
-		}
-
-		m_speed = 0;
-
-		m_sprite.setTexture(m_texture);
-		m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
-		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-
-		m_scoreValue = 500;
-
-		break;
-	case Seeker:
-
-		if (!m_texture.loadFromFile("Assets/Seeker.png"))
-		{
-			std::cout << "ERROR::Enemy::Image not loaded";
-		}
-
-		m_speed = 0.35f;
-
-		m_sprite.setTexture(m_texture);
-		m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
-		m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
-
-		m_scoreValue = 250;
-
-		break;
+        m_scoreValue = 500;
 	}
 
 	m_alive = true;
 
-	m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
+	m_position = sf::Vector2f(rand() % (1730 - 100 + 1) + 100, rand() % (900 - 100 + 1) + 100);
+    m_randPos = sf::Vector2f(rand() % (1730 - 100 + 1) + 100, rand() % (900 - 100 + 1) + 100);
 
 	while (sf::distance(m_position, *m_playerPos) < 400.0f)
 	{
-		m_position = sf::Vector2f(rand() % (1730 - 190 + 1) + 190, rand() % (900 - 190 + 1) + 190);
+		m_position = sf::Vector2f(rand() % (1730 - 100 + 1) + 100, rand() % (900 - 100 + 1) + 100);
 	}
 }
 
@@ -96,37 +68,34 @@ void Enemy::Update(double dt)
 
 	if (m_alive)
 	{
-		switch (m_enemyType)
-		{
-		//	Regular Enemies that slowly follows the player || Enemies that are smaller and faster then regular enemies.
-		case Wanderer: case Seeker:
+        if (m_enemyType == Wanderer)
+        {
+            Wander();
 
-			seekPlayer();
+            if (m_color.a >= 250)	// Move at full speed when fully faded in
+                m_position += m_velocity * (float)dt;
+            else // Move at 75% speed during fading, ease the motion on the players eyes
+                m_position += m_velocity * (float)dt * 0.75f;
 
-			if (m_color.a >= 250)	// Move at full speed when fully faded in
-				m_position += m_velocity * (float)dt;
-			else // Move at 75% speed during fading, ease the motion on the players eyes
-				m_position += m_velocity * (float)dt * 0.75f;
+            m_orientation += 0.5f;
+        }
+        else if (m_enemyType == Seeker)
+        {
+            seekPlayer();
 
-			if (m_enemyType == EnemyType::Wanderer)
-			{
-				m_orientation += 0.5f;
-			}
-			else
-			{
-				m_orientation += 2.0f;
-			}
+            if (m_color.a >= 250)	// Move at full speed when fully faded in
+                m_position += m_velocity * (float)dt;
+            else // Move at 75% speed during fading, ease the motion on the players eyes
+                m_position += m_velocity * (float)dt * 0.75f;
 
-			break;
-
+            m_orientation += 2.0f;
+        }
 		//	Enemies that cannot move but can shoot at the player.
-		case Turret:
-
+		else if ( m_enemyType == Turret)
+        {
 			FireBullet();
 
 			m_orientation += 0.1f;
-
-			break;
 		}
 
 		//	Update what section the object is in for collision purposes.
@@ -184,4 +153,14 @@ void Enemy::seekPlayer()
 	{
 		m_velocity = sf::normalize(*m_playerPos - m_position) * m_speed;
 	}
+}
+
+void Enemy::Wander()
+{
+    if (sf::distance(m_position, m_randPos) < 10.0f)
+    {
+        m_randPos = sf::Vector2f(rand() % (1730 - 100 + 1) + 100, rand() % (900 - 100 + 1) + 100);
+    }
+    
+    m_velocity = sf::normalize(m_randPos - m_position) * m_speed;
 }

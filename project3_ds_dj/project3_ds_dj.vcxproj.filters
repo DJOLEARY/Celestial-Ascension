@@ -253,9 +253,6 @@
     <Text Include="todo.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="GameWin32Resource.rc" />
-  </ItemGroup>
-  <ItemGroup>
     <Image Include="GameIcon.ico" />
   </ItemGroup>
 </Project>
