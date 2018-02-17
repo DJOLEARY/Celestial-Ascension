@@ -9,7 +9,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
     m_turretTexture(turretTexture)
 {
 	//	The weight chance of each enemy type
-	if (randNum <= 50)
+	if (randNum <= 30)
 	{
 		m_enemyType = EnemyType::Wanderer;
         m_speed = 0.4f;
@@ -20,7 +20,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 100;
 	}
-	else if (randNum > 51 && randNum <= 90)
+	else if (randNum > 31 && randNum <= 80)
 	{
 		m_enemyType = EnemyType::Seeker;
         m_speed = 0.35f;
