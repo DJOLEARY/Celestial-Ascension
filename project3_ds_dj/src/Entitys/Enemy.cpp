@@ -20,7 +20,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 100;
 	}
-	else if (randNum > 31 && randNum <= 80)
+	else if (randNum >= 31 && randNum <= 90)
 	{
 		m_enemyType = EnemyType::Seeker;
         m_speed = 0.35f;
@@ -31,7 +31,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 250;
 	}
-	else if (randNum > 91 && randNum <= 100)
+	else if (randNum >= 91 && randNum <= 100)
 	{
 		m_enemyType = EnemyType::Turret;
         m_speed = 0;
