@@ -1,4 +1,4 @@
-#include "..\HUD\HUD.h"
+#include "HUD\HUD.h"
 #include "MathHelper.h"
 #include <locale>
 #include <sstream>

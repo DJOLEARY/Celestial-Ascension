@@ -7,6 +7,7 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	transitionIn(true),
 	m_music(music),
 	m_confirmSound(confirmSound),
+    m_shotSound(shotSound),
 	m_shieldSound(m_shieldSound),
 	m_doubleBulletSound(m_doubleBulletSound),
 	m_heartSound(m_heartSound),
@@ -77,6 +78,11 @@ Options::Options(sf::View &view, sf::Music *music, sf::Sound *confirmSound, sf::
 	m_gui.add(m_fullscreenLabel);
 
 	m_gui.setWidgetsAlpha(0.0f);
+
+    m_musicVolume->setPercentageFull(0.5f);
+    volumeChangeSliderMusic();
+    m_effectsVolume->setPercentageFull(0.5f);
+    volumeChangeSliderEffects();
 
 	//m_music->pause();
 }
@@ -163,6 +169,7 @@ void Options::volumeChangeSliderEffects()
 	m_turretShotSound->setVolume(m_effectsVolumeValue);
 	m_hitWallSound->setVolume(m_effectsVolumeValue);
 	m_navigateSound->setVolume(m_effectsVolumeValue);
+    m_backSound->setVolume(m_effectsVolumeValue);
 }
 
 /// <summary>
@@ -196,6 +203,7 @@ void Options::checkBoxSwitched()
 		m_turretShotSound->setVolume(m_effectsVolumeValue);
 		m_hitWallSound->setVolume(m_effectsVolumeValue);
 		m_navigateSound->setVolume(m_effectsVolumeValue);
+        m_backSound->setVolume(m_effectsVolumeValue);
 
 		m_confirmSound->play();
 	}
@@ -215,6 +223,7 @@ void Options::checkBoxSwitched()
 		m_turretShotSound->setVolume(0);
 		m_hitWallSound->setVolume(0);
 		m_navigateSound->setVolume(0);
+        m_backSound->setVolume(0);
 	}
 }
 
