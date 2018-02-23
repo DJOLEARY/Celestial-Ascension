@@ -23,7 +23,7 @@ GameScreen::GameScreen(XboxController &controller, sf::View &view,
     m_player = new Player(controller, m_shotSound);
 	m_entityManager.SetPlayer(m_player);
 	
-	m_maxEnemies = 10;	// The number of enemies.
+	m_maxEnemies = 5;	// The number of enemies.
     m_entityManager.CreateEnemies(m_maxEnemies);
 
 	// Set the wave for the game and display on the hud

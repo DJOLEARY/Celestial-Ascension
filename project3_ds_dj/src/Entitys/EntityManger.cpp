@@ -206,14 +206,13 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 
 	auto outOfBounds = [&](Entity *entity)
 	{
-		// @todo(darren): I should be storing these in some global class
+		// @todo(darren): I should be storing these in some global class <------ Pftt... not getting done:)
 		bool isOutOfBounds = entity->getPos().x < 90.0f || entity->getPos().x > 1830.0f || 
 							 entity->getPos().y < 90.0f || entity->getPos().y > 1000.0f;
 
 		if (isOutOfBounds)
 		{
 			ParticleManager::instance()->createExplosion(entity->getPos(), sf::Color(105, 23, 137));
-			// @todo(darren): Implement a wall hitting sound, although this may get annoying?
 		}
 
 		return isOutOfBounds;
@@ -234,7 +233,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 		{
 			if ((*iter)->getType() == EnemyType::Wanderer)
 			{
-				m_collision = Collision(*iter, *bulletIter, 20.0f);
+				m_collision = Collision(*iter, *bulletIter, 25.0f);
 			}
 			else if ((*iter)->getType() == EnemyType::Seeker)
 			{

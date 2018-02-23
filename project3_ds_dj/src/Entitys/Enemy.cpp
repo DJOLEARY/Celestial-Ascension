@@ -9,10 +9,10 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
     m_turretTexture(turretTexture)
 {
 	//	The weight chance of each enemy type
-	if (randNum <= 30)
+	if (randNum <= 50)
 	{
 		m_enemyType = EnemyType::Wanderer;
-        m_speed = 0.4f;
+        m_speed = 0.2f;
 
         m_sprite.setTexture(*m_wandererTexture);
         m_sprite.setScale(sf::Vector2f(0.3f, 0.3f));
@@ -20,10 +20,10 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 100;
 	}
-	else if (randNum >= 31 && randNum <= 90)
+	else if (randNum >= 51 && randNum <= 90)
 	{
 		m_enemyType = EnemyType::Seeker;
-        m_speed = 0.35f;
+        m_speed = 0.2f;
 
         m_sprite.setTexture(*m_seekerTexture);
         m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
@@ -75,7 +75,7 @@ void Enemy::Update(double dt)
             if (m_color.a >= 250)	// Move at full speed when fully faded in
                 m_position += m_velocity * (float)dt;
             else // Move at 75% speed during fading, ease the motion on the players eyes
-                m_position += m_velocity * (float)dt * 0.75f;
+                m_position += m_velocity * (float)dt * 0.55f;
 
             m_orientation += 0.5f;
         }
@@ -86,7 +86,7 @@ void Enemy::Update(double dt)
             if (m_color.a >= 250)	// Move at full speed when fully faded in
                 m_position += m_velocity * (float)dt;
             else // Move at 75% speed during fading, ease the motion on the players eyes
-                m_position += m_velocity * (float)dt * 0.75f;
+                m_position += m_velocity * (float)dt * 0.55f;
 
             m_orientation += 2.0f;
         }

@@ -34,7 +34,7 @@ private:
     void Wander();
     sf::Vector2f *m_playerPos;
 	EnemyType m_enemyType;
-	const uint16_t FIRE_RATE = 600;
+	const uint16_t FIRE_RATE = 1000;
 	sf::Clock m_clock;
 	float m_timeToNextShot;
 	sf::Sound *m_turretShotSound;
