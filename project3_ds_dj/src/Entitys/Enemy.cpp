@@ -26,7 +26,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
         m_speed = 0.2f;
 
         m_sprite.setTexture(*m_seekerTexture);
-        m_sprite.setScale(sf::Vector2f(0.2f, 0.2f));
+        m_sprite.setScale(sf::Vector2f(0.25f, 0.25f));
         m_sprite.setOrigin(m_sprite.getLocalBounds().width / 2.0f, m_sprite.getLocalBounds().height / 2.0f);
 
         m_scoreValue = 250;

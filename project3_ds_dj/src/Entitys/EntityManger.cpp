@@ -237,7 +237,7 @@ void EntityManager::Update(sf::Int32 dt, uint32_t &score)
 			}
 			else if ((*iter)->getType() == EnemyType::Seeker)
 			{
-				m_collision = Collision(*iter, *bulletIter, 20.0f);
+				m_collision = Collision(*iter, *bulletIter, 22.5f);
 			}
 			else if ((*iter)->getType() == EnemyType::Turret)
 			{
