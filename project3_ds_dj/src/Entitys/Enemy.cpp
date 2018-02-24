@@ -20,7 +20,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 100;
 	}
-	else if (randNum >= 51 && randNum <= 90)
+	else if (randNum >= 51 && randNum <= 94)
 	{
 		m_enemyType = EnemyType::Seeker;
         m_speed = 0.2f;
@@ -31,7 +31,7 @@ Enemy::Enemy(sf::Vector2f *playerPos, int randNum, sf::Sound *turretShotSound, s
 
         m_scoreValue = 250;
 	}
-	else if (randNum >= 91 && randNum <= 100)
+	else if (randNum >= 95 && randNum <= 100)
 	{
 		m_enemyType = EnemyType::Turret;
         m_speed = 0;
@@ -129,7 +129,8 @@ void Enemy::FireBullet()
 	if (m_enemyType == EnemyType::Turret && m_alive)
 	{
 		sf::Time elapsedTime = m_clock.getElapsedTime();
-		if (elapsedTime.asMilliseconds() > FIRE_RATE)
+		float randRateRange = sf::randF(FIRE_RATE, FIRE_RATE + 300.0f);
+		if (elapsedTime.asMilliseconds() > randRateRange)
 		{
 			m_turretShotSound->play();
 			m_timeToNextShot++;
