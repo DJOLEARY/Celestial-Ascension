@@ -12,4 +12,4 @@ Build Instructions:
 Celestial Ascension was created by Darren Sweeney and D.J. O' Leary with project supervision from Philip Bourke.
 
 
-![alt tag](https://github.com/ITCGamesProg2/project3-darren-dj/blob/master/project3_ds_dj/Assets/evo_screenshot.png)
+![alt tag](https://github.com/ITCGamesProg2/project3-darren-dj/blob/master/Source/project3_ds_dj/Assets/evo_screenshot.png)
